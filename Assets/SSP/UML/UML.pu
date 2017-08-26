@@ -14,7 +14,7 @@ namespace Player{
   PlayerLocomotor -down-> PlayerInput
 
   class PlayerCamraControllr{
-    - Camera camera
+    - GameObject camera
   }
   PlayerCamraControllr -> PlayerInput
 
@@ -24,7 +24,8 @@ namespace Player{
   PlayerIdntity -down-|> NetworkIdentity
 
   class PlayerWeaponManager{
-
+    - Weapon Weapon
+    + void SetWeapon()
   }
   PlayerWeaponManager -left> PlayerInput
   PlayerWeaponManager -> PlayerStatusModel
@@ -34,22 +35,19 @@ namespace Player{
   class PlayerRespawner{
 
   }
-  PlayerRespawner -up-> UI.RespawnPointViewModel
 
   class PlayerHealthModel{
 
   }
   PlayerHealthModel -down-|> HealthModel
-  PlayerHealthModel -up> UI.HealthViewModel
 
   class PlayerEtherModel{
-    - int EtherValue
+    + ReactiveProperty<float> Ether
   }
   PlayerEtherModel -down-|> EtherModel
-  PlayerEtherModel -up> UI.EtherViewModel
 
   class PlayerStatusModel{
-
+    + float atk
   }
   class PlayerUIManager{
 
@@ -59,7 +57,7 @@ namespace Player{
 
 namespace Weapon{
   class WeaponAttcker{
-
+    + void SetDamage()
   }
 
   class WeaponEffector{
@@ -69,59 +67,64 @@ namespace Weapon{
 
 namespace UI{
 
-class HealthViewModel{
+  class HealthViewModel{
 
-}
+  }
+  HealthViewModel -down> Player.PlayerHealthModel
 
-class EtherViewModel{
+  class EtherViewModel{
 
-}
+  }
+  EtherViewModel -> Player.PlayerEtherModel
 
-class WeaponViewModel{
+  class WeaponViewModel{
 
-}
-class TimeViewModel{
+  }
+  class TimeViewModel{
 
-}
-GameManager.TimeManager -> TimeViewModel
-class TeamEtherViewModel{
+  }
+  GameManager.TimeManager -> TimeViewModel
+  class TeamEtherViewModel{
 
-}
-class KillLogViewModel{
+  }
+  class KillLogViewModel{
 
-}
-GameManager.KillNotifier -> KillLogViewModel
+  }
+  GameManager.KillNotifier -> KillLogViewModel
 
-class RespawnPointViewModel{
+  class RespawnPointViewModel{
 
-}
+  }
+  RespawnPointViewModel -> Player.PlayerRespawner
 
-class HealthViewModel{
+  class HealthViewModel{
 
-}
+  }
 
 }
 
 namespace GameManager{
 
-class ClientPlayersManager{
+  class ClientPlayersManager{
 
-}
-ClientPlayersManager --> Player.PlayerManager
+  }
+  ClientPlayersManager --> Player.PlayerManager
 
-class KillNotifier{
+  class KillNotifier{
+    + void NoticeKill()
+  }
 
-}
-class TimeManager{
+  class TimeManager{
+    + void GetCurrentTime()
+  }
 
-}
-class TeamEtherModel{
+  class TeamEtherModel{
+    + void GetEtherTeam(int teamId)
+  }
+  TeamEtherModel --> Player.PlayerEtherModel
 
-}
-TeamEtherModel --> Player.PlayerEtherModel
+  class JudgeManager{
 
-class JudgeManager{
-
-}
+  }
 
 }
