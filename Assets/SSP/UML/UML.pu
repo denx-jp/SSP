@@ -1,0 +1,127 @@
+namespace Player{
+
+  class PlayerManager{
+
+  }
+
+  class PlayerInput{
+
+  }
+
+  class PlayerLocomotor{
+
+  }
+  PlayerLocomotor -down-> PlayerInput
+
+  class PlayerCamraControllr{
+    - Camera camera
+  }
+  PlayerCamraControllr -> PlayerInput
+
+  class PlayerIdntity{
+
+  }
+  PlayerIdntity -down-|> NetworkIdentity
+
+  class PlayerWeaponManager{
+
+  }
+  PlayerWeaponManager -left> PlayerInput
+  PlayerWeaponManager -> PlayerStatusModel
+  PlayerWeaponManager -> Weapon.WeaponAttcker
+  PlayerWeaponManager -> Weapon.WeaponEffector
+
+  class PlayerRespawner{
+
+  }
+  PlayerRespawner -up-> UI.RespawnPointViewModel
+
+  class PlayerHealthModel{
+
+  }
+  PlayerHealthModel -down-|> HealthModel
+  PlayerHealthModel -up> UI.HealthViewModel
+
+  class PlayerEtherModel{
+    - int EtherValue
+  }
+  PlayerEtherModel -down-|> EtherModel
+  PlayerEtherModel -up> UI.EtherViewModel
+
+  class PlayerStatusModel{
+
+  }
+  class PlayerUIManager{
+
+  }
+
+}
+
+namespace Weapon{
+  class WeaponAttcker{
+
+  }
+
+  class WeaponEffector{
+
+  }
+}
+
+namespace UI{
+
+class HealthViewModel{
+
+}
+
+class EtherViewModel{
+
+}
+
+class WeaponViewModel{
+
+}
+class TimeViewModel{
+
+}
+GameManager.TimeManager -> TimeViewModel
+class TeamEtherViewModel{
+
+}
+class KillLogViewModel{
+
+}
+GameManager.KillNotifier -> KillLogViewModel
+
+class RespawnPointViewModel{
+
+}
+
+class HealthViewModel{
+
+}
+
+}
+
+namespace GameManager{
+
+class ClientPlayersManager{
+
+}
+ClientPlayersManager --> Player.PlayerManager
+
+class KillNotifier{
+
+}
+class TimeManager{
+
+}
+class TeamEtherModel{
+
+}
+TeamEtherModel --> Player.PlayerEtherModel
+
+class JudgeManager{
+
+}
+
+}
