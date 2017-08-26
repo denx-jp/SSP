@@ -30,7 +30,6 @@ public class PlayerInputManager : MonoBehaviour
                 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
                 CameraRotate.OnNext(mouseInput);
                 gamePadInput = new Vector2(Input.GetAxis("GamePadRightStick X"), Input.GetAxis("GamePadRightStick Y"));
-                Debug.Log(gamePadInput);
                 CameraRotate.OnNext(gamePadInput);
                 CameraResetButtonDown.OnNext(Input.GetButtonDown("Camera Reset"));
 
