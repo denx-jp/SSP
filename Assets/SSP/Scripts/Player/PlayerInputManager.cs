@@ -19,6 +19,7 @@ public class PlayerInputManager : MonoBehaviour
     public readonly Subject<bool> ActionButtonDown = new Subject<bool>();
 
     private Vector2 mouseInput;
+    private Vector2 gamePadInput;
     private Vector2 moveInput;
 
     private void Start()
@@ -28,6 +29,9 @@ public class PlayerInputManager : MonoBehaviour
             {
                 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
                 CameraRotate.OnNext(mouseInput);
+                gamePadInput = new Vector2(Input.GetAxis("GamePadRightStick X"), Input.GetAxis("GamePadRightStick Y"));
+                Debug.Log(gamePadInput);
+                CameraRotate.OnNext(gamePadInput);
                 CameraResetButtonDown.OnNext(Input.GetButtonDown("Camera Reset"));
 
                 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
