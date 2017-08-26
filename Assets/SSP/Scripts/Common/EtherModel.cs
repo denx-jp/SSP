@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
-public class EtherModel : MonoBehaviour {
+public class EtherModel : MonoBehaviour
+{
+    [SerializeField] private float initialEther;
+    [SerializeField] private float currentEther;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public ReactiveProperty<float> Ether;
+
+    protected virtual void Init()
+    {
+        Ether = new ReactiveProperty<float>();
+        Ether.Value = initialEther;
+    }
+
 }

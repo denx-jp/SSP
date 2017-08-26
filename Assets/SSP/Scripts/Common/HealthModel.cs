@@ -1,16 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
-public class HealthModel : MonoBehaviour {
+public class HealthModel : MonoBehaviour
+{
+    [SerializeField] private float initialHealth;
+    [SerializeField] private float currentHealth;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public ReactiveProperty<float> Health;
+
+    protected virtual void Init()
+    {
+        Health = new ReactiveProperty<float>();
+        Health.Value = initialHealth;
+    }
+
+    public virtual void SetDamage(float dmgamount)
+    {
+        if (Health.Value > 0.0f && dmgamount > 0.0f)
+        {
+            Health.Value -= dmgamount;
+        }
+    }
 }

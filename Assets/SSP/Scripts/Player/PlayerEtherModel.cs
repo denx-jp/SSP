@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEtherModel : MonoBehaviour {
+public class PlayerEtherModel : EtherModel
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+        Init();
+    }
+
+    public void AquireEther(float etheramount)
+    {
+        this.Ether.Value += etheramount;
+    }
+
 }
