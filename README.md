@@ -10,4 +10,4 @@
 ### UML
 - [Assets\SSP\UML\UML.pu](https://git.denx.jp/chorome/SSP/src/master/Assets/SSP/UML/UML.pu)
 - http://plantuml.com/plantuml/ にテキストをコピペすれば見れる
-- ![UML](https://git.denx.jp/chorome/SSP/raw/master/Assets/SSP/UML/UML.png)
+- ![UML](https://git.denx.jp/SSP/SSP/raw/master/Assets/SSP/UML/UML.png)
