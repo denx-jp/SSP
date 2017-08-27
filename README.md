@@ -11,6 +11,6 @@
 - [Rule\Git運用ルール.md](https://git.denx.jp/SSP/SSP/src/master/Rule/Git%E9%81%8B%E7%94%A8%E3%83%AB%E3%83%BC%E3%83%AB.md)
 
 # UML
-- [UML\UML.pu](https://git.denx.jp/chorome/SSP/src/master/UML/UML.pu)
+- [UML\UML.pu](https://git.denx.jp/SSP/SSP/src/master/UML/UML.pu)
 - http://plantuml.com/plantuml/ にテキストをコピペすれば見れる
 - ![UML](https://git.denx.jp/SSP/SSP/raw/master/UML/UML.png)
