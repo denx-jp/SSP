@@ -1,0 +1,3 @@
+[submodule "Assets/Externals"]
+	path = Assets/Externals
+	url = https://git.denx.jp/SSP/Externals.git
