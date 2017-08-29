@@ -10,7 +10,7 @@ public class WeaponAttacker : MonoBehaviour
     [SerializeField] public float damageAmount;//攻撃のダメージ量
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
-    [SerializeField] float detectionTimer;
+    float detectionTimer;
     bool isAttackStarted;
 
     void Start()
@@ -57,8 +57,6 @@ public class WeaponAttacker : MonoBehaviour
         hm.SetDamage(dmgAmount);
     }
 
-    [SerializeField] bool hoge;
-
     void FixedUpdate()
     {
         if (isAttackStarted)
@@ -69,6 +67,5 @@ public class WeaponAttacker : MonoBehaviour
         {
             Init();
         }
-        hoge = CanDetectObject();
     }
 }
