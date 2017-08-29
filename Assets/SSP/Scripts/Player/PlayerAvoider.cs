@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -6,13 +7,17 @@ using System.Linq;
 
 public class PlayerAvoider : MonoBehaviour
 {
-
     private int avoidHash = Animator.StringToHash("RollForward");
     private Animator animator;
     private AnimatorStateInfo state;
     private PlayerInputManager pim;
+    
+    [SerializeField] private float avoidStartTime = 0.1f;
+    [SerializeField] private float avoidDuration = 0.3f;
 
-    void Start()
+    [SerializeField] private int DefaultLayer = 0;
+    [SerializeField] private int InvincibleLayer = 9;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -23,8 +28,27 @@ public class PlayerAvoider : MonoBehaviour
             .Where(_ => state.shortNameHash != avoidHash)
             .Subscribe(v =>
             {
-                animator.SetTrigger(avoidHash);
+                StartCoroutine(Avoiding());
             });
+    }
 
+    private void Update()
+    {
+        state = animator.GetCurrentAnimatorStateInfo(0);
+        Debug.Log(this.gameObject.layer);
+    }
+
+    private IEnumerator Avoiding()
+    {
+        animator.SetTrigger(avoidHash);
+        yield return new WaitForSeconds(avoidStartTime);
+        this.gameObject.layer = InvincibleLayer;
+        yield return new WaitForSeconds(avoidDuration);
+        this.gameObject.layer = DefaultLayer;
+    }
+
+    private void CmdSetLayer(int layer)
+    {
+        this.gameObject.layer = layer;
     }
 }
