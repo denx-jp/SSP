@@ -35,7 +35,6 @@ public class PlayerAvoider : MonoBehaviour
     private void Update()
     {
         state = animator.GetCurrentAnimatorStateInfo(0);
-        Debug.Log(this.gameObject.layer);
     }
 
     private IEnumerator Avoiding()
