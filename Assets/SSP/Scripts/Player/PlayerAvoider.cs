@@ -7,20 +7,23 @@ using System.Linq;
 public class PlayerAvoider : MonoBehaviour
 {
 
+    private int avoidHash = Animator.StringToHash("RollForward");
     private Animator animator;
-    [SerializeField] private WeaponAttacker weaponAttacker;
+    private AnimatorStateInfo state;
     private PlayerInputManager pim;
 
     void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
 
         pim.AvoidButtonDown
             .Where(v => v)
+            .Where(_ => state.shortNameHash != avoidHash)
             .Subscribe(v =>
             {
-                animator.SetTrigger("RollForward");
+                animator.SetTrigger(avoidHash);
             });
 
     }
