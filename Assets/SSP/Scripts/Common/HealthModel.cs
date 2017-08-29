@@ -14,6 +14,8 @@ public class HealthModel : MonoBehaviour
     {
         Health = new ReactiveProperty<float>();
         Health.Value = initialHealth;
+
+        Health.Subscribe(v => currentHealth = v);
     }
 
     public virtual void SetDamage(float dmgamount)
