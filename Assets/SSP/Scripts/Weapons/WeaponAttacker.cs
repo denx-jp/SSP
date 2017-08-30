@@ -33,13 +33,12 @@ public class WeaponAttacker : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (CanDetectObject())
+        if (!CanDetectObject()) return;
+        if (col.gameObject.layer == LayerMap.Invincible) return;
+        var hm = col.gameObject.GetComponent<HealthModel>();
+        if(hm != null)
         {
-            var hm = col.gameObject.GetComponent<HealthModel>();
-            if(hm != null)
-            {
-                CmdSetDamage(hm, this.damageAmount);
-            }
+            CmdSetDamage(hm, this.damageAmount);
         }
     }
 
@@ -57,15 +56,30 @@ public class WeaponAttacker : MonoBehaviour
         hm.SetDamage(dmgAmount);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (isAttackStarted)
         {
-            detectionTimer += Time.fixedDeltaTime;
+            detectionTimer += Time.deltaTime;
         }
         if(detectionTimer > (hitDetectionTimeOffset + hitDetectionDuration))
         {
             Init();
         }
+
+        if (CanDetectObject())
+        {
+            SetLayer(LayerMap.Attack);
+        }
+        else
+        {
+            SetLayer(LayerMap.Default);
+        }
     }
+
+    void SetLayer(int layer)
+    {
+        this.gameObject.layer =layer;
+    }
+
 }
