@@ -12,12 +12,14 @@ public class WeaponAttacker : MonoBehaviour
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
     bool isAttackStarted;
     bool detectable;
+    PlayerIdentity playerIdentity;
 
     //float detectionTimer;
 
     void Start()
     {
         this.Init();
+        playerIdentity = this.gameObject.GetComponentInParent<PlayerIdentity>();
     }
 
     void Init()
@@ -50,6 +52,12 @@ public class WeaponAttacker : MonoBehaviour
     //今後ネットワークにするためCmd
     void CmdSetDamage(HealthModel hm,float dmgAmount)
     {
+        if(hm.GetType() == typeof(PlayerHealthModel))
+        {
+            var phm = hm as PlayerHealthModel;
+            phm.SetDamageWithId(dmgAmount, playerIdentity);
+            return;
+        }
         hm.SetDamage(dmgAmount);
     }
 
