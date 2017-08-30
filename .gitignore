@@ -7,3 +7,4 @@
 *.csproj
 /Build
 /Assets/Test
+/Assets/Test.meta
