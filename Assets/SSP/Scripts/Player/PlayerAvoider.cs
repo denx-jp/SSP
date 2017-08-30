@@ -15,6 +15,7 @@ public class PlayerAvoider : MonoBehaviour
     [SerializeField] private float avoidStartTime = 0.1f;
     [SerializeField] private float avoidDuration = 0.3f;
 
+    private int syncLayer; //のちのちSyncVarに指定
     [SerializeField] private int DefaultLayer = 0;
     [SerializeField] private int InvincibleLayer = 9;
 
@@ -31,23 +32,32 @@ public class PlayerAvoider : MonoBehaviour
                 StartCoroutine(Avoiding());
             });
     }
-
+    
     private void Update()
     {
         state = animator.GetCurrentAnimatorStateInfo(0);
+        SyncLayer();
     }
 
+   
     private IEnumerator Avoiding()
     {
         animator.SetTrigger(avoidHash);
         yield return new WaitForSeconds(avoidStartTime);
-        this.gameObject.layer = InvincibleLayer;
+        CmdSetLayer(InvincibleLayer);
         yield return new WaitForSeconds(avoidDuration);
-        this.gameObject.layer = DefaultLayer;
+        CmdSetLayer(DefaultLayer);
     }
 
+    //[Command]
     private void CmdSetLayer(int layer)
     {
-        this.gameObject.layer = layer;
+        syncLayer = layer;
+    }
+
+    //[ClientCallback]
+    private void SyncLayer()
+    {
+        this.gameObject.layer = syncLayer;
     }
 }
