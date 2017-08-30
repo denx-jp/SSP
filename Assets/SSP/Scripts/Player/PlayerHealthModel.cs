@@ -15,4 +15,8 @@ public class PlayerHealthModel : HealthModel
         return Health.Value > 0.0f;
     }
 
+    public void SetDamageWithId(float dmgamount,PlayerIdentity identity)
+    {
+        this.SetDamage(dmgamount);
+    }
 }
