@@ -6,8 +6,7 @@ using UniRx;
 public class PlayerHealthModel : HealthModel
 {
     private int deathHash = Animator.StringToHash("Death");
-    Animator animator;
-
+    private Animator animator;
 
     private void Start()
     {

@@ -10,9 +10,4 @@ public class PlayerEtherModel : EtherModel
         Init();
     }
 
-    public void AquireEther(float etheramount)
-    {
-        this.Ether.Value += etheramount;
-    }
-
 }

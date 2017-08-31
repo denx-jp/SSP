@@ -16,4 +16,10 @@ public class EtherModel : MonoBehaviour
         Ether.Value = initialEther;
     }
 
+    protected virtual void Init(float etherValue)
+    {
+        Ether = new ReactiveProperty<float>();
+        Ether.Value = etherValue;
+    }
+
 }
