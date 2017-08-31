@@ -3,37 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class PlayerEtherManager : MonoBehaviour
+public class PlayerEtherManager : MonoBehaviour, IEther
 {
-
+    [SerializeField] private float initialEther;
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
 
-    private PlayerHealthModel playerHealthModel;
-    private PlayerEtherModel playerEtherModel;
+    private PlayerModel palyerModel;
+    private PlayerHealthManager playerHealthManager;
 
-    void Start()
+    private void Start()
     {
-        playerHealthModel = GetComponent<PlayerHealthModel>();
-        playerEtherModel = GetComponent<PlayerEtherModel>();
+        palyerModel = GetComponent<PlayerModel>();
+        playerHealthManager = GetComponent<PlayerHealthManager>();
+        palyerModel.Ether.Value = initialEther;
 
-        playerHealthModel.deathStream
-             .Where(v => v)
-             .Subscribe(_ =>
-             {
-                 EmitHalfEther();
-             });
+        //playerHealthManager.deathStream
+        // .Where(v => v)
+        // .Subscribe(_ =>
+        // {
+        //     EmitHalfEther();
+        // });
+    }
+
+    public void SetEther(float ether)
+    {
+        palyerModel.Ether.Value = ether;
+    }
+
+    public float GetEther()
+    {
+        return palyerModel.Ether.Value;
     }
 
     public void AcquireEther(float etherValue)
     {
-        playerEtherModel.Ether.Value += etherValue;
+        palyerModel.Ether.Value += etherValue;
     }
 
     private void EmitHalfEther()
     {
-        var halfEther = playerEtherModel.Ether.Value / 2.0f;
-        playerEtherModel.Ether.Value -= halfEther;
+        var halfEther = palyerModel.Ether.Value / 2.0f;
+        palyerModel.Ether.Value -= halfEther;
         GenerateEtherObject(halfEther);
     }
 
@@ -57,5 +68,4 @@ public class PlayerEtherManager : MonoBehaviour
 
         }
     }
-
 }

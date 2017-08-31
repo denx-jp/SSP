@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEtherModel : EtherModel
+public struct Damage
 {
+    public float amount;
 
-    void Start()
+    public Damage(float a)
     {
-        Init();
+        amount = a;
     }
-
 }
+

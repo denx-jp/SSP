@@ -1,6 +1,23 @@
 namespace Player{
 
+  class PlayerModel{
+    + int id
+    + ReactiveProperty<float> Health
+    + ReactiveProperty<float> Ether
+    + float atk
+  }
+  PlayerModel -|> Common.IHealth
+  PlayerModel -|> Common.IEther
+
   class PlayerManager{
+    + void Init()
+  }
+
+  class PlayerHealthManager{
+
+  }
+
+  class PlayerEtherManager{
 
   }
 
@@ -18,11 +35,6 @@ namespace Player{
   }
   PlayerCamraControllr -> PlayerInput
 
-  class PlayerIdntity{
-
-  }
-  PlayerIdntity -down-|> NetworkIdentity
-
   class PlayerWeaponManager{
     - Weapon Weapon
     + void SetWeapon()
@@ -36,19 +48,6 @@ namespace Player{
 
   }
 
-  class PlayerHealthModel{
-
-  }
-  PlayerHealthModel -down-|> HealthModel
-
-  class PlayerEtherModel{
-    + ReactiveProperty<float> Ether
-  }
-  PlayerEtherModel -down-|> EtherModel
-
-  class PlayerStatusModel{
-    + float atk
-  }
   class PlayerUIManager{
 
   }
@@ -70,12 +69,12 @@ namespace UI{
   class HealthViewModel{
 
   }
-  HealthViewModel -down> Player.PlayerHealthModel
+  HealthViewModel -down> Common.IHealth
 
   class EtherViewModel{
 
   }
-  EtherViewModel -> Player.PlayerEtherModel
+  EtherViewModel -> Common.IEther
 
   class WeaponViewModel{
 
@@ -121,10 +120,25 @@ namespace GameManager{
   class TeamEtherModel{
     + void GetEtherTeam(int teamId)
   }
-  TeamEtherModel --> Player.PlayerEtherModel
 
   class JudgeManager{
 
   }
 
+}
+
+namespace Common{
+
+  interface IHealth{
+    + SetDamage()
+  }
+
+  interface IEther{
+    + AcquireEther()
+  }
+
+
+  class Damage <<struct>>{
+
+  }
 }

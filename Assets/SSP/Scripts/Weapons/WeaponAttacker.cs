@@ -13,8 +13,6 @@ public class WeaponAttacker : MonoBehaviour
     bool isAttackStarted;
     bool detectable;
 
-    //float detectionTimer;
-
     void Start()
     {
         this.Init();
@@ -23,34 +21,32 @@ public class WeaponAttacker : MonoBehaviour
     void Init()
     {
         isAttackStarted = false;
-        //detectionTimer = 0.0f;
     }
 
     public void NormalAttack(Animator animator)
     {
         animator.SetTrigger("Attack");
-        //detectionTimer = 0.0f;
         if (isAttackStarted) StopCoroutine(Attacking());
         StartCoroutine(Attacking());
     }
 
     void OnTriggerEnter(Collider col)
     {
-        //if (!GetCanDetectObject) return;
         if (!detectable) return;
         if (col.gameObject.layer == LayerMap.Invincible) return;
         if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        var hm = col.gameObject.GetComponent<HealthModel>();
-        if(hm != null)
+        var hm = col.gameObject.GetComponent<IHealth>();
+        if (hm != null)
         {
-            CmdSetDamage(hm, this.damageAmount);
+            var damage = new Damage(damageAmount);
+            CmdSetDamage(hm, damage);
         }
     }
 
     //今後ネットワークにするためCmd
-    void CmdSetDamage(HealthModel hm,float dmgAmount)
+    void CmdSetDamage(IHealth hm, Damage dmg)
     {
-        hm.SetDamage(dmgAmount);
+        hm.SetDamage(dmg);
     }
 
     void SetLayer(int layer)
@@ -74,35 +70,5 @@ public class WeaponAttacker : MonoBehaviour
         SetLayer(LayerMap.Default);
         isAttackStarted = false;
     }
-
-    //bool GetCanDetectObject()
-    //{
-    //    if (!isAttackStarted) return false;
-    //    if (detectionTimer < hitDetectionTimeOffset) return false;
-    //    if (detectionTimer < hitDetectionDuration) return true;
-    //    return false;
-    //}
-
-    //void Update()
-    //{
-    //    if (isAttackStarted)
-    //    {
-    //        detectionTimer += Time.deltaTime;
-    //    }
-    //    if(detectionTimer > (hitDetectionTimeOffset + hitDetectionDuration))
-    //    {
-    //        Init();
-    //    }
-
-    //    if (GetCanDetectObject)
-    //    {
-    //        SetLayer(LayerMap.Attack);
-    //    }
-    //    else
-    //    {
-    //        SetLayer(LayerMap.Default);
-    //    }
-    //}
-
 
 }
