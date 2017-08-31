@@ -5,5 +5,10 @@ using UnityEngine;
 public struct Damage
 {
     public float amount;
+
+    public Damage(float a)
+    {
+        amount = a;
+    }
 }
 
