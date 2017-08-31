@@ -136,4 +136,9 @@ namespace Common{
   interface IEther{
     + AcquireEther()
   }
+
+
+  class Damage <<struct>>{
+
+  }
 }
