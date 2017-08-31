@@ -26,4 +26,9 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
             palyerModel.Health.Value -= damage.amount;
         }
     }
+
+    public float GetHealth()
+    {
+        return palyerModel.Health.Value;
+    }
 }
