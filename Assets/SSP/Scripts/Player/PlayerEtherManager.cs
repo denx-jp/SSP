@@ -18,12 +18,12 @@ public class PlayerEtherManager : MonoBehaviour, IEther
         playerHealthManager = GetComponent<PlayerHealthManager>();
         palyerModel.Ether.Value = initialEther;
 
-        //playerHealthManager.deathStream
-        // .Where(v => v)
-        // .Subscribe(_ =>
-        // {
-        //     EmitHalfEther();
-        // });
+        playerHealthManager.GetDeathStream()
+         .Where(v => v)
+         .Subscribe(_ =>
+         {
+             EmitHalfEther();
+         });
     }
 
     public void SetEther(float ether)

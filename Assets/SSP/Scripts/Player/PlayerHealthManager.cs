@@ -7,8 +7,10 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
 {
     [SerializeField] private float initialHealth;
     private PlayerModel playerModel;
-
     private Subject<bool> deathStream;
+
+    private int deathHash = Animator.StringToHash("Death");
+    private Animator animator;
 
     private void Start()
     {
@@ -17,7 +19,16 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
         deathStream = new Subject<bool>();
         deathStream.OnNext(false);
 
-        playerModel.Health.Where(v => v <= 0.0f).Subscribe(_ => deathStream.OnNext(true));
+        playerModel.Health
+            .Where(v => v <= 0.0f)
+            .Subscribe(_ => deathStream.OnNext(true));
+
+        animator = GetComponent<Animator>();
+        this.deathStream
+             .Subscribe(isdeath =>
+             {
+                 animator.SetBool(deathHash, isdeath);
+             });
     }
 
     public bool IsAlive()
