@@ -5250,8 +5250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  currentEther: 0
+  syncHealth: 0
+  syncEther: 0
 --- !u!114 &114097779763349048
 MonoBehaviour:
   m_ObjectHideFlags: 1

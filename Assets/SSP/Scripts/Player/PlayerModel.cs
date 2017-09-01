@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 
 public class PlayerModel : MonoBehaviour
 {
-
+    //[SyncVar] ネットワーク実装の時、SerializeFieldからSyncVarに変更
+    [SerializeField] private float syncHealth;
+    //[SyncVar]
+    [SerializeField] private float syncEther;
     public ReactiveProperty<float> Health = new ReactiveProperty<float>();
     public ReactiveProperty<float> Ether = new ReactiveProperty<float>();
-
-    //デバッグ用（インスペクタで値をみるため）
-    [SerializeField] private float currentHealth;
-    [SerializeField] private float currentEther;
 
     private void Start()
     {
         Health = new ReactiveProperty<float>();
         Ether = new ReactiveProperty<float>();
 
-        Health.Subscribe(v => currentHealth = v);
-        Ether.Subscribe(v => currentEther = v);
+        this.ObserveEveryValueChanged(_ => syncHealth)
+            .Subscribe(v => Health.Value = v);
+        Health.Subscribe(v => syncHealth = v);
+
+        this.ObserveEveryValueChanged(_ => syncEther)
+            .Subscribe(v => Ether.Value = v);
+        Ether.Subscribe(v => syncEther = v);
     }
 }
