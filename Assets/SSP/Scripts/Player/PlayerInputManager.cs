@@ -22,9 +22,14 @@ public class PlayerInputManager : MonoBehaviour
     private Vector2 gamePadInput;
     private Vector2 moveInput;
 
+    private PlayerHealthManager playerHealthManager;
+
     private void Start()
     {
+        playerHealthManager = GetComponent<PlayerHealthManager>();
+
         this.UpdateAsObservable()
+            .Where(_ => playerHealthManager.IsAlive())
             .Subscribe(_ =>
             {
                 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
