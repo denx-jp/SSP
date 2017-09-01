@@ -48,6 +48,13 @@ public class PlayerInputManager : MonoBehaviour
                 NormalAttackButtonDown.OnNext(Input.GetButtonDown("Normal Attack"));
                 ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
             });
+
+        this.UpdateAsObservable()
+            .Where(_ => !playerHealthManager.IsAlive())
+            .Subscribe(_ =>
+            {
+                //死亡時入力受付ストリーム
+            });
     }
 
 }
