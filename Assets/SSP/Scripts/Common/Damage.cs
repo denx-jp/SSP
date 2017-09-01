@@ -5,12 +5,10 @@ using UnityEngine;
 public struct Damage
 {
     public float amount;
-    public int id;
 
-    public Damage(float a,int _id)
+    public Damage(float a)
     {
         amount = a;
-        id = _id;
     }
 }
 

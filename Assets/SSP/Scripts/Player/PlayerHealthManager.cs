@@ -24,7 +24,6 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
         if (palyerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
             palyerModel.Health.Value -= damage.amount;
-            //Debug.Log("Player" + damage.id + " attacked Player" + this.gameObject.GetComponent<PlayerModel>().id);
         }
     }
 

@@ -6,7 +6,6 @@ using UniRx;
 public class PlayerModel : MonoBehaviour
 {
 
-    public int id;
     public ReactiveProperty<float> Health = new ReactiveProperty<float>();
     public ReactiveProperty<float> Ether = new ReactiveProperty<float>();
 
