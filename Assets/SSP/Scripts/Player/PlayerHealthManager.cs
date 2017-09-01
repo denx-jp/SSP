@@ -6,29 +6,51 @@ using UniRx;
 public class PlayerHealthManager : MonoBehaviour, IHealth
 {
     [SerializeField] private float initialHealth;
-    private PlayerModel palyerModel;
+    private PlayerModel playerModel;
+    private Subject<bool> deathStream;
+
+    private int deathHash = Animator.StringToHash("Death");
+    private Animator animator;
 
     private void Start()
     {
-        palyerModel = GetComponent<PlayerModel>();
-        palyerModel.Health.Value = initialHealth;
+        playerModel = GetComponent<PlayerModel>();
+        playerModel.Health.Value = initialHealth;
+        deathStream = new Subject<bool>();
+        deathStream.OnNext(false);
+
+        playerModel.Health
+            .Where(v => v <= 0.0f)
+            .Subscribe(_ => deathStream.OnNext(true));
+
+        animator = GetComponent<Animator>();
+        this.deathStream
+             .Subscribe(isdeath =>
+             {
+                 animator.SetBool(deathHash, isdeath);
+             });
     }
 
     public bool IsAlive()
     {
-        return palyerModel.Health.Value > 0.0f;
+        return playerModel.Health.Value > 0.0f;
     }
 
     public void SetDamage(Damage damage)
     {
-        if (palyerModel.Health.Value > 0.0f && damage.amount > 0.0f)
+        if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
-            palyerModel.Health.Value -= damage.amount;
+            playerModel.Health.Value -= damage.amount;
         }
     }
 
     public float GetHealth()
     {
-        return palyerModel.Health.Value;
+        return playerModel.Health.Value;
+    }
+
+    public Subject<bool> GetDeathStream()
+    {
+        return deathStream;
     }
 }
