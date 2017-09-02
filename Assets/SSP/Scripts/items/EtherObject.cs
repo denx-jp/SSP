@@ -33,15 +33,17 @@ public class EtherObject : MonoBehaviour
             .Take(1)
             .Subscribe(_ => rigid.useGravity = false);
 
-        this.OnTriggerStayAsObservable()
+        //trigger圏内のPlayerのRayをとばして、障害物がなければtargetに指定
+        this.OnTriggerEnterAsObservable()
             .Where(col => col.gameObject.tag == TagMap.Player)
             .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
             .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out playerHit, 100))
             .Where(_ => playerHit.collider.gameObject.tag == TagMap.Player)
             .Subscribe(col => target = col.gameObject);
-            {
-                rigid.AddForce((col.transform.position - transform.position) * trackingSpeed, ForceMode.Force);
-            });
+
+        this.UpdateAsObservable()
+            .Where(_ => target != null)
+            .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
     }
 
     public void Init(float value)
