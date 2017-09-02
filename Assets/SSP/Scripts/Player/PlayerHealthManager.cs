@@ -27,6 +27,8 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
         this.deathStream
              .Subscribe(isdeath =>
              {
+                 var myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+                 Debug.Log(string.Format("Player {0} killed Player {1}",recentAttackerId, myId)); //デバッグ用に実装（のちのちUI作ったときに差し替え）
                  animator.SetBool(deathHash, isdeath);
              });
     }
@@ -36,10 +38,12 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
         return playerModel.Health.Value > 0.0f;
     }
 
+    private int recentAttackerId;
     public void SetDamage(Damage damage)
     {
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
+            recentAttackerId = damage.id;
             playerModel.Health.Value -= damage.amount;
         }
     }
