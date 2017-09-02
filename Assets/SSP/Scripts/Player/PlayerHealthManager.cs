@@ -12,6 +12,8 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
     private int deathHash = Animator.StringToHash("Death");
     private Animator animator;
 
+    private int recentAttackerId;
+
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
@@ -38,7 +40,6 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
         return playerModel.Health.Value > 0.0f;
     }
 
-    private int recentAttackerId;
     public void SetDamage(Damage damage)
     {
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
