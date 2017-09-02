@@ -7,6 +7,18 @@ public class InteractableCube : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
-        this.gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(0.0f,10.0f,0.0f));
+        CmdInteract();
+    }
+
+    //[Command]
+    void CmdInteract()
+    {
+        CallBackInteract();
+    }
+
+    //[ClientRpc]
+    void CallBackInteract()
+    {
+        this.gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(0.0f, 10.0f, 0.0f));
     }
 }
