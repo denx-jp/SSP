@@ -6,6 +6,7 @@ using UniRx.Triggers;
 
 public class PlayerModel : MonoBehaviour
 {
+    [SerializeField] public int playerId;
     //[SyncVar] ネットワーク実装の時、SerializeFieldからSyncVarに変更
     [SerializeField] private float syncHealth;
     //[SyncVar]
