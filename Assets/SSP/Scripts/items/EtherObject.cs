@@ -20,6 +20,7 @@ public class EtherObject : MonoBehaviour
     private int layerMask = 1 << LayerMap.Stage;
 
     private RaycastHit playerHit;
+    //[SyncVar]
     private GameObject target;
 
     private void Start()
@@ -50,7 +51,11 @@ public class EtherObject : MonoBehaviour
         //targetに衝突時に消滅・吸収
         this.OnCollisionEnterAsObservable()
             .Where(col => col.gameObject == target)
-            .Subscribe(_ => Destroy(this.gameObject));
+            .Subscribe(_ =>
+            {
+                target.GetComponent<IEther>().AcquireEther(etherValue);
+                Destroy(this.gameObject);
+            });
     }
 
     public void Init(float value)
