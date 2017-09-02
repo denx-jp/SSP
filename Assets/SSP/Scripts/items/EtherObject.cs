@@ -16,8 +16,11 @@ public class EtherObject : MonoBehaviour
     [SerializeField] private float trackingSpeed;
     private SphereCollider trigger;
 
-    private RaycastHit hit;
+    private RaycastHit fallHit;
     private int layerMask = 1 << LayerMap.Stage;
+
+    private RaycastHit playerHit;
+    private GameObject target;
 
     private void Start()
     {
@@ -25,16 +28,17 @@ public class EtherObject : MonoBehaviour
 
         //地面よりある程度高い位置で重力をきる処理
         this.UpdateAsObservable()
-            .Where(_ => Physics.Raycast(transform.position, Vector3.down, out hit, floatHeight * 10, layerMask))
-            .Where(_ => Vector3.Distance(transform.position, hit.point) < floatHeight)
+            .Where(_ => Physics.Raycast(transform.position, Vector3.down, out fallHit, floatHeight * 10, layerMask))
+            .Where(_ => Vector3.Distance(transform.position, fallHit.point) < floatHeight)
             .Take(1)
             .Subscribe(_ => rigid.useGravity = false);
 
         this.OnTriggerStayAsObservable()
             .Where(col => col.gameObject.tag == TagMap.Player)
             .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
-            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out hit, 100))
-            .Subscribe(col =>
+            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out playerHit, 100))
+            .Where(_ => playerHit.collider.gameObject.tag == TagMap.Player)
+            .Subscribe(col => target = col.gameObject);
             {
                 rigid.AddForce((col.transform.position - transform.position) * trackingSpeed, ForceMode.Force);
             });
