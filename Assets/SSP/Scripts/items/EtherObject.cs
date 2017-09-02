@@ -44,6 +44,10 @@ public class EtherObject : MonoBehaviour
         this.UpdateAsObservable()
             .Where(_ => target != null)
             .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
+
+        this.OnCollisionEnterAsObservable()
+            .Where(col => col.gameObject == target)
+            .Subscribe(_ => Destroy(this.gameObject));
     }
 
     public void Init(float value)
