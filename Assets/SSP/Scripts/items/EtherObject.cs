@@ -41,10 +41,12 @@ public class EtherObject : MonoBehaviour
             .Where(_ => playerHit.collider.gameObject.tag == TagMap.Player)
             .Subscribe(col => target = col.gameObject);
 
+        //targetを追従
         this.UpdateAsObservable()
             .Where(_ => target != null)
             .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
 
+        //targetに衝突時に消滅・吸収
         this.OnCollisionEnterAsObservable()
             .Where(col => col.gameObject == target)
             .Subscribe(_ => Destroy(this.gameObject));
@@ -58,6 +60,7 @@ public class EtherObject : MonoBehaviour
             GetTrigger().radius = triggerSize / transform.localScale.x;
     }
 
+    //Startより先にInitが呼ばれるため、triggerの取得はこのようになった
     private SphereCollider GetTrigger()
     {
         if (trigger != null) return trigger;
