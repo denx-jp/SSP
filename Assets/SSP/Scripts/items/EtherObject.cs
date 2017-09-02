@@ -33,7 +33,7 @@ public class EtherObject : MonoBehaviour
         this.OnTriggerStayAsObservable()
             .Where(col => col.gameObject.tag == TagMap.Player)
             .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
-            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out hit, 10000))
+            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out hit, 100))
             .Subscribe(col =>
             {
                 rigid.AddForce((col.transform.position - transform.position) * trackingSpeed, ForceMode.Force);
