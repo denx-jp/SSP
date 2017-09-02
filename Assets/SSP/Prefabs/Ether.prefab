@@ -113,8 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   etherValue: 0
   originEtherSize: 0.01
-  triggerSize: 1
+  triggerSize: 3
   floatHeight: 1
+  trackingSpeed: 3
 --- !u!114 &114882940585944346
 MonoBehaviour:
   m_ObjectHideFlags: 1

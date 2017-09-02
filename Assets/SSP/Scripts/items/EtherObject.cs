@@ -13,6 +13,7 @@ public class EtherObject : MonoBehaviour
     [SerializeField] private float originEtherSize;
     [SerializeField] private float triggerSize = 0.5f;
     [SerializeField] private float floatHeight;
+    [SerializeField] private float trackingSpeed;
     private SphereCollider trigger;
 
     private RaycastHit hit;
@@ -22,11 +23,21 @@ public class EtherObject : MonoBehaviour
     {
         var rigid = GetComponent<Rigidbody>();
 
+        //地面よりある程度高い位置で重力をきる処理
         this.UpdateAsObservable()
             .Where(_ => Physics.Raycast(transform.position, Vector3.down, out hit, floatHeight * 10, layerMask))
             .Where(_ => Vector3.Distance(transform.position, hit.point) < floatHeight)
             .Take(1)
             .Subscribe(_ => rigid.useGravity = false);
+
+        this.OnTriggerStayAsObservable()
+            .Where(col => col.gameObject.tag == TagMap.Player)
+            .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
+            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out hit, 10000))
+            .Subscribe(col =>
+            {
+                rigid.AddForce((col.transform.position - transform.position) * trackingSpeed, ForceMode.Force);
+            });
     }
 
     public void Init(float value)
