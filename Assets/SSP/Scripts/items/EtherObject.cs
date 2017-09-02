@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 
 public class EtherObject : MonoBehaviour
 {
@@ -16,18 +18,16 @@ public class EtherObject : MonoBehaviour
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
-    }
+        var col = GetComponent<SphereCollider>();
 
-    private void Update()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, floatHeight * 10, layerMask))
-        {
-            var high = Vector3.Distance(transform.position, hit.point);
-            if (high < floatHeight)
+        this.UpdateAsObservable()
+            .Where(_ => Physics.Raycast(transform.position, Vector3.down, out hit, floatHeight * 10, layerMask))
+            .Where(_ => Vector3.Distance(transform.position, hit.point) < floatHeight)
+            .Take(1)
+            .Subscribe(_ =>
             {
                 rigid.useGravity = false;
-            }
-        }
+            });
     }
 
     public void SetEther(float value)
