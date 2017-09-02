@@ -35,6 +35,7 @@ public class EtherObject : MonoBehaviour
 
         //trigger圏内のPlayerのRayをとばして、障害物がなければtargetに指定
         this.OnTriggerEnterAsObservable()
+            .Where(_ => target == null)
             .Where(col => col.gameObject.tag == TagMap.Player)
             .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
             .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out playerHit, 100))
