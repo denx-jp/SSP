@@ -22,7 +22,7 @@ public class EtherObject : MonoBehaviour
     private RaycastHit absorbHit;
     private int absorbLayerMask = ~(1 << LayerMap.EtherObject);
     //[SyncVar]
-    public GameObject target;
+    private GameObject target;
 
     private void Start()
     {
@@ -48,7 +48,6 @@ public class EtherObject : MonoBehaviour
         //targetを追従
         this.UpdateAsObservable()
             .Where(_ => target != null)
-            .Do(_ => Debug.Log(target.name))
             .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
 
         //targetに衝突時に消滅・吸収
