@@ -25,8 +25,7 @@ GameObject:
   - component: {fileID: 23069619562125160}
   - component: {fileID: 54270739398327058}
   - component: {fileID: 114295420870100116}
-  - component: {fileID: 114882940585944346}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ether
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,18 +114,8 @@ MonoBehaviour:
   originEtherSize: 0.01
   triggerSize: 3
   floatHeight: 1
-  trackingSpeed: 3
---- !u!114 &114882940585944346
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1768416262091988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c238a9b14045b04eb5474dd803533a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  trackingSpeed: 5
+  target: {fileID: 0}
 --- !u!135 &135168888094169298
 SphereCollider:
   m_ObjectHideFlags: 1
