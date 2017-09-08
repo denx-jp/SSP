@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using System.Linq;
 
 public class EtherObject : MonoBehaviour
 {
@@ -8,31 +11,65 @@ public class EtherObject : MonoBehaviour
     public float etherValue;
 
     [SerializeField] private float originEtherSize;
+    [SerializeField] private float triggerSize = 0.5f;
     [SerializeField] private float floatHeight;
-    private Rigidbody rigid;
-    private RaycastHit hit;
-    private int layerMask = 1 << LayerMap.Stage;
+    [SerializeField] private float trackingSpeed;
+    private SphereCollider trigger;
+
+    private RaycastHit fallHit;
+    private int fllLayerMask = 1 << LayerMap.Stage;
+
+    private RaycastHit absorbHit;
+    private int absorbLayerMask = ~(1 << LayerMap.EtherObject);
+    //[SyncVar]
+    private GameObject target;
 
     private void Start()
     {
-        rigid = GetComponent<Rigidbody>();
-    }
+        var rigid = GetComponent<Rigidbody>();
 
-    private void Update()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, floatHeight * 10, layerMask))
-        {
-            var high = Vector3.Distance(transform.position, hit.point);
-            if (high < floatHeight)
+        //地面よりある程度高い位置で重力をきる処理
+        this.UpdateAsObservable()
+            .Where(_ => Physics.Raycast(transform.position, Vector3.down, out fallHit, floatHeight * 10, fllLayerMask))
+            .Where(_ => Vector3.Distance(transform.position, fallHit.point) < floatHeight)
+            .Take(1)
+            .Subscribe(_ => rigid.useGravity = false);
+
+        #region エーテル吸収処理
+        //trigger圏内のPlayerのRayをとばして、障害物がなければtargetに指定
+        this.OnTriggerEnterAsObservable()
+            .Where(_ => target == null)
+            .Where(col => col.gameObject.tag == TagMap.Player)
+            .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
+            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out absorbHit, 100, absorbLayerMask))
+            .Where(_ => absorbHit.collider.gameObject.tag == TagMap.Player)
+            .Subscribe(col => target = col.gameObject);
+
+        //targetを追従
+        this.UpdateAsObservable()
+            .Where(_ => target != null)
+            .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
+
+        //targetに衝突時に消滅・吸収
+        this.OnCollisionEnterAsObservable()
+            .Where(col => col.gameObject == target)
+            .Subscribe(_ =>
             {
-                rigid.useGravity = false;
-            }
-        }
+                target.GetComponent<IEther>().AcquireEther(etherValue);
+                Destroy(this.gameObject);
+            });
+        #endregion
     }
 
-    public void SetEther(float value)
+    public void Init(float value)
     {
         etherValue = value;
         transform.localScale = Vector3.one * originEtherSize * value;
+        if (transform.localScale.x < 1)
+        {
+            var trigger = GetComponents<SphereCollider>().Where(v => v.isTrigger).First();
+            trigger.radius = triggerSize / transform.localScale.x;
+        }
     }
+
 }

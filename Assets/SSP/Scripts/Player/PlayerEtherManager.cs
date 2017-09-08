@@ -60,7 +60,7 @@ public class PlayerEtherManager : MonoBehaviour, IEther
             if (emitEtherValue < singleEtherValue)
                 singleEtherValue = emitEtherValue;
             emitEtherValue -= singleEtherValue;
-            emittedEtherObject.GetComponent<EtherObject>().SetEther(singleEtherValue);
+            emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
             emithigh += emittedEtherObject.transform.localScale.y;      //SetEtherでemittedEtherObjectのサイズが変更されることに依存する
 
             var emitDirection = Vector3.up + new Vector3(Random.Range(-emitPower, emitPower), 0, Random.Range(-emitPower, emitPower));
