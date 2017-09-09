@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class KillLogViewModel : MonoBehaviour {
 
-    [SerializeField] Text textUI;
+    [SerializeField] private Text textUI;
 
     /// <summary>
     /// キルログにログを追記します

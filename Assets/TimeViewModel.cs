@@ -1,8 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class TimeViewModel : MonoBehaviour {
+
+    [SerializeField] private Text textTime;
 
 	// Use this for initialization
 	void Start () {
