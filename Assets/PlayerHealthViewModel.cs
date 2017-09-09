@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerHealthViewModel : MonoBehaviour {
 
-    [SerializeField] Text uiHealthText;
-    [SerializeField] GameObject player;
+    [SerializeField] private Text uiHealthText;
+    [SerializeField] private GameObject player;
 
     private PlayerHealthManager playerHealthManager;
 
@@ -16,6 +16,7 @@ public class PlayerHealthViewModel : MonoBehaviour {
 
     void Update()
     {
+        // デバッグ用
         uiHealthText.text = playerHealthManager.GetComponent<IHealth>().GetHealth().ToString();
     }
 }
