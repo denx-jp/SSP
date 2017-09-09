@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class PlayerEtherViewModel : MonoBehaviour {
+public class EtherViewModel : MonoBehaviour {
 
     [SerializeField] private Slider sliderEther;
     [SerializeField] private GameObject player;
