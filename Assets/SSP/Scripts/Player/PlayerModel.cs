@@ -33,4 +33,9 @@ public class PlayerModel : MonoBehaviour, IHealth
         return Health.Value;
     }
 
+    public ReactiveProperty<float> GetHealthStream()
+    {
+        return Health;
+    }
+
 }
