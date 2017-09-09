@@ -7,10 +7,10 @@ public class KillLogViewModel : MonoBehaviour {
 
     [SerializeField] Text textUI;
 
-/// <summary>
-/// キルログにログを追記します
-/// </summary>
-/// <param name="logText">追記する文字列</param>
+    /// <summary>
+    /// キルログにログを追記します
+    /// </summary>
+    /// <param name="logText">追記する文字列</param>
     private void appendLogText(string logText)
     {
         if (string.IsNullOrEmpty(logText))

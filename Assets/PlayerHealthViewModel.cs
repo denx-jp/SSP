@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealthViewModel : MonoBehaviour {
 
-    [SerializeField] private Text uiHealthText;
+    [SerializeField] private Slider sliderHealth;
     [SerializeField] private GameObject player;
 
     private PlayerHealthManager playerHealthManager;
@@ -12,11 +12,11 @@ public class PlayerHealthViewModel : MonoBehaviour {
     void Start()
     {
         playerHealthManager = player.GetComponent<PlayerHealthManager>();
+        sliderHealth.maxValue = playerHealthManager.GetComponent<IHealth>().GetHealth();
     }
 
     void Update()
     {
-        // デバッグ用
-        uiHealthText.text = playerHealthManager.GetComponent<IHealth>().GetHealth().ToString();
+        sliderHealth.value = playerHealthManager.GetComponent<IHealth>().GetHealth();
     }
 }
