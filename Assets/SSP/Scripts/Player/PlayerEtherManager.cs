@@ -26,21 +26,6 @@ public class PlayerEtherManager : MonoBehaviour, IEther
          });
     }
 
-    public void SetEther(float ether)
-    {
-        palyerModel.Ether.Value = ether;
-    }
-
-    public float GetEther()
-    {
-        return palyerModel.Ether.Value;
-    }
-
-    public void AcquireEther(float etherValue)
-    {
-        palyerModel.Ether.Value += etherValue;
-    }
-
     private void EmitHalfEther()
     {
         var halfEther = palyerModel.Ether.Value / 2.0f;
@@ -67,5 +52,25 @@ public class PlayerEtherManager : MonoBehaviour, IEther
             emittedEtherObject.GetComponent<Rigidbody>().AddForce(emitDirection, ForceMode.Impulse);
 
         }
+    }
+
+    public void SetEther(float ether)
+    {
+        palyerModel.Ether.Value = ether;
+    }
+
+    public float GetEther()
+    {
+        return palyerModel.Ether.Value;
+    }
+
+    public ReactiveProperty<float> GetEtherStream()
+    {
+        return palyerModel.Ether;
+    }
+
+    public void AcquireEther(float etherValue)
+    {
+        palyerModel.Ether.Value += etherValue;
     }
 }
