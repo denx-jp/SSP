@@ -1,22 +1,18 @@
 ﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using UniRx;
 
-public class PlayerHealthViewModel : MonoBehaviour {
+public class PlayerHealthViewModel : MonoBehaviour
+{
 
     [SerializeField] private Slider sliderHealth;
-    [SerializeField] private GameObject player;
-
-    private PlayerHealthManager playerHealthManager;
+    [SerializeField] private IHealth healthStream;
 
     void Start()
     {
-        playerHealthManager = player.GetComponent<PlayerHealthManager>();
-        sliderHealth.maxValue = playerHealthManager.GetComponent<IHealth>().GetHealth();
+        sliderHealth.maxValue = healthStream.GetHealth();
+        healthStream.GetHealthStream().Subscribe(v => sliderHealth.value = v);
     }
 
-    void Update()
-    {
-        sliderHealth.value = playerHealthManager.GetComponent<IHealth>().GetHealth();
-    }
 }
