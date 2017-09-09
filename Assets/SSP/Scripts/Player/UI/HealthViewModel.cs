@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UniRx;
 
-public class PlayerHealthViewModel : MonoBehaviour
+public class HealthViewModel : MonoBehaviour
 {
 
     [SerializeField] private Slider sliderHealth;
