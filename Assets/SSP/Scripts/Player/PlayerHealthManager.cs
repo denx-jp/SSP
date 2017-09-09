@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class PlayerHealthManager : MonoBehaviour, IHealth
+public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField] private float initialHealth;
     private PlayerModel playerModel;
@@ -47,11 +47,6 @@ public class PlayerHealthManager : MonoBehaviour, IHealth
             recentAttackerId = damage.id;
             playerModel.Health.Value -= damage.amount;
         }
-    }
-
-    public float GetHealth()
-    {
-        return playerModel.Health.Value;
     }
 
     public Subject<bool> GetDeathStream()

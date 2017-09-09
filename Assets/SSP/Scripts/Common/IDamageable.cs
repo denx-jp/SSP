@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-interface IHealth
+interface IDamageable
 {
-    float GetHealth();
+    void SetDamage(Damage damage);
+    Subject<bool> GetDeathStream();
 }
