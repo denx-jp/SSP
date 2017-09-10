@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InteractableCube : MonoBehaviour, IInteractable
 {
-    public void Interact()
+    public void Interact(PlayerManager playerManager)
     {
         CmdInteract();
     }
