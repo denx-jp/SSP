@@ -10,4 +10,13 @@ public class PlayerManager : MonoBehaviour
     public PlayerEtherManager playerEtherManager;
     public PlayerInputManager playerInputManager;
 
+    public void Init()
+    {
+        playerModel = GetComponent<PlayerModel>();
+        playerHealthManager = GetComponent<PlayerHealthManager>();
+        playerEtherManager = GetComponent<PlayerEtherManager>();
+        playerInputManager = GetComponent<PlayerInputManager>();
+    }
+
+
 }
