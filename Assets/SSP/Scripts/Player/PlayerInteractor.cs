@@ -9,12 +9,14 @@ public class PlayerInteractor : MonoBehaviour {
     private Animator animator;
     private AnimatorStateInfo state;
     private PlayerInputManager pim;
+    private PlayerManager playerManager;
 
     [SerializeField] private float interactableRadius;
 
     void Start()
     {
         pim = GetComponent<PlayerInputManager>();
+        playerManager = GetComponent<PlayerManager>();
 
         pim.ActionButtonDown
             .Where(v => v)
@@ -37,6 +39,6 @@ public class PlayerInteractor : MonoBehaviour {
 
         if (interactionTargetObject == null) return;
         var interactionTarget = interactionTargetObject.GetComponent<IInteractable>();
-        interactionTarget.Interact();
+        interactionTarget.Interact(playerManager);
     }
 }
