@@ -7,7 +7,7 @@ public class HealthViewModel : MonoBehaviour
 {
 
     [SerializeField] private Slider sliderHealth;
-    [SerializeField] private PlayerModel healthStream;
+    [SerializeField] private IHealth healthStream;
 
     void Start()
     {

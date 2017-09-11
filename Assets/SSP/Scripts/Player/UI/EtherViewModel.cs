@@ -7,7 +7,7 @@ public class EtherViewModel : MonoBehaviour
 {
 
     [SerializeField] private Slider sliderEther;
-    [SerializeField] private PlayerEtherManager etherStream;
+    [SerializeField] private IEther etherStream;
 
     void Start()
     {
