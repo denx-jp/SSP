@@ -7,12 +7,12 @@ public class HealthViewModel : MonoBehaviour
 {
 
     [SerializeField] private Slider sliderHealth;
-    [SerializeField] private IHealth healthStream;
+    public IHealth healthModel;
 
-    void Start()
+    public void Init()
     {
-        sliderHealth.maxValue = healthStream.GetHealth();
-        healthStream.GetHealthStream().Subscribe(v => sliderHealth.value = v);
+        sliderHealth.maxValue = healthModel.GetHealth();
+        healthModel.GetHealthStream().Subscribe(v => sliderHealth.value = v);
     }
 
 }

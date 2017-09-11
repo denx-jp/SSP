@@ -7,12 +7,12 @@ public class EtherViewModel : MonoBehaviour
 {
 
     [SerializeField] private Slider sliderEther;
-    [SerializeField] private IEther etherStream;
+    public IEther etherModel;
 
-    void Start()
+    public void Init()
     {
-        sliderEther.maxValue = etherStream.GetEther();
-        etherStream.GetEtherStream().Subscribe(v => sliderEther.value = v);
+        sliderEther.maxValue = etherModel.GetEther();
+        etherModel.GetEtherStream().Subscribe(v => sliderEther.value = v);
     }
 
 }
