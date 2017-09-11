@@ -17,6 +17,5 @@ public class PlayerManager : MonoBehaviour
         playerEtherManager = GetComponent<PlayerEtherManager>();
         playerInputManager = GetComponent<PlayerInputManager>();
     }
-
-
+    
 }

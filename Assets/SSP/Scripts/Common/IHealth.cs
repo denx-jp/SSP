@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-interface IHealth
+public interface IHealth
 {
     float GetHealth();
     ReactiveProperty<float> GetHealthStream();
