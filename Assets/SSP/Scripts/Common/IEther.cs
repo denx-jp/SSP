@@ -9,4 +9,5 @@ interface IEther
     float GetEther();
     ReactiveProperty<float> GetEtherStream();
     void AcquireEther(float ether);
+    void ReduceEther(float ether);
 }

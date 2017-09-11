@@ -25,7 +25,7 @@ public class PlayerEtherManager : MonoBehaviour, IEther
              EmitHalfEther();
          });
     }
-
+    
     private void EmitHalfEther()
     {
         var halfEther = palyerModel.Ether.Value / 2.0f;
@@ -72,5 +72,10 @@ public class PlayerEtherManager : MonoBehaviour, IEther
     public void AcquireEther(float etherValue)
     {
         palyerModel.Ether.Value += etherValue;
+    }
+
+    public void ReduceEther(float ether)
+    {
+        palyerModel.Ether.Value -= ether;
     }
 }
