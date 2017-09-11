@@ -1,32 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class KillLogViewModel : MonoBehaviour {
+public class KillLogViewModel : MonoBehaviour
+{
+    const int KILL_LOG_SHOW_PERIOD = 3;
+    [SerializeField] private Text[] texts;
 
-    [SerializeField] private Text textUI;
-
-    /// <summary>
-    /// キルログにログを追記します
-    /// </summary>
-    /// <param name="logText">追記する文字列</param>
-    private void appendLogText(string logText)
+    public void AppendKillLog(string winner, string loser)
     {
-        if (string.IsNullOrEmpty(logText))
-        {
-            return;
-        }
-        textUI.text += logText + "\n";
+        StartCoroutine(KillLogCoroutine(winner + " が " + loser + " を キル しました"));
     }
 
-    /// <summary>
-    /// キルしたときに表示されるキルログを設定します
-    /// </summary>
-    /// <param name="winner">キルしたプレイヤー</param>
-    /// <param name="loser">キルされたプレイヤー</param>
-    private void playerKillLog(string winner, string loser)
+    private IEnumerator KillLogCoroutine(string killLogText)
     {
-        appendLogText(winner + " が " + loser + " を キル しました");
+        var text = texts.First(v => v.text == "");
+        text.text = killLogText;
+        text.gameObject.SetActive(true);
+        yield return new WaitForSeconds(KILL_LOG_SHOW_PERIOD);
+        text.gameObject.SetActive(false);
+        text.text = "";
     }
 }
