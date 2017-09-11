@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public interface IEther
+interface IDamageable
 {
-    float GetEther();
-    ReactiveProperty<float> GetEtherStream();
+    void SetDamage(Damage damage);
+    Subject<bool> GetDeathStream();
 }

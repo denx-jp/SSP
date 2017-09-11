@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-interface IHealth
+public interface IHealth
 {
-    void SetDamage(Damage damage);
     float GetHealth();
-    Subject<bool> GetDeathStream();
+    ReactiveProperty<float> GetHealthStream();
 }
