@@ -1,22 +1,20 @@
 ﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using UniRx;
 
-public class EtherViewModel : MonoBehaviour {
+public class EtherViewModel : MonoBehaviour
+{
 
     [SerializeField] private Slider sliderEther;
     [SerializeField] private GameObject player;
+    private PlayerEtherManager etherStream;
 
-    private PlayerEtherManager playerEtherManager;
+    void Start()
+    {
+        etherStream = player.GetComponent<PlayerEtherManager>();
+        sliderEther.maxValue = etherStream.GetEther();
+        etherStream.GetEtherStream().Subscribe(v => sliderEther.value = v);
+    }
 
-	void Start()
-    {
-        playerEtherManager = player.GetComponent<PlayerEtherManager>();
-        sliderEther.maxValue = playerEtherManager.GetComponent<IEther>().GetEther();
-	}
-	
-	void Update()
-    {
-        sliderEther.value = playerEtherManager.GetComponent<IEther>().GetEther();
-	}
 }
