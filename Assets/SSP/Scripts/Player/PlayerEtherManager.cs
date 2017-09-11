@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class PlayerEtherManager : MonoBehaviour, IEther
+public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
 {
     [SerializeField] private float initialEther;
     [SerializeField] private GameObject etherObject;
@@ -54,27 +54,12 @@ public class PlayerEtherManager : MonoBehaviour, IEther
         }
     }
 
-    public void SetEther(float ether)
-    {
-        palyerModel.Ether.Value = ether;
-    }
-
-    public float GetEther()
-    {
-        return palyerModel.Ether.Value;
-    }
-
-    public ReactiveProperty<float> GetEtherStream()
-    {
-        return palyerModel.Ether;
-    }
-
     public void AcquireEther(float etherValue)
     {
         palyerModel.Ether.Value += etherValue;
     }
 
-    public void ReduceEther(float ether)
+    public void EmitEther(float ether)
     {
         palyerModel.Ether.Value -= ether;
     }

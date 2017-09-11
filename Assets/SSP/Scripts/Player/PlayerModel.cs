@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerModel : MonoBehaviour, IHealth
+public class PlayerModel : MonoBehaviour, IHealth, IEther
 {
     [SerializeField] public int playerId;
     //[SyncVar] ネットワーク実装の時、SerializeFieldからSyncVarに変更
@@ -36,6 +36,16 @@ public class PlayerModel : MonoBehaviour, IHealth
     public ReactiveProperty<float> GetHealthStream()
     {
         return Health;
+    }
+
+    public float GetEther()
+    {
+        return Ether.Value;
+    }
+
+    public ReactiveProperty<float> GetEtherStream()
+    {
+        return Ether;
     }
 
 }
