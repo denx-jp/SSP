@@ -26,7 +26,7 @@ $ git submodule update
 ---
 
 # UML
-- [UML\UML.pu](https://git.denx.jp/SSP/SSP/src/master/UML/UML.pu)
+- [UML\UML.pu](https://github.com/denx-jp/SSP/blob/master/UML/UML.pu)
 - http://plantuml.com/plantuml/ にテキストをコピペすれば見れる
 
-![UML](https://git.denx.jp/SSP/SSP/raw/master/UML/UML.png)
+![UML](https://github.com/denx-jp/SSP/blob/master/UML/UML.png)
