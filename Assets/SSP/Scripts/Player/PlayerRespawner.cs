@@ -7,46 +7,28 @@ using UniRx.Triggers;
 
 public class PlayerRespawner : MonoBehaviour
 {
-
-    private PlayerHealthManager playerHealthManager;
+	private PlayerHealthManager playerHealthManager;
     private PlayerModel playerModel;
 
-    // リスポーンするまでの時間
     [SerializeField] private int timeToRespawn;
-    // スポナー
-    [SerializeField] private GameObject respawner;
+    [SerializeField] private GameObject respawnPoint;
 
-    // Use this for initialization
+	private Animator animator;
+	private int deathHash = Animator.StringToHash("Death");
+
     void Start()
     {
         playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
+		animator = GetComponent<Animator>();
 
-        this.UpdateAsObservable()
-            .Where(_ => !playerHealthManager.IsAlive())
-            .First()
-            .Subscribe(_ =>
-            {
-                PlayerRespawn();
-                //				RespawnTimer();
-            });
+		this.playerHealthManager.GetDeathStream ()
+			.Throttle (TimeSpan.FromSeconds (timeToRespawn))
+            .Where (_ => !playerHealthManager.IsAlive ())
+            .First ()
+            .Subscribe (_ => {
+				animator.SetBool(deathHash, false);
+				this.transform.position=respawnPoint.transform.position;
+			});
     }
-
-    void PlayerRespawn()
-    {
-        Observable.Timer(TimeSpan.FromSeconds(timeToRespawn))
-            .Subscribe(_ =>
-            {
-                this.transform.position = respawner.transform.position;
-            });
-    }
-
-    //	void RespawnTimer(){
-    //		Observable.Timer (TimeSpan.Zero, TimeSpan.FromSeconds (1))
-    //			.Select (x => timeToRespawn - x)
-    //			.TakeWhile (x => x > 0)
-    //			.Subscribe (l => {
-    //			Debug.Log ("リスポーンまであと" + l + "秒");
-    //		});
-    //	}
 }
