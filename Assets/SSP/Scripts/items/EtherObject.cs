@@ -55,7 +55,7 @@ public class EtherObject : MonoBehaviour
             .Where(col => col.gameObject == target)
             .Subscribe(_ =>
             {
-                target.GetComponent<IEther>().AcquireEther(etherValue);
+                target.GetComponent<IEtherAcquirer>().AcquireEther(etherValue);
                 Destroy(this.gameObject);
             });
         #endregion

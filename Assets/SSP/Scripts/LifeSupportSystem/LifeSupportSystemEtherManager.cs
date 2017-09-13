@@ -36,7 +36,7 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable
 
     public void Interact(PlayerManager playerManager)
     {
-        playerManager.playerEtherManager.ReduceEther(etherChargeValue);
+        playerManager.playerEtherManager.EmitEther(etherChargeValue);
         AcquireEther(etherChargeValue);
     }
 }

@@ -37,16 +37,16 @@ public class WeaponAttacker : MonoBehaviour
         if (!detectable) return;
         if (col.gameObject.layer == LayerMap.Invincible) return;
         if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        var hm = col.gameObject.GetComponent<IHealth>();
+        var hm = col.gameObject.GetComponent<IDamageable>();
         if (hm != null)
         {
-            var damage = new Damage(damageAmount,parentPlayerId);
+            var damage = new Damage(damageAmount, parentPlayerId);
             CmdSetDamage(hm, damage);
         }
     }
 
     //今後ネットワークにするためCmd
-    void CmdSetDamage(IHealth hm, Damage dmg)
+    void CmdSetDamage(IDamageable hm, Damage dmg)
     {
         hm.SetDamage(dmg);
     }

@@ -16,10 +16,14 @@ namespace Player{
   class PlayerHealthManager{
 
   }
+  PlayerHealthManager -|> Common.IDamageable
+
 
   class PlayerEtherManager{
 
   }
+  PlayerEtherManager -|> Common.IEtherAcquirer
+  PlayerEtherManager -|> Common.IEtherEmitter
 
   class PlayerInput{
 
@@ -28,7 +32,7 @@ namespace Player{
   class PlayerLocomotor{
 
   }
-  PlayerLocomotor -down-> PlayerInput
+  PlayerLocomotor -> PlayerInput
 
   class PlayerCamraControllr{
     - GameObject camera
@@ -39,18 +43,20 @@ namespace Player{
     - Weapon Weapon
     + void SetWeapon()
   }
-  PlayerWeaponManager -left> PlayerInput
-  PlayerWeaponManager -> PlayerStatusModel
-  PlayerWeaponManager -> Weapon.WeaponAttcker
-  PlayerWeaponManager -> Weapon.WeaponEffector
+  PlayerWeaponManager -> PlayerInput
+  PlayerWeaponManager -left> Weapon.WeaponAttcker
+  PlayerWeaponManager -left> Weapon.WeaponEffector
 
   class PlayerRespawner{
 
   }
 
-  class PlayerUIManager{
+  class PlayerInteractor{
 
   }
+  PlayerInteractor -> IInteractable
+  PlayerInteractor -> PlayerInput
+  PlayerInput -up> PlayerManager
 
 }
 
@@ -66,10 +72,15 @@ namespace Weapon{
 
 namespace UI{
 
+  class PlayerUIManager{
+
+  }
+  PlayerUIManager -> Player.PlayerManager
+
   class HealthViewModel{
 
   }
-  HealthViewModel -down> Common.IHealth
+  HealthViewModel --> Common.IHealth
 
   class EtherViewModel{
 
@@ -79,10 +90,12 @@ namespace UI{
   class WeaponViewModel{
 
   }
+
   class TimeViewModel{
 
   }
   GameManager.TimeManager -> TimeViewModel
+
   class TeamEtherViewModel{
 
   }
@@ -107,7 +120,7 @@ namespace GameManager{
   class ClientPlayersManager{
 
   }
-  ClientPlayersManager --> Player.PlayerManager
+  ClientPlayersManager -> Player.PlayerManager
 
   class KillNotifier{
     + void NoticeKill()
@@ -130,13 +143,30 @@ namespace GameManager{
 namespace Common{
 
   interface IHealth{
-    + SetDamage()
+    + float GetHealth()
+    + ReactiveProperty<float> GetHealthStream()
+  }
+
+  interface IDamageable{
+    + void SetDamage(Damage damage)
+    + Subject<bool> GetDeathStream()
   }
 
   interface IEther{
     + AcquireEther()
   }
 
+  interface IEtherAcquirer{
+    + void AcquireEther(float ether)
+  }
+
+  interface IEtherEmitter{
+    + void EmitEther(float ether)
+  }
+
+  interface IInteractable{
+    + void Interact(PlayerManager playerManager)
+  }
 
   class Damage <<struct>>{
 
