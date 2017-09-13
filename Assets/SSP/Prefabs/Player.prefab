@@ -1686,6 +1686,7 @@ GameObject:
   - component: {fileID: 114450440767178798}
   - component: {fileID: 114858071444870302}
   - component: {fileID: 114933074162169704}
+  - component: {fileID: 114038406181737898}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2695,7 +2696,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589936694255432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4312011424133784}
@@ -3025,7 +3026,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340052829251104}
-  m_LocalRotation: {x: -0.09374654, y: 0.6978552, z: 0.70746905, w: 0.06080672}
+  m_LocalRotation: {x: -0.093746535, y: 0.6978551, z: 0.707469, w: 0.06080671}
   m_LocalPosition: {x: -0.05543403, y: 0.0017306843, z: 0.098653734}
   m_LocalScale: {x: 1.0000004, y: 1.0000006, z: 1.0000005}
   m_Children:
@@ -5252,9 +5253,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
+  playerId: 1
   syncHealth: 0
   syncEther: 0
+  initialHealth: 500
+  initialEther: 500
+--- !u!114 &114038406181737898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1589936694255432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf300c4f3d674790bab9340795a497d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToRespawn: 5
+  respawnPoint: {fileID: 0}
 --- !u!114 &114097779763349048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5308,7 +5324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef18633ca528c78479fd6c54582f12c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialEther: 500
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
     type: 2}
   emitPower: 1
@@ -5323,7 +5338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd67c579bbcd46a47b1136a8fe2c10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 500
 --- !u!114 &114450440767178798
 MonoBehaviour:
   m_ObjectHideFlags: 1

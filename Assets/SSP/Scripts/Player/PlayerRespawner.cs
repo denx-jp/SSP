@@ -27,8 +27,9 @@ public class PlayerRespawner : MonoBehaviour
             .Where(v => v)
             .Subscribe(_ =>
             {
-                animator.SetBool(deathHash, false);
+                playerModel.Init();
                 this.transform.position = respawnPoint.transform.position;
+                animator.SetBool(deathHash, false);
             });
     }
 }
