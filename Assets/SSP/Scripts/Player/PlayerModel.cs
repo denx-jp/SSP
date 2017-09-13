@@ -14,18 +14,26 @@ public class PlayerModel : MonoBehaviour, IHealth, IEther
     public ReactiveProperty<float> Health = new ReactiveProperty<float>();
     public ReactiveProperty<float> Ether = new ReactiveProperty<float>();
 
+    [SerializeField] private float initialHealth;
+    [SerializeField] private float initialEther;
+
     private void Start()
     {
         Health = new ReactiveProperty<float>();
         Ether = new ReactiveProperty<float>();
 
-        this.ObserveEveryValueChanged(_ => syncHealth)
-            .Subscribe(v => Health.Value = v);
+        this.ObserveEveryValueChanged(_ => syncHealth).Subscribe(v => Health.Value = v);
         Health.Subscribe(v => syncHealth = v);
-
-        this.ObserveEveryValueChanged(_ => syncEther)
-            .Subscribe(v => Ether.Value = v);
+        this.ObserveEveryValueChanged(_ => syncEther).Subscribe(v => Ether.Value = v);
         Ether.Subscribe(v => syncEther = v);
+
+        Init();
+    }
+
+    public void Init()
+    {
+        Health.Value = initialHealth;
+        Ether.Value = initialEther;
     }
 
     public float GetHealth()

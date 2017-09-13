@@ -5,7 +5,6 @@ using UniRx;
 
 public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float initialHealth;
     private PlayerModel playerModel;
     private Subject<bool> deathStream;
 
@@ -17,7 +16,6 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
-        playerModel.Health.Value = initialHealth;
         deathStream = new Subject<bool>();
         deathStream.OnNext(false);
 
