@@ -8,9 +8,10 @@ using System.Linq;
 public class EtherObject : MonoBehaviour
 {
 	public GameObject Ether;
+	float delta; //時間経過
     public float etherValue;
-	public float delta; //時間経過
 
+	[SerializeField] private List<GameObject> Area = new List<GameObject>();	//ポップ地点の管理
     [SerializeField] private float originEtherSize;
     [SerializeField] private float triggerSize = 0.5f;
     [SerializeField] private float floatHeight;
