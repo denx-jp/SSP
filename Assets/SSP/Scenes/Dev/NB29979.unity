@@ -1281,6 +1281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textTime: {fileID: 96182640}
+  gameManager: {fileID: 2013714362}
 --- !u!114 &720313264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,6 +2504,24 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2013714362 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 2013714361}
+--- !u!114 &2013714363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2013714362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda299c7b2c232940a204cb7f81b3857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitMinutes: 1
+  limitSeconds: 10
 --- !u!1 &2054307762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2534,7 +2553,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 21ff49429c7425a4bbf9d895f77a6526, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
