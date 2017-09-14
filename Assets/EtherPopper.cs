@@ -11,7 +11,7 @@ public class EtherPopper : MonoBehaviour {
 	[SerializeField] private List<GameObject> popPoints = new List<GameObject>();	//ポップ地点の管理
 
 	void Start () {
-		Point = popPoints.GetRange(0, popPoints.Count);
+		
 	}
 
 	void Update () {
@@ -19,6 +19,7 @@ public class EtherPopper : MonoBehaviour {
 		if (this.delta > this.TimeSpan) {
 			this.delta = 0;
 			GameObject ether = Instantiate (Ether) as GameObject;
+			Point = popPoints [Random.Range (0, popPoints.Count)]; 
 			ether.transform.position = Point.transform.position;
 		}
 	}
