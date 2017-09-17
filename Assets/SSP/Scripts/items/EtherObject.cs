@@ -7,13 +7,12 @@ using System.Linq;
 
 public class EtherObject : MonoBehaviour
 {
-
     public float etherValue;
-
     [SerializeField] private float originEtherSize;
     [SerializeField] private float triggerSize = 0.5f;
     [SerializeField] private float floatHeight;
     [SerializeField] private float trackingSpeed;
+
     private SphereCollider trigger;
 
     private RaycastHit fallHit;
@@ -24,9 +23,17 @@ public class EtherObject : MonoBehaviour
     //[SyncVar]
     private GameObject target;
 
+    [SerializeField] private float popEtherInitValue = 50;
+
     private void Start()
     {
         var rigid = GetComponent<Rigidbody>();
+
+        //エーテル自動popのため
+        if (etherValue == 0)
+        {
+            Init(popEtherInitValue);
+        }
 
         //地面よりある程度高い位置で重力をきる処理
         this.UpdateAsObservable()
@@ -64,12 +71,13 @@ public class EtherObject : MonoBehaviour
     public void Init(float value)
     {
         etherValue = value;
-        transform.localScale = Vector3.one * originEtherSize * value;
-        if (transform.localScale.x < 1)
-        {
-            var trigger = GetComponents<SphereCollider>().Where(v => v.isTrigger).First();
-            trigger.radius = triggerSize / transform.localScale.x;
-        }
+        //transform.localScale = Vector3.one * originEtherSize * value;
+        //if (transform.localScale.x < 1)
+        //{
+        //    var trigger = GetComponents<SphereCollider>().Where(v => v.isTrigger).First();
+        //    trigger.radius = triggerSize / transform.localScale.x;
+        //}
     }
 
 }
+
