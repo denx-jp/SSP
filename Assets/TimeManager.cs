@@ -12,7 +12,7 @@ public class TimeManager : MonoBehaviour
 
     public ReactiveProperty<string> strTimeLimit;
 
-    private UniRx.IObservable<long> timeStream;
+    public UniRx.IObservable<long> timeStream;
     public Subject<bool> resultStream;
 
     void Start()
@@ -35,7 +35,7 @@ public class TimeManager : MonoBehaviour
             .Subscribe(_ => 
             {
                 resultStream.OnNext(true);
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene("NB29979-Result");
             })
             .AddTo(this.gameObject);
     }
