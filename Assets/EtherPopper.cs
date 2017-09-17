@@ -1,32 +1,23 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UniRx;
-using UniRx.Triggers;
-using System;
-public class EtherPopper : MonoBehaviour {
 
-	//float delta; //時間経過
-	public GameObject Ether;
-	public GameObject Point;
-	[SerializeField] private float Span; // pop間の時間設定
-	[SerializeField] private List<GameObject> popPoints = new List<GameObject>();	//ポップ地点の管理
+public class EtherPopper : MonoBehaviour
+{
+    [SerializeField] private GameObject ether;
+    [SerializeField] private float popINterval;
+    [SerializeField] private List<Transform> popPoints = new List<Transform>();
+    private Transform popPoint;
 
-	void Start () {
-		Observable.Interval(TimeSpan.FromSeconds(Span)).Subscribe(l => 
-			{
-				GameObject ether = Instantiate (Ether) as GameObject;
-				Point = popPoints [UnityEngine.Random.Range (0, popPoints.Count)]; 
-				ether.transform.position = Point.transform.position;
-		}).AddTo (this);
-	
-	}
+    void Start()
+    {
+        Observable.Interval(TimeSpan.FromSeconds(popINterval)).Subscribe(_ =>
+        {
+            popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
+            GameObject popEther = Instantiate(ether, popPoint.position, Quaternion.identity);
+        }).AddTo(this);
 
-	void Update () {
-		//this
-		//if (this.delta > this.Span) {
-		//	this.delta = 0;
-		//
-		//}
-	}
+    }
 }
