@@ -111,10 +111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   etherValue: 0
-  originEtherSize: 0
+  originEtherSize: 0.1
   triggerSize: 0.5
-  floatHeight: 0
-  trackingSpeed: 0
+  floatHeight: 1
+  trackingSpeed: 3
+  popEtherInitValue: 50
 --- !u!135 &135168888094169298
 SphereCollider:
   m_ObjectHideFlags: 1
