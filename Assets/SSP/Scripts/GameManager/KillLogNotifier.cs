@@ -7,15 +7,10 @@ using UnityEngine.UI;
 
 public class KillLogNotifier : MonoBehaviour {
 
-    private KillLogViewModel killLogVM;
-    private PlayerHealthManager playerHealthManager;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject killLog;
+    [SerializeField] private KillLogViewModel killLogVM;
+    [SerializeField] private PlayerHealthManager playerHealthManager;
 
     void Start(){
-        playerHealthManager = player.GetComponent<PlayerHealthManager>();
-        killLogVM = killLog.GetComponent<KillLogViewModel>();
-
         playerHealthManager.GetKillLogStream()
                            .Subscribe(killLogInfo =>
                            {
