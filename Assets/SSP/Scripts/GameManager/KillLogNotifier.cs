@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
-using UnityEngine.UI;
 
-public class KillLogNotifier : MonoBehaviour {
+public class KillLogNotifier : MonoBehaviour
+{
 
     [SerializeField] private KillLogViewModel killLogVM;
-    [SerializeField] private PlayerHealthManager playerHealthManager;
+    [SerializeField] private List<PlayerHealthManager> playerHealthManagers;
 
-    void Start(){
-        playerHealthManager.GetKillLogStream()
-                           .Subscribe(killLogInfo =>
-                           {
-                               killLogVM.AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString());
-                           });
+    void Start()
+    {
+        Init();
+    }
+
+    public void Init()
+    {
+        foreach (var playerHealthManager in playerHealthManagers)
+        {
+            playerHealthManager.GetKillLogStream()
+                .Subscribe(killLogInfo =>
+                {
+                    killLogVM.AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString());
+                });
+        }
     }
 }
