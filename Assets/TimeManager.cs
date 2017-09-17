@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
 {
     [SerializeField] private float limitMinutes;
     [SerializeField] private float limitSeconds;
+    [SerializeField] private string resultSceneName;
 
     public IConnectableObservable<long> timeStream;
     private Subject<bool> resultStream;
@@ -33,7 +34,7 @@ public class TimeManager : MonoBehaviour
             .Subscribe(_ => 
             {
                 resultStream.OnNext(true);
-                SceneManager.LoadScene("NB29979-Result");
+                SceneManager.LoadScene(resultSceneName);
             })
             .AddTo(this.gameObject);
     }
