@@ -20,4 +20,15 @@ public class EtherPopper : MonoBehaviour
         }).AddTo(this);
 
     }
+
+    [ContextMenu("Set Pop Points")]
+    private void SetPopPoints()
+    {
+        var childTransforms = this.GetComponentsInChildren<Transform>();
+        foreach (var childTransform in childTransforms)
+        {
+            if (childTransform.gameObject.name == "PopPoint")
+                popPoints.Add(childTransform);
+        }
+    }
 }
