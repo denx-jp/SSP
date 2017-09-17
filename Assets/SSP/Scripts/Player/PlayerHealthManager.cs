@@ -7,6 +7,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
     private PlayerModel playerModel;
     private Subject<bool> deathStream;
+    private Subject<KeyValuePair<int,int>> killLogStream;
 
     private int deathHash = Animator.StringToHash("Death");
     private Animator animator;
@@ -17,6 +18,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     {
         playerModel = GetComponent<PlayerModel>();
         deathStream = new Subject<bool>();
+        killLogStream = new Subject<KeyValuePair<int, int>>();
         deathStream.OnNext(false);
 
         playerModel.Health
@@ -28,7 +30,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
              .Subscribe(isdeath =>
              {
                  var myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
-                 Debug.Log(string.Format("Player {0} killed Player {1}",recentAttackerId, myId)); //デバッグ用に実装（のちのちUI作ったときに差し替え）
+                 killLogStream.OnNext(new KeyValuePair<int, int>(recentAttackerId, myId));
                  animator.SetBool(deathHash, isdeath);
              });
     }
@@ -50,5 +52,9 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     public Subject<bool> GetDeathStream()
     {
         return deathStream;
+    }
+
+    public Subject<KeyValuePair<int,int>> GetKillLogStream(){
+        return killLogStream;
     }
 }

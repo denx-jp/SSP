@@ -9,9 +9,16 @@ public class KillLogViewModel : MonoBehaviour
     const int KILL_LOG_SHOW_PERIOD = 3;
     [SerializeField] private Text[] texts;
 
-    public void AppendKillLog(string winner, string loser)
+    private void Start()
     {
-        StartCoroutine(KillLogCoroutine(winner + " が " + loser + " を キル しました"));
+        foreach(Text t in texts){
+            t.text = "";
+        }
+    }
+
+    public void AppendKillLog(string killer, string killed)
+    {
+        StartCoroutine(KillLogCoroutine("プレイヤー" + killer + " が プレイヤー" + killed + " を キル しました"));
     }
 
     private IEnumerator KillLogCoroutine(string killLogText)
