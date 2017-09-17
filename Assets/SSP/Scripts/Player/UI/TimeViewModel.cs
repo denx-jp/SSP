@@ -18,7 +18,7 @@ public class TimeViewModel : MonoBehaviour {
         timeManager = gameManager.GetComponent<TimeManager>();
 
         //timeManager.timeStream.OnErrorRetry().Subscribe(time => Debug.Log(time));
-        //timeManager.resultStream.Subscribe(re => Debug.Log(re));
+        //timeManager.resultStream.Synchronize().Subscribe(re => Debug.Log(re));
         //timeManager.GetTimeStream().Subscribe(v => Debug.Log(v));
 
         this.UpdateAsObservable()

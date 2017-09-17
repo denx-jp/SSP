@@ -13,7 +13,7 @@ public class TimeManager : MonoBehaviour
     public ReactiveProperty<string> strTimeLimit;
 
     public UniRx.IObservable<long> timeStream;
-    public Subject<bool> resultStream;
+    private Subject<bool> resultStream;
 
     void Start()
     {
@@ -46,5 +46,9 @@ public class TimeManager : MonoBehaviour
             return new ReactiveProperty<string>("99:59");
         }
         return strTimeLimit;
+    }
+    public Subject<bool> GetResultStream()
+    {
+        return resultStream;
     }
 }
