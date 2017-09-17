@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class KillLogViewModel : MonoBehaviour
 {
-    const int KILL_LOG_SHOW_PERIOD = 3;
-    [SerializeField] private Text[] texts;
+    [SerializeField] private int showPeriod = 3;
+    [SerializeField] private List<Text> texts;
 
     private void Start()
     {
-        foreach(Text t in texts){
-            t.text = "";
+        foreach (Text text in texts)
+        {
+            text.text = "";
         }
     }
 
@@ -26,8 +27,19 @@ public class KillLogViewModel : MonoBehaviour
         var text = texts.First(v => v.text == "");
         text.text = killLogText;
         text.gameObject.SetActive(true);
-        yield return new WaitForSeconds(KILL_LOG_SHOW_PERIOD);
+        yield return new WaitForSeconds(showPeriod);
         text.gameObject.SetActive(false);
         text.text = "";
+    }
+
+    [ContextMenu("Set Texts")]
+    private void SetTexts()
+    {
+        var textComponents = this.GetComponentsInChildren<Text>();
+        Debug.Log(textComponents.Count());
+        foreach (var text in textComponents)
+        {
+            texts.Add(text);
+        }
     }
 }
