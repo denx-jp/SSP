@@ -2521,7 +2521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limitMinutes: 0
-  limitSeconds: 10
+  limitSeconds: 100
   resultSceneName: NB29979-Result
 --- !u!1 &2054307762
 GameObject:

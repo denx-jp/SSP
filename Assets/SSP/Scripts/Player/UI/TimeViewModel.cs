@@ -10,14 +10,22 @@ public class TimeViewModel : MonoBehaviour {
     [SerializeField] private GameObject gameManager;
 
     private TimeManager timeManager;
+    private string minutes, seconds;
 
     void Start() {
         timeManager = gameManager.GetComponent<TimeManager>();
 
         timeManager
             .GetTimeStream()
-            .Select(time => ((int)Mathf.Ceil((time) / 60)).ToString() + ":" +
-                                  ((int)Mathf.Ceil((time) % 60)).ToString())
-            .Subscribe(time => textTime.text = time.ToString());
+            .Subscribe(time => {
+                minutes = TimeTextFormat(Mathf.Ceil(time / 60));
+                seconds = TimeTextFormat(Mathf.Ceil(time % 60));
+                textTime.text = minutes + ":" + seconds;
+            });
+    }
+    private string TimeTextFormat(float time)
+    {
+        return time.ToString().Length == 2 ? 
+            time.ToString() : "0" + time.ToString();
     }
 }
