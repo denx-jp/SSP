@@ -10,25 +10,23 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private float limitMinutes;
     [SerializeField] private float limitSeconds;
 
-    public ReactiveProperty<string> strTimeLimit;
-
-    public UniRx.IObservable<long> timeStream;
+    public IConnectableObservable<long> timeStream;
     private Subject<bool> resultStream;
 
-    void Start()
+    void Awake()
     {
-        resultStream = new Subject<bool>();
-
         float limitTimeSec = limitMinutes * 60 + limitSeconds;
 
         timeStream = Observable.Interval(TimeSpan.FromSeconds(1))
             .Select(time => time = (long)limitTimeSec - time)
-            .TakeWhile(time => time >= 0);
+            .TakeWhile(time => time >= 0)
+            .Publish();
+    }
+    void Start()
+    {
+        resultStream = new Subject<bool>();
 
-        strTimeLimit = timeStream
-            .Select(time => ((int)Mathf.Ceil((time) / 60)).ToString() + ":" +
-                                  ((int)Mathf.Ceil((time) % 60)).ToString())
-            .ToReactiveProperty();
+        timeStream.Connect();
 
         timeStream
             .Where(time => time <= 0)
@@ -39,13 +37,9 @@ public class TimeManager : MonoBehaviour
             })
             .AddTo(this.gameObject);
     }
-    public ReactiveProperty<string> GetCurrentTime()
+    public IConnectableObservable<long> GetTimeStream()
     {
-        if (strTimeLimit == null)
-        {
-            return new ReactiveProperty<string>("99:59");
-        }
-        return strTimeLimit;
+        return timeStream;
     }
     public Subject<bool> GetResultStream()
     {
