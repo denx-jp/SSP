@@ -11,16 +11,16 @@ public class TimeViewModel : MonoBehaviour
 
     private string minutes, seconds;
 
-    void Start()
+    public void Init()
     {
         timeManager
-            .GetTimeStream()
-            .Subscribe(time =>
-            {
-                minutes = Mathf.Ceil(time / 60).ToString("00");
-                seconds = Mathf.Ceil(time % 60).ToString("00");
-                textTime.text = minutes + ":" + seconds;
-            });
+           .GetTimeStream()
+           .Subscribe(time =>
+           {
+               minutes = Mathf.Ceil(time / 60).ToString("00");
+               seconds = Mathf.Ceil(time % 60).ToString("00");
+               textTime.text = minutes + ":" + seconds;
+           });
     }
 
     public void SetTimeManager(TimeManager tm)

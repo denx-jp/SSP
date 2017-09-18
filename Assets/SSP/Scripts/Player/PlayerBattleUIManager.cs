@@ -19,9 +19,11 @@ public class PlayerBattleUIManager : MonoBehaviour
         killLogViewModel.SetKillLogNotifier(playerManager.playerKillLogNotifier);
         timeViewModel.SetTimeManager(timeManager);
 
+        //各VMに必要な代入がされる前に初期化処理をされると困るので明示的にタイミングを指定するためにInit()を使っている
         healthViewModel.Init();
         etherViewModel.Init();
         killLogViewModel.Init();
+        timeViewModel.Init();
     }
 
     public void Init()
