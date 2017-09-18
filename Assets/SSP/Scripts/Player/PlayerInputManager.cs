@@ -22,14 +22,14 @@ public class PlayerInputManager : MonoBehaviour
     private Vector2 gamePadInput;
     private Vector2 moveInput;
 
-    private PlayerHealthManager playerHealthManager;
+    private PlayerModel playerModel;
 
     private void Start()
     {
-        playerHealthManager = GetComponent<PlayerHealthManager>();
+        playerModel = GetComponent<PlayerModel>();
 
         this.UpdateAsObservable()
-            .Where(_ => playerHealthManager.IsAlive())
+            .Where(_ => playerModel.IsAlive())
             .Subscribe(_ =>
             {
                 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -50,7 +50,7 @@ public class PlayerInputManager : MonoBehaviour
             });
 
         this.UpdateAsObservable()
-            .Where(_ => !playerHealthManager.IsAlive())
+            .Where(_ => !playerModel.IsAlive())
             .Subscribe(_ =>
             {
                 //死亡時入力受付ストリーム

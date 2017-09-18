@@ -35,11 +35,6 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
              });
     }
 
-    public bool IsAlive()
-    {
-        return playerModel.Health.Value > 0.0f;
-    }
-
     public void SetDamage(Damage damage)
     {
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
