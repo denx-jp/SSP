@@ -1,14 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
 
     public PlayerModel playerModel;
     public PlayerHealthManager playerHealthManager;
     public PlayerEtherManager playerEtherManager;
     public PlayerInputManager playerInputManager;
+    public PlayerCameraController playerCameraController;
+
+    private void Start()
+    {
+#if ONLINE
+        if (isLocalPlayer)
+        {
+            playerInputManager.enabled = true;
+            playerCameraController.enabled = true;
+        }
+#endif
+    }
 
     public void Init()
     {
@@ -16,6 +29,7 @@ public class PlayerManager : MonoBehaviour
         playerHealthManager = GetComponent<PlayerHealthManager>();
         playerEtherManager = GetComponent<PlayerEtherManager>();
         playerInputManager = GetComponent<PlayerInputManager>();
+        playerCameraController = GetComponent<PlayerCameraController>();
     }
-    
+
 }
