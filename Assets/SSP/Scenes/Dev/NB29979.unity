@@ -1282,6 +1282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textTime: {fileID: 96182640}
   gameManager: {fileID: 2013714362}
+  timeManager: {fileID: 2013714363}
 --- !u!114 &720313264
 MonoBehaviour:
   m_ObjectHideFlags: 0
