@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 
-public class TimeViewModel : MonoBehaviour {
-
+public class TimeViewModel : MonoBehaviour
+{
     [SerializeField] private Text textTime;
+    private TimeManager timeManager;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private string minutes, seconds;
+
+    void Start()
+    {
+        timeManager
+            .GetTimeStream()
+            .Subscribe(time =>
+            {
+                minutes = Mathf.Ceil(time / 60).ToString("00");
+                seconds = Mathf.Ceil(time % 60).ToString("00");
+                textTime.text = minutes + ":" + seconds;
+            });
+    }
+
+    public void SetTimeManager(TimeManager tm)
+    {
+        timeManager = tm;
+    }
 }

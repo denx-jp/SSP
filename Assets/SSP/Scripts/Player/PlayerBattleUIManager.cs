@@ -5,17 +5,18 @@ using UnityEngine;
 public class PlayerBattleUIManager : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private TimeManager timeManager;
 
     [SerializeField] private HealthViewModel healthViewModel;
     [SerializeField] private EtherViewModel etherViewModel;
     [SerializeField] private TimeViewModel timeViewModel;
     [SerializeField] private KillLogViewModel killLogViewModel;
 
-    private void Start()
+    private void Awake()
     {
         healthViewModel.healthModel = playerManager.playerModel as IHealth;
         etherViewModel.etherModel = playerManager.playerModel as IEther;
-        //timeViewModel = ;
+        timeViewModel.SetTimeManager(timeManager);
         //killLogViewModel =;
 
         healthViewModel.Init();

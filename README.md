@@ -1,5 +1,6 @@
 # SSP
 ![yysk](http://livedoor.4.blogimg.jp/glintbooster/imgs/f/f/ffcded70.gif)
+- [Blender](https://www.blender.org/download/)がインストールされてないとモデルが表示されません。
 - `git clone --recursive https://github.com/denx-jp/SSP.git`すればサブモジュールも一緒にクローンしてくれます。
 - `--recursive`を指定し忘れたときは下のコマンドでサブモジュールを落とせます。
 ```
