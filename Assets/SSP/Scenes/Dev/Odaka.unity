@@ -5414,7 +5414,7 @@ GameObject:
   - component: {fileID: 738324836}
   m_Layer: 0
   m_Name: RespawnPoint
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5636,7 +5636,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.060806707
+      value: 0.060806703
       objectReference: {fileID: 0}
     - target: {fileID: 114150559372493268, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
@@ -5884,7 +5884,7 @@ GameObject:
   - component: {fileID: 775752854}
   m_Layer: 0
   m_Name: RespawnPoint
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8765,7 +8765,7 @@ GameObject:
   - component: {fileID: 1222764921}
   m_Layer: 0
   m_Name: RespawnPoint
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10011,7 +10011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed143bacffd4c944fab2f85c00eb03c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1422889587}
   playerModel: {fileID: 1344774557}
   playerHealthManager: {fileID: 1344774556}
   playerEtherManager: {fileID: 1344774555}
@@ -13126,17 +13125,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 764704455}
   m_Script: {fileID: 11500000, guid: a5cb04879e91fa64ba659d4a433d29d5, type: 3}
---- !u!114 &1840728909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1840728894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e6dcdb64468ee945a3393f939d684e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1860989969
 GameObject:
   m_ObjectHideFlags: 0
@@ -14127,7 +14115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed143bacffd4c944fab2f85c00eb03c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1422889587}
   playerModel: {fileID: 1944809071}
   playerHealthManager: {fileID: 1944809070}
   playerEtherManager: {fileID: 1944809069}
@@ -14480,7 +14467,7 @@ GameObject:
   - component: {fileID: 1963829294}
   m_Layer: 0
   m_Name: RespawnPoint
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
