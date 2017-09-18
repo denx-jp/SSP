@@ -9,7 +9,8 @@ public class ClientPlayersManager : MonoBehaviour
 
     private void Awake()
     {
-        playerManagers = new List<PlayerManager>();
+        var players = GameObject.FindGameObjectsWithTag(TagMap.Player);
+        playerManagers = players.Select(player => player.GetComponent<PlayerManager>()).ToList();
     }
 
     public void AddPlayer(PlayerManager pm)
