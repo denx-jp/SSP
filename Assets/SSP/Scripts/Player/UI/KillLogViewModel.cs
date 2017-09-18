@@ -7,24 +7,25 @@ using UniRx;
 
 public class KillLogViewModel : MonoBehaviour
 {
-    private PlayerKillLogNotifier killLogNotifier;
-    [SerializeField] private int showPeriod = 3;
+    [SerializeField] private List<PlayerKillLogNotifier> killLogNotifiers;
     [SerializeField] private List<Text> texts;
+    [SerializeField] private int showPeriod = 3;
 
     public void Init()
     {
         foreach (Text text in texts)
-        {
             text.text = "";
-        }
 
-        killLogNotifier.GetKillLogStream()
-            .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
+        foreach(var killLogNotifier in killLogNotifiers)
+        {
+            killLogNotifier.GetKillLogStream()
+                .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
+        }
     }
 
-    public void SetKillLogNotifier(PlayerKillLogNotifier pkln)
+    public void SetKillLogNotifier(List<PlayerKillLogNotifier> pklns)
     {
-        killLogNotifier = pkln;
+        killLogNotifiers = pklns;
     }
 
     private void AppendKillLog(string killer, string killed)
