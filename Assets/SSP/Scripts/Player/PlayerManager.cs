@@ -5,11 +5,11 @@ using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour
 {
-
     public PlayerModel playerModel;
     public PlayerHealthManager playerHealthManager;
     public PlayerEtherManager playerEtherManager;
     public PlayerInputManager playerInputManager;
+    public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
 
     private void Start()
@@ -29,7 +29,15 @@ public class PlayerManager : NetworkBehaviour
         playerHealthManager = GetComponent<PlayerHealthManager>();
         playerEtherManager = GetComponent<PlayerEtherManager>();
         playerInputManager = GetComponent<PlayerInputManager>();
+        playerKillLogNotifier = GetComponent<PlayerKillLogNotifier>();
         playerCameraController = GetComponent<PlayerCameraController>();
+    }
+
+    public T GetPlayerComponent<T>()
+    {
+        if (typeof(T) == typeof(PlayerModel))
+            return (T)(object)playerModel;
+        return default(T);
     }
 
 }

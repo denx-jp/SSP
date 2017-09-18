@@ -47,7 +47,7 @@ public class EtherObject : MonoBehaviour
         this.OnTriggerEnterAsObservable()
             .Where(_ => target == null)
             .Where(col => col.gameObject.tag == TagMap.Player)
-            .Where(col => col.GetComponent<PlayerHealthManager>().IsAlive())
+            .Where(col => col.GetComponent<PlayerModel>().IsAlive())
             .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out absorbHit, 100, absorbLayerMask))
             .Where(_ => absorbHit.collider.gameObject.tag == TagMap.Player)
             .Subscribe(col => target = col.gameObject);

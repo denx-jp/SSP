@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
+using UniRx;
 
 public class KillLogViewModel : MonoBehaviour
 {
-    [SerializeField] private int showPeriod = 3;
+    [SerializeField] private List<PlayerKillLogNotifier> killLogNotifiers;
     [SerializeField] private List<Text> texts;
+    [SerializeField] private int showPeriod = 3;
 
-    private void Start()
+    public void Init()
     {
         foreach (Text text in texts)
-        {
             text.text = "";
+
+        foreach(var killLogNotifier in killLogNotifiers)
+        {
+            killLogNotifier.GetKillLogStream()
+                .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
         }
     }
 
-    public void AppendKillLog(string killer, string killed)
+    public void SetKillLogNotifier(List<PlayerKillLogNotifier> pklns)
+    {
+        killLogNotifiers = pklns;
+    }
+
+    private void AppendKillLog(string killer, string killed)
     {
         StartCoroutine(KillLogCoroutine("プレイヤー" + killer + " が プレイヤー" + killed + " を キル しました"));
     }

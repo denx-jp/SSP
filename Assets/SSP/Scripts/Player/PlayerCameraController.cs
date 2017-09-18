@@ -8,7 +8,7 @@ using System.Linq;
 public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] private GameObject mainCamera;
-    [SerializeField] private GameObject target;
+    private GameObject target;
     [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
     private Vector3 temp_offset;
     [SerializeField] private float cameraRotationSpeed = 100;
