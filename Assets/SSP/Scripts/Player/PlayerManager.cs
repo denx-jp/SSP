@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerHealthManager playerHealthManager;
     public PlayerEtherManager playerEtherManager;
     public PlayerInputManager playerInputManager;
+    public PlayerKillLogNotifier playerKillLogNotifier;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class PlayerManager : MonoBehaviour
         playerHealthManager = GetComponent<PlayerHealthManager>();
         playerEtherManager = GetComponent<PlayerEtherManager>();
         playerInputManager = GetComponent<PlayerInputManager>();
+        playerKillLogNotifier = GetComponent<PlayerKillLogNotifier>();
     }
     
 }

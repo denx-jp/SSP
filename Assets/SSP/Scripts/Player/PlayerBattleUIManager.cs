@@ -16,11 +16,12 @@ public class PlayerBattleUIManager : MonoBehaviour
     {
         healthViewModel.healthModel = playerManager.playerModel as IHealth;
         etherViewModel.etherModel = playerManager.playerModel as IEther;
+        killLogViewModel.SetKillLogNotifier(playerManager.playerKillLogNotifier);
         timeViewModel.SetTimeManager(timeManager);
-        //killLogViewModel =;
 
         healthViewModel.Init();
         etherViewModel.Init();
+        killLogViewModel.Init();
     }
 
     public void Init()
