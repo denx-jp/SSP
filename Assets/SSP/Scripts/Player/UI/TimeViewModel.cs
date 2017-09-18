@@ -7,25 +7,17 @@ using UniRx.Triggers;
 public class TimeViewModel : MonoBehaviour {
 
     [SerializeField] private Text textTime;
-    [SerializeField] private GameObject gameManager;
+    [SerializeField] private TimeManager timeManager;
 
-    private TimeManager timeManager;
     private string minutes, seconds;
 
     void Start() {
-        timeManager = gameManager.GetComponent<TimeManager>();
-
         timeManager
             .GetTimeStream()
             .Subscribe(time => {
-                minutes = TimeTextFormat(Mathf.Ceil(time / 60));
-                seconds = TimeTextFormat(Mathf.Ceil(time % 60));
+                minutes = Mathf.Ceil(time / 60).ToString("00");
+                seconds = Mathf.Ceil(time % 60).ToString("00");
                 textTime.text = minutes + ":" + seconds;
             });
-    }
-    private string TimeTextFormat(float time)
-    {
-        return time.ToString().Length == 2 ? 
-            time.ToString() : "0" + time.ToString();
     }
 }
