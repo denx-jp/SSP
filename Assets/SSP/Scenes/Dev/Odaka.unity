@@ -428,12 +428,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1c5eac5c9e8e35439daf58f5b2321ec, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &2917651 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114062487349644722, guid: e1c5eac5c9e8e35439daf58f5b2321ec,
-    type: 2}
-  m_PrefabInternal: {fileID: 2917650}
-  m_Script: {fileID: 11500000, guid: 9d19c21427ddfec47b055cc4c6f103dd, type: 3}
 --- !u!1 &18588158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,7 +1744,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 189911911}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Env
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3641,7 +3635,7 @@ GameObject:
   - component: {fileID: 503265876}
   - component: {fileID: 503265875}
   - component: {fileID: 503265874}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3752,7 +3746,7 @@ GameObject:
   - component: {fileID: 515704968}
   - component: {fileID: 515704967}
   - component: {fileID: 515704966}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4277,28 +4271,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114885120103089130, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: killLogVM
-      value: 
-      objectReference: {fileID: 2917651}
-    - target: {fileID: 114885120103089130, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: playerHealthManagers.Array.data[0]
-      value: 
-      objectReference: {fileID: 764704457}
-    - target: {fileID: 114885120103089130, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: playerHealthManagers.Array.data[1]
-      value: 
-      objectReference: {fileID: 1944809070}
-    - target: {fileID: 114885120103089130, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: playerHealthManagers.Array.data[2]
-      value: 
-      objectReference: {fileID: 1344774556}
-    m_RemovedComponents:
-    - {fileID: 114885120103089130, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &596519914 stripped
@@ -4707,7 +4680,7 @@ GameObject:
   - component: {fileID: 690409136}
   - component: {fileID: 690409135}
   - component: {fileID: 690409134}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4973,7 +4946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 719021371}
   - component: {fileID: 719021370}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5264,7 +5237,7 @@ GameObject:
   - component: {fileID: 731160003}
   - component: {fileID: 731160002}
   - component: {fileID: 731160001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5643,6 +5616,11 @@ Prefab:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1422889587}
+    - target: {fileID: 114043632102673516, guid: 5c31cea7b726eda4c8c089891fd0020b,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_IsPrefabParent: 0
@@ -5652,12 +5630,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 764704455}
   m_Script: {fileID: 11500000, guid: ed143bacffd4c944fab2f85c00eb03c3, type: 3}
---- !u!114 &764704457 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114429657482734640, guid: 5c31cea7b726eda4c8c089891fd0020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 764704455}
-  m_Script: {fileID: 11500000, guid: fd67c579bbcd46a47b1136a8fe2c10f4, type: 3}
 --- !u!1 &765270144
 GameObject:
   m_ObjectHideFlags: 0
@@ -7227,7 +7199,7 @@ GameObject:
   - component: {fileID: 1022447986}
   - component: {fileID: 1022447985}
   - component: {fileID: 1022447984}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8197,7 +8169,7 @@ GameObject:
   - component: {fileID: 1155744414}
   - component: {fileID: 1155744413}
   - component: {fileID: 1155744412}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9084,7 +9056,7 @@ GameObject:
   - component: {fileID: 1292847050}
   - component: {fileID: 1292847049}
   - component: {fileID: 1292847048}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9897,7 +9869,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToRespawn: 5
-  respawnPoint: {fileID: 619033579}
 --- !u!114 &1344774550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10016,6 +9987,7 @@ MonoBehaviour:
   playerEtherManager: {fileID: 1344774555}
   playerInputManager: {fileID: 1344774551}
   playerKillLogNotifier: {fileID: 1344774565}
+  playerCameraController: {fileID: 0}
 --- !u!114 &1344774559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10733,7 +10705,6 @@ GameObject:
   - component: {fileID: 1452575482}
   - component: {fileID: 1452575481}
   - component: {fileID: 1452575480}
-  - component: {fileID: 1452575485}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10811,21 +10782,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
---- !u!114 &1452575485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1452575479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1840728894}
-  offset: {x: 0, y: 2, z: -3}
-  cameraRotationSpeed: 100
-  pim: {fileID: 1840728898}
 --- !u!1 &1453153600
 GameObject:
   m_ObjectHideFlags: 0
@@ -13114,17 +13070,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.07690115, y: -0.020358484, z: 0.0006346181}
     m_Extent: {x: 0.19305842, y: 0.115475625, z: 0.15771526}
   m_DirtyAABB: 0
---- !u!1 &1840728894 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 764704455}
---- !u!114 &1840728898 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114858071444870302, guid: 5c31cea7b726eda4c8c089891fd0020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 764704455}
-  m_Script: {fileID: 11500000, guid: a5cb04879e91fa64ba659d4a433d29d5, type: 3}
 --- !u!1 &1860989969
 GameObject:
   m_ObjectHideFlags: 0
@@ -14001,7 +13946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToRespawn: 5
-  respawnPoint: {fileID: 619033579}
 --- !u!114 &1944809064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14120,6 +14064,7 @@ MonoBehaviour:
   playerEtherManager: {fileID: 1944809069}
   playerInputManager: {fileID: 1944809065}
   playerKillLogNotifier: {fileID: 1944809079}
+  playerCameraController: {fileID: 0}
 --- !u!114 &1944809073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14839,7 +14784,7 @@ GameObject:
   - component: {fileID: 2054307765}
   - component: {fileID: 2054307764}
   - component: {fileID: 2054307763}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
