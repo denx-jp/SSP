@@ -14,11 +14,13 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
+#if ONLINE
         if (isLocalPlayer)
         {
             playerInputManager.enabled = true;
             playerCameraController.enabled = true;
         }
+#endif
     }
 
     public void Init()

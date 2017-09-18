@@ -1064,11 +1064,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114463977318864480, guid: 85190b57675cda940b2cd16157a434e7,
-        type: 2}
-      propertyPath: m_SendInterval
-      value: 0.09090909
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85190b57675cda940b2cd16157a434e7, type: 2}
   m_IsPrefabParent: 0
