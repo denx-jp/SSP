@@ -1,6 +1,0 @@
-[submodule "Assets/Externals"]
-	path = Assets/Externals
-	url = https://git.denx.jp/SSP/Externals.git
-[submodule "Assets/Models"]
-	path = Assets/Models
-	url = https://git.denx.jp/SSP/Models.git
