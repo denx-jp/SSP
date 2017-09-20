@@ -46,33 +46,16 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamag
         AcquireEther(etherChargeValue);
     }
 
-    private void GenerateEtherObject(float emitEtherValue){
-        float LSSemithigh = 0.0f;
-        var singleEtherValue = emitEtherValue / 10;
-        while (emitEtherValue > 0)
-        {
-            var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * LSSemithigh, transform.rotation);
-
-            if (emitEtherValue < singleEtherValue) singleEtherValue = emitEtherValue;
-
-            emitEtherValue -= singleEtherValue;
-            emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
-            LSSemithigh += emittedEtherObject.transform.localScale.y;
-
-            var emitDirestion = Vector3.up + new Vector3(UnityEngine.Random.Range(-emitPower, emitPower), 0, UnityEngine.Random.Range(-emitPower, emitPower));
-            emittedEtherObject.GetComponent<Rigidbody>().AddForce(emitDirestion, ForceMode.Impulse);
-        }
-    }
-
     public void SetDamage(Damage damage){
         float LSSemithigh = 0.0f;
         float damageAmount = damage.amount * 10.0f;
-        var singleEtherValue = damageAmount / 10.0f;
+        var singleEtherValue = damage.amount;
+
         while (damageAmount > 0)
         {
             var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * LSSemithigh, transform.rotation);
 
-            if (damage.amount*10.0f < singleEtherValue) singleEtherValue = damage.amount * 10.0f;
+            if (damageAmount < singleEtherValue) singleEtherValue = damage.amount * 10.0f;
 
             damageAmount -= singleEtherValue;
             emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
