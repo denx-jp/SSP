@@ -5,18 +5,16 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable
+public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamageable
 {
     [SerializeField] private float initEther;
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
 
-    [SerializeField] private GameObject playerBat;
     [SerializeField] private GameObject etherObject;
-    [SerializeField] private float LSSPopEther;
     [SerializeField] private float emitPower;
 
-    [SerializeField] private WeaponAttacker weaponAttacker;
+    private Subject<bool> deathStream;
 
     private LifeSupportSystemModel lifeSupportSystemModel;
 
@@ -30,15 +28,6 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable
             {
                 ReduceEther(etherReductionRate);
             }).AddTo(this);
-
-        gameObject.OnTriggerEnterAsObservable()
-            .Where(v => v.gameObject == playerBat)
-            .Where(l => weaponAttacker.isAttackStarted)
-            .Subscribe(_ =>
-            {
-                ReduceEther(LSSPopEther);
-                GenerateEtherObject(LSSPopEther);
-            });
     }
 
     private void ReduceEther(float ether)
@@ -73,6 +62,29 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable
             var emitDirestion = Vector3.up + new Vector3(UnityEngine.Random.Range(-emitPower, emitPower), 0, UnityEngine.Random.Range(-emitPower, emitPower));
             emittedEtherObject.GetComponent<Rigidbody>().AddForce(emitDirestion, ForceMode.Impulse);
         }
+    }
 
+    public void SetDamage(Damage damage){
+        float LSSemithigh = 0.0f;
+        float damageAmount = damage.amount * 10.0f;
+        var singleEtherValue = damageAmount / 10.0f;
+        while (damageAmount > 0)
+        {
+            var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * LSSemithigh, transform.rotation);
+
+            if (damage.amount*10.0f < singleEtherValue) singleEtherValue = damage.amount * 10.0f;
+
+            damageAmount -= singleEtherValue;
+            emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
+            LSSemithigh += emittedEtherObject.transform.localScale.y;
+
+            var emitDirestion = Vector3.up + new Vector3(UnityEngine.Random.Range(-emitPower, emitPower), 0, UnityEngine.Random.Range(-emitPower, emitPower));
+            emittedEtherObject.GetComponent<Rigidbody>().AddForce(emitDirestion, ForceMode.Impulse);
+        }
+    }
+
+    public Subject<bool> GetDeathStream()
+    {
+        return deathStream;
     }
 }

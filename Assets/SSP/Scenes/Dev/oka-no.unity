@@ -338,6 +338,23 @@ Transform:
   m_Father: {fileID: 1485763416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &115683142 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1694645179068416, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 480909947}
+--- !u!65 &115683149
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 115683142}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &122333123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1452,7 +1469,6 @@ MonoBehaviour:
   damageAmount: 10
   hitDetectionTimeOffset: 0.2
   hitDetectionDuration: 0.6
-  isAttackStarted: 0
 --- !u!23 &403426457
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2071,6 +2087,16 @@ Prefab:
         type: 2}
       propertyPath: emitPower
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+        type: 2}
+      propertyPath: LSSPopEther
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 65316425672280066, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
