@@ -2098,6 +2098,11 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+        type: 2}
+      propertyPath: damagePower
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
   m_IsPrefabParent: 0
