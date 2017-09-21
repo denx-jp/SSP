@@ -13,7 +13,7 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamag
 
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
-    [SerializeField] private float damagePower;
+    [SerializeField] private float emittingEtherCoefficient;
 
     private Subject<bool> deathStream;
 
@@ -49,16 +49,16 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamag
 
     public void SetDamage(Damage damage){
         float LSSemithigh = 0.0f;
-        float damageAmount = damage.amount * damagePower;
+        float emittingEtherAmount = damage.amount * emittingEtherCoefficient;
         var singleEtherValue = damage.amount;
 
-        while (damageAmount > 0)
+        while (emittingEtherAmount > 0)
         {
             var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * LSSemithigh, transform.rotation);
 
-            if (damageAmount < singleEtherValue) singleEtherValue = damageAmount;
+            if (emittingEtherAmount < singleEtherValue) singleEtherValue = emittingEtherAmount;
 
-            damageAmount -= singleEtherValue;
+            emittingEtherAmount -= singleEtherValue;
             emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
             LSSemithigh += emittedEtherObject.transform.localScale.y;
 
