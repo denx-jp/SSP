@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-interface IDamageable
+interface IDamageable<T>
 {
     void SetDamage(Damage damage);
-    Subject<bool> GetDeathStream();
+    Subject<T> GetDeathStream();
 }
