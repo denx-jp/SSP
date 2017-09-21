@@ -5,7 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable<int>
+public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable
 {
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;

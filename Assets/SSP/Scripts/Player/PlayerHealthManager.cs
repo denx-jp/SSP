@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class PlayerHealthManager : MonoBehaviour, IDamageable<bool>
+public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
     private PlayerModel playerModel;
     private Subject<bool> deathStream;
