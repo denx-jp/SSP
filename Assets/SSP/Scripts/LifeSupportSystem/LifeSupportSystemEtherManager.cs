@@ -5,7 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable
+public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable<int>
 {
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
@@ -14,13 +14,18 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
     [SerializeField] private float emitPower;
     [SerializeField] private float emittingEtherCoefficient;
 
-    private Subject<bool> deathStream;
+    private Subject<int> deathStream;
 
     private LifeSupportSystemModel lifeSupportSystemModel;
 
     void Start()
     {
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
+
+        deathStream = new Subject<int>();
+        lifeSupportSystemModel.ether
+            .Where(v => v <= 0)
+            .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.GetTeamId()));
 
         Observable.Interval(TimeSpan.FromMilliseconds(1000))
             .Subscribe(_ =>
@@ -67,7 +72,7 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
         }
     }
 
-    public Subject<bool> GetDeathStream()
+    public Subject<int> GetDeathStream()
     {
         return deathStream;
     }

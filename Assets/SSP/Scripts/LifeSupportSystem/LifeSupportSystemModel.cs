@@ -20,4 +20,9 @@ public class LifeSupportSystemModel : MonoBehaviour
 
         ether.Value = initEtherValue;
     }
+
+    public int GetTeamId()
+    {
+        return teamId;
+    }
 }
