@@ -46,6 +46,11 @@ public class PlayerModel : MonoBehaviour, IHealth, IEther
         return Health;
     }
 
+    public bool IsAlive()
+    {
+        return Health.Value > 0.0f;
+    }
+
     public float GetEther()
     {
         return Ether.Value;

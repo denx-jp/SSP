@@ -593,7 +593,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 6415a8c2-dcb8-4835-9a5e-d2634b7495b7
   projectName: SSP
   organizationId: odk-mmmm
