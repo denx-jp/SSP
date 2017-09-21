@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23470241175268644}
   - component: {fileID: 114807451863925210}
   - component: {fileID: 114020376827804088}
+  - component: {fileID: 65696800937059068}
   m_Layer: 0
   m_Name: LifeSupportSystem
   m_TagString: Untagged
@@ -95,6 +96,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65696800937059068
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694645179068416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114020376827804088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,9 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initEther: 5000
   etherReductionRate: 10
   etherChargeValue: 10
+  etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
+    type: 2}
+  emitPower: 15
+  emittingEtherCoefficient: 10
 --- !u!114 &114807451863925210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,3 +138,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   syncEther: 0
+  initEtherValue: 5000

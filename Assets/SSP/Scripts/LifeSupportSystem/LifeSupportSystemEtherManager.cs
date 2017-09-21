@@ -5,7 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamageable
+public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable
 {
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
@@ -45,9 +45,11 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamag
         AcquireEther(etherChargeValue);
     }
 
-    public void SetDamage(Damage damage){
+    public void SetDamage(Damage damage)
+    {
         float LSSemithigh = 0.0f;
         float emittingEtherAmount = damage.amount * emittingEtherCoefficient;
+        ReduceEther(emittingEtherAmount);
         var singleEtherValue = damage.amount;
 
         while (emittingEtherAmount > 0)
