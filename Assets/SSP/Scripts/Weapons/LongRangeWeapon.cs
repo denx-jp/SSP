@@ -52,6 +52,6 @@ public class LongRangeWeapon : MonoBehaviour
         //弾の寿命を他で実装したりObjectPoolするなら以下削除
         Destroy(blt, deathTime);
         blt.OnTriggerEnterAsObservable()
-            .Where(x => x.transform.root.gameObject != player).Do(x => Debug.Log(x)).Subscribe(_ => Destroy(blt)).AddTo(blt);
+            .Where(x => x.transform.root.gameObject != player).Subscribe(_ => Destroy(blt)).AddTo(blt);
     }
 }
