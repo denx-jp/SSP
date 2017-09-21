@@ -7,7 +7,6 @@ using UniRx.Triggers;
 
 public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamageable
 {
-    [SerializeField] private float initEther;
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
 
@@ -22,7 +21,6 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable,IDamag
     void Start()
     {
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
-        lifeSupportSystemModel.ether.Value = initEther;
 
         Observable.Interval(TimeSpan.FromMilliseconds(1000))
             .Subscribe(_ =>
