@@ -10,12 +10,19 @@ public class LifeSupportSystemModel : MonoBehaviour
     public ReactiveProperty<float> ether;
     //[SyncVar]
     [SerializeField] private float syncEther;
+    [SerializeField] private float initEtherValue;
 
     private void Start()
     {
         ether = new ReactiveProperty<float>();
-
         ether.Subscribe(v => syncEther = v);
         this.ObserveEveryValueChanged(_ => syncEther).Subscribe(v => ether.Value = v);
+
+        ether.Value = initEtherValue;
+    }
+
+    public int GetTeamId()
+    {
+        return teamId;
     }
 }

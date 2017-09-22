@@ -6,5 +6,4 @@ using UniRx;
 interface IDamageable
 {
     void SetDamage(Damage damage);
-    Subject<bool> GetDeathStream();
 }
