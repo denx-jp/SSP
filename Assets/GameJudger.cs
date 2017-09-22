@@ -6,16 +6,15 @@ using UniRx;
 
 public class GameJudger : MonoBehaviour {
 
-    [SerializeField] private LifeSupportSystemModel aTeamLSSModel;
-    [SerializeField] private LifeSupportSystemModel bTeamLSSModel;
+    [SerializeField] private LifeSupportSystemEtherManager teamALSSManager;
+    [SerializeField] private LifeSupportSystemEtherManager teamBLSSManager;
 
     private Subject<int> judgeStream;
 
 	void Start () {
         judgeStream = new Subject<int>();
-
         Observable
-            .ZipLatest(aTeamLSSModel.ether, bTeamLSSModel.ether)
+            .ZipLatest(teamALSSManager.GetD, bTeamLSSModel.ether)
             .Where(v => v[0] <= 0 || v[1] <= 0)
             .Subscribe(v =>
             {

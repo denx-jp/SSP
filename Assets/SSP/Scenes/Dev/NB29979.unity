@@ -902,6 +902,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aTeamLSSModel: {fileID: 788521397}
   bTeamLSSModel: {fileID: 227002335}
+--- !u!114 &1026920706 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 1700520687}
+  m_Script: {fileID: 11500000, guid: bda299c7b2c232940a204cb7f81b3857, type: 3}
+--- !u!114 &1026920707 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114995220335104442, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 1700520687}
+  m_Script: {fileID: 11500000, guid: fa4bf649923c2b14c8e0feb668160855, type: 3}
 --- !u!1 &1155744410
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1840728894}
+  mainCamera: {fileID: 0}
   offset: {x: 0, y: 2, z: -3}
   cameraRotationSpeed: 100
   pim: {fileID: 1840728898}
@@ -1556,6 +1568,16 @@ Prefab:
       propertyPath: playerManager
       value: 
       objectReference: {fileID: 1840728895}
+    - target: {fileID: 114357844414679404, guid: e1c5eac5c9e8e35439daf58f5b2321ec,
+        type: 2}
+      propertyPath: timeManager
+      value: 
+      objectReference: {fileID: 1026920706}
+    - target: {fileID: 114357844414679404, guid: e1c5eac5c9e8e35439daf58f5b2321ec,
+        type: 2}
+      propertyPath: clientPlayersManager
+      value: 
+      objectReference: {fileID: 1026920707}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1c5eac5c9e8e35439daf58f5b2321ec, type: 2}
   m_IsPrefabParent: 0
@@ -1631,11 +1653,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1840728894 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1925382813}
 --- !u!114 &1840728895 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114150559372493268, guid: 5c31cea7b726eda4c8c089891fd0020b,
