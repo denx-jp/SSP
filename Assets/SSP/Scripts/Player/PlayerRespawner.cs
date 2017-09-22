@@ -9,9 +9,9 @@ public class PlayerRespawner : MonoBehaviour
 {
     private PlayerHealthManager playerHealthManager;
     private PlayerModel playerModel;
+    private GameObject[] respawnPoints;
 
     [SerializeField] private int timeToRespawn;
-    [SerializeField] private GameObject respawnPoint;
 
     private Animator animator;
     private int deathHash = Animator.StringToHash("Death");
@@ -21,6 +21,7 @@ public class PlayerRespawner : MonoBehaviour
         playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         animator = GetComponent<Animator>();
+        respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 
         this.playerHealthManager.GetDeathStream()
             .Throttle(TimeSpan.FromSeconds(timeToRespawn))
@@ -28,6 +29,7 @@ public class PlayerRespawner : MonoBehaviour
             .Subscribe(_ =>
             {
                 playerModel.Init();
+                var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
                 this.transform.position = respawnPoint.transform.position;
                 animator.SetBool(deathHash, false);
             });
