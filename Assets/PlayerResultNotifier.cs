@@ -12,15 +12,18 @@ public class PlayerResultNotifier : MonoBehaviour {
 
         gameJudger
             .GetWinnerStream()
+            .Take(1)
             .Subscribe(winner =>
             {
                 if(winner == playerModel.teamId)
                 {
-                    Debug.Log("勝利");
+                    Debug.Log("Player" + playerModel.playerId +
+                                "(Team" + playerModel.teamId + ")" + " :勝利");
                 }
                 else
                 {
-                    Debug.Log("敗北");
+                    Debug.Log("Player" + playerModel.playerId +
+                                "(Team" + playerModel.teamId + ")" + " :敗北");
                 }
             });
     }
