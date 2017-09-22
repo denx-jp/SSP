@@ -108,6 +108,22 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &22677336 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1228885550}
+--- !u!114 &22677354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 22677336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &43678975 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114429657482734640, guid: 5c31cea7b726eda4c8c089891fd0020b,
@@ -323,6 +339,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &416730159 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1933508429}
+  m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
+--- !u!1 &463777706 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1925382813}
+--- !u!114 &463777723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 463777706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &503265873
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +822,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1253686997}
   m_Script: {fileID: 11500000, guid: fd67c579bbcd46a47b1136a8fe2c10f4, type: 3}
+--- !u!114 &883126315 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1520670730}
+  m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
 --- !u!114 &885048385 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114062487349644722, guid: e1c5eac5c9e8e35439daf58f5b2321ec,
@@ -888,8 +932,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0aa5091f84f9741b3638f8a5d71367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamALSSManager: {fileID: 0}
-  teamBLSSManager: {fileID: 0}
+  team1_LSSManager: {fileID: 416730159}
+  team2_LSSManager: {fileID: 883126315}
+  playerResultNotifiers:
+  - {fileID: 463777723}
+  - {fileID: 1445556706}
+  - {fileID: 22677354}
+  - {fileID: 1490481505}
 --- !u!114 &1026920706 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb,
@@ -1061,7 +1110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_Name
-      value: 2-Player-1
+      value: 2-Player-a
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1162,7 +1211,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_Name
-      value: 1-Player-2
+      value: 1-Player-b
       objectReference: {fileID: 0}
     - target: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
@@ -1264,6 +1313,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1292847046}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1445556688 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1253686997}
+--- !u!114 &1445556706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445556688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1452575479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1418,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+--- !u!1 &1490481487 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 2044598193}
+--- !u!114 &1490481505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490481487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1520670730
 Prefab:
   m_ObjectHideFlags: 0
@@ -1409,6 +1490,11 @@ Prefab:
     - target: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
         type: 2}
       propertyPath: initEther
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114807451863925210, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+        type: 2}
+      propertyPath: initEtherValue
       value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1714,7 +1800,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_Name
-      value: 1-Player-1
+      value: 1-Player-a
       objectReference: {fileID: 0}
     - target: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
@@ -1852,7 +1938,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_Name
-      value: 2-Player-2
+      value: 2-Player-b
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y

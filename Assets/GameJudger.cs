@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UniRx;
 
 public class GameJudger : MonoBehaviour {
 
-    [SerializeField] private LifeSupportSystemEtherManager teamALSSManager;
-    [SerializeField] private LifeSupportSystemEtherManager teamBLSSManager;
+    [SerializeField] private LifeSupportSystemEtherManager team1_LSSManager;
+    [SerializeField] private LifeSupportSystemEtherManager team2_LSSManager;
+    [SerializeField] private List<PlayerResultNotifier> playerResultNotifiers;
 
     private Subject<int> judgeStream;
     private GameObject[] players;
@@ -17,22 +19,16 @@ public class GameJudger : MonoBehaviour {
         players = GameObject.FindGameObjectsWithTag(TagMap.Player);
 
         Observable
-            //.CombineLatest(teamALSSManager, teamBLSSManager)
+            .Merge(team1_LSSManager.GetDeathStream(), team2_LSSManager.GetDeathStream())
+            .Subscribe(v =>
+            {
+                
+                Debug.Log(v);
+            });
 
-        //Observable
-        //    .ZipLatest(teamALSSManager.ether, bTeamLSSModel.ether)
-        //    .Where(v => v[0] <= 0 || v[1] <= 0)
-        //    .Subscribe(v =>
-        //    {
-        //        if (v[0] > v[1]) { judgeStream.OnNext(1); }
-        //        else if (v[0] < v[1]) { judgeStream.OnNext(2); }
-        //        else if (v[0] == 0 && v[1] == 0) { judgeStream.OnNext(3); }
-        //    }).AddTo(this);
-
-        judgeStream.Subscribe(vv => Debug.Log(vv));
-
-	}
-    public Subject<int> GetjudgeStream()
+        players.Select(p => p.GetComponent<PlayerModel>().teamId);
+    }
+    public Subject<int> GetJudgeStream()
     {
         return judgeStream;
     }
