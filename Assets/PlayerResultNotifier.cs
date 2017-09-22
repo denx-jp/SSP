@@ -16,11 +16,11 @@ public class PlayerResultNotifier : MonoBehaviour {
             {
                 if(winner == playerModel.teamId)
                 {
-                    Debug.Log("Win");
+                    Debug.Log("勝利");
                 }
                 else
                 {
-                    Debug.Log("Lose");
+                    Debug.Log("敗北");
                 }
             });
     }
