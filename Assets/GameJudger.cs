@@ -23,6 +23,8 @@ public class GameJudger : MonoBehaviour {
             .Merge(team1_LSSManager.GetDeathStream(), team2_LSSManager.GetDeathStream())
             .Subscribe(v =>
             {
+                // 敗北したチームのidを勝利したチームのidに変換
+                // v = 1 -> 2, v = 2 -> 1
                 winnerStream.OnNext(v * 2 % 3);
             });
     }
