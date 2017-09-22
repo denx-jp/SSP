@@ -8,11 +8,12 @@ public class LongRangeWeapon : MonoBehaviour
 {
     [SerializeField]
     GameObject bullet, muzzle;
+    [SerializeField]
+    BulletManager bManager;
     GameObject player;
     PlayerInputManager pim;
     RaycastHit hit;
     public float coolTime, deathTime, bulletSpeed;
-    public int damage;
 
     void Start()
     {
@@ -30,7 +31,6 @@ public class LongRangeWeapon : MonoBehaviour
         bm.coolTime = coolTime;
         bm.deathTime = deathTime;
         bm.bulletSpeed = bulletSpeed;
-        bm.damage = damage;
     }
 
     void Shot()
@@ -47,11 +47,8 @@ public class LongRangeWeapon : MonoBehaviour
             player.transform.rotation = Camera.main.transform.rotation;
             blt.transform.rotation = Camera.main.transform.rotation;
         }
-        blt.GetComponent<Rigidbody>().AddForce(blt.transform.forward * bulletSpeed);
 
-        //弾の寿命を他で実装したりObjectPoolするなら以下削除
-        Destroy(blt, deathTime);
-        blt.OnTriggerEnterAsObservable()
-            .Where(x => x.transform.root.gameObject != player).Subscribe(_ => Destroy(blt)).AddTo(blt);
+        bManager.SetBulletDeath(blt, player, deathTime);
+        blt.GetComponent<Rigidbody>().AddForce(blt.transform.forward * bulletSpeed);
     }
 }
