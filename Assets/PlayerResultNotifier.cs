@@ -5,7 +5,23 @@ using UniRx;
 
 public class PlayerResultNotifier : MonoBehaviour {
 
+    [SerializeField] private PlayerModel playerModel;
+    [SerializeField] private GameJudger gameJudger;
+
 	void Start () {
-        Debug.Log("hoge");
+
+        gameJudger
+            .GetWinnerStream()
+            .Subscribe(winner =>
+            {
+                if(winner == playerModel.teamId)
+                {
+                    Debug.Log("Win");
+                }
+                else
+                {
+                    Debug.Log("Lose");
+                }
+            });
     }
 }

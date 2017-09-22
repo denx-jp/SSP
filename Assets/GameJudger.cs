@@ -9,27 +9,25 @@ public class GameJudger : MonoBehaviour {
 
     [SerializeField] private LifeSupportSystemEtherManager team1_LSSManager;
     [SerializeField] private LifeSupportSystemEtherManager team2_LSSManager;
-    [SerializeField] private List<PlayerResultNotifier> playerResultNotifiers;
 
-    private Subject<int> judgeStream;
-    private GameObject[] players;
+    private Subject<int> winnerStream;
 
-	void Start () {
-        judgeStream = new Subject<int>();
-        players = GameObject.FindGameObjectsWithTag(TagMap.Player);
+    void Awake()
+    {
+        winnerStream = new Subject<int>();
+    }
 
+	void Start ()
+    {
         Observable
             .Merge(team1_LSSManager.GetDeathStream(), team2_LSSManager.GetDeathStream())
             .Subscribe(v =>
             {
-                
-                Debug.Log(v);
+                winnerStream.OnNext(v * 2 % 3);
             });
-
-        players.Select(p => p.GetComponent<PlayerModel>().teamId);
     }
-    public Subject<int> GetJudgeStream()
+    public Subject<int> GetWinnerStream()
     {
-        return judgeStream;
+        return winnerStream;
     }
 }

@@ -113,6 +113,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
     type: 2}
   m_PrefabInternal: {fileID: 1228885550}
+--- !u!114 &22677346 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1228885550}
+  m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
 --- !u!114 &22677354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 22677346}
+  gameJudger: {fileID: 1026920705}
 --- !u!114 &43678975 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114429657482734640, guid: 5c31cea7b726eda4c8c089891fd0020b,
@@ -350,6 +358,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
     type: 2}
   m_PrefabInternal: {fileID: 1925382813}
+--- !u!114 &463777716 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1925382813}
+  m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
 --- !u!114 &463777723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 463777716}
+  gameJudger: {fileID: 1026920705}
 --- !u!1 &503265873
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,11 +950,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team1_LSSManager: {fileID: 416730159}
   team2_LSSManager: {fileID: 883126315}
-  playerResultNotifiers:
-  - {fileID: 463777723}
-  - {fileID: 1445556706}
-  - {fileID: 22677354}
-  - {fileID: 1490481505}
 --- !u!114 &1026920706 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb,
@@ -1318,6 +1329,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
     type: 2}
   m_PrefabInternal: {fileID: 1253686997}
+--- !u!114 &1445556698 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1253686997}
+  m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
 --- !u!114 &1445556706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1329,6 +1346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 1445556698}
+  gameJudger: {fileID: 1026920705}
 --- !u!1 &1452575479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,6 +1442,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
     type: 2}
   m_PrefabInternal: {fileID: 2044598193}
+--- !u!114 &1490481497 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 2044598193}
+  m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
 --- !u!114 &1490481505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,6 +1459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 1490481497}
+  gameJudger: {fileID: 1026920705}
 --- !u!1001 &1520670730
 Prefab:
   m_ObjectHideFlags: 0
@@ -1858,6 +1885,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b1341edff8f176f4ea042abf92fe0657, type: 2}
+    - target: {fileID: 114807451863925210, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+        type: 2}
+      propertyPath: initEtherValue
+      value: 5000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
   m_IsPrefabParent: 0
