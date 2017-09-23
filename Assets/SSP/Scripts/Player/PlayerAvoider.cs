@@ -57,7 +57,11 @@ public class PlayerAvoider : NetworkBehaviour
         yield return new WaitForSeconds(avoidStartTime);
         SetLayer(LayerMap.Invincible);
         yield return new WaitForSeconds(avoidDuration);
+#if ONLINE
         SetLayer(playerModel.defaultLayer);
+#else
+        SetLayer(LayerMap.LocalPlayer);
+#endif
     }
 
     private void SetLayer(int layer)

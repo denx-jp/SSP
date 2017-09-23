@@ -12,6 +12,8 @@ public class PlayerManager : NetworkBehaviour
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
 
+    [SerializeField] private bool isPlayer = false;     //デバッグ用フラグ。OFFLINE環境のときtrueの場合のみLocalPlayerに指定される。
+
     private void Start()
     {
         Cursor.visible = false;
@@ -24,6 +26,9 @@ public class PlayerManager : NetworkBehaviour
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
         }
+#else
+        if (isPlayer)
+            this.gameObject.layer = LayerMap.LocalPlayer;
 #endif
     }
 
