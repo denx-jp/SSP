@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -7,9 +7,13 @@ using System.Linq;
 
 public class BulletManager : MonoBehaviour
 {
-    public void SetBulletDeath(GameObject g, GameObject parent,float death)
+    void Start()
     {
-        Destroy(g, death);
-        g.OnTriggerEnterAsObservable().Where(x => x.transform.root.gameObject != parent && !x.isTrigger).Subscribe(_ => Destroy(g)).AddTo(g);
+        Observable.Timer(TimeSpan.FromSeconds(model.deathTime))
+            .Subscribe(_ => Destroy(this.gameObject))
+            .AddTo(this.gameObject);
+    }
+
+    {
     }
 }
