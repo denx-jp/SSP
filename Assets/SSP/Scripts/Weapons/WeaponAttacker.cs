@@ -40,13 +40,11 @@ public class WeaponAttacker : MonoBehaviour
         if (!detectable) return;
         if (col.gameObject.layer == LayerMap.Invincible) return;
         if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        if (col.tag == TagMap.LifeSupportSystem &&
-            col.GetComponent<LifeSupportSystemModel>().GetTeamId() == parentPlayerTeamId) return;
 
         var hm = col.gameObject.GetComponent<IDamageable>();
         if (hm != null)
         {
-            var damage = new Damage(damageAmount, parentPlayerId);
+            var damage = new Damage(damageAmount, parentPlayerId, parentPlayerTeamId);
             CmdSetDamage(hm, damage);
         }
     }

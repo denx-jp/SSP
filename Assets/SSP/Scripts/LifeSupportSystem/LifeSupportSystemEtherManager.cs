@@ -52,6 +52,8 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
 
     public void SetDamage(Damage damage)
     {
+        if (damage.teamId == lifeSupportSystemModel.GetTeamId()) return;
+
         float LSSemithigh = 0.0f;
         float emittingEtherAmount = damage.amount * emittingEtherCoefficient;
         ReduceEther(emittingEtherAmount);
