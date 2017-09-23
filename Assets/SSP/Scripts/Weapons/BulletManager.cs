@@ -13,6 +13,7 @@ public class BulletManager : MonoBehaviour
     {
         this.OnTriggerEnterAsObservable()
             .Where(col => col.gameObject.layer != LayerMap.LocalPlayer)
+            .Where(col => !col.isTrigger)
             .Subscribe(col =>
             {
                 var damageable = col.gameObject.GetComponent<IDamageable>();
