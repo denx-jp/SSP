@@ -4,51 +4,52 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class LongRangeWeapon : MonoBehaviour
+public class LongRangeWeapon : MonoBehaviour, IAttackable
 {
-    [SerializeField]
-    GameObject bullet, muzzle;
-    [SerializeField]
-    BulletManager bManager;
-    GameObject player;
-    PlayerInputManager pim;
-    RaycastHit hit;
-    public float coolTime, deathTime, bulletSpeed;
+    [SerializeField] private float coolTime, bulletSpeed;
+    [SerializeField] GameObject bulletPrefab, muzzle;
+    [SerializeField] private float bulletDamageAmount, bulletDeathTime;
+    private BulletModel bulletModel;
+    private RaycastHit hit;
+    private bool canAttack = true;
+    private int playerId;
 
     void Start()
     {
-        SetBulletStatus(bullet.GetComponent<BulletModel>());
-        player = transform.root.gameObject;
-        pim = player.GetComponent<PlayerInputManager>();
-
-        float time = 0;
-        this.UpdateAsObservable().Subscribe(_ => time += Time.deltaTime);
-        pim.NormalAttackButtonDown.Where(x => x && time >= coolTime).Subscribe(_ => { time = 0; Shot(); });
+        playerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
     }
 
-    void SetBulletStatus(BulletModel bm)
+    public void NormalAttack(Animator animator)
     {
-        bm.coolTime = coolTime;
-        bm.deathTime = deathTime;
-        bm.bulletSpeed = bulletSpeed;
-    }
-
-    void Shot()
-    {
-        var blt = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation);
-        //レイが衝突すればその点へ飛ばし、衝突しなければそれっぽいところへ飛ばす。
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit) && hit.transform.gameObject != player)
+        if (canAttack)
         {
-            player.transform.rotation = Camera.main.transform.rotation;
-            blt.transform.LookAt(hit.point);
+            Shoot();
+            canAttack = false;
+            StartCoroutine(WaitCoolTime());
+        }
+    }
+
+    private void Shoot()
+    {
+        //player.transform.rotation = Camera.main.transform.rotation;
+        var bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
+        //レイが衝突すればその点へ飛ばし、衝突しなければそれっぽいところへ飛ばす。
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+        {
+            bullet.transform.LookAt(hit.point);
         }
         else
         {
-            player.transform.rotation = Camera.main.transform.rotation;
-            blt.transform.rotation = Camera.main.transform.rotation;
+            bullet.transform.rotation = Camera.main.transform.rotation;
         }
 
-        bManager.SetBulletDeath(blt, player, deathTime);
-        blt.GetComponent<Rigidbody>().AddForce(blt.transform.forward * bulletSpeed);
+        bullet.GetComponent<BulletModel>().SetProperties(playerId, bulletDamageAmount, bulletDeathTime);
+        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
+    }
+
+    private IEnumerator WaitCoolTime()
+    {
+        yield return new WaitForSeconds(coolTime);
+        canAttack = true;
     }
 }
