@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class BulletModel : MonoBehaviour
 {
-    [HideInInspector]
-    public float coolTime, deathTime, bulletSpeed;
+    public int shootPlayerId;
+    public float damageAmount, deathTime;
+
+    public void SetProperties(int pId, float dAmount, float dTime)
+    {
+        shootPlayerId = pId;
+        damageAmount = dAmount;
+        deathTime = dTime;
+    }
 }
