@@ -10,9 +10,10 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
     [SerializeField] GameObject bulletPrefab, muzzle;
     [SerializeField] private float bulletDamageAmount, bulletDeathTime;
     private BulletModel bulletModel;
-    private RaycastHit hit;
     private bool canAttack = true;
     private int playerId;
+    private RaycastHit hit;
+    private int layerMask = ~(1 << LayerMap.LocalPlayer);
 
     void Start()
     {
@@ -34,7 +35,7 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
         //player.transform.rotation = Camera.main.transform.rotation;
         var bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
         //レイが衝突すればその点へ飛ばし、衝突しなければそれっぽいところへ飛ばす。
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, layerMask))
         {
             bullet.transform.LookAt(hit.point);
         }

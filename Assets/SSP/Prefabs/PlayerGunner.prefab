@@ -4690,14 +4690,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1496705599032124}
-  m_LocalRotation: {x: -0.10604028, y: -0.697103, z: -0.11625049, w: 0.69949174}
+  m_LocalRotation: {x: -0.10746831, y: -0.7056913, z: -0.11493157, w: 0.6908264}
   m_LocalPosition: {x: -0.122454844, y: -0.00014976753, z: -0.041993644}
   m_LocalScale: {x: 1.0000011, y: 1.000001, z: 1.0000006}
   m_Children:
   - {fileID: 4811595098516408}
   m_Father: {fileID: 4944766789976146}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -18.101002, y: -91.151, z: -0.42900002}
 --- !u!4 &4800546135641412
 Transform:
   m_ObjectHideFlags: 1
@@ -5382,6 +5382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 1912753254166720}
 --- !u!114 &114032940944018786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5409,7 +5410,7 @@ MonoBehaviour:
   playerEtherManager: {fileID: 114752595263367862}
   playerInputManager: {fileID: 114162074263147032}
   playerKillLogNotifier: {fileID: 114805581167219738}
-  playerCameraController: {fileID: 0}
+  playerCameraController: {fileID: 114333343639749600}
 --- !u!114 &114162074263147032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5445,7 +5446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   offset: {x: 0, y: 2, z: -3}
   cameraRotationSpeed: 100
   pim: {fileID: 114162074263147032}
@@ -5472,7 +5472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
   dashSpeed: 10
 --- !u!114 &114371410834150646
 MonoBehaviour:
@@ -5501,6 +5500,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfaf207992cbd94ba0d1fc7b912847e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coolTime: 1
+  bulletSpeed: 1000
+  bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
+    type: 2}
+  muzzle: {fileID: 1136077663573116}
+  bulletDamageAmount: 50
+  bulletDeathTime: 5
 --- !u!114 &114752595263367862
 MonoBehaviour:
   m_ObjectHideFlags: 1

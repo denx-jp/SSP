@@ -11,7 +11,8 @@ public class BulletManager : MonoBehaviour
 
     void Start()
     {
-        this.OnCollisionEnterAsObservable()
+        this.OnTriggerEnterAsObservable()
+            .Where(col => col.gameObject.layer != LayerMap.LocalPlayer)
             .Subscribe(col =>
             {
                 var damageable = col.gameObject.GetComponent<IDamageable>();

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 23212103230888740}
   - component: {fileID: 114615027804808878}
   - component: {fileID: 114257997227306570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc5eb3b4251c4c499af0ea343ac8d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 114615027804808878}
 --- !u!114 &114615027804808878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,9 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36b01fb16fb2ca44a501910a73f3e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolTime: 0
+  shootPlayerId: 0
+  damageAmount: 0
   deathTime: 0
-  bulletSpeed: 0
 --- !u!135 &135769969068720922
 SphereCollider:
   m_ObjectHideFlags: 1
