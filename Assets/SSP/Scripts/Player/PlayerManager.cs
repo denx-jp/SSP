@@ -14,11 +14,14 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 #if ONLINE
         if (isLocalPlayer)
         {
             playerInputManager.enabled = true;
             playerCameraController.enabled = true;
+            this.gameObject.layer = LayerMap.LocalPlayer;
         }
 #endif
     }
