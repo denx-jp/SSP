@@ -12,6 +12,7 @@ public static class LayerMap
 	public const int Invincible = 9;
 	public const int Stage = 10;
 	public const int EtherObject = 11;
+	public const int LocalPlayer = 12;
 	public const int DefaultMask = 1;
 	public const int TransparentFXMask = 2;
 	public const int IgnoreRaycastMask = 4;
@@ -21,4 +22,5 @@ public static class LayerMap
 	public const int InvincibleMask = 512;
 	public const int StageMask = 1024;
 	public const int EtherObjectMask = 2048;
+	public const int LocalPlayerMask = 4096;
 }

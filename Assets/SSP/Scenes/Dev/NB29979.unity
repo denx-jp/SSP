@@ -353,30 +353,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1933508429}
   m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
---- !u!1 &463777706 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1925382813}
---- !u!114 &463777716 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1925382813}
-  m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
---- !u!114 &463777723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 463777706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerModel: {fileID: 463777716}
-  gameJudger: {fileID: 1026920705}
 --- !u!1 &503265873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,19 +1061,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.09374654
+      value: -0.093746535
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.6978552
+      value: 0.6978551
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.70746905
+      value: 0.707469
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.060806707
+      value: 0.060806695
       objectReference: {fileID: 0}
     - target: {fileID: 114535683085739712, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
@@ -1142,6 +1118,11 @@ Prefab:
       propertyPath: teamId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114978877591393632, guid: 5c31cea7b726eda4c8c089891fd0020b,
+        type: 2}
+      propertyPath: gameJudger
+      value: 
+      objectReference: {fileID: 1026920705}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_IsPrefabParent: 0
@@ -1198,7 +1179,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.060806703
+      value: 0.0608067
       objectReference: {fileID: 0}
     - target: {fileID: 114535683085739712, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
@@ -1239,6 +1220,11 @@ Prefab:
       propertyPath: teamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114978877591393632, guid: 5c31cea7b726eda4c8c089891fd0020b,
+        type: 2}
+      propertyPath: gameJudger
+      value: 
+      objectReference: {fileID: 1026920705}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_IsPrefabParent: 0
@@ -1807,37 +1793,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.06080671
-      objectReference: {fileID: 0}
-    - target: {fileID: 114535683085739712, guid: 5c31cea7b726eda4c8c089891fd0020b,
-        type: 2}
-      propertyPath: cameraTransform
-      value: 
-      objectReference: {fileID: 1452575484}
-    - target: {fileID: 114429657482734640, guid: 5c31cea7b726eda4c8c089891fd0020b,
-        type: 2}
-      propertyPath: initialHealth
-      value: 471.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 54250482473488204, guid: 5c31cea7b726eda4c8c089891fd0020b,
-        type: 2}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114933074162169704, guid: 5c31cea7b726eda4c8c089891fd0020b,
-        type: 2}
-      propertyPath: interactableRadius
-      value: 2
+      value: 0.060806703
       objectReference: {fileID: 0}
     - target: {fileID: 1589936694255432, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_Name
       value: 1-Player-a
       objectReference: {fileID: 0}
-    - target: {fileID: 114026327807217840, guid: 5c31cea7b726eda4c8c089891fd0020b,
+    - target: {fileID: 114978877591393632, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
-      propertyPath: teamId
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: gameJudger
+      value: 
+      objectReference: {fileID: 1026920705}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_IsPrefabParent: 0
@@ -1942,15 +1908,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.093746535
+      value: -0.09374654
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.6978551
+      value: 0.6978552
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.707469
+      value: 0.70746905
       objectReference: {fileID: 0}
     - target: {fileID: 4171544533834628, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.w
@@ -1999,6 +1965,11 @@ Prefab:
       propertyPath: teamId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114978877591393632, guid: 5c31cea7b726eda4c8c089891fd0020b,
+        type: 2}
+      propertyPath: gameJudger
+      value: 
+      objectReference: {fileID: 1026920705}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_IsPrefabParent: 0

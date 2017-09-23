@@ -18,6 +18,7 @@ public class PlayerModel : MonoBehaviour, IHealth, IEther
 
     [SerializeField] private float initialHealth;
     [SerializeField] private float initialEther;
+    [HideInInspector] public int defaultLayer = LayerMap.Default;   //ネットワーク実装時にはローカルプレイヤーのみLayerMap.LocalPlayerになる。
 
     private void Start()
     {
