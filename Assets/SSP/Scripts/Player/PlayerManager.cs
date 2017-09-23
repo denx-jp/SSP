@@ -21,6 +21,7 @@ public class PlayerManager : NetworkBehaviour
         {
             playerInputManager.enabled = true;
             playerCameraController.enabled = true;
+            playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
         }
 #endif

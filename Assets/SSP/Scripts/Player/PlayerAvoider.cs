@@ -12,6 +12,7 @@ public class PlayerAvoider : NetworkBehaviour
     private Animator animator;
     private AnimatorStateInfo state;
     private PlayerInputManager pim;
+    private PlayerModel playerModel;
 
     [SerializeField] private float avoidStartTime = 0.1f;
     [SerializeField] private float avoidDuration = 0.3f;
@@ -20,6 +21,7 @@ public class PlayerAvoider : NetworkBehaviour
     {
         animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
+        playerModel = GetComponent<PlayerModel>();
 
         this.UpdateAsObservable()
             .Subscribe(_ => state = animator.GetCurrentAnimatorStateInfo(0));
@@ -55,7 +57,7 @@ public class PlayerAvoider : NetworkBehaviour
         yield return new WaitForSeconds(avoidStartTime);
         SetLayer(LayerMap.Invincible);
         yield return new WaitForSeconds(avoidDuration);
-        SetLayer(LayerMap.Default);
+        SetLayer(playerModel.defaultLayer);
     }
 
     private void SetLayer(int layer)
