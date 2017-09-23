@@ -13,10 +13,13 @@ public class WeaponAttacker : MonoBehaviour
     bool isAttackStarted;
     bool detectable;
     int parentPlayerId;
+    int parentPlayerTeamId;
 
     void Start()
     {
         parentPlayerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+        parentPlayerTeamId = this.transform.GetComponentInParent<PlayerModel>().teamId;
+
         this.Init();
     }
 
@@ -37,7 +40,9 @@ public class WeaponAttacker : MonoBehaviour
         if (!detectable) return;
         if (col.gameObject.layer == LayerMap.Invincible) return;
         if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        var hm = col.gameObject.GetComponent<IDamageable>();
+        if (col.tag == TagMap.LifeSupportSystem &&
+            col.GetComponent<LifeSupportSystemModel>().GetTeamId() == parentPlayerTeamId) return;
+            var hm = col.gameObject.GetComponent<IDamageable>();
         if (hm != null)
         {
             var damage = new Damage(damageAmount, parentPlayerId);

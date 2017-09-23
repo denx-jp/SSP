@@ -1478,7 +1478,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1522,7 +1522,11 @@ Prefab:
     - target: {fileID: 114807451863925210, guid: 295ddc4393ef1c94184aca8945ca7fb0,
         type: 2}
       propertyPath: initEtherValue
-      value: 100
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694645179068416, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
+      propertyPath: m_TagString
+      value: LifeSupportSystem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
@@ -1854,7 +1858,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1889,6 +1893,10 @@ Prefab:
         type: 2}
       propertyPath: initEtherValue
       value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694645179068416, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
+      propertyPath: m_TagString
+      value: LifeSupportSystem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
