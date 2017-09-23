@@ -7,7 +7,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 public class PlayerLocomotor : MonoBehaviour
 {
     private ThirdPersonCharacter thirdPersonCharacter;
-    [SerializeField] private Transform cameraTransform;
+    private Transform cameraTransform;
     private Vector3 cameraForward;
     private Vector3 m_Move;
     [SerializeField] private float dashSpeed = 2f;
