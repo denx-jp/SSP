@@ -5,7 +5,7 @@ using UniRx.Triggers;
 using UniRx;
 using System.Linq;
 
-public class WeaponAttacker : MonoBehaviour
+public class WeaponAttacker : MonoBehaviour, IAttackable
 {
     [SerializeField] public float damageAmount;//攻撃のダメージ量
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
