@@ -14,6 +14,8 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 #if ONLINE
         if (isLocalPlayer)
         {
