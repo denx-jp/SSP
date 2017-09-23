@@ -5,7 +5,6 @@ using UniRx;
 
 public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
 {
-    [SerializeField] private float initialEther;
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
 
@@ -16,7 +15,6 @@ public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
     {
         palyerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
-        palyerModel.Ether.Value = initialEther;
 
         playerHealthManager.GetDeathStream()
              .Where(v => v)
