@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -12,10 +12,12 @@ public class ShortRangeWeapon : MonoBehaviour, IAttackable
     bool isAttackStarted;
     bool detectable;
     int parentPlayerId;
+    int parentPlayerTeamId;
 
     void Start()
     {
         parentPlayerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+        parentPlayerTeamId = this.transform.GetComponentInParent<PlayerModel>().teamId;
         this.Init();
     }
 
@@ -39,7 +41,7 @@ public class ShortRangeWeapon : MonoBehaviour, IAttackable
         var damageable = col.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            var damage = new Damage(damageAmount, parentPlayerId);
+            var damage = new Damage(damageAmount, parentPlayerId, parentPlayerTeamId);
             CmdSetDamage(damageable, damage);
         }
     }

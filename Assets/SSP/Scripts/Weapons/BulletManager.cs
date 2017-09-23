@@ -19,7 +19,7 @@ public class BulletManager : MonoBehaviour
                 var damageable = col.gameObject.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    var damage = new Damage(model.damageAmount, model.shootPlayerId);
+                    var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
                     CmdSetDamage(damageable, damage);
                 }
                 Destroy(this.gameObject);

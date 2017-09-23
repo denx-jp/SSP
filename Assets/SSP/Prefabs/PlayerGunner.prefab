@@ -5486,6 +5486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 1
+  teamId: 1
   syncHealth: 0
   syncEther: 0
   initialHealth: 500

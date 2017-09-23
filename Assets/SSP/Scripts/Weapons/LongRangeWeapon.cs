@@ -11,13 +11,15 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
     [SerializeField] private float bulletDamageAmount, bulletDeathTime;
     private BulletModel bulletModel;
     private bool canAttack = true;
-    private int playerId;
+    private int playerId, teamId;
     private RaycastHit hit;
     private int layerMask = 1 << LayerMap.LocalPlayer;
 
     void Start()
     {
-        playerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+        var playerModel = this.transform.GetComponentInParent<PlayerModel>();
+        playerId = playerModel.playerId;
+        teamId = playerModel.teamId;
     }
 
     public void NormalAttack(Animator animator)
@@ -43,7 +45,7 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
             bullet.transform.rotation = Camera.main.transform.rotation;
         }
 
-        bullet.GetComponent<BulletModel>().SetProperties(playerId, bulletDamageAmount, bulletDeathTime);
+        bullet.GetComponent<BulletModel>().SetProperties(playerId, teamId, bulletDamageAmount, bulletDeathTime);
         bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
     }
 

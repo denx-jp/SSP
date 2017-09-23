@@ -7,6 +7,8 @@ using UniRx.Triggers;
 public class PlayerModel : MonoBehaviour, IHealth, IEther
 {
     [SerializeField] public int playerId;
+    [SerializeField] public int teamId;
+
     //[SyncVar] ネットワーク実装の時、SerializeFieldからSyncVarに変更
     [SerializeField] private float syncHealth;
     //[SyncVar]
