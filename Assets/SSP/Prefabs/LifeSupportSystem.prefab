@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4101772797786898}
   - component: {fileID: 33484413888142344}
   - component: {fileID: 65316425672280066}
+  - component: {fileID: 65696800937059068}
   - component: {fileID: 23470241175268644}
   - component: {fileID: 114807451863925210}
   - component: {fileID: 114020376827804088}
-  - component: {fileID: 65696800937059068}
   m_Layer: 0
   m_Name: LifeSupportSystem
   m_TagString: Untagged
@@ -38,9 +38,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1694645179068416}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 0.82, z: 3.27}
-  m_LocalScale: {x: 1, y: 1.6389459, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

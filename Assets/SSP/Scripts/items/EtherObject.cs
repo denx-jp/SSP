@@ -8,8 +8,6 @@ using System.Linq;
 public class EtherObject : MonoBehaviour
 {
     public float etherValue;
-    [SerializeField] private float originEtherSize;
-    [SerializeField] private float triggerSize = 0.5f;
     [SerializeField] private float floatHeight;
     [SerializeField] private float trackingSpeed;
 
@@ -71,12 +69,6 @@ public class EtherObject : MonoBehaviour
     public void Init(float value)
     {
         etherValue = value;
-        //transform.localScale = Vector3.one * originEtherSize * value;
-        //if (transform.localScale.x < 1)
-        //{
-        //    var trigger = GetComponents<SphereCollider>().Where(v => v.isTrigger).First();
-        //    trigger.radius = triggerSize / transform.localScale.x;
-        //}
     }
 
 }
