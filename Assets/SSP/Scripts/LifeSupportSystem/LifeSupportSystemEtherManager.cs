@@ -28,6 +28,7 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
             .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.GetTeamId()));
 
         Observable.Interval(TimeSpan.FromMilliseconds(1000))
+            .Where(_ => lifeSupportSystemModel.ether.Value > 0)
             .Subscribe(_ =>
             {
                 ReduceEther(etherReductionRate);

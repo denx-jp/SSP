@@ -10,9 +10,7 @@ public class GameJudger : MonoBehaviour
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private LifeSupportSystemEtherManager team1_LSSManager;
     [SerializeField] private LifeSupportSystemEtherManager team2_LSSManager;
-
-    private int localPlayerTeamId;
-
+    
     private Subject<int> winnerStream = new Subject<int>();
     private Subject<int> loserStream = new Subject<int>();
 
@@ -27,19 +25,19 @@ public class GameJudger : MonoBehaviour
                 int winnerTeamId = v * 2 % 3;
 
                 PlayerManager localPlayerManager = clientPlayersManager.playerManagers.Find(p => p.gameObject.layer == LayerMap.LocalPlayer);
-                int localPlayerId = localPlayerManager.playerModel.teamId;
-
+                int localPlayerTeamId = localPlayerManager.playerModel.teamId;
+                
                 if (winnerTeamId == localPlayerTeamId)
                 {
                     Debug.Log("Player" + localPlayerManager.playerModel.playerId +
                                 "(Team" + localPlayerManager.playerModel.teamId + ")" + " :勝利");
-                    winnerStream.OnNext(localPlayerId);
+                    winnerStream.OnNext(localPlayerTeamId);
                 }
                 else
                 {
                     Debug.Log("Player" + localPlayerManager.playerModel.playerId +
                                 "(Team" + localPlayerManager.playerModel.teamId + ")" + " :敗北");
-                    loserStream.OnNext(localPlayerId);
+                    loserStream.OnNext(localPlayerTeamId);
                 }
             });
     }
