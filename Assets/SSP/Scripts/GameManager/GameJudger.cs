@@ -24,7 +24,7 @@ public class GameJudger : MonoBehaviour
                 // v = 1 -> 2, v = 2 -> 1
                 int winnerTeamId = v * 2 % 3;
 
-                PlayerManager localPlayerManager = clientPlayersManager.playerManagers.Find(p => p.gameObject.layer == LayerMap.LocalPlayer);
+                PlayerManager localPlayerManager = clientPlayersManager.playerManagers.Find(p => p.playerModel.isLocalPlayerCharacter);
                 int localPlayerTeamId = localPlayerManager.playerModel.teamId;
                 
                 if (winnerTeamId == localPlayerTeamId)

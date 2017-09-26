@@ -12,7 +12,7 @@ public class PlayerManager : NetworkBehaviour
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
 
-    [SerializeField] private bool isLocalPlayerCharacter = false;     //デバッグ用フラグ。OFFLINE環境のときtrueの場合のみLocalPlayerに指定される。
+    [SerializeField] private bool devIsLocalPlayerCharacter = false;     //デバッグ用フラグ。OFFLINE環境のときtrueの場合のみLocalPlayerに指定される。
 
     private void Start()
     {
@@ -27,8 +27,11 @@ public class PlayerManager : NetworkBehaviour
             this.gameObject.layer = LayerMap.LocalPlayer;
         }
 #else
-        if (isLocalPlayerCharacter)
+        if (devIsLocalPlayerCharacter)
+        {
             this.gameObject.layer = LayerMap.LocalPlayer;
+            playerModel.isLocalPlayerCharacter = true;
+        }
 #endif
     }
 
