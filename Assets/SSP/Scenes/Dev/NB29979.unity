@@ -860,12 +860,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1022447982}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1026920705 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114003632106554618, guid: b9dd61cb96198364e9473abce3fad2eb,
-    type: 2}
-  m_PrefabInternal: {fileID: 1700520687}
-  m_Script: {fileID: 11500000, guid: da0aa5091f84f9741b3638f8a5d71367, type: 3}
 --- !u!114 &1026920706 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb,
@@ -969,7 +963,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.94
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -977,7 +971,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.5
+      value: 4.01
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1062,7 +1056,7 @@ Prefab:
         type: 2}
       propertyPath: gameJudger
       value: 
-      objectReference: {fileID: 1026920705}
+      objectReference: {fileID: 0}
     - target: {fileID: 114150559372493268, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
       propertyPath: isPlayer
@@ -1170,7 +1164,7 @@ Prefab:
         type: 2}
       propertyPath: gameJudger
       value: 
-      objectReference: {fileID: 1026920705}
+      objectReference: {fileID: 0}
     - target: {fileID: 114150559372493268, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
       propertyPath: isPlayer
@@ -1412,7 +1406,7 @@ Prefab:
     - target: {fileID: 114807451863925210, guid: 295ddc4393ef1c94184aca8945ca7fb0,
         type: 2}
       propertyPath: initEtherValue
-      value: 5000
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1694645179068416, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_TagString
@@ -1599,18 +1593,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114003632106554618, guid: b9dd61cb96198364e9473abce3fad2eb,
+    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: team1_LSSManager
       value: 
       objectReference: {fileID: 416730159}
-    - target: {fileID: 114003632106554618, guid: b9dd61cb96198364e9473abce3fad2eb,
+    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: team2_LSSManager
       value: 
       objectReference: {fileID: 883126315}
-    m_RemovedComponents:
-    - {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &1840728895 stripped
@@ -1682,7 +1675,12 @@ Prefab:
         type: 2}
       propertyPath: gameJudger
       value: 
-      objectReference: {fileID: 1026920705}
+      objectReference: {fileID: 0}
+    - target: {fileID: 114150559372493268, guid: 5c31cea7b726eda4c8c089891fd0020b,
+        type: 2}
+      propertyPath: devIsLocalPlayerCharacter
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114978877591393632, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
@@ -1738,7 +1736,7 @@ Prefab:
     - target: {fileID: 114807451863925210, guid: 295ddc4393ef1c94184aca8945ca7fb0,
         type: 2}
       propertyPath: initEtherValue
-      value: 10
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1694645179068416, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_TagString
@@ -1756,7 +1754,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.5
+      value: -3.44
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1764,7 +1762,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.5
+      value: 4.01
       objectReference: {fileID: 0}
     - target: {fileID: 4038810678713458, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1849,7 +1847,7 @@ Prefab:
         type: 2}
       propertyPath: gameJudger
       value: 
-      objectReference: {fileID: 1026920705}
+      objectReference: {fileID: 0}
     - target: {fileID: 114150559372493268, guid: 5c31cea7b726eda4c8c089891fd0020b,
         type: 2}
       propertyPath: isPlayer

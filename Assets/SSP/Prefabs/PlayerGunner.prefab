@@ -5411,7 +5411,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114162074263147032}
   playerKillLogNotifier: {fileID: 114805581167219738}
   playerCameraController: {fileID: 114333343639749600}
-  isPlayer: 1
+  devIsLocalPlayerCharacter: 1
 --- !u!114 &114162074263147032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5487,10 +5487,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 1
   teamId: 0
-  syncHealth: 0
-  syncEther: 0
+  devHealth: 0
+  devEther: 0
   initialHealth: 500
   initialEther: 500
+  isLocalPlayerCharacter: 0
   defaultLayer: 12
 --- !u!114 &114667334154287398
 MonoBehaviour:

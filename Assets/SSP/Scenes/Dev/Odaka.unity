@@ -5402,7 +5402,7 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 114978877591393632, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 5c31cea7b726eda4c8c089891fd0020b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &765270144
@@ -9738,10 +9738,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 2
   teamId: 0
-  syncHealth: 0
-  syncEther: 0
+  devHealth: 0
+  devEther: 0
   initialHealth: 10
   initialEther: 500
+  isLocalPlayerCharacter: 0
   defaultLayer: 12
 --- !u!114 &1344774558
 MonoBehaviour:
@@ -9760,7 +9761,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 1344774551}
   playerKillLogNotifier: {fileID: 1344774565}
   playerCameraController: {fileID: 0}
-  isPlayer: 0
+  devIsLocalPlayerCharacter: 0
 --- !u!114 &1344774559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13806,10 +13807,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   teamId: 0
-  syncHealth: 0
-  syncEther: 0
+  devHealth: 0
+  devEther: 0
   initialHealth: 10
   initialEther: 500
+  isLocalPlayerCharacter: 0
   defaultLayer: 12
 --- !u!114 &1944809072
 MonoBehaviour:
@@ -13828,7 +13830,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 1944809065}
   playerKillLogNotifier: {fileID: 1944809079}
   playerCameraController: {fileID: 0}
-  isPlayer: 0
+  devIsLocalPlayerCharacter: 0
 --- !u!114 &1944809073
 MonoBehaviour:
   m_ObjectHideFlags: 0
