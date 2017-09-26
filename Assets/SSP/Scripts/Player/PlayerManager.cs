@@ -21,6 +21,8 @@ public class PlayerManager : NetworkBehaviour
 #if ONLINE
         if (isLocalPlayer)
         {
+            playerModel.isLocalPlayerCharacter = true;
+            
             playerInputManager.enabled = true;
             playerCameraController.enabled = true;
             playerModel.defaultLayer = LayerMap.LocalPlayer;
