@@ -5293,8 +5293,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponManager: {fileID: 114774626945295122}
   rightHand: {fileID: 1884299098980524}
   leftHand: {fileID: 1709956756110754}
+  longRangeWeapon: {fileID: 0}
+  shortRangeWeapon: {fileID: 0}
+  gimmicks: []
   StockableGimmickCount: 2
 --- !u!114 &114673532029538312
 MonoBehaviour:
@@ -5346,7 +5350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
 --- !u!114 &114930877541856706
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     public enum InventoryType { LongRangeWeapon, ShortRangeWeapon, Gimmick }
 
+    [SerializeField] private PlayerWeaponManager weaponManager;
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject leftHand;
 
@@ -16,24 +17,53 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetLongRangeWeapon(GameObject go)
     {
-        Debug.Log("long");
         longRangeWeapon = go;
-        longRangeWeapon.transform.parent = rightHand.transform;
-        longRangeWeapon.transform.localPosition = Vector3.zero;
+        SetObjectTransform(longRangeWeapon);
+        SetWeaponToManager(go);
     }
 
     public void SetShortRangeWeapon(GameObject go)
     {
-        Debug.Log("short");
         shortRangeWeapon = go;
-        shortRangeWeapon.transform.parent = rightHand.transform;
-        shortRangeWeapon.transform.localPosition = Vector3.zero;
+        SetObjectTransform(shortRangeWeapon);
+        SetWeaponToManager(go);
     }
 
     public void AddGimmick(GameObject go)
     {
-        if (gimmicks.Count < StockableGimmickCount)
-            gimmicks.Add(go);
+        if (gimmicks.Count >= StockableGimmickCount)
+        {
+            var removeGimmick = gimmicks[0];
+            ReleaseObject(removeGimmick);
+            gimmicks.RemoveAt(0);
+        }
+        gimmicks.Add(go);
+        SetObjectTransform(go);
+        SetWeaponToManager(go);
     }
 
+    private void SetObjectTransform(GameObject go)
+    {
+        go.transform.parent = rightHand.transform;
+        go.transform.localPosition = Vector3.zero;
+    }
+
+    private void SetWeaponToManager(GameObject go)
+    {
+        var attacker = go.GetComponent<IAttackable>();
+        if (attacker != null)
+        {
+            if (!weaponManager.ExistAttacker())
+                weaponManager.SetAttacker(attacker);
+            else
+                go.SetActive(false);
+        }
+    }
+
+    private void ReleaseObject(GameObject go)
+    {
+        go.SetActive(true);
+        go.transform.parent = null;
+        go.GetComponent<InventoriableObject>().SetCanInteract(true);
+    }
 }

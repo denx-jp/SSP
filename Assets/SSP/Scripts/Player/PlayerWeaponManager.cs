@@ -16,7 +16,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
         pim.NormalAttackButtonDown
             .Where(input => input)
-            .Where(_ => weapon != null)
+            .Where(_ => ExistAttacker())
             .Subscribe(_ =>
             {
                 weapon.NormalAttack(animator);
@@ -26,5 +26,10 @@ public class PlayerWeaponManager : MonoBehaviour
     public void SetAttacker(IAttackable atk)
     {
         weapon = atk;
+    }
+
+    public bool  ExistAttacker()
+    {
+        return weapon != null;
     }
 }

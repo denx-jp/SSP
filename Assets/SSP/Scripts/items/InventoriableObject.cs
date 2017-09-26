@@ -28,4 +28,9 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     {
         return canInteract;
     }
+
+    public void SetCanInteract(bool _canInteract)
+    {
+        canInteract = _canInteract;
+    }
 }
