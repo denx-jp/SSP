@@ -1690,7 +1690,7 @@ GameObject:
   - component: {fileID: 114682947928770304}
   - component: {fileID: 114043632102673516}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerBatter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5306,6 +5306,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114858071444870302}
   playerKillLogNotifier: {fileID: 114682947928770304}
   playerCameraController: {fileID: 114043632102673516}
+  palyerInventory: {fileID: 0}
   devIsLocalPlayerCharacter: 0
 --- !u!114 &114163223613500538
 MonoBehaviour:
