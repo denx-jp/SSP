@@ -69,6 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4851910284075678}
   - component: {fileID: 114951440882160654}
+  - component: {fileID: 114396673883173940}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -209,6 +210,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1472685789897362}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114396673883173940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1607808225644488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryType: 0
 --- !u!114 &114951440882160654
 MonoBehaviour:
   m_ObjectHideFlags: 1

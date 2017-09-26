@@ -6,26 +6,25 @@ using UniRx;
 public class PlayerWeaponManager : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private GameObject weapon;
-    private IAttackable attacker;
+    private IAttackable weapon;
     private PlayerInputManager pim;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
-        SetAttacker(weapon.GetComponent<IAttackable>());
 
         pim.NormalAttackButtonDown
             .Where(input => input)
+            .Where(_ => weapon != null)
             .Subscribe(_ =>
             {
-                attacker.NormalAttack(animator);
+                weapon.NormalAttack(animator);
             });
     }
 
     public void SetAttacker(IAttackable atk)
     {
-        attacker = atk;
+        weapon = atk;
     }
 }

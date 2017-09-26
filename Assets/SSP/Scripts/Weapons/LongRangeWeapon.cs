@@ -15,7 +15,7 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
     private RaycastHit hit;
     private int layerMask = 1 << LayerMap.LocalPlayer;
 
-    void Start()
+    void Init()
     {
         var playerModel = this.transform.GetComponentInParent<PlayerModel>();
         playerId = playerModel.playerId;

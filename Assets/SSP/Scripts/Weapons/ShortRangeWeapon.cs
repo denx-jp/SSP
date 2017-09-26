@@ -14,16 +14,11 @@ public class ShortRangeWeapon : MonoBehaviour, IAttackable
     int parentPlayerId;
     int parentPlayerTeamId;
 
-    void Start()
-    {
-        parentPlayerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
-        parentPlayerTeamId = this.transform.GetComponentInParent<PlayerModel>().teamId;
-        this.Init();
-    }
-
     void Init()
     {
         isAttackStarted = false;
+        parentPlayerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+        parentPlayerTeamId = this.transform.GetComponentInParent<PlayerModel>().teamId;
     }
 
     public void NormalAttack(Animator animator)
