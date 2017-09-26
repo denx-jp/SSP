@@ -1689,7 +1689,6 @@ GameObject:
   - component: {fileID: 114038406181737898}
   - component: {fileID: 114682947928770304}
   - component: {fileID: 114043632102673516}
-  - component: {fileID: 114978877591393632}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5258,10 +5257,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 1
   teamId: 1
-  syncHealth: 0
-  syncEther: 0
+  devHealth: 0
+  devEther: 0
   initialHealth: 500
   initialEther: 500
+  isLocalPlayerCharacter: 0
   defaultLayer: 0
 --- !u!114 &114038406181737898
 MonoBehaviour:
@@ -5306,7 +5306,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114858071444870302}
   playerKillLogNotifier: {fileID: 114682947928770304}
   playerCameraController: {fileID: 114043632102673516}
-  isPlayer: 1
+  devIsLocalPlayerCharacter: 0
 --- !u!114 &114163223613500538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5436,19 +5436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableRadius: 2
---- !u!114 &114978877591393632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1589936694255432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5094cc89dfa94e441a5b2e49481053d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerModel: {fileID: 114026327807217840}
-  gameJudger: {fileID: 0}
 --- !u!136 &136212414492031444
 CapsuleCollider:
   m_ObjectHideFlags: 1

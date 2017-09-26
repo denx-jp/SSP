@@ -21,13 +21,13 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
     void Start()
     {
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
-
-        deathStream = new Subject<int>();
+        
         lifeSupportSystemModel.ether
             .Where(v => v <= 0)
-            .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.GetTeamId()));
+            .Subscribe(_ => GetDeathStream().OnNext(lifeSupportSystemModel.GetTeamId()));
 
         Observable.Interval(TimeSpan.FromMilliseconds(1000))
+            .Where(_ => lifeSupportSystemModel.ether.Value > 0)
             .Subscribe(_ =>
             {
                 ReduceEther(etherReductionRate);
@@ -76,6 +76,8 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
 
     public Subject<int> GetDeathStream()
     {
+        if (deathStream == null)
+            deathStream = new Subject<int>();
         return deathStream;
     }
 }
