@@ -5293,13 +5293,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 114082690780650000}
   pim: {fileID: 114754596638012910}
   weaponManager: {fileID: 114774626945295122}
   rightHand: {fileID: 1884299098980524}
   leftHand: {fileID: 1709956756110754}
   handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
     type: 2}
-  StockableGimmickCount: 2
 --- !u!114 &114673532029538312
 MonoBehaviour:
   m_ObjectHideFlags: 1
