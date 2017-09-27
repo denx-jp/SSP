@@ -48,7 +48,8 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetWeapon(GameObject go, InventoryType type)
     {
-        var weapon = new InventoryWeapon(go);
+        var weapon = new InventoryWeapon(go, playerModel);
+        //初めてそのtypeの武器を拾った時はDictionaryにAddする。２回目以降は古い武器を捨てて、新しい武器を入れる。
         if (weapons.ContainsKey(type))
         {
             ReleaseWeapon(weapons[type].gameObject);
@@ -62,14 +63,15 @@ public class PlayerInventory : MonoBehaviour
         weapon.gameObject.SetActive(false);
     }
 
-    private void SetCurrentWeapon(InventoryType type)
+    private void SetCurrentWeapon(InventoryType nextWeaponType)
     {
-        if (weapons[currentWeaponType].gameObject != null)
+        //武器を持ち替えるので、持ち帰る前の武器は非表示に
+        if (weapons.ContainsKey(currentWeaponType))
             weapons[currentWeaponType].gameObject.SetActive(false);
 
-        currentWeaponType = type;
-        weapons[type].gameObject.SetActive(true);
-        weaponManager.SetAttacker(weapons[type].attacker);
+        currentWeaponType = nextWeaponType;
+        weapons[nextWeaponType].gameObject.SetActive(true);
+        weaponManager.SetAttacker(weapons[nextWeaponType].attacker);
     }
 
     private void ReleaseWeapon(GameObject go)
@@ -81,7 +83,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void ChangeNextWeapon(InventoryType type)
     {
-        var nextIndex = (int)type < InventoryTypeCount ? (int)type + 1 : 0;
+        var nextIndex = (int)type < InventoryTypeCount - 1 ? (int)type + 1 : 0;
         var nextType = (InventoryType)nextIndex;
         if (weapons.ContainsKey(nextType))
             SetCurrentWeapon(nextType);
