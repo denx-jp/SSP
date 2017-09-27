@@ -997,10 +997,10 @@ GameObject:
   - component: {fileID: 114082690780650000}
   - component: {fileID: 114538749985073958}
   - component: {fileID: 114771718228226930}
+  - component: {fileID: 114754596638012910}
   - component: {fileID: 114507506121608166}
   - component: {fileID: 114644961917857252}
   - component: {fileID: 114774626945295122}
-  - component: {fileID: 114754596638012910}
   - component: {fileID: 114358687893718958}
   - component: {fileID: 114313392113415238}
   - component: {fileID: 114338637091628718}
@@ -5209,7 +5209,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114754596638012910}
   playerKillLogNotifier: {fileID: 114338637091628718}
   playerCameraController: {fileID: 114673532029538312}
-  palyerInventory: {fileID: 114647052860489950}
+  playerInventory: {fileID: 114647052860489950}
   devIsLocalPlayerCharacter: 1
 --- !u!114 &114313392113415238
 MonoBehaviour:
@@ -5293,12 +5293,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pim: {fileID: 114754596638012910}
   weaponManager: {fileID: 114774626945295122}
   rightHand: {fileID: 1884299098980524}
   leftHand: {fileID: 1709956756110754}
-  longRangeWeapon: {fileID: 0}
-  shortRangeWeapon: {fileID: 0}
-  gimmicks: []
+  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
+    type: 2}
   StockableGimmickCount: 2
 --- !u!114 &114673532029538312
 MonoBehaviour:

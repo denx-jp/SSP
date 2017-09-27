@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -10,12 +10,10 @@ public class PlayerInventory : MonoBehaviour
     {
         public GameObject gameObject;
         public IAttackable attacker;
-        public InventoryType type;
-        public InventoryWeapon(GameObject go, InventoryType _type)
+        public InventoryWeapon(GameObject go)
         {
             gameObject = go;
             attacker = go.GetComponent<IAttackable>();
-            type = _type;
         }
     }
 
@@ -24,74 +22,56 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject leftHand;
     [SerializeField] private GameObject handGunPrefab;
-    
-    private InventoryWeapon handGun;
-    private InventoryWeapon longRangeWeapon;
-    private InventoryWeapon shortRangeWeapon;
-    private InventoryWeapon gimmick1;
-    private InventoryWeapon gimmick2;
 
-    [SerializeField] private InventoryWeapon currentWeapon;
+    private Dictionary<InventoryType, InventoryWeapon> weapons;
+    private InventoryType currentWeaponType;
+    private int InventoryTypeCount;
 
     private void Start()
     {
-        handGun = new InventoryWeapon(handGunPrefab, InventoryType.HandGun);
-        SetCurrentWeapon(handGun);
+        weapons = new Dictionary<InventoryType, InventoryWeapon>();
+        InventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
+
+        var handGunObj = Instantiate(handGunPrefab);
+        SetWeapon(handGunObj, InventoryType.HandGun);
+        SetCurrentWeapon(InventoryType.HandGun);
 
         pim.WeaponChange
             .Subscribe(v =>
             {
                 if (v > 0)
-                    ChangeNextWeapon(currentWeapon.type);
-                //else if (v < 0)
-
+                    ChangeNextWeapon(currentWeaponType);
+                else if (v < 0)
+                    ChangePreviousWeapon(currentWeaponType);
             });
     }
 
     public void SetWeapon(GameObject go, InventoryType type)
     {
-        var weapon = new InventoryWeapon(go, type);
-        SetWeaponTransform(weapon.gameObject);
-        weapon.gameObject.SetActive(false);
-        switch (type)
+        Debug.Log($"set : {type.ToString()}");
+        var weapon = new InventoryWeapon(go);
+        if (weapons.ContainsKey(type))
         {
-            case InventoryType.LongRangeWeapon:
-                if (longRangeWeapon.gameObject != null)
-                    ReleaseWeapon(longRangeWeapon.gameObject);
-                longRangeWeapon = weapon;
-                break;
-            case InventoryType.ShortRangeWeapon:
-                if (shortRangeWeapon.gameObject != null)
-                    ReleaseWeapon(shortRangeWeapon.gameObject);
-                shortRangeWeapon = weapon;
-                break;
-            case InventoryType.Gimmick1:
-                if (gimmick1.gameObject != null)
-                    ReleaseWeapon(gimmick1.gameObject);
-                gimmick1 = weapon;
-                break;
-            case InventoryType.Gimmick2:
-                if (gimmick2.gameObject != null)
-                    ReleaseWeapon(gimmick2.gameObject);
-                gimmick2 = weapon;
-                break;
+            ReleaseWeapon(weapons[type].gameObject);
+            weapons[type] = weapon;
         }
+        else
+            weapons.Add(type, weapon);
+
+        go.transform.parent = rightHand.transform;      //後々WeaponModelみたいなのを作って手に対する位置などを保存して、そこから設定するように
+        go.transform.localPosition = Vector3.zero;         //同上
+        weapon.gameObject.SetActive(false);
     }
 
-    private void SetWeaponTransform(GameObject go)
+    private void SetCurrentWeapon(InventoryType type)
     {
-        go.transform.parent = rightHand.transform;
-        go.transform.localPosition = Vector3.zero;
-    }
+        Debug.Log($"set current : {type.ToString()}");
+        if (weapons[currentWeaponType].gameObject != null)
+            weapons[currentWeaponType].gameObject.SetActive(false);
 
-    private void SetCurrentWeapon(InventoryWeapon weapon)
-    {
-        if (currentWeapon.gameObject != null)
-            currentWeapon.gameObject.SetActive(false);
-
-        currentWeapon = weapon;
-        weapon.gameObject.SetActive(true);
-        weaponManager.SetAttacker(weapon.attacker);
+        currentWeaponType = type;
+        weapons[type].gameObject.SetActive(true);
+        weaponManager.SetAttacker(weapons[type].attacker);
     }
 
     private void ReleaseWeapon(GameObject go)
@@ -103,57 +83,21 @@ public class PlayerInventory : MonoBehaviour
 
     private void ChangeNextWeapon(InventoryType type)
     {
-        switch (type)
-        {
-            case InventoryType.LongRangeWeapon:
-                if (shortRangeWeapon.gameObject != null)
-                    SetCurrentWeapon(shortRangeWeapon);
-                else
-                    ChangeNextWeapon(InventoryType.ShortRangeWeapon);
-                break;
-            case InventoryType.ShortRangeWeapon:
-                if (gimmick1.gameObject != null)
-                    SetCurrentWeapon(gimmick1);
-                else
-                    ChangeNextWeapon(InventoryType.Gimmick1);
-                break;
-            case InventoryType.Gimmick1:
-                if (gimmick2.gameObject != null)
-                    SetCurrentWeapon(gimmick2);
-                else
-                    ChangeNextWeapon(InventoryType.Gimmick2);
-                break;
-            case InventoryType.Gimmick2:
-                if (handGun.gameObject != null)
-                    SetCurrentWeapon(handGun);
-                else
-                    ChangeNextWeapon(InventoryType.HandGun);
-                break;
-            case InventoryType.HandGun:
-                if (longRangeWeapon.gameObject != null)
-                    SetCurrentWeapon(longRangeWeapon);
-                else
-                    ChangeNextWeapon(InventoryType.LongRangeWeapon);
-                break;
-        }
+        var nextIndex = (int)type < InventoryTypeCount ? (int)type + 1 : 0;
+        var nextType = (InventoryType)nextIndex;
+        if (weapons.ContainsKey(nextType))
+            SetCurrentWeapon(nextType);
+        else
+            ChangeNextWeapon(nextType);
     }
 
-    private void ChangePreviousWeapon()
+    private void ChangePreviousWeapon(InventoryType type)
     {
-        switch (currentWeaponType)
-        {
-            case InventoryType.LongRangeWeapon:
-                SetCurrentWeapon(handGun);
-                break;
-            case InventoryType.ShortRangeWeapon:
-                SetCurrentWeapon(longRangeWeapon);
-                break;
-            case InventoryType.Gimmick:
-                SetCurrentWeapon(shortRangeWeapon);
-                break;
-            case InventoryType.HandGun:
-                SetCurrentWeapon(gimmicks[0]);
-                break;
-        }
+        int previousIndex = (int)type > 0 ? (int)type - 1 : InventoryTypeCount - 1;
+        var previousType = (InventoryType)previousIndex;
+        if (weapons.ContainsKey(previousType))
+            SetCurrentWeapon(previousType);
+        else
+            ChangePreviousWeapon(previousType);
     }
 }
