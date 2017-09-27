@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114275136129540490}
   - component: {fileID: 114611022078819548}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: HandGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,4 +237,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryType: 0
-  canInteract: 1
+  canInteract: 0
