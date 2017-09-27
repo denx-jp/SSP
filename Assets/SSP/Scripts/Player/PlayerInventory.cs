@@ -10,13 +10,15 @@ public class PlayerInventory : MonoBehaviour
     {
         public GameObject gameObject;
         public IAttackable attacker;
-        public InventoryWeapon(GameObject go)
+        public InventoryWeapon(GameObject go, PlayerModel playerModel)
         {
             gameObject = go;
             attacker = go.GetComponent<IAttackable>();
+            attacker.Init(playerModel);
         }
     }
 
+    [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerWeaponManager weaponManager;
     [SerializeField] private GameObject rightHand;
