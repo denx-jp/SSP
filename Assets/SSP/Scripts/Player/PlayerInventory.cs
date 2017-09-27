@@ -48,7 +48,6 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetWeapon(GameObject go, InventoryType type)
     {
-        Debug.Log($"set : {type.ToString()}");
         var weapon = new InventoryWeapon(go);
         if (weapons.ContainsKey(type))
         {
@@ -65,7 +64,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void SetCurrentWeapon(InventoryType type)
     {
-        Debug.Log($"set current : {type.ToString()}");
         if (weapons[currentWeaponType].gameObject != null)
             weapons[currentWeaponType].gameObject.SetActive(false);
 
