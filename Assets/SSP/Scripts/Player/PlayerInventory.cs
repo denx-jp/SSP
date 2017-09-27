@@ -4,42 +4,58 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    private struct Weapon
+    {
+        public GameObject gameObject;
+        public IAttackable attacker;
+        public Weapon(GameObject go, IAttackable atk)
+        {
+            gameObject = go;
+            attacker = atk;
+        }
+    }
     public enum InventoryType { LongRangeWeapon, ShortRangeWeapon, Gimmick }
 
     [SerializeField] private PlayerWeaponManager weaponManager;
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject leftHand;
 
-    [SerializeField] private GameObject longRangeWeapon;
-    [SerializeField] private GameObject shortRangeWeapon;
-    [SerializeField] private List<GameObject> gimmicks = new List<GameObject>();
+    [SerializeField] private Weapon longRangeWeapon;
+    [SerializeField] private Weapon shortRangeWeapon;
+    [SerializeField] private List<Weapon> gimmicks = new List<Weapon>();
     [SerializeField] private int StockableGimmickCount = 2;
 
-    public void SetLongRangeWeapon(GameObject go)
-    {
-        longRangeWeapon = go;
-        SetObjectTransform(longRangeWeapon);
-        SetWeaponToManager(go);
-    }
+    private InventoryType currentWeaponType;
 
-    public void SetShortRangeWeapon(GameObject go)
+    public void SetWeapon(GameObject go, InventoryType type)
     {
-        shortRangeWeapon = go;
-        SetObjectTransform(shortRangeWeapon);
-        SetWeaponToManager(go);
-    }
-
-    public void AddGimmick(GameObject go)
-    {
-        if (gimmicks.Count >= StockableGimmickCount)
+        var inventoryWeapon = new Weapon(go, go.GetComponent<IAttackable>());
+        currentWeaponType = type;
+        SetObjectTransform(inventoryWeapon.gameObject);
+        SetWeaponToManager(inventoryWeapon);
+        switch (type)
         {
-            var removeGimmick = gimmicks[0];
-            ReleaseObject(removeGimmick);
-            gimmicks.RemoveAt(0);
+            case InventoryType.LongRangeWeapon:
+                longRangeWeapon = inventoryWeapon;
+                break;
+            case InventoryType.ShortRangeWeapon:
+                shortRangeWeapon = inventoryWeapon;
+                break;
+            case InventoryType.Gimmick:
+                if (gimmicks.Count >= StockableGimmickCount)
+                {
+                    var removeGimmick = gimmicks[0];
+                    ReleaseObject(removeGimmick.gameObject);
+                    gimmicks.RemoveAt(0);
+                }
+                gimmicks.Add(inventoryWeapon);
+                break;
         }
-        gimmicks.Add(go);
-        SetObjectTransform(go);
-        SetWeaponToManager(go);
+    }
+
+    {
+        {
+        }
     }
 
     private void SetObjectTransform(GameObject go)
@@ -48,15 +64,14 @@ public class PlayerInventory : MonoBehaviour
         go.transform.localPosition = Vector3.zero;
     }
 
-    private void SetWeaponToManager(GameObject go)
+    private void SetWeaponToManager(Weapon weapon)
     {
-        var attacker = go.GetComponent<IAttackable>();
-        if (attacker != null)
+        if (weapon.attacker != null)
         {
             if (!weaponManager.ExistAttacker())
-                weaponManager.SetAttacker(attacker);
+                weaponManager.SetAttacker(weapon.attacker);
             else
-                go.SetActive(false);
+                weapon.gameObject.SetActive(false);
         }
     }
 

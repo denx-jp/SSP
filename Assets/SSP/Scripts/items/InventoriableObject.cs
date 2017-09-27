@@ -9,18 +9,7 @@ public class InventoriableObject : MonoBehaviour, IInteractable
 
     public void Interact(PlayerManager pm)
     {
-        switch (inventoryType)
-        {
-            case PlayerInventory.InventoryType.LongRangeWeapon:
-                pm.palyerInventory.SetLongRangeWeapon(this.gameObject);
-                break;
-            case PlayerInventory.InventoryType.ShortRangeWeapon:
-                pm.palyerInventory.SetShortRangeWeapon(this.gameObject);
-                break;
-            case PlayerInventory.InventoryType.Gimmick:
-                pm.palyerInventory.AddGimmick(this.gameObject);
-                break;
-        }
+        pm.playerInventory.SetWeapon(this.gameObject, inventoryType);
         canInteract = false;
     }
 
