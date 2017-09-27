@@ -30,16 +30,15 @@ public class PlayerInteractor : MonoBehaviour
     void Interact()
     {
         var castResult = Physics.OverlapSphere(this.transform.position, interactableRadius);
-        
+
         if (castResult.Length == 0) return;
         var interactionTargetObject = castResult
             .Where(v => v.gameObject.GetComponent<IInteractable>() != null)
             .Where(v => v.gameObject.GetComponent<IInteractable>().CanInteract())
-            .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position))
-            .First();
+            .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position));
 
-        if (interactionTargetObject == null) return;
-        var interactionTarget = interactionTargetObject.GetComponent<IInteractable>();
+        if (interactionTargetObject.Count() == 0) return;
+        var interactionTarget = interactionTargetObject.First().GetComponent<IInteractable>();
         interactionTarget.Interact(playerManager);
     }
 }
