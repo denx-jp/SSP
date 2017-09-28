@@ -17,15 +17,10 @@ public class PlayerWeaponManager : MonoBehaviour
 
         pim.NormalAttackButtonDown
             .Where(input => input)
-            .Where(_ => ExistAttacker())
+            .Where(_ => attacker != null)
             .Subscribe(_ =>
             {
                 attacker.NormalAttack(animator);
             });
-    }
-
-    public bool ExistAttacker()
-    {
-        return attacker != null;
     }
 }
