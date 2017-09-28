@@ -44,7 +44,8 @@ public class PlayerInventoryManager : MonoBehaviour
         if (inventory.weapons.ContainsKey(type))
             inventory.ReleaseWeapon(type);
 
-        var weapon = new InventoryWeapon(go, playerModel);
+        var weapon = new InventoryWeapon(go);
+        weapon.attacker.Init(playerModel);
         go.transform.parent = rightHand.transform;      //後々WeaponModelみたいなのを作って手に対する位置などを保存して、そこから設定するように
         go.transform.localPosition = Vector3.zero;         //同上
         weapon.gameObject.SetActive(false);
