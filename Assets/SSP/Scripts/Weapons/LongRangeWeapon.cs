@@ -37,7 +37,6 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
             Shoot();
             time = 0;
             canAttack = false;
-            StartCoroutine(WaitCoolTime());
         }
     }
 
@@ -56,11 +55,5 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
 
         bullet.GetComponent<BulletModel>().SetProperties(playerId, teamId, bulletDamageAmount, bulletDeathTime);
         bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
-    }
-
-    private IEnumerator WaitCoolTime()
-    {
-        yield return new WaitForSeconds(coolTime);
-        canAttack = true;
     }
 }
