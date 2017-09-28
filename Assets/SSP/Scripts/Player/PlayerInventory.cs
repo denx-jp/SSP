@@ -10,12 +10,14 @@ public class PlayerInventory : MonoBehaviour
 
     public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; }
     public InventoryType currentWeaponType { get; private set; }
-    private int InventoryTypeCount;
+
+    private InventoryType[] inventoryOrder = new InventoryType[] { InventoryType.HandGun, InventoryType.LongRangeWeapon, InventoryType.ShortRangeWeapon, InventoryType.Gimmick1, InventoryType.Gimmick2 };
+    private int inventoryTypeCount = 0;
 
     public void Init()
     {
         weapons = new Dictionary<InventoryType, InventoryWeapon>();
-        InventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
+        inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
     }
 
     public void AddWeapon(InventoryType type, InventoryWeapon weapon)
@@ -46,24 +48,30 @@ public class PlayerInventory : MonoBehaviour
         weapons[releaseWeaponType].gameObject.SetActive(true);
     }
 
-    public InventoryType GetNextWeaponType(InventoryType type)
+    public InventoryType GetNextWeaponType()
     {
-        var nextIndex = (int)type < InventoryTypeCount - 1 ? (int)type + 1 : 0;
-        var nextType = (InventoryType)nextIndex;
-        if (weapons.ContainsKey(nextType))
-            return nextType;
-        else
-            return GetNextWeaponType(nextType);
+        var currentIndex = (int)currentWeaponType;
+        for (int i = 1; i <= inventoryTypeCount; i++)
+        {
+            var nextIndex = currentIndex + i < inventoryTypeCount ? currentIndex + i : currentIndex + i - inventoryTypeCount;
+            var nextType = (InventoryType)nextIndex;
+            if (weapons.ContainsKey(nextType))
+                return nextType;
+        }
+        return currentWeaponType;
     }
 
-    public InventoryType GetPreviousWeaponType(InventoryType type)
+    public InventoryType GetPreviousWeaponType()
     {
-        int previousIndex = (int)type > 0 ? (int)type - 1 : InventoryTypeCount - 1;
-        var previousType = (InventoryType)previousIndex;
-        if (weapons.ContainsKey(previousType))
-            return previousType;
-        else
-            return GetPreviousWeaponType(previousType);
+        var currentIndex = (int)currentWeaponType;
+        for (int i = 1; i <= inventoryTypeCount; i++)
+        {
+            var previousIndex = currentIndex - i > 0 ? currentIndex - i : currentIndex - i + inventoryTypeCount;
+            var previousType = (InventoryType)previousIndex;
+            if (weapons.ContainsKey(previousType))
+                return previousType;
+        }
+        return currentWeaponType;
     }
 
     public void ExchangeGimmicks()

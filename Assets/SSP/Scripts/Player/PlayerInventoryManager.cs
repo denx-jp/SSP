@@ -27,12 +27,12 @@ public class PlayerInventoryManager : MonoBehaviour
             {
                 if (v < 0)
                 {
-                    var nextWeaponType = inventory.GetNextWeaponType(inventory.currentWeaponType);
+                    var nextWeaponType = inventory.GetNextWeaponType();
                     inventory.EquipWeapon(nextWeaponType);
                 }
                 else if (v > 0)
                 {
-                    var previousWeaponType = inventory.GetPreviousWeaponType(inventory.currentWeaponType);
+                    var previousWeaponType = inventory.GetPreviousWeaponType();
                     inventory.EquipWeapon(previousWeaponType);
                 }
             });
