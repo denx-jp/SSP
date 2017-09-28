@@ -6,8 +6,9 @@ using UniRx;
 public class PlayerWeaponManager : MonoBehaviour
 {
     private Animator animator;
-    private IAttackable attacker;
     private PlayerInputManager pim;
+
+    public IAttackable attacker;
 
     void Start()
     {
@@ -21,11 +22,6 @@ public class PlayerWeaponManager : MonoBehaviour
             {
                 attacker.NormalAttack(animator);
             });
-    }
-
-    public void SetAttacker(IAttackable atk)
-    {
-        attacker = atk;
     }
 
     public bool ExistAttacker()

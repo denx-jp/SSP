@@ -10,7 +10,7 @@ public class InventoriableObject : MonoBehaviour, IInteractable
 
     public void Interact(PlayerManager pm)
     {
-        pm.playerInventory.SetWeapon(this.gameObject, inventoryType);
+        pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoryType);
         canInteract = false;
     }
 

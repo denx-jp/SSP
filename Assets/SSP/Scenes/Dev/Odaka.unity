@@ -664,7 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 4
+  inventoryType: 3
   canInteract: 1
 --- !u!114 &258460398
 MonoBehaviour:
@@ -960,7 +960,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 21ff49429c7425a4bbf9d895f77a6526, type: 2}
+  - {fileID: 2100000, guid: b89ae2e32c7129c4fa9931ac332c2b8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 4
+  inventoryType: 3
   canInteract: 1
 --- !u!114 &918154314
 MonoBehaviour:
@@ -3695,7 +3695,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 21ff49429c7425a4bbf9d895f77a6526, type: 2}
+  - {fileID: 2100000, guid: b89ae2e32c7129c4fa9931ac332c2b8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4437,6 +4437,11 @@ Prefab:
       propertyPath: inventoryType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 23623335034185964, guid: 402fefe12962e1948948a8a10b96076a,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b89ae2e32c7129c4fa9931ac332c2b8f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
   m_IsPrefabParent: 0
