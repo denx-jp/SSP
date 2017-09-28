@@ -13,15 +13,16 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
     private bool canAttack = true;
     private int playerId, teamId;
     private RaycastHit hit;
-    private int layerMask = 1 << LayerMap.LocalPlayer;
+    private int layerMask = ~(1 << LayerMap.LocalPlayer);
+    private float time = 0;
 
-    float time = 0;
     public void Init(PlayerModel playerModel)
     {
         playerId = playerModel.playerId;
         teamId = playerModel.teamId;
 
         this.UpdateAsObservable()
+            .Where(_ => this.gameObject.activeSelf)
             .Subscribe(_ =>
             {
                 time += Time.deltaTime;
