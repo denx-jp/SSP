@@ -4,8 +4,9 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
 using UniRx;
+using UnityEngine.Networking;
 
-public class KillLogViewModel : MonoBehaviour
+public class KillLogViewModel : NetworkBehaviour
 {
     [SerializeField] private List<PlayerKillLogNotifier> killLogNotifiers;
     [SerializeField] private List<Text> texts;
@@ -15,11 +16,12 @@ public class KillLogViewModel : MonoBehaviour
     {
         foreach (Text text in texts)
             text.text = "";
-
-        foreach(var killLogNotifier in killLogNotifiers)
+        // Test
+        CmdAppendKillLog("kobusi","21sai");
+        foreach (var killLogNotifier in killLogNotifiers)
         {
             killLogNotifier.GetKillLogStream()
-                .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
+                .Subscribe(killLogInfo => CmdAppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
         }
     }
 
@@ -28,9 +30,18 @@ public class KillLogViewModel : MonoBehaviour
         killLogNotifiers = pklns;
     }
 
-    private void AppendKillLog(string killer, string killed)
+    [Command]
+    private void CmdAppendKillLog(string killer, string killed)
+    {
+        RpcAppendKillLog(killer, killed);
+        //Debug.Log("cmd");
+    }
+
+    [ClientRpc]
+    private void RpcAppendKillLog(string killer, string killed)
     {
         StartCoroutine(KillLogCoroutine("プレイヤー" + killer + " が プレイヤー" + killed + " を キル しました"));
+        //Debug.Log("rpc");
     }
 
     private IEnumerator KillLogCoroutine(string killLogText)
