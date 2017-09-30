@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UniRx;
 
 public class EtherPopper : MonoBehaviour
@@ -21,6 +23,7 @@ public class EtherPopper : MonoBehaviour
 
     }
 
+#if UNITY_EDITOR
     [ContextMenu("Set Pop Points")]
     private void SetPopPoints()
     {
@@ -31,4 +34,5 @@ public class EtherPopper : MonoBehaviour
                 popPoints.Add(childTransform);
         }
     }
+#endif
 }

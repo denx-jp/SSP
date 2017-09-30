@@ -1275,7 +1275,7 @@ GameObject:
   - component: {fileID: 33684755826061362}
   - component: {fileID: 136632830742655754}
   - component: {fileID: 23589135188626572}
-  - component: {fileID: 114791377272066056}
+  - component: {fileID: 114301080857015870}
   m_Layer: 0
   m_Name: bat
   m_TagString: Untagged
@@ -5257,8 +5257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  target: {fileID: 0}
   offset: {x: 0, y: 2, z: -3}
   cameraRotationSpeed: 100
   pim: {fileID: 114134000520712444}
@@ -5339,7 +5337,23 @@ MonoBehaviour:
   playerHealthManager: {fileID: 114974365051159386}
   playerEtherManager: {fileID: 114755544746082094}
   playerInputManager: {fileID: 114134000520712444}
+  playerKillLogNotifier: {fileID: 0}
   playerCameraController: {fileID: 114079660245503310}
+  devIsLocalPlayerCharacter: 0
+--- !u!114 &114301080857015870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1512896480974416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb53c3547122084c8b1055181f33790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 100
+  hitDetectionTimeOffset: 0.1
+  hitDetectionDuration: 0.5
 --- !u!114 &114365610087532468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5376,7 +5390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponAttacker: {fileID: 114791377272066056}
+  weapon: {fileID: 1512896480974416}
 --- !u!114 &114525175177557532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5403,7 +5417,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToRespawn: 5
-  respawnPoint: {fileID: 0}
 --- !u!114 &114660740567837552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5415,7 +5428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
   dashSpeed: 10
 --- !u!114 &114710198958959678
 MonoBehaviour:
@@ -5462,24 +5474,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 1
-  syncHealth: 0
-  syncEther: 0
+  teamId: 0
+  devHealth: 0
+  devEther: 0
   initialHealth: 500
   initialEther: 500
---- !u!114 &114791377272066056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1512896480974416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b82852eb7b1af244b8227b344a84b049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 10
-  hitDetectionTimeOffset: 0.2
-  hitDetectionDuration: 0.6
+  isLocalPlayerCharacter: 0
+  defaultLayer: 0
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
