@@ -74,7 +74,7 @@ public class PlayerInventory : MonoBehaviour
         return currentWeaponType;
     }
 
-    public void ExchangeGimmicks()
+    public void SwapGimmicks()
     {
         var tmp = weapons[InventoryType.Gimmick1];
         weapons[InventoryType.Gimmick1] = weapons[InventoryType.Gimmick2];

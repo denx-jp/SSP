@@ -79,7 +79,7 @@ public class PlayerInventoryManager : MonoBehaviour
                 {
                     //Gimmick1もGimmick2も所持している場合はGimmick1を押し出すようにするため、
                     //Gimmick1とGimmick2を入れ替えてからGimmick2返す
-                    inventory.ExchangeGimmicks();
+                    inventory.SwapGimmicks();
                     type = InventoryType.Gimmick2;
                 }
                 break;
