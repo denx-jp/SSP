@@ -21,7 +21,7 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
     void Start()
     {
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
-        
+
         lifeSupportSystemModel.ether
             .Where(v => v <= 0)
             .Subscribe(_ => GetDeathStream().OnNext(lifeSupportSystemModel.GetTeamId()));
@@ -48,6 +48,11 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
     {
         playerManager.playerEtherManager.EmitEther(etherChargeValue);
         AcquireEther(etherChargeValue);
+    }
+
+    public bool CanInteract()
+    {
+        return lifeSupportSystemModel.ether.Value > 0;
     }
 
     public void SetDamage(Damage damage)

@@ -111,8 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   etherValue: 0
-  originEtherSize: 0.1
-  triggerSize: 0.5
   floatHeight: 1
   trackingSpeed: 8
   popEtherInitValue: 50

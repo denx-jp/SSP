@@ -11,6 +11,7 @@ public class PlayerManager : NetworkBehaviour
     public PlayerInputManager playerInputManager;
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
+    public PlayerInventoryManager playerInventoryManager;
 
     [SerializeField] private bool devIsLocalPlayerCharacter = false;     //デバッグ用フラグ。OFFLINE環境のときtrueの場合のみLocalPlayerに指定される。
 
@@ -45,6 +46,7 @@ public class PlayerManager : NetworkBehaviour
         playerInputManager = GetComponent<PlayerInputManager>();
         playerKillLogNotifier = GetComponent<PlayerKillLogNotifier>();
         playerCameraController = GetComponent<PlayerCameraController>();
+        playerInventoryManager = GetComponent<PlayerInventoryManager>();
     }
 
     public T GetPlayerComponent<T>()
