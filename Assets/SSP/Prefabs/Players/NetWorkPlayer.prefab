@@ -1276,6 +1276,7 @@ GameObject:
   - component: {fileID: 136632830742655754}
   - component: {fileID: 23589135188626572}
   - component: {fileID: 114301080857015870}
+  - component: {fileID: 114791377272066056}
   m_Layer: 0
   m_Name: bat
   m_TagString: Untagged
@@ -2381,14 +2382,15 @@ GameObject:
   - component: {fileID: 114774096608856190}
   - component: {fileID: 114974365051159386}
   - component: {fileID: 114755544746082094}
+  - component: {fileID: 114134000520712444}
   - component: {fileID: 114660740567837552}
   - component: {fileID: 114453876016800092}
   - component: {fileID: 114516493038036196}
-  - component: {fileID: 114365610087532468}
   - component: {fileID: 114636296208160710}
-  - component: {fileID: 114134000520712444}
   - component: {fileID: 114079660245503310}
   - component: {fileID: 114525175177557532}
+  - component: {fileID: 114077097428542020}
+  - component: {fileID: 114084645704703300}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -5243,9 +5245,21 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114077097428542020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponManager: {fileID: 114516493038036196}
 --- !u!114 &114079660245503310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5255,11 +5269,29 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: -3}
   cameraRotationSpeed: 100
   pim: {fileID: 114134000520712444}
+--- !u!114 &114084645704703300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354649278b537444e9b6430d8f3de080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerModel: {fileID: 114774096608856190}
+  pim: {fileID: 114134000520712444}
+  inventory: {fileID: 114077097428542020}
+  rightHand: {fileID: 1713459099380762}
+  leftHand: {fileID: 1849131158882442}
+  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
+    type: 2}
 --- !u!114 &114134000520712444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5269,8 +5301,8 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5cb04879e91fa64ba659d4a433d29d5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114171318920857858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5280,8 +5312,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
@@ -5299,8 +5331,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_SceneId:
     m_Value: 0
   m_AssetId:
@@ -5331,15 +5363,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed143bacffd4c944fab2f85c00eb03c3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerModel: {fileID: 114774096608856190}
   playerHealthManager: {fileID: 114974365051159386}
   playerEtherManager: {fileID: 114755544746082094}
   playerInputManager: {fileID: 114134000520712444}
   playerKillLogNotifier: {fileID: 0}
   playerCameraController: {fileID: 114079660245503310}
-  palyerInventory: {fileID: 0}
+  playerInventoryManager: {fileID: 0}
   devIsLocalPlayerCharacter: 0
 --- !u!114 &114301080857015870
 MonoBehaviour:
@@ -5350,22 +5382,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fb53c3547122084c8b1055181f33790, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   damageAmount: 100
   hitDetectionTimeOffset: 0.1
   hitDetectionDuration: 0.5
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8784534bbb5157e468fcb4bddf26d22b, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  interactableRadius: 2
 --- !u!114 &114453876016800092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5375,8 +5396,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15dfbe5673656694986991cb256a5d10, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   avoidStartTime: 0.1
   avoidDuration: 0.5
 --- !u!114 &114516493038036196
@@ -5388,9 +5409,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  weapon: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114525175177557532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5400,8 +5420,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f0e1a0712f92fc43a7a9e8a4f1ce980, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   lerpRate: 15
   positionThreshold: 0.1
   rotationThreshold: 1
@@ -5414,8 +5434,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cf300c4f3d674790bab9340795a497d, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   timeToRespawn: 5
 --- !u!114 &114660740567837552
 MonoBehaviour:
@@ -5426,8 +5446,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   dashSpeed: 10
 --- !u!114 &114710198958959678
 MonoBehaviour:
@@ -5438,16 +5458,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Animator: {fileID: 95268588012316118}
   m_ParameterSendBits: 8191
-  param0:
-  param1:
-  param2:
-  param3:
-  param4:
-  param5:
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114755544746082094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5457,8 +5477,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef18633ca528c78479fd6c54582f12c6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
     type: 2}
   emitPower: 1
@@ -5471,8 +5491,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerId: 1
   teamId: 0
   devHealth: 0
@@ -5490,8 +5510,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b82852eb7b1af244b8227b344a84b049, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   damageAmount: 10
   hitDetectionTimeOffset: 0.2
   hitDetectionDuration: 0.6
@@ -5504,8 +5524,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c579bbcd46a47b1136a8fe2c10f4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136283051329156196
 CapsuleCollider:
   m_ObjectHideFlags: 1
