@@ -6,8 +6,9 @@ using UniRx;
 public class PlayerWeaponManager : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private WeaponAttacker weaponAttacker;
     private PlayerInputManager pim;
+
+    public IAttackable attacker;
 
     void Start()
     {
@@ -16,10 +17,10 @@ public class PlayerWeaponManager : MonoBehaviour
 
         pim.NormalAttackButtonDown
             .Where(input => input)
+            .Where(_ => attacker != null)
             .Subscribe(_ =>
             {
-                weaponAttacker.NormalAttack(animator);
+                attacker.NormalAttack(animator);
             });
     }
-
 }

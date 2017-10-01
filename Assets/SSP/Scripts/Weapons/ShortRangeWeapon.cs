@@ -1,11 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx.Triggers;
 using UniRx;
-using System.Linq;
+using UniRx.Triggers;
 
-public class WeaponAttacker : MonoBehaviour
+public class ShortRangeWeapon : MonoBehaviour, IAttackable
 {
     [SerializeField] public float damageAmount;//攻撃のダメージ量
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
@@ -13,16 +12,13 @@ public class WeaponAttacker : MonoBehaviour
     bool isAttackStarted;
     bool detectable;
     int parentPlayerId;
+    int parentPlayerTeamId;
 
-    void Start()
-    {
-        parentPlayerId = this.transform.GetComponentInParent<PlayerModel>().playerId;
-        this.Init();
-    }
-
-    void Init()
+    public void Init(PlayerModel playerModel)
     {
         isAttackStarted = false;
+        parentPlayerId = playerModel.playerId;
+        parentPlayerTeamId = playerModel.teamId;
     }
 
     public void NormalAttack(Animator animator)
@@ -37,18 +33,18 @@ public class WeaponAttacker : MonoBehaviour
         if (!detectable) return;
         if (col.gameObject.layer == LayerMap.Invincible) return;
         if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        var hm = col.gameObject.GetComponent<IDamageable>();
-        if (hm != null)
+        var damageable = col.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            var damage = new Damage(damageAmount, parentPlayerId);
-            CmdSetDamage(hm, damage);
+            var damage = new Damage(damageAmount, parentPlayerId, parentPlayerTeamId);
+            CmdSetDamage(damageable, damage);
         }
     }
 
     //今後ネットワークにするためCmd
-    void CmdSetDamage(IDamageable hm, Damage dmg)
+    void CmdSetDamage(IDamageable damageable, Damage dmg)
     {
-        hm.SetDamage(dmg);
+        damageable.SetDamage(dmg);
     }
 
     void SetLayer(int layer)
@@ -72,5 +68,4 @@ public class WeaponAttacker : MonoBehaviour
         SetLayer(LayerMap.Default);
         isAttackStarted = false;
     }
-
 }

@@ -2,60 +2,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
-using System.Linq;
+using UniRx.Triggers;
 
-public class PlayerAvoider : MonoBehaviour
+public class PlayerAvoider : NetworkBehaviour
 {
     private int avoidHash = Animator.StringToHash("RollForward");
     private Animator animator;
     private AnimatorStateInfo state;
     private PlayerInputManager pim;
+    private PlayerModel playerModel;
 
     [SerializeField] private float avoidStartTime = 0.1f;
     [SerializeField] private float avoidDuration = 0.3f;
-
-    private int syncLayer; //のちのちSyncVarに指定
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
+        playerModel = GetComponent<PlayerModel>();
+
+        this.UpdateAsObservable()
+            .Subscribe(_ => state = animator.GetCurrentAnimatorStateInfo(0));
 
         pim.AvoidButtonDown
             .Where(v => v)
             .Where(_ => state.shortNameHash != avoidHash)
             .Subscribe(v =>
             {
-                StartCoroutine(Avoiding());
+                CmdAvoiding();
             });
     }
 
-    private void Update()
+#if ONLINE
+    [Command]
+#endif
+    private void CmdAvoiding()
     {
-        state = animator.GetCurrentAnimatorStateInfo(0);
-        SyncLayer();
+        RpcAvoiding();
     }
 
+#if ONLINE
+    [ClientRpc]
+#endif
+    private void RpcAvoiding()
+    {
+        StartCoroutine(Avoiding());
+    }
 
     private IEnumerator Avoiding()
     {
         animator.SetTrigger(avoidHash);
         yield return new WaitForSeconds(avoidStartTime);
-        CmdSetLayer(LayerMap.Invincible);
+        SetLayer(LayerMap.Invincible);
         yield return new WaitForSeconds(avoidDuration);
-        CmdSetLayer(LayerMap.Default);
+#if ONLINE
+        SetLayer(playerModel.defaultLayer);
+#else
+        SetLayer(LayerMap.LocalPlayer);
+#endif
     }
 
-    //[Command]
-    private void CmdSetLayer(int layer)
+    private void SetLayer(int layer)
     {
-        syncLayer = layer;
-    }
-
-    //[ClientCallback]
-    private void SyncLayer()
-    {
-        this.gameObject.layer = syncLayer;
+        this.gameObject.layer = layer;
     }
 }
