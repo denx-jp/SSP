@@ -3,6 +3,7 @@
 - [Blender](https://www.blender.org/download/)がインストールされてないとモデルが表示されません。
 - `git clone --recursive https://github.com/denx-jp/SSP.git`すればサブモジュールも一緒にクローンしてくれます。
 - `--recursive`を指定し忘れたときは下のコマンドでサブモジュールを落とせます。
+- サブモジュールを非公開にしているので、上記コマンドでサブモジュールも一緒にクローンするためには[git.denx.jp](https://git.denx.jp)でSSP組織のdeveloperチームに入っている必要があります。開発に参加したい人はslackで@odkに連絡してください。
 ```
 $ git submodule init
 $ git submodule update
