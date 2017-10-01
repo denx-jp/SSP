@@ -33,6 +33,9 @@ public class PlayerInputManager : MonoBehaviour
         var convertFloatStream = WeaponChangeButtonDown.Where(v => v).Select(v => 0.1f);
         WeaponChange = Observable.Merge(WeaponChangeWhellScroll, convertFloatStream).Where(v => v != 0);
 
+        if(playerModel.isLocalPlayerCharacter)
+        {
+
         this.UpdateAsObservable()
             .Where(_ => playerModel.IsAlive())
             .Subscribe(_ =>
@@ -63,6 +66,8 @@ public class PlayerInputManager : MonoBehaviour
             {
                 //死亡時入力受付ストリーム
             });
+
+        }
     }
 
 }

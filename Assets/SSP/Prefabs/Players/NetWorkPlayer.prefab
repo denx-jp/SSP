@@ -2391,6 +2391,7 @@ GameObject:
   - component: {fileID: 114525175177557532}
   - component: {fileID: 114077097428542020}
   - component: {fileID: 114084645704703300}
+  - component: {fileID: 114856490275401810}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -5266,7 +5267,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
@@ -5298,7 +5299,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5cb04879e91fa64ba659d4a433d29d5, type: 3}
   m_Name: 
@@ -5369,9 +5370,9 @@ MonoBehaviour:
   playerHealthManager: {fileID: 114974365051159386}
   playerEtherManager: {fileID: 114755544746082094}
   playerInputManager: {fileID: 114134000520712444}
-  playerKillLogNotifier: {fileID: 0}
+  playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
-  playerInventoryManager: {fileID: 0}
+  playerInventoryManager: {fileID: 114084645704703300}
   devIsLocalPlayerCharacter: 0
 --- !u!114 &114301080857015870
 MonoBehaviour:
@@ -5515,6 +5516,17 @@ MonoBehaviour:
   damageAmount: 10
   hitDetectionTimeOffset: 0.2
   hitDetectionDuration: 0.6
+--- !u!114 &114856490275401810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6dcdb64468ee945a3393f939d684e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
