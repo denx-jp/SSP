@@ -7,11 +7,15 @@ using System.Linq;
 
 public class PlayerCameraController : MonoBehaviour
 {
+    private GameObject LSS;
+    int PointNum = 0;
+    [SerializeField] private float Range;
     [SerializeField] private GameObject target;
     [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
     private Vector3 temp_offset;
     [SerializeField] private float cameraRotationSpeed = 100;
     [SerializeField] private PlayerInputManager pim;
+    [SerializeField] private List<GameObject> RespawnPoints = new List<GameObject>();
 
     private void Start()
     {
@@ -59,8 +63,34 @@ public class PlayerCameraController : MonoBehaviour
                 Debug.DrawLine(this.transform.position, this.transform.position + direction);
                 this.gameObject.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             });
-    }
 
+        for (int i = 0; i < RespawnPoints.Count; i++)
+        {
+            float Distance = (LSS.transform.position - RespawnPoints[i].transform.position).sqrMagnitude;
+            // LSSとリスポーン地点の二点間の距離をとる
+            if (Distance > Range)
+            {
+                RespawnPoints.RemoveAt(i); 
+            }
+        }
+        pim.ChooseRespawnPointsRightButtonDown
+            .Where(v => v)
+            .Where(v => Input.GetButtonDown("Right") && PointNum != RespawnPoints.Count)
+        
+            .Subscribe(v =>{
+                PointNum++;
+                SetTarget(RespawnPoints[PointNum]);
+        });
+        pim.ChooseRespawnPointsLeftButtonDown
+            .Where(v => v)
+            .Where(v => Input.GetButtonDown("Left") && PointNum != 0)
+            .Subscribe(v =>
+            {
+                PointNum--;
+                SetTarget(RespawnPoints[PointNum]);
+            });
+
+    }
     public void DetachTarget()
     {
         target = null;
@@ -70,4 +100,6 @@ public class PlayerCameraController : MonoBehaviour
     {
         target = _target;
     }
+
+    
 }

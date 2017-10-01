@@ -18,6 +18,10 @@ public class PlayerInputManager : MonoBehaviour
     public readonly Subject<bool> NormalAttackButtonDown = new Subject<bool>();
     public readonly Subject<bool> ActionButtonDown = new Subject<bool>();
 
+
+    public readonly Subject<bool> ChooseRespawnPointsRightButtonDown = new Subject<bool>(); //リスポーン地点選択 
+    public readonly Subject<bool> ChooseRespawnPointsLeftButtonDown = new Subject<bool>();
+
     private Vector2 mouseInput;
     private Vector2 gamePadInput;
     private Vector2 moveInput;
@@ -38,12 +42,15 @@ public class PlayerInputManager : MonoBehaviour
                 CameraRotate.OnNext(gamePadInput);
                 CameraResetButtonDown.OnNext(Input.GetButtonDown("Camera Reset"));
 
+
                 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                 Move.OnNext(moveInput);
 
                 AvoidButtonDown.OnNext(Input.GetButtonDown("Avoid"));
                 DashButtonDown.OnNext(Input.GetButton("Dash"));
                 JumpButtonDown.OnNext(Input.GetButtonDown("Jump"));
+
+                
 
                 NormalAttackButtonDown.OnNext(Input.GetButtonDown("Normal Attack"));
                 ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
@@ -53,6 +60,8 @@ public class PlayerInputManager : MonoBehaviour
             .Where(_ => !playerHealthManager.IsAlive())
             .Subscribe(_ =>
             {
+                ChooseRespawnPointsRightButtonDown.OnNext(Input.GetButtonDown("Right"));
+                ChooseRespawnPointsLeftButtonDown.OnNext(Input.GetButtonDown("Left"));
                 //死亡時入力受付ストリーム
             });
     }
