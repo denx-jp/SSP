@@ -12,17 +12,20 @@ public class BulletManager : MonoBehaviour
     void Start()
     {
         this.OnTriggerEnterAsObservable()
-            .Where(col => col.gameObject.layer != LayerMap.LocalPlayer)
             .Where(col => !col.isTrigger)
             .Subscribe(col =>
             {
-                var damageable = col.gameObject.GetComponent<IDamageable>();
-                if (damageable != null)
+                var playerModel = col.gameObject.GetComponent<PlayerModel>();
+                if (playerModel != null && playerModel.teamId != model.shootPlayerTeamId)
                 {
-                    var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
-                    CmdSetDamage(damageable, damage);
+                    var damageable = col.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
+                        CmdSetDamage(damageable, damage);
+                    }
+                    Destroy(this.gameObject);
                 }
-                Destroy(this.gameObject);
             })
             .AddTo(this.gameObject);
 
