@@ -56,34 +56,24 @@ public class PlayerInventoryManager : MonoBehaviour
         }
     }
 
+    private Dictionary<InventoriableType, InventoryType> inventoryTypeMap
+        = new Dictionary<InventoriableType, InventoryType>()
+        {
+            {InventoriableType.HandGun, InventoryType.HandGun },
+            {InventoriableType.LongRangeWeapon, InventoryType.LongRangeWeapon },
+            {InventoriableType.ShortRangeWeapon,InventoryType.ShortRangeWeapon },
+            {InventoriableType.Gimmick, InventoryType.Gimmick1 }
+        };
     private InventoryType ConvertInventoriableTypeToInventoryType(InventoriableType inventoriableType)
     {
-        InventoryType type;
-        switch (inventoriableType)
-        {
-            case InventoriableType.HandGun:
-                type = InventoryType.HandGun;
-                break;
-            case InventoriableType.LongRangeWeapon:
-                type = InventoryType.LongRangeWeapon;
-                break;
-            case InventoriableType.ShortRangeWeapon:
-                type = InventoryType.ShortRangeWeapon;
-                break;
-            default:
-                if (!inventory.weapons.ContainsKey(InventoryType.Gimmick1) && !inventory.weapons.ContainsKey(InventoryType.Gimmick2))
-                    type = InventoryType.Gimmick1;
-                else if (inventory.weapons.ContainsKey(InventoryType.Gimmick1) && !inventory.weapons.ContainsKey(InventoryType.Gimmick2))
-                    type = InventoryType.Gimmick2;
-                else
-                {
-                    //Gimmick1もGimmick2も所持している場合はGimmick1を押し出すようにするため、
-                    //Gimmick1とGimmick2を入れ替えてからGimmick2返す
-                    inventory.SwapGimmicks();
-                    type = InventoryType.Gimmick2;
-                }
-                break;
-        }
+        InventoryType type = inventoryTypeMap[inventoriableType];
+
+        //初回のみGimmick1に収納。以降はGimmick1を押し出すようにするため、G1とG2を入れ替えてからG2を返す。
+        if (type == InventoryType.Gimmick1)
+            inventoryTypeMap[InventoriableType.Gimmick] = InventoryType.Gimmick2;
+        if (type == InventoryType.Gimmick2 && inventory.weapons.ContainsKey(InventoryType.Gimmick2))
+            inventory.SwapGimmicks();
+
         return type;
     }
 
