@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 
-public class PlayerHealthManager : MonoBehaviour, IDamageable
+public class PlayerHealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerModel playerModel;
     private Subject<bool> deathStream;
@@ -21,7 +22,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
 
         playerModel.Health
             .Where(v => v <= 0.0f)
-            .Subscribe(_ => deathStream.OnNext(true));
+            .Subscribe(_ => CmdStartDeathStream());
 
         animator = GetComponent<Animator>();
         this.deathStream
@@ -29,6 +30,20 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
              {
                  animator.SetBool(deathHash, isdeath);
              });
+    }
+#if ONLINE
+    [Command]
+#endif
+    private void CmdStartDeathStream()
+    {
+        RpcStartDeathStream();
+    }
+#if ONLINE
+    [ClientRpc]
+#endif
+    private void RpcStartDeathStream()
+    {
+        deathStream.OnNext(true);
     }
 
     public void SetDamage(Damage damage)
