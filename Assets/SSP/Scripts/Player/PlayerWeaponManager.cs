@@ -10,34 +10,30 @@ public class PlayerWeaponManager : NetworkBehaviour
     private PlayerInputManager pim;
 
     public IAttackable attacker;
-
-    private Transform cameraTransform;
-
+    
     void Start()
     {
         animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
-        cameraTransform = Camera.main.transform;
 
         pim.NormalAttackButtonDown
             .Where(input => input)
             .Where(_ => attacker != null)
             .Subscribe(_ =>
             {
-                CmdAttack(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
+                attacker.NormalAttack(animator);
             });
     }
 
     [Command]
-    private void CmdAttack(Vector3 camPos, Vector3 camDir, Quaternion camRot)
+    private void CmdAttack()
     {
-        RpcAttack(camPos, camDir, camRot);
+        RpcAttack();
     }
 
     [ClientRpc]
-    private void RpcAttack(Vector3 camPos, Vector3 camDir, Quaternion camRot)
+    private void RpcAttack()
     {
-        attacker.NormalAttack(animator, camPos, camDir, camRot);
-
+        attacker.NormalAttack(animator);
     }
 }

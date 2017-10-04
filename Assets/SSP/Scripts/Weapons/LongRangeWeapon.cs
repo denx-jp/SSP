@@ -16,11 +16,13 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     private RaycastHit hit;
     private int layerMask = ~(1 << LayerMap.LocalPlayer);
     private float time = 0;
+    private Transform cameraTransform;
 
     public void Init(PlayerModel playerModel)
     {
         playerId = playerModel.playerId;
         teamId = playerModel.teamId;
+        cameraTransform = Camera.main.transform;
 
         this.UpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -32,11 +34,11 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
             });
     }
 
-    public void NormalAttack(Animator animator, Vector3 camPos, Vector3 camDir, Quaternion camRot)
+    public void NormalAttack(Animator animator)
     {
         if (canAttack)
         {
-            CmdShoot(camPos, camDir, camRot);
+            CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
             time = 0;
             canAttack = false;
         }
