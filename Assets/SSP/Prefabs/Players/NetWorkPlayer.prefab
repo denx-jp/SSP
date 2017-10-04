@@ -1275,6 +1275,7 @@ GameObject:
   - component: {fileID: 33684755826061362}
   - component: {fileID: 136632830742655754}
   - component: {fileID: 23589135188626572}
+  - component: {fileID: 114301080857015870}
   - component: {fileID: 114791377272066056}
   m_Layer: 0
   m_Name: bat
@@ -2381,14 +2382,16 @@ GameObject:
   - component: {fileID: 114774096608856190}
   - component: {fileID: 114974365051159386}
   - component: {fileID: 114755544746082094}
+  - component: {fileID: 114134000520712444}
   - component: {fileID: 114660740567837552}
   - component: {fileID: 114453876016800092}
   - component: {fileID: 114516493038036196}
-  - component: {fileID: 114365610087532468}
   - component: {fileID: 114636296208160710}
-  - component: {fileID: 114134000520712444}
   - component: {fileID: 114079660245503310}
   - component: {fileID: 114525175177557532}
+  - component: {fileID: 114077097428542020}
+  - component: {fileID: 114084645704703300}
+  - component: {fileID: 114856490275401810}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -5246,13 +5249,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114077097428542020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponManager: {fileID: 114516493038036196}
 --- !u!114 &114079660245503310
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
@@ -5260,13 +5275,31 @@ MonoBehaviour:
   offset: {x: 0, y: 2, z: -3}
   cameraRotationSpeed: 100
   pim: {fileID: 114134000520712444}
+--- !u!114 &114084645704703300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354649278b537444e9b6430d8f3de080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerModel: {fileID: 114774096608856190}
+  pim: {fileID: 114134000520712444}
+  inventory: {fileID: 114077097428542020}
+  rightHand: {fileID: 1713459099380762}
+  leftHand: {fileID: 1849131158882442}
+  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
+    type: 2}
 --- !u!114 &114134000520712444
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5cb04879e91fa64ba659d4a433d29d5, type: 3}
   m_Name: 
@@ -5337,22 +5370,24 @@ MonoBehaviour:
   playerHealthManager: {fileID: 114974365051159386}
   playerEtherManager: {fileID: 114755544746082094}
   playerInputManager: {fileID: 114134000520712444}
-  playerKillLogNotifier: {fileID: 0}
+  playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
-  palyerInventory: {fileID: 0}
+  playerInventoryManager: {fileID: 114084645704703300}
   devIsLocalPlayerCharacter: 0
---- !u!114 &114365610087532468
+--- !u!114 &114301080857015870
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914480152885886}
+  m_GameObject: {fileID: 1512896480974416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8784534bbb5157e468fcb4bddf26d22b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fb53c3547122084c8b1055181f33790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableRadius: 2
+  damageAmount: 100
+  hitDetectionTimeOffset: 0.1
+  hitDetectionDuration: 0.5
 --- !u!114 &114453876016800092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5377,7 +5412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
 --- !u!114 &114525175177557532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5482,6 +5516,17 @@ MonoBehaviour:
   damageAmount: 10
   hitDetectionTimeOffset: 0.2
   hitDetectionDuration: 0.6
+--- !u!114 &114856490275401810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6dcdb64468ee945a3393f939d684e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
