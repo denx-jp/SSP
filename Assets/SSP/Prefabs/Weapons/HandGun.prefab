@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 65139783768924182}
   - component: {fileID: 114275136129540490}
   - component: {fileID: 114611022078819548}
+  - component: {fileID: 114397692148794256}
   m_Layer: 0
   m_Name: HandGun
   m_TagString: Untagged
@@ -225,6 +226,38 @@ MonoBehaviour:
   muzzle: {fileID: 1722006071851656}
   bulletDamageAmount: 50
   bulletDeathTime: 5
+--- !u!114 &114397692148794256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996856847404154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 175
+    i1: 121
+    i2: 241
+    i3: 7
+    i4: 31
+    i5: 89
+    i6: 191
+    i7: 68
+    i8: 153
+    i9: 98
+    i10: 125
+    i11: 62
+    i12: 192
+    i13: 205
+    i14: 119
+    i15: 25
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114611022078819548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,5 +269,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 0
+  inventoriableType: 0
   canInteract: 0

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 
-public class PlayerInventoryManager : MonoBehaviour
+public class PlayerInventoryManager : NetworkBehaviour
 {
 
     [SerializeField] private PlayerModel playerModel;
@@ -46,16 +47,19 @@ public class PlayerInventoryManager : MonoBehaviour
 
         var weapon = new InventoryWeapon(go);
         weapon.attacker.Init(playerModel);
-        go.transform.parent = rightHand.transform;      //後々WeaponModelみたいなのを作って手に対する位置などを保存して、そこから設定するように
-        go.transform.localPosition = Vector3.zero;         //同上
+
+        weapon.gameObject.transform.parent = rightHand.transform;
+        weapon.gameObject.transform.localPosition = Vector3.zero;
         weapon.gameObject.SetActive(false);
+
         inventory.AddWeapon(type, weapon);
-        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
+        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)  //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
         {
             inventory.EquipWeapon(type);
         }
     }
 
+    #region enum変換
     private Dictionary<InventoriableType, InventoryType> inventoryTypeMap
         = new Dictionary<InventoriableType, InventoryType>()
         {
@@ -76,5 +80,6 @@ public class PlayerInventoryManager : MonoBehaviour
 
         return type;
     }
+    #endregion
 
 }

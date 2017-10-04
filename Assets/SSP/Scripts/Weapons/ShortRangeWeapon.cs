@@ -21,7 +21,7 @@ public class ShortRangeWeapon : MonoBehaviour, IAttackable
         parentPlayerTeamId = playerModel.teamId;
     }
 
-    public void NormalAttack(Animator animator)
+    public void NormalAttack(Animator animator, Vector3 camPos, Vector3 camDir, Quaternion camRot)
     {
         animator.SetTrigger("Attack");
         if (isAttackStarted) StopCoroutine(Attacking());
