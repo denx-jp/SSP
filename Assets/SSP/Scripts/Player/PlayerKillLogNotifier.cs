@@ -6,11 +6,11 @@ using UniRx;
 public class PlayerKillLogNotifier : MonoBehaviour
 {
     private PlayerHealthManager playerHealthManager;
-    private Subject<KeyValuePair<int, int>> killLogStream;
+    private Subject<KeyValuePair<int, int>> killLogStream = new Subject<KeyValuePair<int, int>>();
 
     private void Start()
     {
-        killLogStream = new Subject<KeyValuePair<int, int>>();
+        //killLogStream = new Subject<KeyValuePair<int, int>>();
         GetPlayerHealthManager().GetDeathStream()
             .Subscribe(_ =>
             {

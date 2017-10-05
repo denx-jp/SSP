@@ -16,8 +16,6 @@ public class KillLogViewModel : NetworkBehaviour
     {
         foreach (Text text in texts)
             text.text = "";
-        // Test
-        CmdAppendKillLog("kobusi","21sai");
         foreach (var killLogNotifier in killLogNotifiers)
         {
             killLogNotifier.GetKillLogStream()
@@ -30,18 +28,22 @@ public class KillLogViewModel : NetworkBehaviour
         killLogNotifiers = pklns;
     }
 
+#if ONLINE
     [Command]
+#endif
     private void CmdAppendKillLog(string killer, string killed)
     {
+        Debug.Log("cmd");
         RpcAppendKillLog(killer, killed);
-        //Debug.Log("cmd");
     }
 
+#if ONLINE
     [ClientRpc]
+#endif
     private void RpcAppendKillLog(string killer, string killed)
     {
+        Debug.Log("rpc");
         StartCoroutine(KillLogCoroutine("プレイヤー" + killer + " が プレイヤー" + killed + " を キル しました"));
-        //Debug.Log("rpc");
     }
 
     private IEnumerator KillLogCoroutine(string killLogText)

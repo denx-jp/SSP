@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/SSP/Scenes/Dev/NB29979.unity
     guid: 11d863c15c6e4ee4aa8f08f0e417e8c3
-  - enabled: 1
+  - enabled: 0
     path: Assets/SSP/Scenes/Dev/NB29979-Result.unity
     guid: 33a9b910cf0298e4e9f13281a4966922
+  - enabled: 1
+    path: Assets/SSP/Scenes/Dev/Kilin.unity
+    guid: ad37805b356c437499d2ed7599bbfc84
