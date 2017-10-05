@@ -10,18 +10,32 @@ public class PlayerInventoryManager : NetworkBehaviour
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerInventory inventory;
-    [SerializeField] private GameObject rightHand;
-    [SerializeField] private GameObject leftHand;
+    [SerializeField] private Transform rightHandTransform;
+    [SerializeField] private Transform leftHandTransform;
     [SerializeField] private GameObject handGunPrefab;
+
+    [Command]
+    void CmdHandGun()
+    {
+        var handGunObj = Instantiate(handGunPrefab);
+        NetworkServer.SpawnWithClientAuthority(handGunObj, connectionToClient);
+        RpcHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
+    }
+
+    [ClientRpc]
+    void RpcHandGun(NetworkInstanceId instanceId)
+    {
+        var weapon = ClientScene.FindLocalObject(instanceId);
+        SetWeaponToInventory(weapon, InventoriableType.HandGun);
+        inventory.EquipWeapon(InventoryType.HandGun);
+    }
 
     void Start()
     {
         inventory.Init();
-
         //ハンドガンは初期状態から所持する仕様
-        var handGunObj = Instantiate(handGunPrefab);
-        SetWeaponToInventory(handGunObj, InventoriableType.HandGun);
-        inventory.EquipWeapon(InventoryType.HandGun);
+        if (isLocalPlayer)
+            CmdHandGun();
 
         pim.WeaponChange
             .Subscribe(v =>
@@ -48,9 +62,9 @@ public class PlayerInventoryManager : NetworkBehaviour
         var weapon = new InventoryWeapon(go);
         weapon.attacker.Init(playerModel);
 
-        weapon.gameObject.transform.parent = rightHand.transform;
+        weapon.gameObject.transform.parent = rightHandTransform;
         weapon.gameObject.transform.localPosition = Vector3.zero;
-        weapon.gameObject.SetActive(false);
+        weapon.gameObject.SetActive(false);     //インベントリの中の武器は非表示に
 
         inventory.AddWeapon(type, weapon);
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)  //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
@@ -81,5 +95,11 @@ public class PlayerInventoryManager : NetworkBehaviour
         return type;
     }
     #endregion
+
+    private void SetParent(GameObject weaponObj)
+    {
+        weaponObj.transform.parent = rightHandTransform;
+        weaponObj.transform.localPosition = Vector3.zero;
+    }
 
 }

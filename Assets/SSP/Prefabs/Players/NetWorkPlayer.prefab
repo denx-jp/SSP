@@ -2366,6 +2366,7 @@ GameObject:
   - component: {fileID: 114660740567837552}
   - component: {fileID: 114453876016800092}
   - component: {fileID: 114516493038036196}
+  - component: {fileID: 114454726837417924}
   - component: {fileID: 114636296208160710}
   - component: {fileID: 114079660245503310}
   - component: {fileID: 114525175177557532}
@@ -5216,9 +5217,9 @@ MonoBehaviour:
   playerModel: {fileID: 114774096608856190}
   pim: {fileID: 114134000520712444}
   inventory: {fileID: 114077097428542020}
-  rightHand: {fileID: 1713459099380762}
-  leftHand: {fileID: 1849131158882442}
-  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
+  rightHandTransform: {fileID: 4264272987011664}
+  leftHandTransform: {fileID: 4723894345551248}
+  handGunPrefab: {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a,
     type: 2}
 --- !u!114 &114134000520712444
 MonoBehaviour:
@@ -5314,6 +5315,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avoidStartTime: 0.1
   avoidDuration: 0.5
+--- !u!114 &114454726837417924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8784534bbb5157e468fcb4bddf26d22b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableRadius: 2
 --- !u!114 &114516493038036196
 MonoBehaviour:
   m_ObjectHideFlags: 1

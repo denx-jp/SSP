@@ -55,9 +55,9 @@ GameObject:
   - component: {fileID: 33915626235519404}
   - component: {fileID: 23128071150024078}
   - component: {fileID: 65139783768924182}
+  - component: {fileID: 114397692148794256}
   - component: {fileID: 114275136129540490}
   - component: {fileID: 114611022078819548}
-  - component: {fileID: 114397692148794256}
   m_Layer: 0
   m_Name: HandGun
   m_TagString: Untagged
@@ -226,6 +226,8 @@ MonoBehaviour:
   muzzle: {fileID: 1722006071851656}
   bulletDamageAmount: 50
   bulletDeathTime: 5
+  playerId: 0
+  teamId: 0
 --- !u!114 &114397692148794256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,7 +259,7 @@ MonoBehaviour:
     i14: 119
     i15: 25
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114611022078819548
 MonoBehaviour:
   m_ObjectHideFlags: 1

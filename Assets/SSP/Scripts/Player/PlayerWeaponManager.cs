@@ -24,16 +24,4 @@ public class PlayerWeaponManager : NetworkBehaviour
                 attacker.NormalAttack(animator);
             });
     }
-
-    [Command]
-    private void CmdAttack()
-    {
-        RpcAttack();
-    }
-
-    [ClientRpc]
-    private void RpcAttack()
-    {
-        attacker.NormalAttack(animator);
-    }
 }

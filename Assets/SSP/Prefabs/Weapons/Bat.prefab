@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33899230831276844}
   - component: {fileID: 136532114692406812}
   - component: {fileID: 23623335034185964}
+  - component: {fileID: 114506838946006212}
   - component: {fileID: 114244314045166808}
   - component: {fileID: 114645791642823236}
   m_Layer: 0
@@ -97,6 +98,38 @@ MonoBehaviour:
   damageAmount: 10
   hitDetectionTimeOffset: 0.1
   hitDetectionDuration: 0.6
+--- !u!114 &114506838946006212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189635630215696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 64
+    i1: 47
+    i2: 239
+    i3: 225
+    i4: 41
+    i5: 98
+    i6: 225
+    i7: 148
+    i8: 137
+    i9: 72
+    i10: 168
+    i11: 161
+    i12: 11
+    i13: 150
+    i14: 7
+    i15: 106
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114645791642823236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 1
+  inventoriableType: 0
+  canInteract: 1
 --- !u!136 &136532114692406812
 CapsuleCollider:
   m_ObjectHideFlags: 1

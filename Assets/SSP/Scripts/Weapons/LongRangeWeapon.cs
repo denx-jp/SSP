@@ -12,7 +12,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     [SerializeField] private float bulletDamageAmount, bulletDeathTime;
     private BulletModel bulletModel;
     private bool canAttack = true;
-    private int playerId, teamId;
+    [SerializeField, SyncVar] private int playerId, teamId;
     private RaycastHit hit;
     private int layerMask = ~(1 << LayerMap.LocalPlayer);
     private float time = 0;
@@ -44,13 +44,13 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
         }
     }
 
-
+    [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
         RpcShoot(castPosition, castDirection, uncastableDirection);
     }
 
-
+    [ClientRpc]
     private void RpcShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
         var bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
