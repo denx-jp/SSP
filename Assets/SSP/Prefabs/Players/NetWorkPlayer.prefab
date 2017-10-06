@@ -5219,7 +5219,7 @@ MonoBehaviour:
   inventory: {fileID: 114077097428542020}
   rightHandTransform: {fileID: 4264272987011664}
   leftHandTransform: {fileID: 4723894345551248}
-  handGunPrefab: {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a,
+  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
     type: 2}
 --- !u!114 &114134000520712444
 MonoBehaviour:
@@ -5422,8 +5422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 1
   teamId: 0
-  devHealth: 0
-  devEther: 0
+  syncHealth: 0
+  syncEther: 0
   initialHealth: 500
   initialEther: 500
   isLocalPlayerCharacter: 0
