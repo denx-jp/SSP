@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerModel : MonoBehaviour, IHealth, IEther
+public class PlayerModel : NetworkBehaviour, IHealth, IEther
 {
-    [SerializeField] public int playerId;
-    [SerializeField] public int teamId;
+    [SerializeField, SyncVar] public int playerId = 0;
+    [SerializeField, SyncVar] public int teamId = 0;
 
     [SerializeField] private float devHealth;
     [SerializeField] private float devEther;
@@ -25,6 +26,8 @@ public class PlayerModel : MonoBehaviour, IHealth, IEther
         Health = new ReactiveProperty<float>();
         Ether = new ReactiveProperty<float>();
 
+        if (playerId == 0) playerId = Random.Range(1, 100);
+        if (teamId == 0) teamId = Random.Range(1, 100);
         this.ObserveEveryValueChanged(_ => devHealth).Subscribe(v => Health.Value = v);
         Health.Subscribe(v => devHealth = v);
         this.ObserveEveryValueChanged(_ => devEther).Subscribe(v => Ether.Value = v);
