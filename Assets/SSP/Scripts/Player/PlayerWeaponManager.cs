@@ -6,14 +6,11 @@ using UniRx;
 
 public class PlayerWeaponManager : NetworkBehaviour
 {
-    private Animator animator;
     private PlayerInputManager pim;
-
     public IAttackable attacker;
     
     void Start()
     {
-        animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
 
         pim.NormalAttackButtonDown
@@ -21,7 +18,7 @@ public class PlayerWeaponManager : NetworkBehaviour
             .Where(_ => attacker != null)
             .Subscribe(_ =>
             {
-                attacker.NormalAttack(animator);
+                attacker.NormalAttack();
             });
     }
 }

@@ -34,7 +34,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
             });
     }
 
-    public void NormalAttack(Animator animator)
+    public void NormalAttack()
     {
         if (canAttack)
         {

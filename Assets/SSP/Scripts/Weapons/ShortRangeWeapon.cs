@@ -1,27 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class ShortRangeWeapon : MonoBehaviour, IAttackable
+public class ShortRangeWeapon : NetworkBehaviour, IAttackable
 {
     [SerializeField] public float damageAmount;//攻撃のダメージ量
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
-    bool isAttackStarted;
-    bool detectable;
-    int parentPlayerId;
-    int parentPlayerTeamId;
+    private bool isAttackStarted;
+    private bool detectable;
+    private int playerId, teamId;
+    private Animator animator;
 
     public void Init(PlayerModel playerModel)
     {
         isAttackStarted = false;
-        parentPlayerId = playerModel.playerId;
-        parentPlayerTeamId = playerModel.teamId;
+        playerId = playerModel.playerId;
+        teamId = playerModel.teamId;
+        animator = playerModel.gameObject.GetComponent<Animator>();
     }
 
-    public void NormalAttack(Animator animator)
+    public void NormalAttack()
     {
         animator.SetTrigger("Attack");
         if (isAttackStarted) StopCoroutine(Attacking());
