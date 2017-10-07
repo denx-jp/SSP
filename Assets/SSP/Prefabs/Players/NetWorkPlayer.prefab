@@ -5420,10 +5420,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 1
+  playerId: 0
   teamId: 0
-  syncHealth: 0
-  syncEther: 0
+  devHealth: 0
+  devEther: 0
   initialHealth: 500
   initialEther: 500
   isLocalPlayerCharacter: 0
