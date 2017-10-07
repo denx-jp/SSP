@@ -22,28 +22,28 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
 
         playerModel.Health
             .Where(v => v <= 0.0f)
-            .Subscribe(_ => CmdStartDeathStream());
+            .Subscribe(_ => deathStream.OnNext(true));
 
         animator = GetComponent<Animator>();
         this.deathStream
              .Subscribe(isdeath =>
              {
-                 animator.SetBool(deathHash, isdeath);
+                 CmdStartDeathAnimation(isdeath);
              });
     }
 #if ONLINE
     [Command]
 #endif
-    private void CmdStartDeathStream()
+    private void CmdStartDeathAnimation(bool isdeath)
     {
-        RpcStartDeathStream();
+        RpcStartDeathAnimation(isdeath);
     }
 #if ONLINE
     [ClientRpc]
 #endif
-    private void RpcStartDeathStream()
+    private void RpcStartDeathAnimation(bool isdeath)
     {
-        deathStream.OnNext(true);
+        animator.SetBool(deathHash, isdeath);
     }
 
     public void SetDamage(Damage damage)
