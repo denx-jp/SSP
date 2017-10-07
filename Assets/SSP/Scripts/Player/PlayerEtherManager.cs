@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 
-public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
+public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitter
 {
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
@@ -20,12 +21,27 @@ public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
              .Where(v => v)
              .Subscribe(_ =>
              {
-                 var halfEther = palyerModel.Ether.Value / 2.0f;
-                 EmitEther(halfEther);
-                 GenerateEtherObject(halfEther);
+                 CmdStartPlayerEtherPop();
              });
     }
-    
+
+#if ONLINE
+    [Command]
+#endif
+    private void CmdStartPlayerEtherPop()
+    {
+        RpcStartPlayerEtherPop();
+    }
+#if ONLINE
+    [ClientRpc]
+#endif
+    private void RpcStartPlayerEtherPop()
+    {
+        var halfEther = palyerModel.Ether.Value / 2.0f;
+        EmitEther(halfEther);
+        GenerateEtherObject(halfEther);
+    }
+
     //非常に雑な実装なので治せるなら後から治した方がよい
     private void GenerateEtherObject(float emitEtherValue)
     {
