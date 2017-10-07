@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolTime: 1
-  bulletSpeed: 500
+  bulletSpeed: 1000
   bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
     type: 2}
   muzzle: {fileID: 1722006071851656}

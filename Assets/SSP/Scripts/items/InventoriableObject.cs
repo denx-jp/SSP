@@ -8,13 +8,12 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 {
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
-    
+
     [SyncVar] public NetworkInstanceId ownerPlayerId;
 
     void Start()
     {
-        if (ownerPlayerId != null)
-            SetParent();
+        SetParent();
     }
 
     public void Interact(PlayerManager pm)

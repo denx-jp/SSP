@@ -7,9 +7,10 @@ using UniRx.Triggers;
 
 public class LongRangeWeapon : NetworkBehaviour, IAttackable
 {
-    [SerializeField] private float coolTime, bulletSpeed;
-    [SerializeField] GameObject bulletPrefab, muzzle;
-    [SerializeField] private float bulletDamageAmount, bulletDeathTime;
+    [SerializeField] private float coolTime, bulletSpeed = 1000;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject muzzle;
+    [SerializeField] private float bulletDamageAmount, bulletDeathTime = 5;
     private BulletModel bulletModel;
     private bool canAttack = true;
     [SerializeField, SyncVar] private int playerId, teamId;

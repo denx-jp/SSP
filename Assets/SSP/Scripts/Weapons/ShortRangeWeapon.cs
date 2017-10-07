@@ -38,7 +38,7 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
         var damageable = col.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            var damage = new Damage(damageAmount, parentPlayerId, parentPlayerTeamId);
+            var damage = new Damage(damageAmount, playerId, teamId);
             CmdSetDamage(damageable, damage);
         }
     }
