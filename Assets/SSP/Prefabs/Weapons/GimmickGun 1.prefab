@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 114787115348719196}
   - component: {fileID: 114781646343392798}
   - component: {fileID: 114036954499573146}
-  - component: {fileID: 114104436330432308}
   m_Layer: 0
   m_Name: GimmickGun 1
   m_TagString: Untagged
@@ -222,19 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoriableType: 3
   canInteract: 1
---- !u!114 &114104436330432308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135113161938838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 297c3b8214708f445914ab66d8cdf4ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  teamId: 0
 --- !u!114 &114781646343392798
 MonoBehaviour:
   m_ObjectHideFlags: 1

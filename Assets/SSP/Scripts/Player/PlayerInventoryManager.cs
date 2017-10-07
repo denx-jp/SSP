@@ -10,8 +10,8 @@ public class PlayerInventoryManager : NetworkBehaviour
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerInventory inventory;
-    [SerializeField] private Transform rightHandTransform;
-    [SerializeField] private Transform leftHandTransform;
+    [SerializeField] public Transform rightHandTransform;
+    [SerializeField] public Transform leftHandTransform;
     [SerializeField] private GameObject handGunPrefab;
 
     [Command]
@@ -26,6 +26,7 @@ public class PlayerInventoryManager : NetworkBehaviour
     void RpcHandGun(NetworkInstanceId instanceId)
     {
         var weapon = ClientScene.FindLocalObject(instanceId);
+        weapon.GetComponent<InventoriableObject>().ownerPlayerId = GetComponent<NetworkIdentity>().netId;
         SetWeaponToInventory(weapon, InventoriableType.HandGun);
         inventory.EquipWeapon(InventoryType.HandGun);
     }

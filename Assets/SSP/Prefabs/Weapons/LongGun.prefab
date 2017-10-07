@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 114303862106099984}
   - component: {fileID: 114091647662173982}
   - component: {fileID: 114948242860574984}
-  - component: {fileID: 114861952443203038}
   m_Layer: 0
   m_Name: LongGun
   m_TagString: Untagged
@@ -373,19 +372,6 @@ MonoBehaviour:
     i15: 245
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114861952443203038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1198441546025866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 297c3b8214708f445914ab66d8cdf4ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  teamId: 0
 --- !u!114 &114948242860574984
 MonoBehaviour:
   m_ObjectHideFlags: 1
