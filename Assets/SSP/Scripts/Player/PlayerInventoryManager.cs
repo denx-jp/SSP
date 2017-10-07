@@ -47,8 +47,12 @@ public class PlayerInventoryManager : MonoBehaviour
         var weapon = new InventoryWeapon(go);
         invObject = weapon.gameObject.GetComponent<InventoriableObject>();
         weapon.attacker.Init(playerModel);
-        go.transform.parent = rightHand.transform;      //後々WeaponModelみたいなのを作って手に対する位置などを保存して、そこから設定するように
-        weapon.gameObject.transform.localPosition = invObject.weaponPos;         //同上
+        if(invObject.isLeftHand){
+            go.transform.parent = leftHand.transform;
+        }else{
+            go.transform.parent = rightHand.transform;
+        }
+        weapon.gameObject.transform.localPosition = invObject.weaponPos;
         weapon.gameObject.transform.localRotation = invObject.weaponRotate;
         weapon.gameObject.SetActive(false);
         inventory.AddWeapon(type, weapon);
