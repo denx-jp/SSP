@@ -7,6 +7,12 @@ public class InventoriableObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
+    [SerializeField] public Vector3 weaponPos;
+    [SerializeField] public Quaternion weaponRotate;
+
+    //[SerializeField] private GameObject rightHand;
+    //[SerializeField] private GameObject leftHand;
+    private bool isLeftHand;
 
     public void Interact(PlayerManager pm)
     {
@@ -23,4 +29,12 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     {
         canInteract = _canInteract;
     }
+
+    //public GameObject HoldHand(){
+    //    if(isLeftHand){
+    //        return rightHand;
+    //    }else{
+    //        return leftHand;
+    //    }
+    //}
 }

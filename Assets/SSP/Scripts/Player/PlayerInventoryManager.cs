@@ -5,13 +5,13 @@ using UniRx;
 
 public class PlayerInventoryManager : MonoBehaviour
 {
-
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject leftHand;
     [SerializeField] private GameObject handGunPrefab;
+    [SerializeField] private InventoriableObject invObject;
 
     void Start()
     {
@@ -45,9 +45,11 @@ public class PlayerInventoryManager : MonoBehaviour
             inventory.ReleaseWeapon(type);
 
         var weapon = new InventoryWeapon(go);
+        invObject = weapon.gameObject.GetComponent<InventoriableObject>();
         weapon.attacker.Init(playerModel);
         go.transform.parent = rightHand.transform;      //後々WeaponModelみたいなのを作って手に対する位置などを保存して、そこから設定するように
-        go.transform.localPosition = Vector3.zero;         //同上
+        weapon.gameObject.transform.localPosition = invObject.weaponPos;         //同上
+        weapon.gameObject.transform.localRotation = invObject.weaponRotate;
         weapon.gameObject.SetActive(false);
         inventory.AddWeapon(type, weapon);
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
