@@ -335,6 +335,8 @@ MonoBehaviour:
   bulletSpeed: 1000
   bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
     type: 2}
+  bulletRigid: {fileID: 54890028688491532, guid: d364dda7de5cd074fa642a49f756148f,
+    type: 2}
   muzzle: {fileID: 1914257830511014}
   bulletDamageAmount: 50
   bulletDeathTime: 5

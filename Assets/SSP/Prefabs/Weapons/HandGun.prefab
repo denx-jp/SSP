@@ -220,9 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolTime: 1
-  bulletSpeed: 50
-  bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
-    type: 2}
+  bulletSpeed: 10
+  bullet: {fileID: 54890028688491532, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
   muzzle: {fileID: 1722006071851656}
   bulletDamageAmount: 50
   bulletDeathTime: 5

@@ -237,8 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolTime: 3
   bulletSpeed: 500
-  bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
-    type: 2}
+  bullet: {fileID: 54890028688491532, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
   muzzle: {fileID: 1724691918699860}
   bulletDamageAmount: 5000
   bulletDeathTime: 5

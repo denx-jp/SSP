@@ -6,8 +6,7 @@ using UniRx.Triggers;
 public class LongRangeWeapon : NetworkBehaviour, IAttackable
 {
     [SerializeField] private float coolTime, bulletSpeed = 1000;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] Rigidbody bulletRigid;
+    [SerializeField] Rigidbody bullet;
     [SerializeField] GameObject muzzle;
     [SerializeField] private float bulletDamageAmount, bulletDeathTime = 5;
     private BulletModel bulletModel;
@@ -47,7 +46,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
-        Rigidbody bulletInstance = Instantiate(bulletRigid, muzzle.transform.position, muzzle.transform.rotation) as Rigidbody;
+        Rigidbody bulletInstance = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation) as Rigidbody;
         if (Physics.Raycast(castPosition, castDirection, out hit, 1000, layerMask))
             bulletInstance.transform.LookAt(hit.point);
         else
