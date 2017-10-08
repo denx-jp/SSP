@@ -10,7 +10,7 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
 
-    [SerializeField] private bool isLeftHnad;
+    [SerializeField] private bool isLeftHand;
     private enum Hands { leftHand, rightHand };
 
     public void Interact(PlayerManager pm)
@@ -30,8 +30,15 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     }
 
     public void HoldHand(GameObject leftHand,GameObject rightHand){
-        Hands hand = Hands.leftHand;
-        //Hands hand = Hands.rightHand;
+        Hands hand;
+        if (isLeftHand)
+        {
+            hand = Hands.leftHand;
+        }
+        else
+        {
+            hand = Hands.rightHand;
+        }
 
         switch(hand){
             case Hands.leftHand:
