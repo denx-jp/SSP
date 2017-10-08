@@ -7,6 +7,11 @@ public class InventoriableObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
+    [SerializeField] public Vector3 weaponPos;
+    [SerializeField] public Vector3 weaponRot;
+
+    private enum Hands { leftHand, rightHand };
+    [SerializeField] private Hands hand;
 
     public void Interact(PlayerManager pm)
     {
@@ -22,5 +27,19 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     public void SetCanInteract(bool _canInteract)
     {
         canInteract = _canInteract;
+    }
+
+    public void SetEquipWeapon(GameObject leftHand,GameObject rightHand){
+        switch(hand){
+            case Hands.leftHand:
+                transform.parent = leftHand.transform;
+                break;
+            case Hands.rightHand:
+                transform.parent = rightHand.transform;
+                break;
+        }
+
+        transform.localPosition = weaponPos;
+        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRot.z);
     }
 }
