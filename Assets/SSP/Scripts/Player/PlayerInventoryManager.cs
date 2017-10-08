@@ -53,7 +53,8 @@ public class PlayerInventoryManager : MonoBehaviour
             go.transform.parent = rightHand.transform;
         }
         weapon.gameObject.transform.localPosition = invObject.weaponPos;
-        weapon.gameObject.transform.localRotation = invObject.weaponRotate;
+        Quaternion q = Quaternion.Euler(invObject.weaponRotate.x, invObject.weaponRotate.y, invObject.weaponRotate.z);
+        weapon.gameObject.transform.localRotation = q;
         weapon.gameObject.SetActive(false);
         inventory.AddWeapon(type, weapon);
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)

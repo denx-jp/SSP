@@ -8,7 +8,7 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
     [SerializeField] public Vector3 weaponPos;
-    [SerializeField] public Quaternion weaponRotate;
+    [SerializeField] public Vector3 weaponRotate;
 
     [SerializeField] public bool isLeftHand;
 
