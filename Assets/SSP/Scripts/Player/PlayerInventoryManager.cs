@@ -6,13 +6,13 @@ using UniRx;
 
 public class PlayerInventoryManager : NetworkBehaviour
 {
-
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] public Transform rightHandTransform;
     [SerializeField] public Transform leftHandTransform;
     [SerializeField] private GameObject handGunPrefab;
+    private InventoriableObject invObject;
 
     [Command]
     void CmdHandGun()
@@ -61,12 +61,10 @@ public class PlayerInventoryManager : NetworkBehaviour
             inventory.ReleaseWeapon(type);
 
         var weapon = new InventoryWeapon(go);
+        invObject = weapon.gameObject.GetComponent<InventoriableObject>();
         weapon.attacker.Init(playerModel);
-
-        weapon.gameObject.transform.parent = rightHandTransform;
-        weapon.gameObject.transform.localPosition = Vector3.zero;
-        weapon.gameObject.SetActive(false);     //インベントリの中の武器は非表示に
-
+        invObject.SetTransformOwnerHand(leftHandTransform, rightHandTransform);
+        weapon.gameObject.SetActive(false);
         inventory.AddWeapon(type, weapon);
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)  //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
         {

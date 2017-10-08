@@ -8,12 +8,17 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 {
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
+    [SerializeField] public Vector3 weaponPos;
+    [SerializeField] public Vector3 weaponRot;
+
+    private enum Hands { leftHand, rightHand };
+    [SerializeField] private Hands hand;
 
     [SyncVar] public NetworkInstanceId ownerPlayerId;
 
     void Start()
     {
-        SetParent();
+        SetTransformToOwner();
     }
 
     public void Interact(PlayerManager pm)
@@ -33,11 +38,27 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     }
 
     [ClientCallback]
-    private void SetParent()
+    private void SetTransformToOwner()
     {
         var player = ClientScene.FindLocalObject(ownerPlayerId);
         if (player == null) return;
-        transform.SetParent(player.GetComponent<PlayerInventoryManager>().rightHandTransform);
-        transform.localPosition = Vector3.zero;
+        var pim = player.GetComponent<PlayerInventoryManager>();
+        SetTransformOwnerHand(pim.rightHandTransform, pim.leftHandTransform);
+    }
+
+    public void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
+    {
+        switch (hand)
+        {
+            case Hands.leftHand:
+                transform.parent = leftHand;
+                break;
+            case Hands.rightHand:
+                transform.parent = rightHand;
+                break;
+        }
+
+        transform.localPosition = weaponPos;
+        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRot.z);
     }
 }

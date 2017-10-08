@@ -273,3 +273,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoriableType: 0
   canInteract: 0
+  weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
+  weaponRot: {x: 0, y: 90, z: 0}
+  hand: 1
