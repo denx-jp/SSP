@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerRespawner : MonoBehaviour
+public class PlayerRespawner : NetworkBehaviour
 {
     private PlayerHealthManager playerHealthManager;
     private PlayerModel playerModel;
@@ -28,10 +29,25 @@ public class PlayerRespawner : MonoBehaviour
             .Where(v => v)
             .Subscribe(_ =>
             {
-                playerModel.Init();
-                var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
-                this.transform.position = respawnPoint.transform.position;
-                animator.SetBool(deathHash, false);
+                CmdPlayerRespawnStart();
             });
+    }
+
+#if ONLINE
+    [Command]
+#endif
+    private void CmdPlayerRespawnStart()
+    {
+        var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
+        RpcPlayerRespawnStart(respawnPoint.transform.position);
+    }
+#if ONLINE
+    [ClientRpc]
+#endif
+    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
+    {
+        playerModel.Init();
+        this.transform.position = _respawnPointPosition;
+        animator.SetBool(deathHash, false);
     }
 }
