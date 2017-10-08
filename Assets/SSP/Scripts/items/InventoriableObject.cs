@@ -29,7 +29,10 @@ public class InventoriableObject : MonoBehaviour, IInteractable
         canInteract = _canInteract;
     }
 
-    public void HoldHand(GameObject leftHand,GameObject rightHand){
+    public void SetEquipWeapon(GameObject leftHand,GameObject rightHand){
+        transform.localPosition = weaponPos;
+        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRot.z);
+
         switch(hand){
             case Hands.leftHand:
                 transform.parent = leftHand.transform;
@@ -38,10 +41,5 @@ public class InventoriableObject : MonoBehaviour, IInteractable
                 transform.parent = rightHand.transform;
                 break;
         }
-    }
-
-    public void SetWeaponPosition(){
-        transform.localPosition = weaponPos;
-        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRo
     }
 }
