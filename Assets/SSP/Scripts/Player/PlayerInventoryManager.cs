@@ -47,11 +47,7 @@ public class PlayerInventoryManager : MonoBehaviour
         var weapon = new InventoryWeapon(go);
         invObject = weapon.gameObject.GetComponent<InventoriableObject>();
         weapon.attacker.Init(playerModel);
-        if(invObject.isLeftHand){
-            go.transform.parent = leftHand.transform;
-        }else{
-            go.transform.parent = rightHand.transform;
-        }
+        invObject.HoldHand(leftHand, rightHand);
         weapon.gameObject.transform.localPosition = invObject.weaponPos;
         Quaternion q = Quaternion.Euler(invObject.weaponRotate.x, invObject.weaponRotate.y, invObject.weaponRotate.z);
         weapon.gameObject.transform.localRotation = q;
