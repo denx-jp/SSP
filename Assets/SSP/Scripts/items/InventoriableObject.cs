@@ -10,8 +10,8 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
 
-    [SerializeField] private bool isLeftHand;
     private enum Hands { leftHand, rightHand };
+    [SerializeField] private Hands hand;
 
     public void Interact(PlayerManager pm)
     {
@@ -30,16 +30,6 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     }
 
     public void HoldHand(GameObject leftHand,GameObject rightHand){
-        Hands hand;
-        if (isLeftHand)
-        {
-            hand = Hands.leftHand;
-        }
-        else
-        {
-            hand = Hands.rightHand;
-        }
-
         switch(hand){
             case Hands.leftHand:
                 transform.parent = leftHand.transform;
@@ -52,9 +42,6 @@ public class InventoriableObject : MonoBehaviour, IInteractable
 
     public void SetWeaponPosition(){
         transform.localPosition = weaponPos;
-    }
-
-    public void SetWeaponRotation(){
-        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRot.z);
+        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRo
     }
 }

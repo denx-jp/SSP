@@ -49,7 +49,6 @@ public class PlayerInventoryManager : MonoBehaviour
         weapon.attacker.Init(playerModel);
         invObject.HoldHand(leftHand, rightHand);
         invObject.SetWeaponPosition();
-        invObject.SetWeaponRotation();
         weapon.gameObject.SetActive(false);
         inventory.AddWeapon(type, weapon);
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
