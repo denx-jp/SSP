@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 using System.Linq;
 
-public class BulletManager : MonoBehaviour
+public class BulletManager : NetworkBehaviour
 {
     [SerializeField] BulletModel model;
 
@@ -22,20 +23,20 @@ public class BulletManager : MonoBehaviour
                     if (damageable != null)
                     {
                         var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
-                        CmdSetDamage(damageable, damage);
+                        CmdSetDamage(col.gameObject, damage);
                     }
                     Destroy(this.gameObject);
                 }
             })
             .AddTo(this.gameObject);
 
-        Observable.Timer(TimeSpan.FromSeconds(model.deathTime))
-            .Subscribe(_ => Destroy(this.gameObject))
-            .AddTo(this.gameObject);
+        Destroy(this.gameObject, model.deathTime);
     }
 
-    void CmdSetDamage(IDamageable damageable, Damage dmg)
+    [Command]
+    void CmdSetDamage(GameObject go, Damage dmg)
     {
+        var damageable = go.GetComponent<IDamageable>();
         damageable.SetDamage(dmg);
     }
 }

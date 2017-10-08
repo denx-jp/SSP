@@ -39,7 +39,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
             recentAttackerId = damage.id;
-            playerModel.Health.Value -= damage.amount;
+            playerModel.syncHealth -= damage.amount;
         }
     }
 
