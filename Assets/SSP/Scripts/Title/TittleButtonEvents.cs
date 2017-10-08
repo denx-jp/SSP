@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class TittleButtonEvents : MonoBehaviour
 {
-    public void LoadBattle()
+    [SerializeField] private string MatchingSceneName;
+
+    public void GameStartButtonEvent()
     {
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene(MatchingSceneName);
+    }
+
+    public void QuitGameButtonEvent()
+    {
+        Application.Quit();
     }
 }

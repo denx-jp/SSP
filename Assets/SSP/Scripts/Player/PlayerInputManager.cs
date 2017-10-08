@@ -17,6 +17,9 @@ public class PlayerInputManager : MonoBehaviour
 
     public readonly Subject<bool> NormalAttackButtonDown = new Subject<bool>();
     public readonly Subject<bool> ActionButtonDown = new Subject<bool>();
+    public IObservable<float> WeaponChange { get; private set; }
+    public readonly Subject<float> WeaponChangeWhellScroll = new Subject<float>();
+    public readonly Subject<bool> WeaponChangeButtonDown = new Subject<bool>();
 
     private Vector2 mouseInput;
     private Vector2 gamePadInput;
@@ -27,6 +30,11 @@ public class PlayerInputManager : MonoBehaviour
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
+        var convertFloatStream = WeaponChangeButtonDown.Where(v => v).Select(v => 0.1f);
+        WeaponChange = Observable.Merge(WeaponChangeWhellScroll, convertFloatStream).Where(v => v != 0);
+
+        if(playerModel.isLocalPlayerCharacter)
+        {
 
         this.UpdateAsObservable()
             .Where(_ => playerModel.IsAlive())
@@ -47,6 +55,9 @@ public class PlayerInputManager : MonoBehaviour
 
                 NormalAttackButtonDown.OnNext(Input.GetButtonDown("Normal Attack"));
                 ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
+
+                WeaponChangeWhellScroll.OnNext(Input.GetAxis("Mouse ScrollWheel"));
+                WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
             });
 
         this.UpdateAsObservable()
@@ -55,6 +66,8 @@ public class PlayerInputManager : MonoBehaviour
             {
                 //死亡時入力受付ストリーム
             });
+
+        }
     }
 
 }

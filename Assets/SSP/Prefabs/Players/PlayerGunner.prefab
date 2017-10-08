@@ -1371,6 +1371,7 @@ GameObject:
   - component: {fileID: 114337030982421274}
   - component: {fileID: 114805581167219738}
   - component: {fileID: 114333343639749600}
+  - component: {fileID: 114719019984489900}
   m_Layer: 0
   m_Name: PlayerGunner
   m_TagString: Player
@@ -5411,6 +5412,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114162074263147032}
   playerKillLogNotifier: {fileID: 114805581167219738}
   playerCameraController: {fileID: 114333343639749600}
+  palyerInventory: {fileID: 114719019984489900}
   devIsLocalPlayerCharacter: 1
 --- !u!114 &114162074263147032
 MonoBehaviour:
@@ -5486,7 +5488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 1
-  teamId: 0
+  teamId: 1
   devHealth: 0
   devEther: 0
   initialHealth: 500
@@ -5511,6 +5513,20 @@ MonoBehaviour:
   muzzle: {fileID: 1136077663573116}
   bulletDamageAmount: 50
   bulletDeathTime: 5
+--- !u!114 &114719019984489900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492497761590808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHand: {fileID: 1600373582808896}
+  leftHand: {fileID: 1232896789845360}
+  StockableGimmickCount: 2
 --- !u!114 &114752595263367862
 MonoBehaviour:
   m_ObjectHideFlags: 1

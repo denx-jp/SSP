@@ -13,13 +13,22 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
     private bool canAttack = true;
     private int playerId, teamId;
     private RaycastHit hit;
-    private int layerMask = 1 << LayerMap.LocalPlayer;
+    private int layerMask = ~(1 << LayerMap.LocalPlayer);
+    private float time = 0;
 
-    void Start()
+    public void Init(PlayerModel playerModel)
     {
-        var playerModel = this.transform.GetComponentInParent<PlayerModel>();
         playerId = playerModel.playerId;
         teamId = playerModel.teamId;
+
+        this.UpdateAsObservable()
+            .Where(_ => this.gameObject.activeSelf)
+            .Subscribe(_ =>
+            {
+                time += Time.deltaTime;
+                if (time >= coolTime)
+                    canAttack = true;
+            });
     }
 
     public void NormalAttack(Animator animator)
@@ -27,8 +36,8 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
         if (canAttack)
         {
             Shoot();
+            time = 0;
             canAttack = false;
-            StartCoroutine(WaitCoolTime());
         }
     }
 
@@ -47,11 +56,5 @@ public class LongRangeWeapon : MonoBehaviour, IAttackable
 
         bullet.GetComponent<BulletModel>().SetProperties(playerId, teamId, bulletDamageAmount, bulletDeathTime);
         bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
-    }
-
-    private IEnumerator WaitCoolTime()
-    {
-        yield return new WaitForSeconds(coolTime);
-        canAttack = true;
     }
 }
