@@ -11,7 +11,7 @@ public class PlayerInventoryManager : MonoBehaviour
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject leftHand;
     [SerializeField] private GameObject handGunPrefab;
-    [SerializeField] private InventoriableObject invObject;
+    private InventoriableObject invObject;
 
     void Start()
     {
@@ -48,9 +48,8 @@ public class PlayerInventoryManager : MonoBehaviour
         invObject = weapon.gameObject.GetComponent<InventoriableObject>();
         weapon.attacker.Init(playerModel);
         invObject.HoldHand(leftHand, rightHand);
-        weapon.gameObject.transform.localPosition = invObject.weaponPos;
-        Quaternion q = Quaternion.Euler(invObject.weaponRotate.x, invObject.weaponRotate.y, invObject.weaponRotate.z);
-        weapon.gameObject.transform.localRotation = q;
+        invObject.SetWeaponPosition();
+        invObject.SetWeaponRotation();
         weapon.gameObject.SetActive(false);
         inventory.AddWeapon(type, weapon);
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)

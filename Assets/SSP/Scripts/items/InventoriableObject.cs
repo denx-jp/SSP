@@ -8,9 +8,10 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
     [SerializeField] public Vector3 weaponPos;
-    [SerializeField] public Vector3 weaponRotate;
+    [SerializeField] public Vector3 weaponRot;
 
-    [SerializeField] public enum Hands { leftHand, rightHand };
+    [SerializeField] private bool isLeftHnad;
+    private enum Hands { leftHand, rightHand };
 
     public void Interact(PlayerManager pm)
     {
@@ -29,7 +30,6 @@ public class InventoriableObject : MonoBehaviour, IInteractable
     }
 
     public void HoldHand(GameObject leftHand,GameObject rightHand){
-        
         Hands hand = Hands.leftHand;
         //Hands hand = Hands.rightHand;
 
@@ -40,8 +40,14 @@ public class InventoriableObject : MonoBehaviour, IInteractable
             case Hands.rightHand:
                 transform.parent = rightHand.transform;
                 break;
-            default:
-                break;
         }
+    }
+
+    public void SetWeaponPosition(){
+        transform.localPosition = weaponPos;
+    }
+
+    public void SetWeaponRotation(){
+        transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRot.z);
     }
 }
