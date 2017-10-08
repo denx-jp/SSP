@@ -338,8 +338,6 @@ MonoBehaviour:
   muzzle: {fileID: 1914257830511014}
   bulletDamageAmount: 50
   bulletDeathTime: 5
-  playerId: 0
-  teamId: 0
 --- !u!114 &114303862106099984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,3 +383,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoriableType: 1
   canInteract: 1
+  weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
+  weaponRot: {x: 0, y: 90, z: 0}
+  hand: 1
