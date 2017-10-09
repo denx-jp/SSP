@@ -9,7 +9,6 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     [SerializeField] Rigidbody bullet;
     [SerializeField] GameObject muzzle;
     [SerializeField] private float bulletDamageAmount, bulletDeathTime = 5;
-    private BulletModel bulletModel;
     private bool canAttack = true;
     [SyncVar] private int playerId, teamId;
     private RaycastHit hit;

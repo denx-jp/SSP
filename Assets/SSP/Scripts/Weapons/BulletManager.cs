@@ -12,6 +12,10 @@ public class BulletManager : NetworkBehaviour
 
     void Start()
     {
+        if(isServer)
+            Destroy(this.gameObject, model.deathTime);
+
+
         this.OnTriggerEnterAsObservable()
             .Where(col => !col.isTrigger)
             .Subscribe(col =>
@@ -25,12 +29,11 @@ public class BulletManager : NetworkBehaviour
                         var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
                         CmdSetDamage(col.gameObject, damage);
                     }
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
+                    NetworkServer.Destroy(gameObject);
                 }
             })
             .AddTo(this.gameObject);
-
-        Destroy(this.gameObject, model.deathTime);
     }
 
     [Command]
