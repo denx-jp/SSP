@@ -5217,7 +5217,7 @@ MonoBehaviour:
   playerModel: {fileID: 114774096608856190}
   pim: {fileID: 114134000520712444}
   inventory: {fileID: 114077097428542020}
-  handGunPrefab: {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a,
+  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
     type: 2}
   rightHandTransform: {fileID: 4264272987011664}
   leftHandTransform: {fileID: 4723894345551248}

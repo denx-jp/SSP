@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoriableType: 0
+  inventoriableType: 2
   canInteract: 0
   weaponPos: {x: -0.0659, y: 0.5034, z: 0}
   weaponRot: {x: 0, y: 0, z: 0}
