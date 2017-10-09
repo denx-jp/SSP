@@ -43,7 +43,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         var player = ClientScene.FindLocalObject(ownerPlayerId);
         if (player == null) return;
         var pim = player.GetComponent<PlayerInventoryManager>();
-        SetTransformOwnerHand(pim.rightHandTransform, pim.leftHandTransform);
+        pim.SetDefaultWeapon(this.gameObject, inventoriableType);
     }
 
     public void SetTransformOwnerHand(Transform leftHand, Transform rightHand)

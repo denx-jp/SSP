@@ -9,27 +9,9 @@ public class PlayerInventoryManager : NetworkBehaviour
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerInventory inventory;
-    [SerializeField] public Transform rightHandTransform;
-    [SerializeField] public Transform leftHandTransform;
     [SerializeField] private GameObject handGunPrefab;
-    private InventoriableObject invObject;
-
-    [Command]
-    void CmdHandGun()
-    {
-        var handGunObj = Instantiate(handGunPrefab);
-        NetworkServer.SpawnWithClientAuthority(handGunObj, connectionToClient);
-        RpcHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
-    }
-
-    [ClientRpc]
-    void RpcHandGun(NetworkInstanceId instanceId)
-    {
-        var weapon = ClientScene.FindLocalObject(instanceId);
-        weapon.GetComponent<InventoriableObject>().ownerPlayerId = GetComponent<NetworkIdentity>().netId;
-        SetWeaponToInventory(weapon, InventoriableType.HandGun);
-        inventory.EquipWeapon(InventoryType.HandGun);
-    }
+     public Transform rightHandTransform;
+     public Transform leftHandTransform;
 
     void Start()
     {
@@ -56,20 +38,21 @@ public class PlayerInventoryManager : NetworkBehaviour
 
     public void SetWeaponToInventory(GameObject go, InventoriableType inventoriableType)
     {
-        InventoryType type = ConvertInventoriableTypeToInventoryType(inventoriableType);
+        var type = ConvertInventoriableTypeToInventoryType(inventoriableType);
         if (inventory.weapons.ContainsKey(type))
             inventory.ReleaseWeapon(type);
 
         var weapon = new InventoryWeapon(go);
-        invObject = weapon.gameObject.GetComponent<InventoriableObject>();
         weapon.attacker.Init(playerModel);
-        invObject.SetTransformOwnerHand(leftHandTransform, rightHandTransform);
         weapon.gameObject.SetActive(false);
+
+        var invObject = weapon.gameObject.GetComponent<InventoriableObject>();
+        invObject.SetTransformOwnerHand(leftHandTransform, rightHandTransform);
+
         inventory.AddWeapon(type, weapon);
-        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)  //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
-        {
+        //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
+        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
             inventory.EquipWeapon(type);
-        }
     }
 
     #region enum変換
@@ -95,10 +78,28 @@ public class PlayerInventoryManager : NetworkBehaviour
     }
     #endregion
 
-    private void SetParent(GameObject weaponObj)
+    #region ハンドガン初期セットアップ処理
+    [Command]
+    private void CmdHandGun()
     {
-        weaponObj.transform.parent = rightHandTransform;
-        weaponObj.transform.localPosition = Vector3.zero;
+        var handGunObj = Instantiate(handGunPrefab);
+        NetworkServer.SpawnWithClientAuthority(handGunObj, connectionToClient);
+        RpcHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
     }
 
+    [ClientRpc]
+    private void RpcHandGun(NetworkInstanceId instanceId)
+    {
+        var weapon = ClientScene.FindLocalObject(instanceId);
+        weapon.GetComponent<InventoriableObject>().ownerPlayerId = GetComponent<NetworkIdentity>().netId;
+        SetDefaultWeapon(weapon, InventoriableType.HandGun);
+    }
+
+    public void SetDefaultWeapon(GameObject weapon, InventoriableType type)
+    {
+        SetWeaponToInventory(weapon, type);
+        var inventoryType = ConvertInventoriableTypeToInventoryType(type);
+        inventory.EquipWeapon(inventoryType);
+    }
+    #endregion
 }
