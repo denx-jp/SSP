@@ -1154,6 +1154,10 @@ Prefab:
       propertyPath: clientPlayersManager
       value: 
       objectReference: {fileID: 1504114363}
+    - target: {fileID: 1757885972122936, guid: e1c5eac5c9e8e35439daf58f5b2321ec, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1c5eac5c9e8e35439daf58f5b2321ec, type: 2}
   m_IsPrefabParent: 0
@@ -1725,6 +1729,10 @@ Prefab:
     - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

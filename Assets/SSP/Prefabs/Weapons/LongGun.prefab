@@ -53,8 +53,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4194839122428882}
   - component: {fileID: 33191374590273836}
-  - component: {fileID: 23101878257787678}
   - component: {fileID: 65415841827844980}
+  - component: {fileID: 23101878257787678}
   - component: {fileID: 114303862106099984}
   - component: {fileID: 114091647662173982}
   - component: {fileID: 114948242860574984}
@@ -333,10 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolTime: 1
   bulletSpeed: 1000
-  bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
-    type: 2}
-  bulletRigid: {fileID: 54890028688491532, guid: d364dda7de5cd074fa642a49f756148f,
-    type: 2}
+  bullet: {fileID: 0}
   muzzle: {fileID: 1914257830511014}
   bulletDamageAmount: 50
   bulletDeathTime: 5

@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb53c3547122084c8b1055181f33790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  damageAmount: 100
   hitDetectionTimeOffset: 0.1
   hitDetectionDuration: 0.6
 --- !u!114 &114506838946006212
@@ -142,7 +142,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoriableType: 0
-  canInteract: 1
+  canInteract: 0
+  weaponPos: {x: -0.0659, y: 0.5034, z: 0}
+  weaponRot: {x: 0, y: 0, z: 0}
+  hand: 1
 --- !u!136 &136532114692406812
 CapsuleCollider:
   m_ObjectHideFlags: 1

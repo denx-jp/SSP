@@ -17,7 +17,7 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
 
     [HideInInspector] public int defaultLayer = LayerMap.Default;   //ネットワーク実装時にはローカルプレイヤーのみLayerMap.LocalPlayerになる。
 
-    private void Start()
+    private void Awake()
     {
         Health = new ReactiveProperty<float>();
         Ether = new ReactiveProperty<float>();
