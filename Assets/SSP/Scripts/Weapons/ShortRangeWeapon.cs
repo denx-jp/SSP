@@ -12,8 +12,26 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
     private bool isAttackStarted;
     private bool detectable;
-    private int playerId, teamId;
+    [SyncVar] private int playerId, teamId;
     private Animator animator;
+
+    private void Start()
+    {
+        this.OnTriggerEnterAsObservable()
+            .Where(_ => detectable)
+            .Where(col => col.gameObject.layer != LayerMap.Invincible)
+            .Where(col => !col.isTrigger)
+            .Subscribe(col =>
+            {
+                var damageable = col.gameObject.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    var damage = new Damage(damageAmount, playerId, teamId);
+                    CmdSetDamage(col.gameObject, damage);
+                }
+            });
+
+    }
 
     public void Init(PlayerModel playerModel)
     {
@@ -25,49 +43,39 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
 
     public void NormalAttack()
     {
+        CmdAttack();
+    }
+
+    [Command]
+    private void CmdAttack()
+    {
+        RpcAttack();
+    }
+
+    [ClientRpc]
+    private void RpcAttack()
+    {
         animator.SetTrigger("Attack");
         if (isAttackStarted) StopCoroutine(Attacking());
         StartCoroutine(Attacking());
-    }
-
-    void OnTriggerEnter(Collider col)
-    {
-        if (!detectable) return;
-        if (col.gameObject.layer == LayerMap.Invincible) return;
-        if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        var damageable = col.gameObject.GetComponent<IDamageable>();
-        if (damageable != null)
-        {
-            var damage = new Damage(damageAmount, playerId, teamId);
-            CmdSetDamage(damageable, damage);
-        }
-    }
-
-    //今後ネットワークにするためCmd
-    void CmdSetDamage(IDamageable damageable, Damage dmg)
-    {
-        damageable.SetDamage(dmg);
-    }
-
-    void SetLayer(int layer)
-    {
-        this.gameObject.layer = layer;
-    }
-
-    void SetDetectable(bool _detectable)
-    {
-        detectable = _detectable;
     }
 
     IEnumerator Attacking()
     {
         isAttackStarted = true;
         yield return new WaitForSeconds(hitDetectionTimeOffset);
-        SetDetectable(true);
-        SetLayer(LayerMap.Attack);
+        detectable = true;
+        gameObject.layer = LayerMap.Attack;
         yield return new WaitForSeconds(hitDetectionDuration);
-        SetDetectable(false);
-        SetLayer(LayerMap.Default);
+        detectable = false;
+        gameObject.layer = LayerMap.Default;
         isAttackStarted = false;
+    }
+
+    [Command]
+    void CmdSetDamage(GameObject go, Damage dmg)
+    {
+        var damageable = go.GetComponent<IDamageable>();
+        damageable.SetDamage(dmg);
     }
 }
