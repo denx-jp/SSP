@@ -12,30 +12,31 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
     private bool detectable;
     private Animator animator;
 
-    private void Start()
-    {
-        this.OnTriggerEnterAsObservable()
-            .Where(_ => detectable)
-            .Where(col => col.gameObject.layer != LayerMap.Invincible)
-            .Where(col => !col.isTrigger)
-            .Subscribe(col =>
-            {
-                var damageable = col.gameObject.GetComponent<IDamageable>();
-                if (damageable != null)
-                {
-                    var damage = new Damage(damageAmount, playerId, teamId);
-                    CmdSetDamage(col.gameObject, damage);
-                }
-            });
-
-    }
-
     public void Init(PlayerModel playerModel)
     {
         model.playerId = playerModel.playerId;
         model.teamId = playerModel.teamId;
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         animator = playerModel.gameObject.GetComponent<Animator>();
+
+        //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
+        if (model.isOwnerLocalPlayer)
+        {
+            this.OnTriggerEnterAsObservable()
+                .Where(_ => detectable)
+                .Where(col => col.gameObject.layer != LayerMap.Invincible)
+                .Where(col => !col.isTrigger)
+                .Subscribe(col =>
+                {
+                    var damageable = col.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        var damage = model.GetDamage();
+                        CmdSetDamage(col.gameObject, damage);
+                        detectable = false;     //リモートクライアントで何故か当たり判定が2回でるのでフラグで制御
+                    }
+                });
+        }
     }
 
     public void NormalAttack()
