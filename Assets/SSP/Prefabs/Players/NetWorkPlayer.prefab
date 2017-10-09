@@ -2352,7 +2352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4752933912816226}
   - component: {fileID: 136968364903373988}
-  - component: {fileID: 136283051329156196}
+  - component: {fileID: 136380669892112128}
   - component: {fileID: 54482828738837568}
   - component: {fileID: 95268588012316118}
   - component: {fileID: 114196207367232310}
@@ -5217,10 +5217,10 @@ MonoBehaviour:
   playerModel: {fileID: 114774096608856190}
   pim: {fileID: 114134000520712444}
   inventory: {fileID: 114077097428542020}
-  rightHandTransform: {fileID: 4264272987011664}
-  leftHandTransform: {fileID: 4723894345551248}
   handGunPrefab: {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a,
     type: 2}
+  rightHandTransform: {fileID: 4264272987011664}
+  leftHandTransform: {fileID: 4723894345551248}
 --- !u!114 &114134000520712444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5450,7 +5450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd67c579bbcd46a47b1136a8fe2c10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &136283051329156196
+--- !u!136 &136380669892112128
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

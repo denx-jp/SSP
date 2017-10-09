@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
@@ -7,12 +6,10 @@ using UniRx.Triggers;
 
 public class ShortRangeWeapon : NetworkBehaviour, IAttackable
 {
-    [SerializeField] public float damageAmount;//攻撃のダメージ量
+    [SerializeField] WeaponModel model;
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
-    private bool isAttackStarted;
     private bool detectable;
-    [SyncVar] private int playerId, teamId;
     private Animator animator;
 
     private void Start()
@@ -35,9 +32,9 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
 
     public void Init(PlayerModel playerModel)
     {
-        isAttackStarted = false;
-        playerId = playerModel.playerId;
-        teamId = playerModel.teamId;
+        model.playerId = playerModel.playerId;
+        model.teamId = playerModel.teamId;
+        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         animator = playerModel.gameObject.GetComponent<Animator>();
     }
 
@@ -56,20 +53,17 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
     private void RpcAttack()
     {
         animator.SetTrigger("Attack");
-        if (isAttackStarted) StopCoroutine(Attacking());
         StartCoroutine(Attacking());
     }
 
     IEnumerator Attacking()
     {
-        isAttackStarted = true;
         yield return new WaitForSeconds(hitDetectionTimeOffset);
         detectable = true;
         gameObject.layer = LayerMap.Attack;
         yield return new WaitForSeconds(hitDetectionDuration);
         detectable = false;
         gameObject.layer = LayerMap.Default;
-        isAttackStarted = false;
     }
 
     [Command]

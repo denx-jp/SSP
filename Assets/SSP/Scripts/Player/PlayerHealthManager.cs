@@ -35,10 +35,10 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     {
         //フレンドリーファイアはできないように
         if (damage.teamId == playerModel.teamId) return;
-
+        
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
-            recentAttackerId = damage.id;
+            recentAttackerId = damage.playerId;
             playerModel.syncHealth -= damage.amount;
         }
     }
