@@ -33,7 +33,6 @@ public class KillLogViewModel : NetworkBehaviour
 #endif
     private void CmdAppendKillLog(string killer, string killed)
     {
-        Debug.Log("cmd");
         RpcAppendKillLog(killer, killed);
     }
 
@@ -48,6 +47,7 @@ public class KillLogViewModel : NetworkBehaviour
 
     private IEnumerator KillLogCoroutine(string killLogText)
     {
+        Debug.Log("coroutine");
         var text = texts.First(v => v.text == "");
         text.text = killLogText;
         text.gameObject.SetActive(true);
