@@ -16,11 +16,11 @@ public class KillLogViewModel : MonoBehaviour
         foreach (Text text in texts)
             text.text = "";
 
-        //foreach(var killLogNotifier in killLogNotifiers)
-        //{
-        //    killLogNotifier.GetKillLogStream()
-        //        .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
-        //}
+        foreach (var killLogNotifier in killLogNotifiers)
+        {
+            killLogNotifier.GetKillLogStream()
+                .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
+        }
     }
 
     public void SetKillLogNotifier(List<PlayerKillLogNotifier> pklns)
