@@ -18,7 +18,7 @@ public class EtherPopper : MonoBehaviour
         Observable.Interval(TimeSpan.FromSeconds(popINterval)).Subscribe(_ =>
         {
             popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
-            GameObject popEther = Instantiate(ether, popPoint.position, Quaternion.identity);
+            Instantiate(ether, popPoint.position, Quaternion.identity);
         }).AddTo(this);
 
     }

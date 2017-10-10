@@ -49,11 +49,11 @@ public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
 
     public void AcquireEther(float etherValue)
     {
-        palyerModel.Ether.Value += etherValue;
+        palyerModel.syncEther += etherValue;
     }
 
     public void EmitEther(float ether)
     {
-        palyerModel.Ether.Value -= ether;
+        palyerModel.syncEther -= ether;
     }
 }

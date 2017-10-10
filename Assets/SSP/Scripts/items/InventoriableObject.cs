@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public enum InventoriableType { HandGun, LongRangeWeapon, ShortRangeWeapon, Gimmick }
-public class InventoriableObject : MonoBehaviour, IInteractable
+public class InventoriableObject : NetworkBehaviour, IInteractable
 {
     [SerializeField] private InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
@@ -12,6 +13,13 @@ public class InventoriableObject : MonoBehaviour, IInteractable
 
     private enum Hands { leftHand, rightHand };
     [SerializeField] private Hands hand;
+
+    [SyncVar] public NetworkInstanceId ownerPlayerId;
+
+    void Start()
+    {
+        SetTransformToOwner();
+    }
 
     public void Interact(PlayerManager pm)
     {
@@ -29,13 +37,24 @@ public class InventoriableObject : MonoBehaviour, IInteractable
         canInteract = _canInteract;
     }
 
-    public void SetEquipWeapon(GameObject leftHand,GameObject rightHand){
-        switch(hand){
+    [ClientCallback]
+    private void SetTransformToOwner()
+    {
+        var player = ClientScene.FindLocalObject(ownerPlayerId);
+        if (player == null) return;
+        var pim = player.GetComponent<PlayerInventoryManager>();
+        pim.SetDefaultWeapon(this.gameObject, inventoriableType);
+    }
+
+    public void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
+    {
+        switch (hand)
+        {
             case Hands.leftHand:
-                transform.parent = leftHand.transform;
+                transform.parent = leftHand;
                 break;
             case Hands.rightHand:
-                transform.parent = rightHand.transform;
+                transform.parent = rightHand;
                 break;
         }
 

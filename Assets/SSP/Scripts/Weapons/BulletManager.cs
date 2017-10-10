@@ -1,38 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 using System.Linq;
 
-public class BulletManager : MonoBehaviour
+public class BulletManager : NetworkBehaviour
 {
     [SerializeField] BulletModel model;
 
     void Start()
     {
+        if(isServer)
+            Destroy(this.gameObject, model.deathTime);
+
+
         this.OnTriggerEnterAsObservable()
-            .Where(col => col.gameObject.layer != LayerMap.LocalPlayer)
             .Where(col => !col.isTrigger)
             .Subscribe(col =>
             {
-                var damageable = col.gameObject.GetComponent<IDamageable>();
-                if (damageable != null)
+                var playerModel = col.gameObject.GetComponent<PlayerModel>();
+                if (playerModel != null && playerModel.teamId != model.shootPlayerTeamId)
                 {
-                    var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
-                    CmdSetDamage(damageable, damage);
+                    var damageable = col.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
+                        CmdSetDamage(col.gameObject, damage);
+                    }
+                    Destroy(gameObject);
+                    NetworkServer.Destroy(gameObject);
                 }
-                Destroy(this.gameObject);
             })
-            .AddTo(this.gameObject);
-
-        Observable.Timer(TimeSpan.FromSeconds(model.deathTime))
-            .Subscribe(_ => Destroy(this.gameObject))
             .AddTo(this.gameObject);
     }
 
-    void CmdSetDamage(IDamageable damageable, Damage dmg)
+    [Command]
+    void CmdSetDamage(GameObject go, Damage dmg)
     {
+        var damageable = go.GetComponent<IDamageable>();
         damageable.SetDamage(dmg);
     }
 }

@@ -20,9 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4601032466386554}
   - component: {fileID: 33951824872958160}
-  - component: {fileID: 54890028688491532}
-  - component: {fileID: 135769969068720922}
   - component: {fileID: 23212103230888740}
+  - component: {fileID: 135769969068720922}
+  - component: {fileID: 54890028688491532}
+  - component: {fileID: 114518607377905270}
+  - component: {fileID: 114226376450417378}
   - component: {fileID: 114615027804808878}
   - component: {fileID: 114257997227306570}
   m_Layer: 8
@@ -99,6 +101,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114226376450417378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302414001687628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114257997227306570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,6 +134,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 114615027804808878}
+--- !u!114 &114518607377905270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302414001687628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 211
+    i1: 100
+    i2: 221
+    i3: 167
+    i4: 222
+    i5: 92
+    i6: 208
+    i7: 116
+    i8: 250
+    i9: 100
+    i10: 42
+    i11: 73
+    i12: 247
+    i13: 86
+    i14: 20
+    i15: 143
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114615027804808878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,8 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPlayerId: 0
   shootPlayerTeamId: 0
-  damageAmount: 0
-  deathTime: 0
+  damageAmount: 100
+  deathTime: 5
 --- !u!135 &135769969068720922
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -1,71 +1,76 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class ShortRangeWeapon : MonoBehaviour, IAttackable
+public class ShortRangeWeapon : NetworkBehaviour, IAttackable
 {
-    [SerializeField] public float damageAmount;//攻撃のダメージ量
+    [SerializeField] WeaponModel model;
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
-    bool isAttackStarted;
-    bool detectable;
-    int parentPlayerId;
-    int parentPlayerTeamId;
+    private bool detectable;
+    private Animator animator;
 
     public void Init(PlayerModel playerModel)
     {
-        isAttackStarted = false;
-        parentPlayerId = playerModel.playerId;
-        parentPlayerTeamId = playerModel.teamId;
-    }
+        model.playerId = playerModel.playerId;
+        model.teamId = playerModel.teamId;
+        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
+        animator = playerModel.gameObject.GetComponent<Animator>();
 
-    public void NormalAttack(Animator animator)
-    {
-        animator.SetTrigger("Attack");
-        if (isAttackStarted) StopCoroutine(Attacking());
-        StartCoroutine(Attacking());
-    }
-
-    void OnTriggerEnter(Collider col)
-    {
-        if (!detectable) return;
-        if (col.gameObject.layer == LayerMap.Invincible) return;
-        if (col.isTrigger) return; //Colliderのみと衝突を判定する
-        var damageable = col.gameObject.GetComponent<IDamageable>();
-        if (damageable != null)
+        //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
+        if (model.isOwnerLocalPlayer)
         {
-            var damage = new Damage(damageAmount, parentPlayerId, parentPlayerTeamId);
-            CmdSetDamage(damageable, damage);
+            this.OnTriggerEnterAsObservable()
+                .Where(_ => detectable)
+                .Where(col => col.gameObject.layer != LayerMap.Invincible)
+                .Where(col => !col.isTrigger)
+                .Subscribe(col =>
+                {
+                    var damageable = col.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        var damage = model.GetDamage();
+                        CmdSetDamage(col.gameObject, damage);
+                        detectable = false;     //リモートクライアントで何故か当たり判定が2回でるのでフラグで制御
+                    }
+                });
         }
     }
 
-    //今後ネットワークにするためCmd
-    void CmdSetDamage(IDamageable damageable, Damage dmg)
+    public void NormalAttack()
     {
-        damageable.SetDamage(dmg);
+        CmdAttack();
     }
 
-    void SetLayer(int layer)
+    [Command]
+    private void CmdAttack()
     {
-        this.gameObject.layer = layer;
+        RpcAttack();
     }
 
-    void SetDetectable(bool _detectable)
+    [ClientRpc]
+    private void RpcAttack()
     {
-        detectable = _detectable;
+        animator.SetTrigger("Attack");
+        StartCoroutine(Attacking());
     }
 
     IEnumerator Attacking()
     {
-        isAttackStarted = true;
         yield return new WaitForSeconds(hitDetectionTimeOffset);
-        SetDetectable(true);
-        SetLayer(LayerMap.Attack);
+        detectable = true;
+        gameObject.layer = LayerMap.Attack;
         yield return new WaitForSeconds(hitDetectionDuration);
-        SetDetectable(false);
-        SetLayer(LayerMap.Default);
-        isAttackStarted = false;
+        detectable = false;
+        gameObject.layer = LayerMap.Default;
+    }
+
+    [Command]
+    void CmdSetDamage(GameObject go, Damage dmg)
+    {
+        var damageable = go.GetComponent<IDamageable>();
+        damageable.SetDamage(dmg);
     }
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IAttackable
 {
     void Init(PlayerModel playerModel);
-    void NormalAttack(Animator animator);
+    void NormalAttack();
 }

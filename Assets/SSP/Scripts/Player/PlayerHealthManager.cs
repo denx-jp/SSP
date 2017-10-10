@@ -33,10 +33,13 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
 
     public void SetDamage(Damage damage)
     {
+        //フレンドリーファイアはできないように
+        if (damage.teamId == playerModel.teamId) return;
+        
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
-            recentAttackerId = damage.id;
-            playerModel.Health.Value -= damage.amount;
+            recentAttackerId = damage.playerId;
+            playerModel.syncHealth -= damage.amount;
         }
     }
 
