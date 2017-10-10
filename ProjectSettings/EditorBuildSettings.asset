@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SSP/Scenes/Dev/Network/Title.unity
+    path: Assets/SSP/Scenes/Dev/Becnick/Title.unity
     guid: a92f2f1d619617f449ac3aea6d665993
   - enabled: 1
-    path: Assets/SSP/Scenes/Dev/Network/Matching.unity
-    guid: d1baba9ea81edbf4c9979d7ec6a1fbfa
+    path: Assets/SSP/Scenes/Dev/Becnick/Battle.unity
+    guid: 813dd0cde2d9ad940b33b14ddedd30bb
   - enabled: 1
-    path: Assets/SSP/Scenes/Dev/Network/Network.unity
-    guid: c02581fa5a384e44294a8a98653f77b2
+    path: Assets/SSP/Scenes/Dev/NB29979.unity
+    guid: 11d863c15c6e4ee4aa8f08f0e417e8c3
+  - enabled: 1
+    path: Assets/SSP/Scenes/Dev/NB29979-Result.unity
+    guid: 33a9b910cf0298e4e9f13281a4966922
