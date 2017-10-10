@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 
-public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
+public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitter
 {
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
