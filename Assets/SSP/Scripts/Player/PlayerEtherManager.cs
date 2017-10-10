@@ -32,6 +32,7 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
     {
         RpcStartPlayerEtherPop();
     }
+
 #if ONLINE
     [ClientRpc]
 #endif
