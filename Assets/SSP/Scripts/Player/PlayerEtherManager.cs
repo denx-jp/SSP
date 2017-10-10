@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 
 public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
@@ -8,24 +9,39 @@ public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
 
-    private PlayerModel palyerModel;
+    private PlayerModel playerModel;
     private PlayerHealthManager playerHealthManager;
 
     private void Start()
     {
-        palyerModel = GetComponent<PlayerModel>();
+        playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
 
         playerHealthManager.GetDeathStream()
              .Where(v => v)
              .Subscribe(_ =>
              {
-                 var halfEther = palyerModel.Ether.Value / 2.0f;
-                 EmitEther(halfEther);
-                 GenerateEtherObject(halfEther);
+                 CmdStartPlayerEtherPop();
              });
     }
-    
+
+#if ONLINE
+    [Command]
+#endif
+    private void CmdStartPlayerEtherPop()
+    {
+        RpcStartPlayerEtherPop();
+    }
+#if ONLINE
+    [ClientRpc]
+#endif
+    private void RpcStartPlayerEtherPop()
+    {
+         var halfEther = playerModel.Ether.Value / 2.0f;
+         EmitEther(halfEther);
+         GenerateEtherObject(halfEther);
+    }
+
     //非常に雑な実装なので治せるなら後から治した方がよい
     private void GenerateEtherObject(float emitEtherValue)
     {
@@ -49,11 +65,11 @@ public class PlayerEtherManager : MonoBehaviour, IEtherAcquirer, IEtherEmitter
 
     public void AcquireEther(float etherValue)
     {
-        palyerModel.syncEther += etherValue;
+        playerModel.syncEther += etherValue;
     }
 
     public void EmitEther(float ether)
     {
-        palyerModel.syncEther -= ether;
+        playerModel.syncEther -= ether;
     }
 }
