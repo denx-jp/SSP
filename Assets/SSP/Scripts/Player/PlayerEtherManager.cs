@@ -21,7 +21,8 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
              .Where(v => v)
              .Subscribe(_ =>
              {
-                 CmdStartPlayerEtherPop();
+                 if (playerModel.isLocalPlayerCharacter)
+                     CmdStartPlayerEtherPop();
              });
     }
 
