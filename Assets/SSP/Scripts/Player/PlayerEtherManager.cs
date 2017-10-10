@@ -19,10 +19,10 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
 
         playerHealthManager.GetDeathStream()
              .Where(v => v)
+             .Where(_=>isLocalPlayer)
              .Subscribe(_ =>
              {
-                 if (playerModel.isLocalPlayerCharacter)
-                     CmdStartPlayerEtherPop();
+                 CmdStartPlayerEtherPop();
              });
     }
 
