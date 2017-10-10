@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public enum InventoriableType { HandGun, LongRangeWeapon, ShortRangeWeapon, Gimmick }
 public class InventoriableObject : NetworkBehaviour, IInteractable
 {
-    [SerializeField] private InventoriableType inventoriableType;
+    [SerializeField] public InventoriableType inventoriableType;
     [SerializeField] private bool canInteract = true;
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
