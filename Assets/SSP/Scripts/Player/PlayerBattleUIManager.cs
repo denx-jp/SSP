@@ -15,6 +15,11 @@ public class PlayerBattleUIManager : MonoBehaviour
 
     private void Start()
     {
+        //Init();
+    }
+
+    public void Init()
+    {
         healthViewModel.healthModel = PlayerManager().playerModel as IHealth;
         etherViewModel.etherModel = PlayerManager().playerModel as IEther;
         killLogViewModel.SetKillLogNotifier(ClientPlayersManager().GetPlayersComponent<PlayerKillLogNotifier>());
@@ -27,7 +32,7 @@ public class PlayerBattleUIManager : MonoBehaviour
         timeViewModel.Init();
     }
 
-    public void Init()
+    public void SetComponents()
     {
         healthViewModel = GetComponentInChildren<HealthViewModel>();
         etherViewModel = GetComponentInChildren<EtherViewModel>();
@@ -44,7 +49,7 @@ public class PlayerBattleUIManager : MonoBehaviour
     {
         if (playerManager == null)
         {
-            var localPlayer = GameObject.FindGameObjectsWithTag("Player").First(v => v.layer == LayerMap.LocalPlayer);
+            var localPlayer = GameObject.FindGameObjectsWithTag("Player").First(v => v.GetComponent<PlayerModel>().isLocalPlayerCharacter);
             playerManager = localPlayer.GetComponent<PlayerManager>();
         }
         return playerManager;

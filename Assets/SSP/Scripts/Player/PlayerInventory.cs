@@ -10,8 +10,7 @@ public class PlayerInventory : MonoBehaviour
 
     public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; }
     public InventoryType currentWeaponType { get; private set; }
-
-    private InventoryType[] inventoryOrder = new InventoryType[] { InventoryType.HandGun, InventoryType.LongRangeWeapon, InventoryType.ShortRangeWeapon, InventoryType.Gimmick1, InventoryType.Gimmick2 };
+    
     private int inventoryTypeCount = 0;
 
     public void Init()
