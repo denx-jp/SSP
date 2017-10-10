@@ -29,7 +29,8 @@ public class PlayerRespawner : NetworkBehaviour
             .Where(v => v)
             .Subscribe(_ =>
             {
-                CmdPlayerRespawnStart();
+                if (playerModel.isLocalPlayerCharacter)
+                    CmdPlayerRespawnStart();
             });
     }
 
