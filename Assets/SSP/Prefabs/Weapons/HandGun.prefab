@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 65139783768924182}
   - component: {fileID: 23128071150024078}
   - component: {fileID: 114397692148794256}
+  - component: {fileID: 114476576303947814}
   - component: {fileID: 114275136129540490}
   - component: {fileID: 114611022078819548}
   m_Layer: 0
@@ -219,12 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfaf207992cbd94ba0d1fc7b912847e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolTime: 1
-  bulletSpeed: 10
-  bullet: {fileID: 54890028688491532, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
+  model: {fileID: 114476576303947814}
   muzzle: {fileID: 1722006071851656}
-  bulletDamageAmount: 50
-  bulletDeathTime: 5
 --- !u!114 &114397692148794256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,6 +254,26 @@ MonoBehaviour:
     i15: 25
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114476576303947814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996856847404154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166ae1beae32a0f4f9c812d74eb6cff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: HandGun
+  damageAmount: 100
+  isOwnerLocalPlayer: 0
+  playerId: 0
+  teamId: 0
+  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
+  bulletVelocity: 10
+  bulletDeathTime: 5
+  coolTime: 0.5
 --- !u!114 &114611022078819548
 MonoBehaviour:
   m_ObjectHideFlags: 1

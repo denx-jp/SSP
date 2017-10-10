@@ -5,29 +5,27 @@ using UniRx.Triggers;
 
 public class LongRangeWeapon : NetworkBehaviour, IAttackable
 {
-    [SerializeField] private float coolTime, bulletSpeed = 1000;
-    [SerializeField] Rigidbody bullet;
+    [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
-    [SerializeField] private float bulletDamageAmount, bulletDeathTime = 5;
     private bool canAttack = true;
-    [SyncVar] private int playerId, teamId;
+    private float reloadTime = 0;
+    private Transform cameraTransform;
     private RaycastHit hit;
     private int layerMask = ~(1 << LayerMap.LocalPlayer);
-    private float time = 0;
-    private Transform cameraTransform;
 
     public void Init(PlayerModel playerModel)
     {
-        playerId = playerModel.playerId;
-        teamId = playerModel.teamId;
+        model.playerId = playerModel.playerId;
+        model.teamId = playerModel.teamId;
+        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
 
         this.UpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
             .Subscribe(_ =>
             {
-                time += Time.deltaTime;
-                if (time >= coolTime)
+                reloadTime += Time.deltaTime;
+                if (reloadTime >= model.coolTime)
                     canAttack = true;
             });
     }
@@ -37,7 +35,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
         if (canAttack)
         {
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
-            time = 0;
+            reloadTime = 0;
             canAttack = false;
         }
     }
@@ -45,14 +43,14 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
-        Rigidbody bulletInstance = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation) as Rigidbody;
+        var bulletInstance = Instantiate(model.bullet, muzzle.transform.position, muzzle.transform.rotation);
         if (Physics.Raycast(castPosition, castDirection, out hit, 1000, layerMask))
             bulletInstance.transform.LookAt(hit.point);
         else
             bulletInstance.transform.rotation = uncastableDirection;
 
-        bulletInstance.velocity = bulletInstance.transform.forward * bulletSpeed;
-        bulletInstance.GetComponent<BulletModel>().SetProperties(playerId, teamId, bulletDamageAmount, bulletDeathTime);
+        bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * model.bulletVelocity;
+        bulletInstance.GetComponent<BulletModel>().SetProperties(model);
         NetworkServer.Spawn(bulletInstance.gameObject);
     }
 }
