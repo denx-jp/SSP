@@ -19,7 +19,7 @@ public class PlayerBattleUIManager : MonoBehaviour
         etherViewModel.etherModel = playerManager.playerModel as IEther;
         killLogViewModel.SetKillLogNotifier(clientPlayersManager.GetPlayersComponent<PlayerKillLogNotifier>());
         timeViewModel.SetTimeManager(timeManager);
-        
+
         //各VMに必要な代入がされる前に初期化処理をされると困るので明示的にタイミングを指定するためにInit()を使っている
         healthViewModel.Init();
         etherViewModel.Init();
