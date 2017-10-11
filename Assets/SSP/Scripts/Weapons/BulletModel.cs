@@ -5,9 +5,9 @@ using UnityEngine.Networking;
 
 public class BulletModel : NetworkBehaviour
 {
-    [SyncVar] public int shootPlayerId, shootPlayerTeamId;
-    [SyncVar] public float damageAmount, deathTime;
-    [SyncVar] public bool isShooterLocalPlayer;
+    [HideInInspector, SyncVar] public int shootPlayerId, shootPlayerTeamId;
+    [HideInInspector, SyncVar] public float damageAmount, deathTime;
+    public bool isShooterLocalPlayer;
 
     public void SetProperties(int _shootPlayerId, int _shootPlayerTeamId, float _damageAmount, float _deathTime)
     {

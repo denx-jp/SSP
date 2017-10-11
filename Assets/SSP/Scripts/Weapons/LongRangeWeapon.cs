@@ -8,10 +8,11 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
     private bool canAttack = true;
-    private float reloadTime = 0;
+    private float shootTime = 0;
     private Transform cameraTransform;
     private RaycastHit hit;
     private int layerMask = ~(1 << LayerMap.LocalPlayer);
+    private PlayerModel pm;
 
     public void Init(PlayerModel playerModel)
     {
@@ -19,13 +20,14 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
         model.teamId = playerModel.teamId;
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
+        pm = playerModel;
 
-        this.UpdateAsObservable()
+        this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
+            .Where(_ => !canAttack)
             .Subscribe(_ =>
             {
-                reloadTime += Time.deltaTime;
-                if (reloadTime >= model.coolTime)
+                if (Time.time - shootTime >= model.coolTime)
                     canAttack = true;
             });
     }
@@ -34,9 +36,9 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     {
         if (canAttack)
         {
-            CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
-            reloadTime = 0;
+            shootTime = Time.time;
             canAttack = false;
+            CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
     }
 
@@ -50,7 +52,13 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
             bulletInstance.transform.rotation = uncastableDirection;
 
         bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * model.bulletVelocity;
-        bulletInstance.GetComponent<BulletModel>().SetProperties(model);
-        NetworkServer.Spawn(bulletInstance.gameObject);
+        NetworkServer.SpawnWithClientAuthority(bulletInstance.gameObject, pm.connectionToClient);
+        RpcShoot(bulletInstance);
+    }
+
+    [ClientRpc]
+    private void RpcShoot(GameObject bulletInstance)
+    {
+        bulletInstance.GetComponent<BulletManager>().Init(model);
     }
 }

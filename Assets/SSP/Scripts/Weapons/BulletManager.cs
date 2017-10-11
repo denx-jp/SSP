@@ -10,10 +10,12 @@ public class BulletManager : NetworkBehaviour
 {
     [SerializeField] BulletModel model;
 
-    void Start()
+    public void Init(LongRangeWeaponModel lrwm)
     {
         if (isServer)
-            Destroy(this.gameObject, model.deathTime);
+            Destroy(gameObject, model.deathTime);
+
+        model.SetProperties(lrwm);
 
         if (model.isShooterLocalPlayer)
         {
@@ -30,10 +32,13 @@ public class BulletManager : NetworkBehaviour
                             var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
                             CmdSetDamage(col.gameObject, damage);
                         }
-                        NetworkServer.Destroy(this.gameObject);
                     }
-                })
-                .AddTo(this.gameObject);
+                    if (playerModel == null || playerModel.playerId != model.shootPlayerId)
+                    {
+                        GetComponent<NetworkTransform>().enabled = false;
+                        CmdDestroy();
+                    }
+                }).AddTo(this.gameObject);
         }
     }
 
@@ -42,5 +47,11 @@ public class BulletManager : NetworkBehaviour
     {
         var damageable = go.GetComponent<IDamageable>();
         damageable.SetDamage(dmg);
+    }
+
+    [Command]
+    void CmdDestroy()
+    {
+        NetworkServer.Destroy(this.gameObject);
     }
 }
