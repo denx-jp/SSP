@@ -26,6 +26,7 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
 
         animator = GetComponent<Animator>();
         this.deathStream
+            .Where(_ => isLocalPlayer)
              .Subscribe(isdeath =>
              {
                  CmdStartDeathAnimation(isdeath);
@@ -48,7 +49,7 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     {
         //フレンドリーファイアはできないように
         if (damage.teamId == playerModel.teamId) return;
-        
+
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
             recentAttackerId = damage.playerId;
