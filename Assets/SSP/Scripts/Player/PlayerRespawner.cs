@@ -27,6 +27,7 @@ public class PlayerRespawner : NetworkBehaviour
         this.playerHealthManager.GetDeathStream()
             .Throttle(TimeSpan.FromSeconds(timeToRespawn))
             .Where(v => v)
+            .Where(_ => isLocalPlayer)
             .Subscribe(_ =>
             {
                 CmdPlayerRespawnStart();
