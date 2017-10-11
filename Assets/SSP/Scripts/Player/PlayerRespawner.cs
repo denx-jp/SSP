@@ -32,18 +32,15 @@ public class PlayerRespawner : NetworkBehaviour
                 CmdPlayerRespawnStart();
             });
     }
-
-#if ONLINE
+    
     [Command]
-#endif
     private void CmdPlayerRespawnStart()
     {
         var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
         RpcPlayerRespawnStart(respawnPoint.transform.position);
     }
-#if ONLINE
+
     [ClientRpc]
-#endif
     private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
     {
         playerModel.Init();

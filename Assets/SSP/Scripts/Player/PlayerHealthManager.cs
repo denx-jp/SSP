@@ -31,16 +31,14 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
                  CmdStartDeathAnimation(isdeath);
              });
     }
-#if ONLINE
+
     [Command]
-#endif
     private void CmdStartDeathAnimation(bool isdeath)
     {
         RpcStartDeathAnimation(isdeath);
     }
-#if ONLINE
+
     [ClientRpc]
-#endif
     private void RpcStartDeathAnimation(bool isdeath)
     {
         animator.SetBool(deathHash, isdeath);

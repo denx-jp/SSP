@@ -19,27 +19,25 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
 
         playerHealthManager.GetDeathStream()
              .Where(v => v)
+             .Where(_ => isLocalPlayer)
              .Subscribe(_ =>
              {
                  CmdStartPlayerEtherPop();
              });
     }
 
-#if ONLINE
     [Command]
-#endif
     private void CmdStartPlayerEtherPop()
     {
         RpcStartPlayerEtherPop();
     }
-#if ONLINE
+
     [ClientRpc]
-#endif
     private void RpcStartPlayerEtherPop()
     {
-         var halfEther = playerModel.Ether.Value / 2.0f;
-         EmitEther(halfEther);
-         GenerateEtherObject(halfEther);
+        var halfEther = playerModel.Ether.Value / 2.0f;
+        EmitEther(halfEther);
+        GenerateEtherObject(halfEther);
     }
 
     //非常に雑な実装なので治せるなら後から治した方がよい
