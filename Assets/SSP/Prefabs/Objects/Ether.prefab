@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 135898202585162862}
   - component: {fileID: 23069619562125160}
   - component: {fileID: 54270739398327058}
+  - component: {fileID: 114603879454852254}
+  - component: {fileID: 114680341605803520}
   - component: {fileID: 114295420870100116}
   m_Layer: 11
   m_Name: Ether
@@ -112,8 +114,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   etherValue: 0
   floatHeight: 1
-  trackingSpeed: 8
+  trackingSpeed: 12
   popEtherInitValue: 50
+--- !u!114 &114603879454852254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1768416262091988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 163
+    i1: 131
+    i2: 109
+    i3: 25
+    i4: 182
+    i5: 61
+    i6: 27
+    i7: 196
+    i8: 42
+    i9: 80
+    i10: 214
+    i11: 94
+    i12: 145
+    i13: 232
+    i14: 56
+    i15: 195
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114680341605803520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1768416262091988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135168888094169298
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -136,5 +191,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}

@@ -1,27 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 using System.Linq;
 
-public class EtherObject : MonoBehaviour
+public class EtherObject : NetworkBehaviour
 {
     public float etherValue;
     [SerializeField] private float floatHeight;
     [SerializeField] private float trackingSpeed;
+    [SerializeField] private float popEtherInitValue = 50;
+    [SyncVar] private GameObject target;
 
     private SphereCollider trigger;
-
     private RaycastHit fallHit;
-    private int fllLayerMask = 1 << LayerMap.Stage;
-
     private RaycastHit absorbHit;
-    private int absorbLayerMask = ~(1 << LayerMap.EtherObject);
-    //[SyncVar]
-    private GameObject target;
+    private int absorbLayerMask = ~(LayerMap.EtherObjectMask);
 
-    [SerializeField] private float popEtherInitValue = 50;
 
     private void Start()
     {
@@ -35,7 +32,7 @@ public class EtherObject : MonoBehaviour
 
         //地面よりある程度高い位置で重力をきる処理
         this.UpdateAsObservable()
-            .Where(_ => Physics.Raycast(transform.position, Vector3.down, out fallHit, floatHeight * 10, fllLayerMask))
+            .Where(_ => Physics.Raycast(transform.position, Vector3.down, out fallHit, floatHeight * 10, LayerMap.StageMask))
             .Where(_ => Vector3.Distance(transform.position, fallHit.point) < floatHeight)
             .Take(1)
             .Subscribe(_ => rigid.useGravity = false);
@@ -61,7 +58,7 @@ public class EtherObject : MonoBehaviour
             .Subscribe(_ =>
             {
                 target.GetComponent<IEtherAcquirer>().AcquireEther(etherValue);
-                Destroy(this.gameObject);
+                NetworkServer.Destroy(gameObject);
             });
         #endregion
     }

@@ -5301,7 +5301,6 @@ MonoBehaviour:
   playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
   playerInventoryManager: {fileID: 114084645704703300}
-  devIsLocalPlayerCharacter: 0
 --- !u!114 &114453876016800092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5408,7 +5407,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
     type: 2}
-  emitPower: 1
+  emitPower: 3
+  emitDirectionRange: {x: 45, y: 10, z: 45}
 --- !u!114 &114774096608856190
 MonoBehaviour:
   m_ObjectHideFlags: 1

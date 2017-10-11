@@ -8,6 +8,7 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
 {
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
+    [SerializeField] private Vector3 emitDirectionRange;
 
     private PlayerModel playerModel;
     private PlayerHealthManager playerHealthManager;
@@ -20,44 +21,36 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
         playerHealthManager.GetDeathStream()
              .Where(v => v)
              .Where(_ => isLocalPlayer)
+             .Where(_ => playerModel.syncEther > 0)
              .Subscribe(_ =>
              {
-                 CmdStartPlayerEtherPop();
+                 var halfEther = playerModel.syncEther / 2.0f;
+                 EmitEther(halfEther);
+                 CmdGenerateEtherObject(halfEther);
              });
     }
 
     [Command]
-    private void CmdStartPlayerEtherPop()
+    private void CmdGenerateEtherObject(float emitEtherValue)
     {
-        RpcStartPlayerEtherPop();
-    }
-
-    [ClientRpc]
-    private void RpcStartPlayerEtherPop()
-    {
-        var halfEther = playerModel.Ether.Value / 2.0f;
-        EmitEther(halfEther);
-        GenerateEtherObject(halfEther);
-    }
-
-    //非常に雑な実装なので治せるなら後から治した方がよい
-    private void GenerateEtherObject(float emitEtherValue)
-    {
-        float emithigh = 0;
+        float emithigh = transform.localScale.y / 2;
         var singleEtherValue = emitEtherValue / 10;
         while (emitEtherValue > 0)
         {
             var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * emithigh, transform.rotation);
 
-            if (emitEtherValue < singleEtherValue)
-                singleEtherValue = emitEtherValue;
+            if (emitEtherValue < singleEtherValue) singleEtherValue = emitEtherValue;
             emitEtherValue -= singleEtherValue;
+
             emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
-            emithigh += emittedEtherObject.transform.localScale.y;      //SetEtherでemittedEtherObjectのサイズが変更されることに依存する
-
-            var emitDirection = Vector3.up + new Vector3(Random.Range(-emitPower, emitPower), 0, Random.Range(-emitPower, emitPower));
-            emittedEtherObject.GetComponent<Rigidbody>().AddForce(emitDirection, ForceMode.Impulse);
-
+            emithigh += emittedEtherObject.transform.localScale.y;
+            var emitDirection = new Vector3(
+                Random.Range(-emitDirectionRange.x, emitDirectionRange.x),
+                Random.Range(emitDirectionRange.y / 2, emitDirectionRange.y),
+                Random.Range(-emitDirectionRange.z, emitDirectionRange.z)
+                ).normalized;
+            emittedEtherObject.GetComponent<Rigidbody>().velocity = emitDirection * emitPower;
+            NetworkServer.Spawn(emittedEtherObject);
         }
     }
 
@@ -66,8 +59,8 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
         playerModel.syncEther += etherValue;
     }
 
-    public void EmitEther(float ether)
+    public void EmitEther(float etherValue)
     {
-        playerModel.syncEther -= ether;
+        playerModel.syncEther -= etherValue;
     }
 }
