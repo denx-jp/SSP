@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a62efc95a5e804da51189260cc52a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigid: {fileID: 54270739398327058}
   etherValue: 0
   floatHeight: 1
   trackingSpeed: 12
@@ -147,7 +148,7 @@ MonoBehaviour:
     i14: 56
     i15: 195
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114680341605803520
 MonoBehaviour:
   m_ObjectHideFlags: 1

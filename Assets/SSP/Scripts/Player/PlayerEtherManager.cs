@@ -41,16 +41,15 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
 
             if (emitEtherValue < singleEtherValue) singleEtherValue = emitEtherValue;
             emitEtherValue -= singleEtherValue;
-
             emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
+
             emithigh += emittedEtherObject.transform.localScale.y;
             var emitDirection = new Vector3(
                 Random.Range(-emitDirectionRange.x, emitDirectionRange.x),
                 Random.Range(emitDirectionRange.y / 2, emitDirectionRange.y),
-                Random.Range(-emitDirectionRange.z, emitDirectionRange.z)
-                ).normalized;
+                Random.Range(-emitDirectionRange.z, emitDirectionRange.z)).normalized;
             emittedEtherObject.GetComponent<Rigidbody>().velocity = emitDirection * emitPower;
-            NetworkServer.Spawn(emittedEtherObject);
+            NetworkServer.SpawnWithClientAuthority(emittedEtherObject, connectionToClient);
         }
     }
 
