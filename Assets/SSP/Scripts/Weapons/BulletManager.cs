@@ -10,30 +10,36 @@ public class BulletManager : NetworkBehaviour
 {
     [SerializeField] BulletModel model;
 
-    void Start()
+    public void Init(LongRangeWeaponModel lrwm)
     {
-        if(isServer)
-            Destroy(this.gameObject, model.deathTime);
+        if (isServer)
+            Destroy(gameObject, model.deathTime);
 
+        model.SetProperties(lrwm);
 
-        this.OnTriggerEnterAsObservable()
-            .Where(col => !col.isTrigger)
-            .Subscribe(col =>
-            {
-                var playerModel = col.gameObject.GetComponent<PlayerModel>();
-                if (playerModel != null && playerModel.teamId != model.shootPlayerTeamId)
+        if (model.isShooterLocalPlayer)
+        {
+            this.OnTriggerEnterAsObservable()
+                .Where(col => !col.isTrigger)
+                .Subscribe(col =>
                 {
-                    var damageable = col.gameObject.GetComponent<IDamageable>();
-                    if (damageable != null)
+                    var playerModel = col.gameObject.GetComponent<PlayerModel>();
+                    if (playerModel != null && playerModel.teamId != model.shootPlayerTeamId)
                     {
-                        var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
-                        CmdSetDamage(col.gameObject, damage);
+                        var damageable = col.gameObject.GetComponent<IDamageable>();
+                        if (damageable != null)
+                        {
+                            var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
+                            CmdSetDamage(col.gameObject, damage);
+                        }
                     }
-                    Destroy(gameObject);
-                    NetworkServer.Destroy(gameObject);
-                }
-            })
-            .AddTo(this.gameObject);
+                    if (playerModel == null || playerModel.playerId != model.shootPlayerId)
+                    {
+                        GetComponent<NetworkTransform>().enabled = false;
+                        CmdDestroy();
+                    }
+                }).AddTo(this.gameObject);
+        }
     }
 
     [Command]
@@ -41,5 +47,11 @@ public class BulletManager : NetworkBehaviour
     {
         var damageable = go.GetComponent<IDamageable>();
         damageable.SetDamage(dmg);
+    }
+
+    [Command]
+    void CmdDestroy()
+    {
+        NetworkServer.Destroy(this.gameObject);
     }
 }

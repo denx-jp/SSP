@@ -10,15 +10,15 @@ public class PlayerInventoryManager : NetworkBehaviour
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private GameObject handGunPrefab;
-     public Transform rightHandTransform;
-     public Transform leftHandTransform;
+    public Transform rightHandTransform;
+    public Transform leftHandTransform;
 
     void Start()
     {
         inventory.Init();
         //ハンドガンは初期状態から所持する仕様
         if (isLocalPlayer)
-            CmdHandGun();
+            CmdSetupHandGun();
 
         pim.WeaponChange
             .Subscribe(v =>
@@ -80,19 +80,20 @@ public class PlayerInventoryManager : NetworkBehaviour
 
     #region ハンドガン初期セットアップ処理
     [Command]
-    private void CmdHandGun()
+    private void CmdSetupHandGun()
     {
         var handGunObj = Instantiate(handGunPrefab);
         NetworkServer.SpawnWithClientAuthority(handGunObj, connectionToClient);
-        RpcHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
+        RpcSetupHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
     }
 
     [ClientRpc]
-    private void RpcHandGun(NetworkInstanceId instanceId)
+    private void RpcSetupHandGun(NetworkInstanceId instanceId)
     {
         var weapon = ClientScene.FindLocalObject(instanceId);
-        weapon.GetComponent<InventoriableObject>().ownerPlayerId = GetComponent<NetworkIdentity>().netId;
-        SetDefaultWeapon(weapon, InventoriableType.HandGun);
+        var invObj = weapon.GetComponent<InventoriableObject>();
+        invObj.ownerPlayerId = GetComponent<NetworkIdentity>().netId;
+        SetDefaultWeapon(weapon, invObj.inventoriableType);
     }
 
     public void SetDefaultWeapon(GameObject weapon, InventoriableType type)

@@ -272,7 +272,10 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
+  - {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
+  - {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -842,7 +845,7 @@ GameObject:
   - component: {fileID: 849976549}
   m_Layer: 0
   m_Name: Respawner
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

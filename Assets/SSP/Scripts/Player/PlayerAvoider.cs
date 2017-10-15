@@ -34,18 +34,14 @@ public class PlayerAvoider : NetworkBehaviour
                 CmdAvoiding();
             });
     }
-
-#if ONLINE
+    
     [Command]
-#endif
     private void CmdAvoiding()
     {
         RpcAvoiding();
     }
-
-#if ONLINE
+    
     [ClientRpc]
-#endif
     private void RpcAvoiding()
     {
         StartCoroutine(Avoiding());
@@ -57,11 +53,8 @@ public class PlayerAvoider : NetworkBehaviour
         yield return new WaitForSeconds(avoidStartTime);
         SetLayer(LayerMap.Invincible);
         yield return new WaitForSeconds(avoidDuration);
-#if ONLINE
         SetLayer(playerModel.defaultLayer);
-#else
         SetLayer(LayerMap.LocalPlayer);
-#endif
     }
 
     private void SetLayer(int layer)
