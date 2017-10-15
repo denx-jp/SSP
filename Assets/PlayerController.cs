@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 
 //移動やジャンプにおけるTransform・RigidBodyの操作など
 public class PlayerController : MonoBehaviour
@@ -13,16 +14,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 6f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float jumpPower = 6f;
+    [SerializeField] private float gravityMultiplier = 2f;
     [SerializeField] private float groundCheckDistance = 1f;
 
-    private bool isOnGround = true;
+    [SerializeField] public bool isOnGround = true;
     private Vector3 groundNormal;
-    private float currentGroundCheckDistance;
+    [SerializeField] private float currentGroundCheckDistance;
     private bool isHoldWeapon = false;
 
     private void Start()
     {
         currentGroundCheckDistance = groundCheckDistance;
+
+        this.UpdateAsObservable()
+            .Subscribe(_ =>
+            {
+                CheckGroundStatus();
+
+                if (isOnGround)
+                    Debug.Log("a");
+                else
+                {
+                    //重力が弱いので
+                    Vector3 extraGravityForce = (Physics.gravity * gravityMultiplier) - Physics.gravity;
+                    rigid.AddForce(extraGravityForce);
+                    currentGroundCheckDistance = rigid.velocity.y < 0 ? groundCheckDistance : 0.01f;
+                }
+            });
     }
 
     public void Move(Vector3 move, bool isDash)
@@ -30,10 +48,12 @@ public class PlayerController : MonoBehaviour
         if (move.magnitude > 1f) move.Normalize();
         var speed = isDash ? dashSpeed : walkSpeed;
         move = Vector3.ProjectOnPlane(move, groundNormal) * speed;
-        rigid.velocity = move;
 
         if (move != Vector3.zero)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * rotationSpeed);
+
+        move.y = rigid.velocity.y;
+        rigid.velocity = move;
 
         UpdateAnimator(move);
     }
@@ -46,19 +66,12 @@ public class PlayerController : MonoBehaviour
         if (!isOnGround) animator.SetFloat("Move Y", rigid.velocity.y);
     }
 
-    #region MyRegion
-    //public void Jump()
-    //{
-    //    rigid.velocity = new Vector3(rigid.velocity.x, jumpPower, rigid.velocity.z);
-    //    isOnGround = false;
-    //    currentGroundCheckDistance = 0.1f;
-    //}
-
-    //private void Land()
-    //{
-    //    isOnGround = true;
-    //    currentGroundCheckDistance = groundCheckDistance;
-    //}
+    public void Jump()
+    {
+        rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        isOnGround = false;
+        currentGroundCheckDistance = 0.01f;
+    }
 
     private void CheckGroundStatus()
     {
@@ -74,5 +87,4 @@ public class PlayerController : MonoBehaviour
             groundNormal = Vector3.up;
         }
     }
-    #endregion
 }

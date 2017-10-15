@@ -45,10 +45,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
-
-			// convert the world relative moveInput vector into a local-relative
-			// turn amount and forward amount required to head in the desired
-			// direction.
 			if (move.magnitude > 1f) move.Normalize();
 			move = transform.InverseTransformDirection(move);
 
@@ -125,7 +121,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			animator.SetBool("OnGround", isOnGround);
 			if (!isOnGround)
 			{
-				animator.SetFloat("Jump", rigid.velocity.y);
+				animator.SetFloat("Move Y", rigid.velocity.y);
 			}
 
 			// calculate which leg is behind, so as to leave that leg trailing in the jump animation
