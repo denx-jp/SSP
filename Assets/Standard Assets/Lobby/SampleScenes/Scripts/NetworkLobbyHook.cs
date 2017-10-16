@@ -11,7 +11,6 @@ public class NetworkLobbyHook : LobbyHook
         NetworkSpaceship spaceship = gamePlayer.GetComponent<NetworkSpaceship>();
 
         spaceship.name = lobby.name;
-        spaceship.color = lobby.playerColor;
         spaceship.score = 0;
         spaceship.lifeCount = 3;
     }

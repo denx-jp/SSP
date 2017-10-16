@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 114238966883620208}
   - component: {fileID: 114760390505904558}
   - component: {fileID: 114484550164385160}
+  - component: {fileID: 114686150743227230}
   m_Layer: 5
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -2181,7 +2182,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224147477653271022}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3190,6 +3191,17 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &114686150743227230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213484736558490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d15f2051d09644ebccdef0f54b7bbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114708985342644236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3361,7 +3373,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: NetworkLobby
+  m_OfflineScene: Lobby
   m_OnlineScene: 
   m_SpawnPrefabs: []
   m_CustomConfig: 0
@@ -3423,11 +3435,12 @@ MonoBehaviour:
   m_MaxPlayers: 6
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 4
-  m_LobbyPlayerPrefab: {fileID: 11487034, guid: ad727d7e1462ecc4f83c898ecc501997,
+  m_LobbyPlayerPrefab: {fileID: 114858219967006514, guid: 7dc3b0b59a2b67f4dbc9ad01d9ad7a01,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 0}
-  m_LobbyScene: 
-  m_PlayScene: 
+  m_GamePlayerPrefab: {fileID: 1914480152885886, guid: 85190b57675cda940b2cd16157a434e7,
+    type: 2}
+  m_LobbyScene: Lobby
+  m_PlayScene: Network
   lobbySlots: []
   prematchCountdown: 3
   topPanel: {fileID: 114631557700405174}
@@ -4822,8 +4835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1039.3477, y: -50}
-  m_SizeDelta: {x: 2078.6953, y: 100}
+  m_AnchoredPosition: {x: 918.82434, y: -50}
+  m_SizeDelta: {x: 1837.6487, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224332217727436904
 RectTransform:
