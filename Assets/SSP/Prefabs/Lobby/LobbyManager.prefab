@@ -2904,7 +2904,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: NETWORK LOBBY EXAMPLE
+  m_Text: SSP
 --- !u!114 &114631557700405174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3434,7 +3434,7 @@ MonoBehaviour:
   m_ShowLobbyGUI: 0
   m_MaxPlayers: 6
   m_MaxPlayersPerConnection: 1
-  m_MinPlayers: 4
+  m_MinPlayers: 2
   m_LobbyPlayerPrefab: {fileID: 114858219967006514, guid: 7dc3b0b59a2b67f4dbc9ad01d9ad7a01,
     type: 2}
   m_GamePlayerPrefab: {fileID: 1914480152885886, guid: 85190b57675cda940b2cd16157a434e7,
