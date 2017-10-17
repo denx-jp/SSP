@@ -8,8 +8,9 @@ public class NetworkLobbyHook : LobbyHook
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer)
     {
         LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
-        PlayerModel spaceship = gamePlayer.GetComponent<PlayerModel>();
+        PlayerModel player = gamePlayer.GetComponent<PlayerModel>();
 
-        spaceship.name = lobby.name;
+        player.name = lobby.name;
+        player.playerId = lobby.playerId;
     }
 }

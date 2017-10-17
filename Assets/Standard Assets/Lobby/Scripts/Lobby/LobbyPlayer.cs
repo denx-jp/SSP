@@ -19,10 +19,18 @@ namespace Prototype.NetworkLobby
         public GameObject localIcone;
         public GameObject remoteIcone;
 
-        //OnMyName function will be invoked on clients when server change the value of playerName
-        [SyncVar(hook = "OnMyName")]
-        public string playerName = "";
+        [SyncVar(hook = "OnMyName")] public string playerName = "";
+        [SyncVar] public int playerId = 0;
+        [SyncVar] public int teamId = 0;
+        static int team1PlayerCount = 0;
+        static int team2PlayerCount = 0;
 
+        private void Update()
+        {
+            Debug.LogError($"{playerName} : {teamId}");
+            Debug.LogError($"team1count : {team1PlayerCount}");
+        }
+        
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
@@ -45,9 +53,24 @@ namespace Prototype.NetworkLobby
             else
                 SetupOtherPlayer();
 
-            //setup the player data on UI. The value are SyncVar so the player
-            //will be created with the right value currently on server
+            //UIでプレーヤーデータを設定します。値はSyncVarであるため、プレーヤーは現在サーバ上に正しい値で作成されます
             OnMyName(playerName);
+            playerId = LobbyPlayerList._instance.playerListContentTransform.childCount - 1;
+            CmdSetTeamId();
+        }
+
+        [Command]
+        void CmdSetTeamId()
+        {
+            if (team1PlayerCount >= 3)
+                teamId = 2;
+            else if (team2PlayerCount >= 3)
+                teamId = 1;
+            else
+                teamId = Random.Range(0, 2) % 2 == 0 ? 1 : 2;
+
+            if (teamId == 1) team1PlayerCount++;
+            if (teamId == 2) team2PlayerCount++;
         }
 
         public override void OnStartAuthority()
@@ -90,7 +113,7 @@ namespace Prototype.NetworkLobby
             localIcone.gameObject.SetActive(true);
 
             CheckRemoveButton();
-            
+
             ChangeReadyButtonColor(JoinColor);
 
             readyButton.transform.GetChild(0).GetComponent<Text>().text = "JOIN";
@@ -105,7 +128,7 @@ namespace Prototype.NetworkLobby
 
             nameInput.onEndEdit.RemoveAllListeners();
             nameInput.onEndEdit.AddListener(OnNameChanged);
-            
+
             readyButton.onClick.RemoveAllListeners();
             readyButton.onClick.AddListener(OnReadyClicked);
 
@@ -222,6 +245,7 @@ namespace Prototype.NetworkLobby
         {
             LobbyPlayerList._instance.RemovePlayer(this);
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(-1);
+            if (teamId == 1) team1PlayerCount--;
         }
     }
 }
