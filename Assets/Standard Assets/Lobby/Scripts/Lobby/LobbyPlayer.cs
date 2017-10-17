@@ -24,12 +24,6 @@ namespace Prototype.NetworkLobby
         [SyncVar] public int teamId = 0;
         static int team1PlayerCount = 0;
         static int team2PlayerCount = 0;
-
-        private void Update()
-        {
-            Debug.LogError($"{playerName} : {teamId}");
-            Debug.LogError($"team1count : {team1PlayerCount}");
-        }
         
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
