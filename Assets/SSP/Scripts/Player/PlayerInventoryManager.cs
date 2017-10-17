@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
+using UniRx.Triggers;
 
 public class PlayerInventoryManager : NetworkBehaviour
 {
@@ -17,8 +18,7 @@ public class PlayerInventoryManager : NetworkBehaviour
     {
         inventory.Init();
         //ハンドガンは初期状態から所持する仕様
-        if (isLocalPlayer)
-            CmdSetupHandGun();
+        StartCoroutine(SetUpHandGun());
 
         pim.WeaponChange
             .Subscribe(v =>
@@ -79,6 +79,14 @@ public class PlayerInventoryManager : NetworkBehaviour
     #endregion
 
     #region ハンドガン初期セットアップ処理
+    IEnumerator SetUpHandGun()
+    {
+        //ホストのみNetworkConnectionが確立される前にStartが呼び出されてしまうため、NetworkConnectionが確立するまで待つ。
+        yield return this.UpdateAsObservable().FirstOrDefault(_ => connectionToClient.isReady).ToYieldInstruction();
+        if (isLocalPlayer)
+            CmdSetupHandGun();
+    }
+
     [Command]
     private void CmdSetupHandGun()
     {
