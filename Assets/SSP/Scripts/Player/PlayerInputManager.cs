@@ -7,7 +7,7 @@ using System;
 
 public class PlayerInputManager : MonoBehaviour
 {
-
+    [SerializeField] private float longPressSecond;
     public readonly Subject<Vector2> CameraRotate = new Subject<Vector2>();
     public readonly Subject<bool> CameraResetButtonDown = new Subject<bool>();
 
@@ -70,9 +70,9 @@ public class PlayerInputManager : MonoBehaviour
                     WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
                 });
 
-            NormalAttackButtonDown.Where(x => x).Do(_ => Debug.Log("左クリック")).Delay(TimeSpan.FromMilliseconds(600)).TakeUntil(NormalAttackButtonUp.Where(v => v))
+            NormalAttackButtonDown.Where(x => x).Do(_ => Debug.Log("左クリック")).Delay(TimeSpan.FromSeconds(longPressSecond)).TakeUntil(NormalAttackButtonUp.Where(v => v))
                 .RepeatUntilDestroy(gameObject).Subscribe(_ => { NormalAttackButtonLong.OnNext(true); Debug.Log("左長押し"); });
-            ScopeButtonDown.Where(x => x).Do(_ => Debug.Log("右クリック")).Delay(TimeSpan.FromMilliseconds(600)).TakeUntil(ScopeButtonUp.Where(v => v))
+            ScopeButtonDown.Where(x => x).Do(_ => Debug.Log("右クリック")).Delay(TimeSpan.FromSeconds(longPressSecond)).TakeUntil(ScopeButtonUp.Where(v => v))
                 .RepeatUntilDestroy(gameObject).Subscribe(_ => { ScopeButtonLong.OnNext(true); Debug.Log("右長押し"); });
 
             this.UpdateAsObservable()
