@@ -17,8 +17,17 @@ public class PlayerInventoryManager : NetworkBehaviour
     void Start()
     {
         inventory.Init();
-        //ハンドガンは初期状態から所持する仕様
-        StartCoroutine(SetUpHandGun());
+
+        //ハンドガンは初期状態から所持。
+        if (isLocalPlayer)
+        {
+            //ホストはNetworkConnectionの問題、クライアントはコルーチンを挟むとなぜかエラーが出る。
+            //なのでホストとクライアントで処理をわける
+            if (isServer)
+                StartCoroutine(SetUpHandGun());
+            else if (isClient)
+                CmdSetupHandGun();
+        }
 
         pim.WeaponChange
             .Subscribe(v =>
@@ -83,8 +92,7 @@ public class PlayerInventoryManager : NetworkBehaviour
     {
         //ホストのみNetworkConnectionが確立される前にStartが呼び出されてしまうため、NetworkConnectionが確立するまで待つ。
         yield return this.UpdateAsObservable().FirstOrDefault(_ => connectionToClient.isReady).ToYieldInstruction();
-        if (isLocalPlayer)
-            CmdSetupHandGun();
+        CmdSetupHandGun();
     }
 
     [Command]
