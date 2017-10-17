@@ -3,7 +3,7 @@ using Prototype.NetworkLobby;
 using System.Collections;
 using UnityEngine.Networking;
 
-public class NetworkLobbyHook : LobbyHook 
+public class NetworkLobbyHook : LobbyHook
 {
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer)
     {
@@ -12,5 +12,6 @@ public class NetworkLobbyHook : LobbyHook
 
         player.name = lobby.name;
         player.playerId = lobby.playerId;
+        player.teamId = lobby.teamId;
     }
 }
