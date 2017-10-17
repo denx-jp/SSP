@@ -49,22 +49,6 @@ namespace Prototype.NetworkLobby
 
             //UIでプレーヤーデータを設定します。値はSyncVarであるため、プレーヤーは現在サーバ上に正しい値で作成されます
             OnMyName(playerName);
-            playerId = LobbyPlayerList._instance.playerListContentTransform.childCount - 1;
-            CmdSetTeamId();
-        }
-
-        [Command]
-        void CmdSetTeamId()
-        {
-            if (team1PlayerCount >= 3)
-                teamId = 2;
-            else if (team2PlayerCount >= 3)
-                teamId = 1;
-            else
-                teamId = Random.Range(0, 2) % 2 == 0 ? 1 : 2;
-
-            if (teamId == 1) team1PlayerCount++;
-            if (teamId == 2) team2PlayerCount++;
         }
 
         public override void OnStartAuthority()
@@ -129,6 +113,8 @@ namespace Prototype.NetworkLobby
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(0);
+
+            CmdSetPlayerIdAndTeamId();
         }
 
         //This enable/disable the remove button depending on if that is the only local player or not
@@ -240,6 +226,21 @@ namespace Prototype.NetworkLobby
             LobbyPlayerList._instance.RemovePlayer(this);
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(-1);
             if (teamId == 1) team1PlayerCount--;
+        }
+
+        [Command]
+        void CmdSetPlayerIdAndTeamId()
+        {
+            playerId = LobbyPlayerList._instance.playerListContentTransform.childCount - 1;
+            if (team1PlayerCount >= 3)
+                teamId = 2;
+            else if (team2PlayerCount >= 3)
+                teamId = 1;
+            else
+                teamId = Random.Range(0, 2) % 2 == 0 ? 1 : 2;
+
+            if (teamId == 1) team1PlayerCount++;
+            if (teamId == 2) team2PlayerCount++;
         }
     }
 }
