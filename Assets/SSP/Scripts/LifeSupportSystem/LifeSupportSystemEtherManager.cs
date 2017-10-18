@@ -49,18 +49,16 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
         if (playerManager.playerModel.teamId != lifeSupportSystemModel.GetTeamId()) return;
 
         float playerEther = playerManager.playerModel.GetEther();
-        if(playerEther > 0.0f)
+
+        if (playerEther - etherChargeValue > 0.0f)
         {
-            if (playerEther - etherChargeValue > 0.0f)
-            {
-                playerManager.playerEtherManager.EmitEther(etherChargeValue);
-                AcquireEther(etherChargeValue);
-            }
-            else
-            {
-                playerManager.playerEtherManager.EmitEther(playerEther);
-                AcquireEther(playerEther);
-            }
+            playerManager.playerEtherManager.EmitEther(etherChargeValue);
+            AcquireEther(etherChargeValue);
+        }
+        else if (playerEther > 0.0f)
+        {
+            playerManager.playerEtherManager.EmitEther(playerEther);
+            AcquireEther(playerEther);
         }
     }
 
