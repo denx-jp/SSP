@@ -46,8 +46,12 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
 
     public void Interact(PlayerManager playerManager)
     {
-        playerManager.playerEtherManager.EmitEther(etherChargeValue);
-        AcquireEther(etherChargeValue);
+        float playerEther = playerManager.playerModel.GetEther();
+        if(playerEther - etherChargeValue > 0.0f)
+        {
+            playerManager.playerEtherManager.EmitEther(etherChargeValue);
+            AcquireEther(etherChargeValue);
+        }
     }
 
     public bool CanInteract()
