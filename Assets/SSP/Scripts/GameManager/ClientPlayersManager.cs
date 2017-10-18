@@ -1,21 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
-public class ClientPlayersManager : MonoBehaviour
+public class ClientPlayersManager : NetworkBehaviour
 {
+    public static ClientPlayersManager Instance;
     [SerializeField] public List<PlayerManager> playerManagers { get; private set; }
 
     private void Awake()
     {
-        var players = GameObject.FindGameObjectsWithTag(TagMap.Player);
-        playerManagers = players.Select(player => player.GetComponent<PlayerManager>()).ToList();
+        Instance = this;
+        playerManagers = new List<PlayerManager>();
     }
 
-    public void AddPlayer(PlayerManager pm)
+    public static void AddPlayer(GameObject player)
     {
-        playerManagers.Add(pm);
+        Instance.playerManagers.Add(player.GetComponent<PlayerManager>());
     }
 
     public List<T> GetPlayersComponent<T>()
