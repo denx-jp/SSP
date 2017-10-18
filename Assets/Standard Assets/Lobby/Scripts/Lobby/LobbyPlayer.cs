@@ -226,6 +226,7 @@ namespace Prototype.NetworkLobby
             LobbyPlayerList._instance.RemovePlayer(this);
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(-1);
             if (teamId == 1) team1PlayerCount--;
+            if (teamId == 2) team2PlayerCount--;
         }
 
         [Command]
