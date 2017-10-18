@@ -811,7 +811,7 @@ Prefab:
     - target: {fileID: 114134000520712444, guid: 85190b57675cda940b2cd16157a434e7,
         type: 2}
       propertyPath: longPressSecond
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85190b57675cda940b2cd16157a434e7, type: 2}

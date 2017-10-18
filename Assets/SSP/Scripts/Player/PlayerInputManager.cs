@@ -18,9 +18,11 @@ public class PlayerInputManager : MonoBehaviour
 
     public readonly Subject<bool> NormalAttackButtonDown = new Subject<bool>();
     public readonly Subject<bool> NormalAttackButtonUp = new Subject<bool>();
+    public readonly Subject<bool> NormalAttackButtonShort = new Subject<bool>();
     public readonly Subject<bool> NormalAttackButtonLong = new Subject<bool>();
     public readonly Subject<bool> ScopeButtonDown = new Subject<bool>();
     public readonly Subject<bool> ScopeButtonUp = new Subject<bool>();
+    public readonly Subject<bool> ScopeButtonShort = new Subject<bool>();
     public readonly Subject<bool> ScopeButtonLong = new Subject<bool>();
     public readonly Subject<bool> ActionButtonDown = new Subject<bool>();
 
@@ -70,10 +72,10 @@ public class PlayerInputManager : MonoBehaviour
                     WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
                 });
 
-            NormalAttackButtonDown.Where(x => x).Do(_ => Debug.Log("左クリック")).Delay(TimeSpan.FromSeconds(longPressSecond)).TakeUntil(NormalAttackButtonUp.Where(v => v))
-                .RepeatUntilDestroy(gameObject).Subscribe(_ => { NormalAttackButtonLong.OnNext(true); Debug.Log("左長押し"); });
-            ScopeButtonDown.Where(x => x).Do(_ => Debug.Log("右クリック")).Delay(TimeSpan.FromSeconds(longPressSecond)).TakeUntil(ScopeButtonUp.Where(v => v))
-                .RepeatUntilDestroy(gameObject).Subscribe(_ => { ScopeButtonLong.OnNext(true); Debug.Log("右長押し"); });
+            NormalAttackButtonDown.Where(x => x).Do(_ => { NormalAttackButtonShort.OnNext(true); Debug.Log("左クリック"); }).Delay(TimeSpan.FromSeconds(longPressSecond))
+                .TakeUntil(NormalAttackButtonUp.Where(v => v)).RepeatUntilDestroy(gameObject).Subscribe(_ => { NormalAttackButtonLong.OnNext(true); Debug.Log("左長押し"); });
+            ScopeButtonDown.Where(x => x).Do(_ => { ScopeButtonShort.OnNext(true); Debug.Log("右クリック"); }).Delay(TimeSpan.FromSeconds(longPressSecond))
+                .TakeUntil(ScopeButtonUp.Where(v => v)).RepeatUntilDestroy(gameObject).Subscribe(_ => { ScopeButtonLong.OnNext(true); Debug.Log("右長押し"); });
 
             this.UpdateAsObservable()
                 .Where(_ => !playerModel.IsAlive())
