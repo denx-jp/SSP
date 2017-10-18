@@ -7,7 +7,8 @@ using System;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField] private float longPressSecond;
+    [SerializeField]
+    private float longPressSecond;
     public readonly Subject<Vector2> CameraRotate = new Subject<Vector2>();
     public readonly Subject<bool> CameraResetButtonDown = new Subject<bool>();
 
@@ -72,10 +73,15 @@ public class PlayerInputManager : MonoBehaviour
                     WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
                 });
 
-            NormalAttackButtonDown.Where(x => x).Do(_ => { NormalAttackButtonShort.OnNext(true); Debug.Log("左クリック"); }).Delay(TimeSpan.FromSeconds(longPressSecond))
-                .TakeUntil(NormalAttackButtonUp.Where(v => v)).RepeatUntilDestroy(gameObject).Subscribe(_ => { NormalAttackButtonLong.OnNext(true); Debug.Log("左長押し"); });
-            ScopeButtonDown.Where(x => x).Do(_ => { ScopeButtonShort.OnNext(true); Debug.Log("右クリック"); }).Delay(TimeSpan.FromSeconds(longPressSecond))
-                .TakeUntil(ScopeButtonUp.Where(v => v)).RepeatUntilDestroy(gameObject).Subscribe(_ => { ScopeButtonLong.OnNext(true); Debug.Log("右長押し"); });
+            NormalAttackButtonDown.Where(x => x).SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(longPressSecond))).TakeUntil(NormalAttackButtonUp.Where(x => x))
+                .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { Debug.Log("左長押し"); NormalAttackButtonLong.OnNext(true); });
+            NormalAttackButtonDown.Where(x => x).Timestamp().Zip(NormalAttackButtonUp.Where(x => x).Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f)
+                .Where(time => time < longPressSecond).Subscribe(t => { NormalAttackButtonShort.OnNext(true); Debug.Log("左クリック"); });
+
+            ScopeButtonDown.Where(x => x).SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(longPressSecond))).TakeUntil(NormalAttackButtonUp.Where(x => x))
+                .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { Debug.Log("右長押し"); NormalAttackButtonLong.OnNext(true); });
+            ScopeButtonDown.Where(x => x).Timestamp().Zip(ScopeButtonUp.Where(x => x).Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f)
+                .Where(time => time < longPressSecond).Subscribe(t => { ScopeButtonShort.OnNext(true); Debug.Log("右クリック"); });
 
             this.UpdateAsObservable()
                 .Where(_ => !playerModel.IsAlive())
