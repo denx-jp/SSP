@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
+using UniRx.Triggers;
 
 public class PlayerInventoryManager : NetworkBehaviour
 {
@@ -16,9 +17,17 @@ public class PlayerInventoryManager : NetworkBehaviour
     void Start()
     {
         inventory.Init();
-        //ハンドガンは初期状態から所持する仕様
+
+        //ハンドガンは初期状態から所持。
         if (isLocalPlayer)
-            CmdSetupHandGun();
+        {
+            //ホストはNetworkConnectionの問題、クライアントはコルーチンを挟むとなぜかエラーが出る。
+            //なのでホストとクライアントで処理をわける
+            if (isServer)
+                StartCoroutine(SetUpHandGun());
+            else if (isClient)
+                CmdSetupHandGun();
+        }
 
         pim.WeaponChange
             .Subscribe(v =>
@@ -79,6 +88,13 @@ public class PlayerInventoryManager : NetworkBehaviour
     #endregion
 
     #region ハンドガン初期セットアップ処理
+    IEnumerator SetUpHandGun()
+    {
+        //ホストのみNetworkConnectionが確立される前にStartが呼び出されてしまうため、NetworkConnectionが確立するまで待つ。
+        yield return this.UpdateAsObservable().FirstOrDefault(_ => connectionToClient.isReady).ToYieldInstruction();
+        CmdSetupHandGun();
+    }
+
     [Command]
     private void CmdSetupHandGun()
     {

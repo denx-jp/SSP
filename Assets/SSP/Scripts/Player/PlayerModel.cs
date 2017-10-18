@@ -22,8 +22,6 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     {
         Health = new ReactiveProperty<float>();
         Ether = new ReactiveProperty<float>();
-        if (playerId == 0) playerId = Random.Range(1, 100);
-        if (teamId == 0) teamId = Random.Range(1, 100);
 
         syncEther = initialEther;
         Ether.Value = syncEther;
