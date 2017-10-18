@@ -46,6 +46,8 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
 
     public void Interact(PlayerManager playerManager)
     {
+        if (playerManager.playerModel.teamId != lifeSupportSystemModel.GetTeamId()) return;
+
         float playerEther = playerManager.playerModel.GetEther();
         if(playerEther - etherChargeValue > 0.0f)
         {
