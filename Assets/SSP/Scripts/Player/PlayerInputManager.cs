@@ -78,7 +78,7 @@ public class PlayerInputManager : MonoBehaviour
             NormalAttackButtonDown.Where(x => x).Timestamp().Zip(NormalAttackButtonUp.Where(x => x).Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f)
                 .Where(time => time < longPressSecond).Subscribe(t => { NormalAttackButtonShort.OnNext(true); Debug.Log("左クリック"); });
 
-            ScopeButtonDown.Where(x => x).SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(longPressSecond))).TakeUntil(NormalAttackButtonUp.Where(x => x))
+            ScopeButtonDown.Where(x => x).SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(longPressSecond))).TakeUntil(ScopeButtonUp.Where(x => x))
                 .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { Debug.Log("右長押し"); NormalAttackButtonLong.OnNext(true); });
             ScopeButtonDown.Where(x => x).Timestamp().Zip(ScopeButtonUp.Where(x => x).Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f)
                 .Where(time => time < longPressSecond).Subscribe(t => { ScopeButtonShort.OnNext(true); Debug.Log("右クリック"); });
