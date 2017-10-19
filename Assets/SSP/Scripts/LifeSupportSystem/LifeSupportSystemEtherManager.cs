@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.Networking;
 
-public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable
+public class LifeSupportSystemEtherManager : NetworkBehaviour , IInteractable, IDamageable
 {
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
@@ -20,6 +21,8 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
 
     void Start()
     {
+        NetworkServer.Spawn(this.gameObject);
+
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
 
         lifeSupportSystemModel.ether

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.Networking;
 
-public class LifeSupportSystemModel : MonoBehaviour
+public class LifeSupportSystemModel : NetworkBehaviour
 {
     [SerializeField] private int teamId;
     public ReactiveProperty<float> ether;
-    //[SyncVar]
-    [SerializeField] private float syncEther;
+    [SyncVar, SerializeField] private float syncEther;
     [SerializeField] private float initEtherValue;
 
     private void Start()

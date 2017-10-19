@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System.Linq;
+using UnityEngine.Networking;
 
-public class PlayerInteractor : MonoBehaviour
+public class PlayerInteractor : NetworkBehaviour
 {
 
     private Animator animator;
@@ -23,8 +24,14 @@ public class PlayerInteractor : MonoBehaviour
             .Where(v => v)
             .Subscribe(v =>
             {
-                Interact();
+                CmdInteract();
             });
+    }
+
+    [Command]
+    void CmdInteract()
+    {
+        Interact();
     }
 
     void Interact()
