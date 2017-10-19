@@ -16,13 +16,10 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour , IInteractable, I
     [SerializeField] private float emittingEtherCoefficient;
 
     private Subject<int> deathStream;
-
     private LifeSupportSystemModel lifeSupportSystemModel;
 
     void Start()
     {
-        NetworkServer.Spawn(this.gameObject);
-
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
 
         lifeSupportSystemModel.ether
