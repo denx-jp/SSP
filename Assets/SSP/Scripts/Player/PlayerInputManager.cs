@@ -41,47 +41,48 @@ public class PlayerInputManager : MonoBehaviour
     private void Start()
     {
         var playerModel = GetComponent<PlayerModel>();
-        if (playerModel.isLocalPlayerCharacter)
-        {
-            var convertFloatStream = WeaponChangeButtonDown.Where(v => v).Select(v => 0.1f);
-            WeaponChange = Observable.Merge(WeaponChangeWhellScroll, convertFloatStream).Where(v => v != 0);
-            PrepareMouseClickInput(AttackButtonDown, AttackButtonUp, AttackButtonShort, AttackButtonLong);
-            PrepareMouseClickInput(ScopeButtonDown, ScopeButtonUp, ScopeButtonShort, ScopeButtonLong);
+        var convertFloatStream = WeaponChangeButtonDown.Where(v => v).Select(v => 0.1f);
+        WeaponChange = Observable.Merge(WeaponChangeWhellScroll, convertFloatStream).Where(v => v != 0);
 
-            this.UpdateAsObservable()
-                .Where(_ => playerModel.IsAlive())
-                .Subscribe(_ =>
-                {
-                    mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-                    CameraRotate.OnNext(mouseInput);
-                    gamePadInput = new Vector2(Input.GetAxis("GamePadRightStick X"), Input.GetAxis("GamePadRightStick Y"));
-                    CameraRotate.OnNext(gamePadInput);
-                    CameraResetButtonDown.OnNext(Input.GetButtonDown("Camera Reset"));
+        if (!playerModel.isLocalPlayerCharacter) return;
 
-                    moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                    Move.OnNext(moveInput);
+        PrepareMouseClickInput(AttackButtonDown, AttackButtonUp, AttackButtonShort, AttackButtonLong);
+        PrepareMouseClickInput(ScopeButtonDown, ScopeButtonUp, ScopeButtonShort, ScopeButtonLong);
 
-                    AvoidButtonDown.OnNext(Input.GetButtonDown("Avoid"));
-                    DashButtonDown.OnNext(Input.GetButton("Dash"));
-                    JumpButtonDown.OnNext(Input.GetButtonDown("Jump"));
+        this.UpdateAsObservable()
+            .Where(_ => playerModel.IsAlive())
+            .Subscribe(_ =>
+            {
+                mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                CameraRotate.OnNext(mouseInput);
+                gamePadInput = new Vector2(Input.GetAxis("GamePadRightStick X"), Input.GetAxis("GamePadRightStick Y"));
+                CameraRotate.OnNext(gamePadInput);
+                CameraResetButtonDown.OnNext(Input.GetButtonDown("Camera Reset"));
 
-                    AttackButtonDown.OnNext(Input.GetButtonDown("Normal Attack"));
-                    AttackButtonUp.OnNext(Input.GetButtonUp("Normal Attack"));
-                    ScopeButtonDown.OnNext(Input.GetButtonDown("Scope"));
-                    ScopeButtonUp.OnNext(Input.GetButtonUp("Scope"));
-                    ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
+                moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                Move.OnNext(moveInput);
 
-                    WeaponChangeWhellScroll.OnNext(Input.GetAxis("Mouse ScrollWheel"));
-                    WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
-                });
+                AvoidButtonDown.OnNext(Input.GetButtonDown("Avoid"));
+                DashButtonDown.OnNext(Input.GetButton("Dash"));
+                JumpButtonDown.OnNext(Input.GetButtonDown("Jump"));
 
-            this.UpdateAsObservable()
-                .Where(_ => !playerModel.IsAlive())
-                .Subscribe(_ =>
-                {
-                    //死亡時入力受付ストリーム
-                });
-        }
+                AttackButtonDown.OnNext(Input.GetButtonDown("Normal Attack"));
+                AttackButtonUp.OnNext(Input.GetButtonUp("Normal Attack"));
+                ScopeButtonDown.OnNext(Input.GetButtonDown("Scope"));
+                ScopeButtonUp.OnNext(Input.GetButtonUp("Scope"));
+                ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
+
+                WeaponChangeWhellScroll.OnNext(Input.GetAxis("Mouse ScrollWheel"));
+                WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => !playerModel.IsAlive())
+            .Subscribe(_ =>
+            {
+                //死亡時入力受付ストリーム
+            });
+
     }
 
     void PrepareMouseClickInput(Subject<bool> buttonDown, Subject<bool> buttonUp, Subject<bool> buttonShort, Subject<bool> buttonLong)
