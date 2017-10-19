@@ -42,7 +42,6 @@ public class PlayerInputManager : MonoBehaviour
         playerModel = GetComponent<PlayerModel>();
         var convertFloatStream = WeaponChangeButtonDown.Where(v => v).Select(v => 0.1f);
         WeaponChange = Observable.Merge(WeaponChangeWhellScroll, convertFloatStream).Where(v => v != 0);
-        Debug.Log(playerModel.IsAlive());
 
         if (playerModel.isLocalPlayerCharacter)
         {
@@ -74,14 +73,18 @@ public class PlayerInputManager : MonoBehaviour
                 });
 
             NormalAttackButtonDown.Where(x => x).SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(longPressSecond))).TakeUntil(NormalAttackButtonUp.Where(x => x))
-                .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { Debug.Log("左長押し"); NormalAttackButtonLong.OnNext(true); });
+                .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { NormalAttackButtonLong.OnNext(true); Debug.Log("左長押し"); });
             NormalAttackButtonDown.Where(x => x).Timestamp().Zip(NormalAttackButtonUp.Where(x => x).Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f)
                 .Where(time => time < longPressSecond).Subscribe(t => { NormalAttackButtonShort.OnNext(true); Debug.Log("左クリック"); });
+            NormalAttackButtonUp.SkipUntil(NormalAttackButtonLong.Where(v => v)).Where(x => x)
+                .Take(1).RepeatUntilDestroy(gameObject).Subscribe(_ => { NormalAttackButtonLong.OnNext(false); Debug.Log("左長押し終了"); });
 
             ScopeButtonDown.Where(x => x).SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(longPressSecond))).TakeUntil(ScopeButtonUp.Where(x => x))
-                .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { Debug.Log("右長押し"); NormalAttackButtonLong.OnNext(true); });
+                .RepeatUntilDestroy(this.gameObject).Subscribe(_ => { ScopeButtonLong.OnNext(true); Debug.Log("右長押し"); });
             ScopeButtonDown.Where(x => x).Timestamp().Zip(ScopeButtonUp.Where(x => x).Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f)
                 .Where(time => time < longPressSecond).Subscribe(t => { ScopeButtonShort.OnNext(true); Debug.Log("右クリック"); });
+            ScopeButtonUp.SkipUntil(ScopeButtonLong.Where(v => v)).Where(x => x)
+                .Take(1).RepeatUntilDestroy(gameObject).Subscribe(_ => { ScopeButtonLong.OnNext(false); Debug.Log("右長押し終了"); });
 
             this.UpdateAsObservable()
                 .Where(_ => !playerModel.IsAlive())
