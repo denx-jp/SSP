@@ -9,20 +9,14 @@ public class HealthViewModel : MonoBehaviour
     [SerializeField] private Slider sliderHealth;
     [SerializeField] private GameObject playerObj;
 
-    private PlayerModel playerModel;
     public IHealth healthModel;
 
     public void Start()
     {
         if (playerObj != null)
         {
-            playerModel = playerObj.GetComponent<PlayerModel>();
-            healthModel = playerModel as IHealth;
-
+            healthModel = playerObj.GetComponent<PlayerModel>() as IHealth;
             Init();
-
-            if (playerModel.isLocalPlayer)
-                sliderHealth.gameObject.SetActive(false);
         }
     }
 

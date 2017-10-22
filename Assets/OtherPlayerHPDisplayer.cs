@@ -6,11 +6,18 @@ using UniRx;
 
 public class OtherPlayerHPDisplayer : MonoBehaviour {
 
+    [SerializeField] private GameObject playerObj;
+
+    private PlayerModel playerModel;
     private Transform playerCamera;
 
 	void Start ()
     {
+        playerModel = playerObj.GetComponent<PlayerModel>();
         playerCamera = Camera.main.gameObject.transform;
+
+        if (playerModel.isLocalPlayer)
+            gameObject.SetActive(false);
     }
 
     void Update ()
