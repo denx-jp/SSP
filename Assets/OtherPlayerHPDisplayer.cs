@@ -6,17 +6,17 @@ using UniRx;
 
 public class OtherPlayerHPDisplayer : MonoBehaviour {
 
-    private GameObject playerCamera;
+    private Transform playerCamera;
 
 	void Start ()
     {
-        playerCamera = Camera.main.gameObject;
+        playerCamera = Camera.main.gameObject.transform;
     }
 
     void Update ()
     {
         // 他プレイヤーのHPバーを自HUDに対して垂直に表示
         if (playerCamera != null)
-            this.transform.rotation = playerCamera.transform.rotation;
+            this.transform.rotation = playerCamera.rotation;
     }
 }
