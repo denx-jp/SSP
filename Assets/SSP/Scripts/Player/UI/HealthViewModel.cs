@@ -15,7 +15,7 @@ public class HealthViewModel : MonoBehaviour
     {
         if (playerObj != null)
         {
-            healthModel = playerObj.GetComponent<PlayerModel>() as IHealth;
+            healthModel = playerObj.GetComponent<IHealth>();
             Init();
         }
     }
