@@ -1624,6 +1624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224990489807914362}
   - component: {fileID: 114355481432560930}
+  - component: {fileID: 114768570865979506}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -2456,7 +2457,7 @@ GameObject:
   - component: {fileID: 114077097428542020}
   - component: {fileID: 114084645704703300}
   - component: {fileID: 114856490275401810}
-  - component: {fileID: 114120571554247796}
+  - component: {fileID: 114778723588836376}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -5306,19 +5307,6 @@ MonoBehaviour:
     type: 2}
   rightHandTransform: {fileID: 4264272987011664}
   leftHandTransform: {fileID: 4723894345551248}
---- !u!114 &114120571554247796
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db1f61d1bf38a5d4da63e0bcb8013ca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHPBar: {fileID: 114355481432560930}
-  playerCamera: {fileID: 0}
 --- !u!114 &114134000520712444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5599,6 +5587,19 @@ MonoBehaviour:
     type: 2}
   emitPower: 3
   emitDirectionRange: {x: 45, y: 10, z: 45}
+--- !u!114 &114768570865979506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628991548377194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86951e1373b343849935f30e987df2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliderHealth: {fileID: 114355481432560930}
+  playerObj: {fileID: 1914480152885886}
 --- !u!114 &114774096608856190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5618,6 +5619,19 @@ MonoBehaviour:
   initialEther: 500
   isLocalPlayerCharacter: 0
   defaultLayer: 0
+--- !u!114 &114778723588836376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86951e1373b343849935f30e987df2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliderHealth: {fileID: 114355481432560930}
+  playerObj: {fileID: 1914480152885886}
 --- !u!114 &114801546013469574
 MonoBehaviour:
   m_ObjectHideFlags: 1

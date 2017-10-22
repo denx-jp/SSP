@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 
-public class HealthViewModel : NetworkBehaviour
+public class HealthViewModel : MonoBehaviour//NetworkBehaviour
 {
 
     [SerializeField] private Slider sliderHealth;
@@ -19,7 +19,7 @@ public class HealthViewModel : NetworkBehaviour
     {
         if (playerObj != null)
         {
-            playerModel = GetComponent<PlayerModel>();
+            playerModel = playerObj.GetComponent<PlayerModel>();
             healthModel = playerModel as IHealth;
 
             playerCamera = Camera.main.gameObject;
@@ -31,7 +31,7 @@ public class HealthViewModel : NetworkBehaviour
                 this.ObserveEveryValueChanged(_ => playerCamera.transform.rotation)
                     .Subscribe(v => sliderHealth.transform.rotation = v);
 
-            if (isLocalPlayer)
+            if (playerModel.isLocalPlayer)
                 sliderHealth.gameObject.SetActive(false);
         }
     }
