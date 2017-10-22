@@ -22,7 +22,7 @@ public class HealthViewModel : NetworkBehaviour
             playerModel = GetComponent<PlayerModel>();
             healthModel = playerModel as IHealth;
 
-            playerCamera = GameObject.FindWithTag("MainCamera");
+            playerCamera = Camera.main.gameObject;
 
             Init();
 
