@@ -11,7 +11,7 @@ public class HealthViewModel : MonoBehaviour
 
     public IHealth healthModel;
 
-    public void Start()
+    void Start()
     {
         if (playerObj != null)
         {
