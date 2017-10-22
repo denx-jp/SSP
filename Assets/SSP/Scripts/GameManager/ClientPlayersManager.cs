@@ -7,31 +7,32 @@ using System.Linq;
 public class ClientPlayersManager : NetworkBehaviour
 {
     public static ClientPlayersManager Instance;
-    [SerializeField] public List<PlayerManager> playerManagers { get; private set; }
+    public static List<PlayerManager> Players = new List<PlayerManager>();
 
     private void Awake()
     {
         Instance = this;
-        playerManagers = new List<PlayerManager>();
+        Players = new List<PlayerManager>();
     }
 
-    public static void AddPlayer(GameObject player)
+    public static void AddPlayer(PlayerManager pm)
     {
-        Instance.playerManagers.Add(player.GetComponent<PlayerManager>());
+        Players.Add(pm);
+        Debug.LogError(pm.gameObject.name);
     }
 
     public List<T> GetPlayersComponent<T>()
     {
         if (typeof(T) == typeof(PlayerModel))
-            return playerManagers.Select(v => (T)(object)v.playerModel).ToList<T>();
+            return Players.Select(v => (T)(object)v.playerModel).ToList<T>();
         else if (typeof(T) == typeof(PlayerHealthManager))
-            return playerManagers.Select(v => (T)(object)v.playerHealthManager).ToList<T>();
+            return Players.Select(v => (T)(object)v.playerHealthManager).ToList<T>();
         else if (typeof(T) == typeof(PlayerEtherManager))
-            return playerManagers.Select(v => (T)(object)v.playerEtherManager).ToList<T>();
+            return Players.Select(v => (T)(object)v.playerEtherManager).ToList<T>();
         else if (typeof(T) == typeof(PlayerInputManager))
-            return playerManagers.Select(v => (T)(object)v.playerInputManager).ToList<T>();
+            return Players.Select(v => (T)(object)v.playerInputManager).ToList<T>();
         else if (typeof(T) == typeof(PlayerKillLogNotifier))
-            return playerManagers.Select(v => (T)(object)v.playerKillLogNotifier).ToList<T>();
+            return Players.Select(v => (T)(object)v.playerKillLogNotifier).ToList<T>();
         else
             return default(List<T>);
     }

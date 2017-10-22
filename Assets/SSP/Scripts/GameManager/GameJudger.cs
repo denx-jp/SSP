@@ -7,7 +7,6 @@ using UniRx;
 
 public class GameJudger : MonoBehaviour
 {
-    [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private LifeSupportSystemEtherManager team1_LSSManager;
     [SerializeField] private LifeSupportSystemEtherManager team2_LSSManager;
     
@@ -24,7 +23,7 @@ public class GameJudger : MonoBehaviour
                 // v = 1 -> 2, v = 2 -> 1
                 int winnerTeamId = v * 2 % 3;
 
-                PlayerManager localPlayerManager = clientPlayersManager.playerManagers.Find(p => p.playerModel.isLocalPlayerCharacter);
+                PlayerManager localPlayerManager = ClientPlayersManager.Players.Find(p => p.playerModel.isLocalPlayerCharacter);
                 int localPlayerTeamId = localPlayerManager.playerModel.teamId;
                 
                 if (winnerTeamId == localPlayerTeamId)

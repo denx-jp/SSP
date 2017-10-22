@@ -20,7 +20,7 @@ public class PlayerManager : NetworkBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        ClientPlayersManager.AddPlayer(this.gameObject);
+        ClientPlayersManager.AddPlayer(this);
         if (isLocalPlayer)
         {
             playerModel.isLocalPlayerCharacter = true;
