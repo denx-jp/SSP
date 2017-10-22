@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 65139783768924182}
   - component: {fileID: 114275136129540490}
   - component: {fileID: 114611022078819548}
+  - component: {fileID: 114155284009974462}
   m_Layer: 0
   m_Name: HandGun
   m_TagString: Untagged
@@ -98,8 +99,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996856847404154}
   m_LocalRotation: {x: 0.5431916, y: 0.47949147, z: 0.5378593, w: 0.43097356}
-  m_LocalPosition: {x: 2.125, y: 0.99799997, z: 1.5150001}
-  m_LocalScale: {x: 0.029826352, y: 0.10867492, z: 0.027502982}
+  m_LocalPosition: {x: 0.67, y: 1.02, z: 0.99}
+  m_LocalScale: {x: 0.02982637, y: 0.10867494, z: 0.02750299}
   m_Children:
   - {fileID: 4184204856146398}
   m_Father: {fileID: 0}
@@ -207,6 +208,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000008, y: 1.0000005, z: 1}
   m_Center: {x: -0.0000038146973, y: 0, z: 0.0000009536743}
+--- !u!114 &114155284009974462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996856847404154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0fef981d4a44904cad9baebe4a0f98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114275136129540490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,5 +248,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 0
+  inventoriableType: 0
   canInteract: 0

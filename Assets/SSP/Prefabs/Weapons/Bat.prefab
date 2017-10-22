@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23623335034185964}
   - component: {fileID: 114244314045166808}
   - component: {fileID: 114645791642823236}
+  - component: {fileID: 114326719826058044}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -97,6 +98,17 @@ MonoBehaviour:
   damageAmount: 10
   hitDetectionTimeOffset: 0.1
   hitDetectionDuration: 0.6
+--- !u!114 &114326719826058044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189635630215696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ffcdcf86beddb459b8b282c54a0804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114645791642823236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,7 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 1
+  inventoriableType: 0
+  canInteract: 1
 --- !u!136 &136532114692406812
 CapsuleCollider:
   m_ObjectHideFlags: 1
