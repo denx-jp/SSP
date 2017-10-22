@@ -8,12 +8,12 @@ public class PlayerWeaponManager : NetworkBehaviour
 {
     private PlayerInputManager pim;
     public IAttackable attacker;
-    
+
     void Start()
     {
         pim = GetComponent<PlayerInputManager>();
 
-        pim.NormalAttackButtonDown
+        pim.AttackButtonShort
             .Where(input => input)
             .Where(_ => attacker != null)
             .Subscribe(_ =>
