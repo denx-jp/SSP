@@ -12,7 +12,7 @@ public class OtherPlayerHPDisplayer : MonoBehaviour
     private PlayerModel playerModel;
     private Transform playerCamera;
 
-	void Start ()
+    void Start()
     {
         playerModel = playerObj.GetComponent<PlayerModel>();
         playerCamera = Camera.main.gameObject.transform;
@@ -21,7 +21,7 @@ public class OtherPlayerHPDisplayer : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    void Update ()
+    void Update()
     {
         // 他プレイヤーのHPバーを自HUDに対して垂直に表示
         if (playerCamera != null)
