@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
-public class OtherPlayerHPDisplayer : MonoBehaviour {
+public class OtherPlayerHPDisplayer : MonoBehaviour
+{
 
     [SerializeField] private GameObject playerObj;
 
