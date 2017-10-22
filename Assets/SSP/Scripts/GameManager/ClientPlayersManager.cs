@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Linq;
 
-public class ClientPlayersManager : NetworkBehaviour
+public class ClientPlayersManager : MonoBehaviour
 {
     public static ClientPlayersManager Instance;
     public static List<PlayerManager> Players = new List<PlayerManager>();
@@ -18,7 +17,6 @@ public class ClientPlayersManager : NetworkBehaviour
     public static void AddPlayer(PlayerManager pm)
     {
         Players.Add(pm);
-        Debug.LogError(pm.gameObject.name);
     }
 
     public List<T> GetPlayersComponent<T>()
