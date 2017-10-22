@@ -1625,6 +1625,7 @@ GameObject:
   - component: {fileID: 224990489807914362}
   - component: {fileID: 114355481432560930}
   - component: {fileID: 114768570865979506}
+  - component: {fileID: 114008190846924258}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -2457,7 +2458,6 @@ GameObject:
   - component: {fileID: 114077097428542020}
   - component: {fileID: 114084645704703300}
   - component: {fileID: 114856490275401810}
-  - component: {fileID: 114778723588836376}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -5263,6 +5263,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114008190846924258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628991548377194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fddddecbc5b70d478164a1976d26d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114077097428542020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5619,19 +5630,6 @@ MonoBehaviour:
   initialEther: 500
   isLocalPlayerCharacter: 0
   defaultLayer: 0
---- !u!114 &114778723588836376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86951e1373b343849935f30e987df2d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sliderHealth: {fileID: 114355481432560930}
-  playerObj: {fileID: 1914480152885886}
 --- !u!114 &114801546013469574
 MonoBehaviour:
   m_ObjectHideFlags: 1
