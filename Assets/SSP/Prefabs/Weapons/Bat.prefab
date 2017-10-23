@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33899230831276844}
   - component: {fileID: 136532114692406812}
   - component: {fileID: 23623335034185964}
+  - component: {fileID: 114506838946006212}
+  - component: {fileID: 114323705450369532}
   - component: {fileID: 114244314045166808}
   - component: {fileID: 114645791642823236}
   m_Layer: 0
@@ -38,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1189635630215696}
   m_LocalRotation: {x: 0.0016922557, y: 0.9957593, z: 0.024133367, w: -0.08875933}
-  m_LocalPosition: {x: -0.089, y: 0.579, z: 0.023}
+  m_LocalPosition: {x: 0.036112364, y: 0.63323766, z: -3.5832145}
   m_LocalScale: {x: 0.049999923, y: 0.6327693, z: 0.05000007}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,9 +96,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb53c3547122084c8b1055181f33790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  model: {fileID: 114323705450369532}
   hitDetectionTimeOffset: 0.1
   hitDetectionDuration: 0.6
+--- !u!114 &114323705450369532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189635630215696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67f7071943801748b86b47ad9b64015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Bat
+  damageAmount: 100
+  isOwnerLocalPlayer: 0
+  playerId: 0
+  teamId: 0
+--- !u!114 &114506838946006212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189635630215696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 64
+    i1: 47
+    i2: 239
+    i3: 225
+    i4: 41
+    i5: 98
+    i6: 225
+    i7: 148
+    i8: 137
+    i9: 72
+    i10: 168
+    i11: 161
+    i12: 11
+    i13: 150
+    i14: 7
+    i15: 106
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114645791642823236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,7 +158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryType: 1
+  inventoriableType: 2
+  canInteract: 0
+  weaponPos: {x: -0.0659, y: 0.5034, z: 0}
+  weaponRot: {x: 0, y: 0, z: 0}
+  hand: 1
 --- !u!136 &136532114692406812
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -118,7 +172,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

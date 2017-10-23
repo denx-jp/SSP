@@ -16,7 +16,7 @@ public class KillLogViewModel : MonoBehaviour
         foreach (Text text in texts)
             text.text = "";
 
-        foreach(var killLogNotifier in killLogNotifiers)
+        foreach (var killLogNotifier in killLogNotifiers)
         {
             killLogNotifier.GetKillLogStream()
                 .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));

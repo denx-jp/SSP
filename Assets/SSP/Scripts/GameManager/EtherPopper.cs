@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UniRx;
 
 public class EtherPopper : MonoBehaviour
@@ -16,11 +18,12 @@ public class EtherPopper : MonoBehaviour
         Observable.Interval(TimeSpan.FromSeconds(popINterval)).Subscribe(_ =>
         {
             popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
-            GameObject popEther = Instantiate(ether, popPoint.position, Quaternion.identity);
+            Instantiate(ether, popPoint.position, Quaternion.identity);
         }).AddTo(this);
 
     }
 
+#if UNITY_EDITOR
     [ContextMenu("Set Pop Points")]
     private void SetPopPoints()
     {
@@ -31,4 +34,5 @@ public class EtherPopper : MonoBehaviour
                 popPoints.Add(childTransform);
         }
     }
+#endif
 }

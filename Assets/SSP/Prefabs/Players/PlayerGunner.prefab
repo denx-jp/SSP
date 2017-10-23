@@ -5383,7 +5383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 1912753254166720}
 --- !u!114 &114032940944018786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5412,7 +5411,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114162074263147032}
   playerKillLogNotifier: {fileID: 114805581167219738}
   playerCameraController: {fileID: 114333343639749600}
-  palyerInventory: {fileID: 114719019984489900}
+  playerInventoryManager: {fileID: 0}
   devIsLocalPlayerCharacter: 1
 --- !u!114 &114162074263147032
 MonoBehaviour:
@@ -5489,8 +5488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 1
   teamId: 1
-  devHealth: 0
-  devEther: 0
+  syncHealth: 0
+  syncEther: 0
   initialHealth: 500
   initialEther: 500
   isLocalPlayerCharacter: 0
@@ -5508,8 +5507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolTime: 1
   bulletSpeed: 500
-  bulletPrefab: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
-    type: 2}
+  bullet: {fileID: 0}
   muzzle: {fileID: 1136077663573116}
   bulletDamageAmount: 50
   bulletDeathTime: 5
@@ -5524,9 +5522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHand: {fileID: 1600373582808896}
-  leftHand: {fileID: 1232896789845360}
-  StockableGimmickCount: 2
+  weaponManager: {fileID: 114010085508917052}
 --- !u!114 &114752595263367862
 MonoBehaviour:
   m_ObjectHideFlags: 1

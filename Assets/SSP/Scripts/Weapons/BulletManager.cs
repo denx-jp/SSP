@@ -1,38 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 using System.Linq;
 
-public class BulletManager : MonoBehaviour
+public class BulletManager : NetworkBehaviour
 {
     [SerializeField] BulletModel model;
 
-    void Start()
+    public void Init(LongRangeWeaponModel lrwm)
     {
-        this.OnTriggerEnterAsObservable()
-            .Where(col => col.gameObject.layer != LayerMap.LocalPlayer)
-            .Where(col => !col.isTrigger)
-            .Subscribe(col =>
-            {
-                var damageable = col.gameObject.GetComponent<IDamageable>();
-                if (damageable != null)
-                {
-                    var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
-                    CmdSetDamage(damageable, damage);
-                }
-                Destroy(this.gameObject);
-            })
-            .AddTo(this.gameObject);
+        if (isServer)
+            Destroy(gameObject, model.deathTime);
 
-        Observable.Timer(TimeSpan.FromSeconds(model.deathTime))
-            .Subscribe(_ => Destroy(this.gameObject))
-            .AddTo(this.gameObject);
+        model.SetProperties(lrwm);
+
+        if (model.isShooterLocalPlayer)
+        {
+            this.OnTriggerEnterAsObservable()
+                .Where(col => !col.isTrigger)
+                .Subscribe(col =>
+                {
+                    var playerModel = col.gameObject.GetComponent<PlayerModel>();
+                    if (playerModel != null && playerModel.teamId != model.shootPlayerTeamId)
+                    {
+                        var damageable = col.gameObject.GetComponent<IDamageable>();
+                        if (damageable != null)
+                        {
+                            var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
+                            CmdSetDamage(col.gameObject, damage);
+                        }
+                    }
+                    if (playerModel == null || playerModel.playerId != model.shootPlayerId)
+                    {
+                        GetComponent<NetworkTransform>().enabled = false;
+                        CmdDestroy();
+                    }
+                }).AddTo(this.gameObject);
+        }
     }
 
-    void CmdSetDamage(IDamageable damageable, Damage dmg)
+    [Command]
+    void CmdSetDamage(GameObject go, Damage dmg)
     {
+        var damageable = go.GetComponent<IDamageable>();
         damageable.SetDamage(dmg);
+    }
+
+    [Command]
+    void CmdDestroy()
+    {
+        NetworkServer.Destroy(this.gameObject);
     }
 }

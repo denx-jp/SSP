@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 
-public class PlayerHealthManager : MonoBehaviour, IDamageable
+public class PlayerHealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerModel playerModel;
     private Subject<bool> deathStream;
@@ -25,18 +26,34 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
 
         animator = GetComponent<Animator>();
         this.deathStream
+            .Where(_ => isLocalPlayer)
              .Subscribe(isdeath =>
              {
-                 animator.SetBool(deathHash, isdeath);
+                 CmdStartDeathAnimation(isdeath);
              });
+    }
+
+    [Command]
+    private void CmdStartDeathAnimation(bool isdeath)
+    {
+        RpcStartDeathAnimation(isdeath);
+    }
+
+    [ClientRpc]
+    private void RpcStartDeathAnimation(bool isdeath)
+    {
+        animator.SetBool(deathHash, isdeath);
     }
 
     public void SetDamage(Damage damage)
     {
+        //フレンドリーファイアはできないように
+        if (damage.teamId == playerModel.teamId) return;
+
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
-            recentAttackerId = damage.id;
-            playerModel.Health.Value -= damage.amount;
+            recentAttackerId = damage.playerId;
+            playerModel.syncHealth -= damage.amount;
         }
     }
 

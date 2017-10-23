@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerRespawner : MonoBehaviour
+public class PlayerRespawner : NetworkBehaviour
 {
     private PlayerHealthManager playerHealthManager;
     private PlayerModel playerModel;
@@ -26,12 +27,25 @@ public class PlayerRespawner : MonoBehaviour
         this.playerHealthManager.GetDeathStream()
             .Throttle(TimeSpan.FromSeconds(timeToRespawn))
             .Where(v => v)
+            .Where(_ => isLocalPlayer)
             .Subscribe(_ =>
             {
-                playerModel.Init();
-                var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
-                this.transform.position = respawnPoint.transform.position;
-                animator.SetBool(deathHash, false);
+                CmdPlayerRespawnStart();
             });
+    }
+    
+    [Command]
+    private void CmdPlayerRespawnStart()
+    {
+        var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
+        RpcPlayerRespawnStart(respawnPoint.transform.position);
+    }
+
+    [ClientRpc]
+    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
+    {
+        playerModel.Init();
+        this.transform.position = _respawnPointPosition;
+        animator.SetBool(deathHash, false);
     }
 }

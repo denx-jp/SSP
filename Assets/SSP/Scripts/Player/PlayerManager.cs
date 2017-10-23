@@ -12,14 +12,12 @@ public class PlayerManager : NetworkBehaviour
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
     public PlayerInventoryManager playerInventoryManager;
-
-    [SerializeField] private bool devIsLocalPlayerCharacter = false;     //デバッグ用フラグ。OFFLINE環境のときtrueの場合のみLocalPlayerに指定される。
-
+    
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-#if ONLINE
+
         if (isLocalPlayer)
         {
             playerModel.isLocalPlayerCharacter = true;
@@ -29,13 +27,6 @@ public class PlayerManager : NetworkBehaviour
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
         }
-#else
-        if (devIsLocalPlayerCharacter)
-        {
-            this.gameObject.layer = LayerMap.LocalPlayer;
-            playerModel.isLocalPlayerCharacter = true;
-        }
-#endif
     }
 
     public void Init()
@@ -47,13 +38,6 @@ public class PlayerManager : NetworkBehaviour
         playerKillLogNotifier = GetComponent<PlayerKillLogNotifier>();
         playerCameraController = GetComponent<PlayerCameraController>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
-    }
-
-    public T GetPlayerComponent<T>()
-    {
-        if (typeof(T) == typeof(PlayerModel))
-            return (T)(object)playerModel;
-        return default(T);
     }
 
 }

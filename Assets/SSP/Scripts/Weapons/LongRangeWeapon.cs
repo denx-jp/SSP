@@ -1,60 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class LongRangeWeapon : MonoBehaviour, IAttackable
+public class LongRangeWeapon : NetworkBehaviour, IAttackable
 {
-    [SerializeField] private float coolTime, bulletSpeed;
-    [SerializeField] GameObject bulletPrefab, muzzle;
-    [SerializeField] private float bulletDamageAmount, bulletDeathTime;
-    private BulletModel bulletModel;
+    [SerializeField] LongRangeWeaponModel model;
+    [SerializeField] GameObject muzzle;
     private bool canAttack = true;
-    private int playerId, teamId;
+    private float shootTime = 0;
+    private Transform cameraTransform;
     private RaycastHit hit;
-    private int layerMask = ~(1 << LayerMap.LocalPlayer);
-    private float time = 0;
+    private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
+    private PlayerModel pm;
 
     public void Init(PlayerModel playerModel)
     {
-        playerId = playerModel.playerId;
-        teamId = playerModel.teamId;
+        model.playerId = playerModel.playerId;
+        model.teamId = playerModel.teamId;
+        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
+        cameraTransform = Camera.main.transform;
+        pm = playerModel;
 
-        this.UpdateAsObservable()
+        this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
+            .Where(_ => !canAttack)
             .Subscribe(_ =>
             {
-                time += Time.deltaTime;
-                if (time >= coolTime)
+                if (Time.time - shootTime >= model.coolTime)
                     canAttack = true;
             });
     }
 
-    public void NormalAttack(Animator animator)
+    public void NormalAttack()
     {
         if (canAttack)
         {
-            Shoot();
-            time = 0;
+            shootTime = Time.time;
             canAttack = false;
+            CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
     }
 
-    private void Shoot()
+    [Command]
+    private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
-        var bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
-        //レイが衝突すればその点へ飛ばし、衝突しなければそれっぽいところへ飛ばす。
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, layerMask))
-        {
-            bullet.transform.LookAt(hit.point);
-        }
+        var bulletInstance = Instantiate(model.bullet, muzzle.transform.position, muzzle.transform.rotation);
+        if (Physics.Raycast(castPosition, castDirection, out hit, 1000, layerMask))
+            bulletInstance.transform.LookAt(hit.point);
         else
-        {
-            bullet.transform.rotation = Camera.main.transform.rotation;
-        }
+            bulletInstance.transform.rotation = uncastableDirection;
 
-        bullet.GetComponent<BulletModel>().SetProperties(playerId, teamId, bulletDamageAmount, bulletDeathTime);
-        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * bulletSpeed);
+        bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * model.bulletVelocity;
+        NetworkServer.SpawnWithClientAuthority(bulletInstance.gameObject, pm.connectionToClient);
+        RpcShoot(bulletInstance);
+    }
+
+    [ClientRpc]
+    private void RpcShoot(GameObject bulletInstance)
+    {
+        bulletInstance.GetComponent<BulletManager>().Init(model);
     }
 }
