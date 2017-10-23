@@ -7,8 +7,10 @@ using System;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField]
-    private float longPressSecond;
+    private GameObject LSS;
+    [SerializeField] private float Range;
+    [SerializeField] private List<GameObject> RespawnPoints = new List<GameObject>();
+    [SerializeField] private float longPressSecond;
 
     public readonly Subject<Vector2> CameraRotate = new Subject<Vector2>();
     public readonly Subject<bool> CameraResetButtonDown = new Subject<bool>();
@@ -86,6 +88,14 @@ public class PlayerInputManager : MonoBehaviour
             .Where(_ => !playerModel.IsAlive())
             .Subscribe(_ =>
             {
+                for (int i = 0; i < RespawnPoints.Count; i++)
+                {
+                    float Distance = (LSS.transform.position - RespawnPoints[i].transform.position).sqrMagnitude;
+                    if (Distance > Range)
+                    {
+                        RespawnPoints.RemoveAt(i);
+                    }
+                }
                 ChooseRespawnPointsRightButtonDown.OnNext(Input.GetButtonDown("Right"));
                 ChooseRespawnPointsLeftButtonDown.OnNext(Input.GetButtonDown("Left"));
                 //死亡時入力受付ストリーム

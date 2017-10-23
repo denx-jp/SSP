@@ -8,7 +8,9 @@ using UniRx.Triggers;
 
 public class PlayerRespawner : NetworkBehaviour
 {
+    int PointNum;
     private PlayerHealthManager playerHealthManager;
+    [SerializeField] private PlayerInputManager pim;
     private PlayerModel playerModel;
     private GameObject[] respawnPoints;
 
@@ -32,12 +34,30 @@ public class PlayerRespawner : NetworkBehaviour
             {
                 CmdPlayerRespawnStart();
             });
+
+        pim.ChooseRespawnPointsRightButtonDown
+            .Where(v => v)
+            .Where(v => PointNum != respawnPoints.Length)
+            .Subscribe(v =>
+            {
+                PointNum++;
+                GetComponent<PlayerCameraController>().SetTarget(respawnPoints[PointNum]);
+            });
+        pim.ChooseRespawnPointsLeftButtonDown
+            .Where(v => v)
+            .Where(v => PointNum != 0)
+            .Subscribe(v =>
+            {
+                PointNum--;
+                GetComponent<PlayerCameraController>().SetTarget(respawnPoints[PointNum]);
+            });
     }
-    
+
     [Command]
     private void CmdPlayerRespawnStart()
     {
         var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
+
         RpcPlayerRespawnStart(respawnPoint.transform.position);
     }
 

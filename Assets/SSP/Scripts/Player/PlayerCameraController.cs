@@ -7,15 +7,12 @@ using System.Linq;
 
 public class PlayerCameraController : MonoBehaviour
 {
-    private GameObject LSS;
-    int PointNum = 0;
-    [SerializeField] private float Range;
     private GameObject mainCamera;
     private GameObject target;
+    private PlayerInputManager pim;
     [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
     private Vector3 temp_offset;
     [SerializeField] private float cameraRotationSpeed = 100;
-    [SerializeField] private PlayerInputManager pim;
     [SerializeField] private List<GameObject> RespawnPoints = new List<GameObject>();
 
     private void Start()
@@ -57,40 +54,12 @@ public class PlayerCameraController : MonoBehaviour
                         temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
                     }
                 }
-
                 Camere().transform.position = target.transform.position + temp_offset;
                 var delta = (target.transform.position - Camere().transform.position);
                 var direction = new Vector3(delta.x, delta.y + offset.y, delta.z);
                 Debug.DrawLine(this.transform.position, Camere().transform.position + direction);
                 Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             });
-
-        for (int i = 0; i < RespawnPoints.Count; i++)
-        {
-            float Distance = (LSS.transform.position - RespawnPoints[i].transform.position).sqrMagnitude;
-            // LSSとリスポーン地点の二点間の距離をとる
-            if (Distance > Range)
-            {
-                RespawnPoints.RemoveAt(i); 
-            }
-        }
-        pim.ChooseRespawnPointsRightButtonDown
-            .Where(v => v)
-            .Where(v => Input.GetButtonDown("Right") && PointNum != RespawnPoints.Count)
-        
-            .Subscribe(v =>{
-                PointNum++;
-                SetTarget(RespawnPoints[PointNum]);
-        });
-        pim.ChooseRespawnPointsLeftButtonDown
-            .Where(v => v)
-            .Where(v => Input.GetButtonDown("Left") && PointNum != 0)
-            .Subscribe(v =>
-            {
-                PointNum--;
-                SetTarget(RespawnPoints[PointNum]);
-            });
-
     }
     public void DetachTarget()
     {
