@@ -7,8 +7,10 @@ using System;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField]
-    private float longPressSecond;
+    private GameObject LSS;
+    [SerializeField] private float Range;
+    [SerializeField] private List<GameObject> RespawnPoints = new List<GameObject>();
+    [SerializeField] private float longPressSecond;
 
     public readonly Subject<Vector2> CameraRotate = new Subject<Vector2>();
     public readonly Subject<bool> CameraResetButtonDown = new Subject<bool>();
@@ -33,6 +35,10 @@ public class PlayerInputManager : MonoBehaviour
     public UniRx.IObservable<float> WeaponChange { get; private set; }
     public readonly Subject<float> WeaponChangeWhellScroll = new Subject<float>();
     public readonly Subject<bool> WeaponChangeButtonDown = new Subject<bool>();
+
+
+    public readonly Subject<bool> ChooseRespawnPointsRightButtonDown = new Subject<bool>(); //リスポーン地点選択 
+    public readonly Subject<bool> ChooseRespawnPointsLeftButtonDown = new Subject<bool>();
 
     private Vector2 mouseInput;
     private Vector2 gamePadInput;
@@ -59,6 +65,7 @@ public class PlayerInputManager : MonoBehaviour
                 CameraRotate.OnNext(gamePadInput);
                 CameraResetButtonDown.OnNext(Input.GetButtonDown("Camera Reset"));
 
+
                 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                 Move.OnNext(moveInput);
 
@@ -70,6 +77,7 @@ public class PlayerInputManager : MonoBehaviour
                 AttackButtonUp.OnNext(Input.GetButtonUp("Normal Attack"));
                 ScopeButtonDown.OnNext(Input.GetButtonDown("Scope"));
                 ScopeButtonUp.OnNext(Input.GetButtonUp("Scope"));
+
                 ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
 
                 WeaponChangeWhellScroll.OnNext(Input.GetAxis("Mouse ScrollWheel"));
@@ -80,6 +88,16 @@ public class PlayerInputManager : MonoBehaviour
             .Where(_ => !playerModel.IsAlive())
             .Subscribe(_ =>
             {
+                for (int i = 0; i < RespawnPoints.Count; i++)
+                {
+                    float Distance = (LSS.transform.position - RespawnPoints[i].transform.position).sqrMagnitude;
+                    if (Distance > Range)
+                    {
+                        RespawnPoints.RemoveAt(i);
+                    }
+                }
+                ChooseRespawnPointsRightButtonDown.OnNext(Input.GetButtonDown("Right"));
+                ChooseRespawnPointsLeftButtonDown.OnNext(Input.GetButtonDown("Left"));
                 //死亡時入力受付ストリーム
             });
 

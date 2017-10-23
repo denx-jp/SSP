@@ -9,10 +9,11 @@ public class PlayerCameraController : MonoBehaviour
 {
     private GameObject mainCamera;
     private GameObject target;
+    private PlayerInputManager pim;
     [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
     private Vector3 temp_offset;
     [SerializeField] private float cameraRotationSpeed = 100;
-    [SerializeField] private PlayerInputManager pim;
+    [SerializeField] private List<GameObject> RespawnPoints = new List<GameObject>();
 
     private void Start()
     {
@@ -53,7 +54,6 @@ public class PlayerCameraController : MonoBehaviour
                         temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
                     }
                 }
-
                 Camere().transform.position = target.transform.position + temp_offset;
                 var delta = (target.transform.position - Camere().transform.position);
                 var direction = new Vector3(delta.x, delta.y + offset.y, delta.z);
@@ -61,7 +61,6 @@ public class PlayerCameraController : MonoBehaviour
                 Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             });
     }
-
     public void DetachTarget()
     {
         target = null;
@@ -71,7 +70,7 @@ public class PlayerCameraController : MonoBehaviour
     {
         target = _target;
     }
-
+    
     private GameObject Camere()
     {
         if (mainCamera != null) return mainCamera;
