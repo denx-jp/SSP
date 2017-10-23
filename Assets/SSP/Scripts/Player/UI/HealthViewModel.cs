@@ -22,7 +22,7 @@ public class HealthViewModel : MonoBehaviour
 
     public void Init()
     {
-        sliderHealth.maxValue = healthModel.GetHealth();
+        sliderHealth.maxValue = healthModel.GetMaxHealth();
         healthModel.GetHealthStream().Subscribe(v => sliderHealth.value = v);
     }
 }
