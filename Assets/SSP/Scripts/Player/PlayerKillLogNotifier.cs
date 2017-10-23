@@ -6,28 +6,22 @@ using UniRx;
 public class PlayerKillLogNotifier : MonoBehaviour
 {
     private PlayerHealthManager playerHealthManager;
-    private Subject<KeyValuePair<int, int>> killLogStream;
+    private Subject<KeyValuePair<int, int>> killLogStream = new Subject<KeyValuePair<int, int>>();
 
     private void Start()
     {
-        killLogStream = new Subject<KeyValuePair<int, int>>();
-        GetPlayerHealthManager().GetDeathStream()
+        playerHealthManager = GetComponent<PlayerHealthManager>();
+        var myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+
+        playerHealthManager.GetDeathStream()
             .Subscribe(_ =>
             {
-                var myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
-                killLogStream.OnNext(new KeyValuePair<int, int>(GetPlayerHealthManager().recentAttackerId, myId));
+                killLogStream.OnNext(new KeyValuePair<int, int>(playerHealthManager.recentAttackerId, myId));
             });
     }
 
     public Subject<KeyValuePair<int, int>> GetKillLogStream()
     {
         return killLogStream;
-    }
-
-    private PlayerHealthManager GetPlayerHealthManager()
-    {
-        if (playerHealthManager == null)
-            playerHealthManager = GetComponent<PlayerHealthManager>();
-        return playerHealthManager;
     }
 }
