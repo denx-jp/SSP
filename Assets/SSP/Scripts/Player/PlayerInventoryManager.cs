@@ -48,10 +48,7 @@ public class PlayerInventoryManager : NetworkBehaviour
         var weapon = new InventoryWeapon(go);
         weapon.attacker.Init(playerModel);
         weapon.gameObject.SetActive(false);
-
-        var invObject = weapon.gameObject.GetComponent<InventoriableObject>();
-        invObject.SetTransformOwnerHand(leftHandTransform, rightHandTransform);
-
+        
         inventory.AddWeapon(type, weapon);
         //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)

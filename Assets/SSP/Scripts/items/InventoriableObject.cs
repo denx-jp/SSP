@@ -18,11 +18,13 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 
     void Start()
     {
+        //クライアントのプレイヤーのハンドガンを持ち主の手に設定する
         SetTransformToOwner();
     }
 
     public void Interact(PlayerManager pm)
     {
+        SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
         canInteract = false;
     }
@@ -46,7 +48,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         pim.SetDefaultWeapon(this.gameObject, inventoriableType);
     }
 
-    public void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
+    private void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
     {
         switch (hand)
         {
