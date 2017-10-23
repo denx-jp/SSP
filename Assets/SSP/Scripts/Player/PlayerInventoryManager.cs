@@ -33,15 +33,9 @@ public class PlayerInventoryManager : NetworkBehaviour
             .Subscribe(v =>
             {
                 if (v < 0)
-                {
-                    var nextWeaponType = inventory.GetNextWeaponType();
-                    inventory.EquipWeapon(nextWeaponType);
-                }
+                    CmdNextWeapon();
                 else if (v > 0)
-                {
-                    var previousWeaponType = inventory.GetPreviousWeaponType();
-                    inventory.EquipWeapon(previousWeaponType);
-                }
+                    CmdPreviousWeapon();
             });
     }
 
@@ -117,6 +111,34 @@ public class PlayerInventoryManager : NetworkBehaviour
         SetWeaponToInventory(weapon, type);
         var inventoryType = ConvertInventoriableTypeToInventoryType(type);
         inventory.EquipWeapon(inventoryType);
+    }
+    #endregion
+
+    #region 武器持ち替え処理
+    [Command]
+    void CmdNextWeapon()
+    {
+        RpcNextWeapon();
+    }
+
+    [ClientRpc]
+    void RpcNextWeapon()
+    {
+        var nextWeaponType = inventory.GetNextWeaponType();
+        inventory.EquipWeapon(nextWeaponType);
+    }
+
+    [Command]
+    void CmdPreviousWeapon()
+    {
+        RpcPreviousWeapon();
+    }
+
+    [ClientRpc]
+    void RpcPreviousWeapon()
+    {
+        var previousWeaponType = inventory.GetPreviousWeaponType();
+        inventory.EquipWeapon(previousWeaponType);
     }
     #endregion
 }
