@@ -16,6 +16,8 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Start()
     {
+        if (!GetComponent<PlayerModel>().isLocalPlayerCharacter) return;
+
         SetTarget(this.gameObject);
         temp_offset = offset;
 
@@ -45,13 +47,9 @@ public class PlayerCameraController : MonoBehaviour
                 else
                 {
                     if (temp_delta.y > 0.0f && input.y < 0.0f)
-                    {
                         temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
-                    }
                     else if (temp_delta.y < 0.0f && input.y > 0.0f)
-                    {
                         temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
-                    }
                 }
 
                 Camere().transform.position = target.transform.position + temp_offset;
@@ -61,12 +59,7 @@ public class PlayerCameraController : MonoBehaviour
                 Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             });
     }
-
-    public void DetachTarget()
-    {
-        target = null;
-    }
-
+    
     public void SetTarget(GameObject _target)
     {
         target = _target;
