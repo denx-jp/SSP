@@ -45,12 +45,13 @@ public class PlayerInventoryManager : NetworkBehaviour
         if (inventory.weapons.ContainsKey(type))
             inventory.ReleaseWeapon(type);
 
-        var weapon = new InventoryWeapon(go);
-        weapon.attacker.Init(playerModel);
-        weapon.gameObject.SetActive(false);
-        
-        inventory.AddWeapon(type, weapon);
-        //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
+        var inventoryWeapon = new InventoryWeapon(go);
+        inventoryWeapon.weapon.Init(playerModel);
+        inventoryWeapon.gameObject.SetActive(false);
+        inventory.AddWeapon(type, inventoryWeapon);
+
+        //装備中の武器と同種の武器がSetされた場合は装備しなおす。
+        //ただし、typeがGimmick1の時はSetされる前にGimmick2だったものであり、まだ所持しているので装備しなおさない。
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
             inventory.EquipWeapon(type);
     }

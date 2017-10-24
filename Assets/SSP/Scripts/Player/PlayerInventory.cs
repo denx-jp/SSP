@@ -35,13 +35,13 @@ public class PlayerInventory : MonoBehaviour
 
         currentWeaponType = nextWeaponType;
         weapons[nextWeaponType].gameObject.SetActive(true);
-        weaponManager.attacker = weapons[nextWeaponType].attacker;
+        weaponManager.weapon = weapons[nextWeaponType].weapon;
     }
 
     public void ReleaseWeapon(InventoryType releaseWeaponType)
     {
-        if (weaponManager.attacker == weapons[releaseWeaponType].attacker)
-            weaponManager.attacker = null;
+        if (weaponManager.weapon == weapons[releaseWeaponType].weapon)
+            weaponManager.weapon = null;
         weapons[releaseWeaponType].gameObject.transform.parent = null;
         weapons[releaseWeaponType].gameObject.GetComponent<InventoriableObject>().SetCanInteract(true);
         weapons[releaseWeaponType].gameObject.SetActive(true);
