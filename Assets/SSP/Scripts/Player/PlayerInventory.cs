@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
         inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
     }
 
-    public void AddWeapon(InventoryType type, InventoryWeapon weapon)
+    public void SetWeapon(InventoryType type, GameObject weaponObj)
     {
         if (weapons.ContainsKey(type))
             weapons[type] = weapon;

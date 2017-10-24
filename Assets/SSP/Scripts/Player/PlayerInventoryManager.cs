@@ -26,7 +26,7 @@ public class PlayerInventoryManager : NetworkBehaviour
             if (isServer)
                 StartCoroutine(SetUpHandGun());
             else if (isClient)
-                CmdSetupHandGun();
+                CmdSetupDefaultWeapon();
         }
 
         pim.WeaponChange
@@ -48,7 +48,7 @@ public class PlayerInventoryManager : NetworkBehaviour
         var inventoryWeapon = new InventoryWeapon(go);
         inventoryWeapon.weapon.Init(playerModel);
         inventoryWeapon.gameObject.SetActive(false);
-        inventory.AddWeapon(type, inventoryWeapon);
+        inventory.SetWeapon(type, inventoryWeapon);
 
         //装備中の武器と同種の武器がSetされた場合は装備しなおす。
         //ただし、typeがGimmick1の時はSetされる前にGimmick2だったものであり、まだ所持しているので装備しなおさない。
@@ -84,27 +84,27 @@ public class PlayerInventoryManager : NetworkBehaviour
     {
         //ホストのみNetworkConnectionが確立される前にStartが呼び出されてしまうため、NetworkConnectionが確立するまで待つ。
         yield return this.UpdateAsObservable().FirstOrDefault(_ => connectionToClient.isReady).ToYieldInstruction();
-        CmdSetupHandGun();
+        CmdSetupDefaultWeapon();
     }
 
     [Command]
-    private void CmdSetupHandGun()
+    private void CmdSetupDefaultWeapon()
     {
         var handGunObj = Instantiate(handGunPrefab);
         NetworkServer.SpawnWithClientAuthority(handGunObj, connectionToClient);
-        RpcSetupHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
+        RpcAssignPlayerToDefaultWeapon(handGunObj.GetComponent<NetworkIdentity>().netId);
     }
 
     [ClientRpc]
-    private void RpcSetupHandGun(NetworkInstanceId instanceId)
+    private void RpcAssignPlayerToDefaultWeapon(NetworkInstanceId instanceId)
     {
         var weapon = ClientScene.FindLocalObject(instanceId);
         var invObj = weapon.GetComponent<InventoriableObject>();
         invObj.ownerPlayerId = GetComponent<NetworkIdentity>().netId;
-        SetDefaultWeapon(weapon, invObj.inventoriableType);
     }
 
-    public void SetDefaultWeapon(GameObject weapon, InventoriableType type)
+    //デフォルト所持の武器をインベントリに格納&装備する
+    public void SetupDefaultWeapon(GameObject weapon, InventoriableType type)
     {
         SetWeaponToInventory(weapon, type);
         var inventoryType = ConvertInventoriableTypeToInventoryType(type);

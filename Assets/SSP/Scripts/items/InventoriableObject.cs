@@ -18,8 +18,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 
     void Start()
     {
-        //クライアントのプレイヤーのハンドガンを持ち主の手に設定する
-        SetTransformToOwner();
+        DefaultWeaponSetup();
     }
 
     public void Interact(PlayerManager pm)
@@ -39,13 +38,13 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         canInteract = _canInteract;
     }
 
+    //リモートクランアントのプレイヤーのデフォルト装備を該当のプレイヤーのインベントリに格納する
     [ClientCallback]
-    private void SetTransformToOwner()
+    private void DefaultWeaponSetup()
     {
-        var player = ClientScene.FindLocalObject(ownerPlayerId);
-        if (player == null) return;
-        var pim = player.GetComponent<PlayerInventoryManager>();
-        pim.SetDefaultWeapon(this.gameObject, inventoriableType);
+        var owner = ClientScene.FindLocalObject(ownerPlayerId);
+        if (owner == null) return;
+        var pim = owner.GetComponent<PlayerInventoryManager>();
     }
 
     private void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
