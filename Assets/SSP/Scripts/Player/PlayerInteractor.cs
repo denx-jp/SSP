@@ -24,14 +24,8 @@ public class PlayerInteractor : NetworkBehaviour
             .Where(v => v)
             .Subscribe(v =>
             {
-                CmdInteract();
+                Interact();
             });
-    }
-
-    [Command]
-    void CmdInteract()
-    {
-        Interact();
     }
 
     void Interact()
@@ -45,7 +39,13 @@ public class PlayerInteractor : NetworkBehaviour
             .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position));
 
         if (interactionTargetObject.Count() == 0) return;
-        var interactionTarget = interactionTargetObject.First().GetComponent<IInteractable>();
-        interactionTarget.Interact(playerManager);
+        var interactionTarget = interactionTargetObject.First().gameObject;
+        CmdInteract(interactionTarget);
+    }
+
+    [Command]
+    void CmdInteract(GameObject interactableObj)
+    {
+        interactableObj.GetComponent<IInteractable>().Interact(playerManager);
     }
 }
