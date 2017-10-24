@@ -3,28 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UniRx;
+using UnityEngine.Networking;
+using System.Linq;
+using System;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : NetworkBehaviour
 {
     [SerializeField] private int limitMinutes;
     [SerializeField] private int limitSeconds;
     [SerializeField] private string resultSceneName;
 
-    public IObservable<int> timeStream;
+    public Subject<int> timeStream;
     private Subject<bool> resultStream;
-    private int currentTime = 0;
+    [SerializeField] private int currentTime = 0;
 
     void Awake()
     {
-        int limitTimeSec = limitMinutes * 60 + limitSeconds;
 
-        timeStream = Observable.Interval(System.TimeSpan.FromSeconds(1))
-              .Select(time => currentTime = limitTimeSec - (int)time)
-              .TakeWhile(time => time >= 0)
-              .Publish().RefCount(); ;
     }
+
     void Start()
     {
+        int limitTimeSec = limitMinutes * 60 + limitSeconds;
+        timeStream = new Subject<int>();
+        if (isServer)
+        {
+            currentTime = limitTimeSec;
+            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).Select(_ => (int)1).Publish().RefCount();
+            countdownClock.Subscribe(v => { currentTime -= v; timeStream.OnNext(currentTime); });
+            timeStream.Subscribe(v => CmdTimeChange(v));
+        }
+
         resultStream = new Subject<bool>();
 
         timeStream
@@ -36,12 +45,28 @@ public class TimeManager : MonoBehaviour
             })
             .AddTo(this.gameObject);
     }
-    public IObservable<int> GetTimeStream()
+
+    public UniRx.IObservable<int> GetTimeStream()
     {
         return timeStream;
     }
     public Subject<bool> GetResultStream()
     {
         return resultStream;
+    }
+
+    [Command]
+    void CmdTimeChange(int time)
+    {
+        RpcTimeSync(time);
+    }
+
+    [ClientRpc]
+    void RpcTimeSync(int time)
+    {
+        if (isClient && !isServer)
+        {
+            timeStream.OnNext(time);
+        }
     }
 }
