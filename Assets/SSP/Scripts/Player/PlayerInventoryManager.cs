@@ -49,14 +49,17 @@ public class PlayerInventoryManager : NetworkBehaviour
         inventoryWeapon.weapon.Init(playerModel);
         inventoryWeapon.gameObject.SetActive(false);
         inventory.SetWeapon(type, inventoryWeapon);
+        //(拾ったギミック) -> Gimmick2 -> Gimmick1 -> (捨てる) という感じで、ギミックがいっぱいの時はギミックを押し出す。
+        if (type == InventoryType.Gimmick2 && inventory.weapons.ContainsKey(InventoryType.Gimmick2))
+            inventory.SwapGimmicks();
 
         //装備中の武器と同種の武器がSetされた場合は装備しなおす。
         //ただし、typeがGimmick1の時はSetされる前にGimmick2だったものであり、まだ所持しているので装備しなおさない。
-        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
+        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick2)
             inventory.EquipWeapon(type);
     }
 
-    #region enum変換
+    #region InventoryType変換
     private Dictionary<InventoriableType, InventoryType> inventoryTypeMap
         = new Dictionary<InventoriableType, InventoryType>()
         {
@@ -65,16 +68,13 @@ public class PlayerInventoryManager : NetworkBehaviour
             {InventoriableType.ShortRangeWeapon,InventoryType.ShortRangeWeapon },
             {InventoriableType.Gimmick, InventoryType.Gimmick1 }
         };
+
     private InventoryType ConvertInventoriableTypeToInventoryType(InventoriableType inventoriableType)
     {
         InventoryType type = inventoryTypeMap[inventoriableType];
-
-        //初回のみGimmick1に収納。以降はGimmick1を押し出すようにするため、G1とG2を入れ替えてからG2を返す。
+        //Gimmick1に格納するのは最初にGimmickを拾ったときだけ。2回目以降はGimmick2のギミックをGimmick1に移動してGimmick2に新しいギミックを格納する
         if (type == InventoryType.Gimmick1)
             inventoryTypeMap[InventoriableType.Gimmick] = InventoryType.Gimmick2;
-        if (type == InventoryType.Gimmick2 && inventory.weapons.ContainsKey(InventoryType.Gimmick2))
-            inventory.SwapGimmicks();
-
         return type;
     }
     #endregion
