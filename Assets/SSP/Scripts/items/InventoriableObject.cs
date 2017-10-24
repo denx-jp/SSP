@@ -38,13 +38,19 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         canInteract = _canInteract;
     }
 
-    //リモートクランアントのプレイヤーのデフォルト装備を該当のプレイヤーのインベントリに格納する
+    //デフォルト装備を持ち主のインベントリに格納・装備する
     [ClientCallback]
     private void DefaultWeaponSetup()
     {
+        if (ownerPlayerId == null) return;
         var owner = ClientScene.FindLocalObject(ownerPlayerId);
         if (owner == null) return;
         var pim = owner.GetComponent<PlayerInventoryManager>();
+
+        pim.SetWeaponToInventory(this.gameObject, inventoriableType);
+        var inventoryType = pim.ConvertInventoriableTypeToInventoryType(inventoriableType);
+        pim.inventory.EquipWeapon(inventoryType);
+        SetTransformOwnerHand(pim.leftHandTransform, pim.rightHandTransform);
     }
 
     private void SetTransformOwnerHand(Transform leftHand, Transform rightHand)

@@ -5286,6 +5286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 114774096608856190}
   weaponManager: {fileID: 114516493038036196}
 --- !u!114 &114079660245503310
 MonoBehaviour:
@@ -5312,7 +5313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354649278b537444e9b6430d8f3de080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 114774096608856190}
   pim: {fileID: 114134000520712444}
   inventory: {fileID: 114077097428542020}
   handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,

@@ -7,9 +7,8 @@ using UniRx.Triggers;
 
 public class PlayerInventoryManager : NetworkBehaviour
 {
-    [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
-    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] public PlayerInventory inventory;
     [SerializeField] private GameObject handGunPrefab;
     public Transform rightHandTransform;
     public Transform leftHandTransform;
@@ -42,18 +41,17 @@ public class PlayerInventoryManager : NetworkBehaviour
     public void SetWeaponToInventory(GameObject go, InventoriableType inventoriableType)
     {
         var type = ConvertInventoriableTypeToInventoryType(inventoriableType);
-        if (inventory.weapons.ContainsKey(type))
-            inventory.ReleaseWeapon(type);
 
-        var inventoryWeapon = new InventoryWeapon(go);
-        inventoryWeapon.weapon.Init(playerModel);
-        inventoryWeapon.gameObject.SetActive(false);
-        inventory.SetWeapon(type, inventoryWeapon);
         //(拾ったギミック) -> Gimmick2 -> Gimmick1 -> (捨てる) という感じで、ギミックがいっぱいの時はギミックを押し出す。
         if (type == InventoryType.Gimmick2 && inventory.weapons.ContainsKey(InventoryType.Gimmick2))
             inventory.SwapGimmicks();
 
-        //装備中の武器と同種の武器がSetされた場合は装備しなおす。
+        if (inventory.HasWeapon(type))
+            inventory.ReleaseWeapon(type);
+
+        inventory.SetWeapon(type, go);
+
+        //装備中の武器と同種の武器がきた場合は装備しなおす。
         //ただし、typeがGimmick1の時はSetされる前にGimmick2だったものであり、まだ所持しているので装備しなおさない。
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick2)
             inventory.EquipWeapon(type);
@@ -69,7 +67,7 @@ public class PlayerInventoryManager : NetworkBehaviour
             {InventoriableType.Gimmick, InventoryType.Gimmick1 }
         };
 
-    private InventoryType ConvertInventoriableTypeToInventoryType(InventoriableType inventoriableType)
+    public InventoryType ConvertInventoriableTypeToInventoryType(InventoriableType inventoriableType)
     {
         InventoryType type = inventoryTypeMap[inventoriableType];
         //Gimmick1に格納するのは最初にGimmickを拾ったときだけ。2回目以降はGimmick2のギミックをGimmick1に移動してGimmick2に新しいギミックを格納する
@@ -101,14 +99,6 @@ public class PlayerInventoryManager : NetworkBehaviour
         var weapon = ClientScene.FindLocalObject(instanceId);
         var invObj = weapon.GetComponent<InventoriableObject>();
         invObj.ownerPlayerId = GetComponent<NetworkIdentity>().netId;
-    }
-
-    //デフォルト所持の武器をインベントリに格納&装備する
-    public void SetupDefaultWeapon(GameObject weapon, InventoriableType type)
-    {
-        SetWeaponToInventory(weapon, type);
-        var inventoryType = ConvertInventoriableTypeToInventoryType(type);
-        inventory.EquipWeapon(inventoryType);
     }
     #endregion
 
