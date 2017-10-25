@@ -9,16 +9,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerWeaponManager weaponManager;
 
-    public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; }
+    public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; } = new Dictionary<InventoryType, InventoryWeapon>();
     public InventoryType currentWeaponType { get; private set; }
 
-    private int inventoryTypeCount = 0;
-
-    public void Init()
-    {
-        weapons = new Dictionary<InventoryType, InventoryWeapon>();
-        inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
-    }
+    private int inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
 
     public void SetWeapon(InventoryType type, GameObject weaponObj)
     {

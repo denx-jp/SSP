@@ -15,8 +15,6 @@ public class PlayerInventoryManager : NetworkBehaviour
 
     void Start()
     {
-        inventory.Init();
-
         //ハンドガンは初期状態から所持。
         if (isLocalPlayer)
         {
