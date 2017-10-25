@@ -5,14 +5,19 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
-
+using System.Linq;
 public class PlayerRespawner : NetworkBehaviour
 {
     int PointNum;
+    private GameObject LSS;
+
     private PlayerHealthManager playerHealthManager;
     [SerializeField] private PlayerInputManager pim;
     private PlayerModel playerModel;
+    private GameObject[] nearPoints;
     private GameObject[] respawnPoints;
+
+    [SerializeField] private float Range;
 
     [SerializeField] private int timeToRespawn;
 
@@ -24,6 +29,7 @@ public class PlayerRespawner : NetworkBehaviour
         playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         animator = GetComponent<Animator>();
+        //nearPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
         respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 
         this.playerHealthManager.GetDeathStream()
@@ -32,6 +38,11 @@ public class PlayerRespawner : NetworkBehaviour
             .Where(_ => isLocalPlayer)
             .Subscribe(_ =>
             {
+                for (int i = 0; i < respawnPoints.Length; i++)
+                {
+                    float Distance = (LSS.transform.position - respawnPoints[i].transform.position).sqrMagnitude;
+                    var nearPoints = respawnPoints.Where( e => Distance < Range);   
+                }
                 CmdPlayerRespawnStart();
             });
 

@@ -9,6 +9,7 @@ namespace UniRx
     public interface IObservable<T>
     {
         IDisposable Subscribe(IObserver<T> observer);
+        void Subscribe(Action<bool> p);
     }
 }
 
