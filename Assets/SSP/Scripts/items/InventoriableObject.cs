@@ -29,10 +29,11 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     [ClientRpc]
     void RpcSetToInventory(GameObject player)
     {
+        canInteract = false;
+        ownerPlayerId = player.GetComponent<NetworkIdentity>().netId;
         var pm = player.GetComponent<PlayerManager>();
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
-        canInteract = false;
     }
 
     public bool CanInteract()
@@ -45,18 +46,18 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         canInteract = _canInteract;
     }
 
-    //デフォルト装備を持ち主のインベントリに格納・装備する
+    //所持中の武器を持ち主のインベントリに格納・装備する
     [ClientCallback]
     private void DefaultWeaponSetup()
     {
-        if (ownerPlayerId == null) return;
         var owner = ClientScene.FindLocalObject(ownerPlayerId);
         if (owner == null) return;
         var pim = owner.GetComponent<PlayerInventoryManager>();
 
         pim.SetWeaponToInventory(this.gameObject, inventoriableType);
         var inventoryType = pim.ConvertInventoriableTypeToInventoryType(inventoriableType);
-        pim.inventory.EquipWeapon(inventoryType);
+        if (pim.inventory.currentWeaponType == inventoryType)
+            pim.inventory.EquipWeapon(inventoryType);
         SetTransformOwnerHand(pim.leftHandTransform, pim.rightHandTransform);
     }
 
