@@ -48,7 +48,7 @@ public class TimeManager : NetworkBehaviour
         return resultStream;
     }
 
-    void CurrentTimeChanged(int time)
+    void OnChangeCurrentTime(int time)
     {
         timeStream.OnNext(time);
     }
