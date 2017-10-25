@@ -23,6 +23,13 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 
     public void Interact(PlayerManager pm)
     {
+        RpcSetToInventory(pm.gameObject);
+    }
+
+    [ClientRpc]
+    void RpcSetToInventory(GameObject player)
+    {
+        var pm = player.GetComponent<PlayerManager>();
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
         canInteract = false;
