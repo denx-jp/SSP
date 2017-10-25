@@ -13,25 +13,18 @@ public class TimeManager : NetworkBehaviour
     [SerializeField] private int limitSeconds;
     [SerializeField] private string resultSceneName;
 
-    public Subject<int> timeStream;
+    public Subject<int> timeStream = new Subject<int>();
     private Subject<bool> resultStream;
-    [SerializeField] private int currentTime = 0;
-
-    void Awake()
-    {
-
-    }
+    [SerializeField,SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
 
     void Start()
     {
         int limitTimeSec = limitMinutes * 60 + limitSeconds;
-        timeStream = new Subject<int>();
         if (isServer)
         {
             currentTime = limitTimeSec;
-            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).Select(_ => (int)1).Publish().RefCount();
-            countdownClock.Subscribe(v => { currentTime -= v; timeStream.OnNext(currentTime); });
-            timeStream.Subscribe(v => CmdTimeChange(v));
+            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).TakeUntilDestroy(this.gameObject).Select(_ => (int)1);
+            countdownClock.Subscribe(v => currentTime -= v);
         }
 
         resultStream = new Subject<bool>();
@@ -55,18 +48,8 @@ public class TimeManager : NetworkBehaviour
         return resultStream;
     }
 
-    [Command]
-    void CmdTimeChange(int time)
+    void CurrentTimeChanged(int time)
     {
-        RpcTimeSync(time);
-    }
-
-    [ClientRpc]
-    void RpcTimeSync(int time)
-    {
-        if (isClient && !isServer)
-        {
-            timeStream.OnNext(time);
-        }
+        timeStream.OnNext(time);
     }
 }
