@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Init(PlayerModel pm);
+    void Init(PlayerModel playerModel);
     void NormalAttack();
 }
