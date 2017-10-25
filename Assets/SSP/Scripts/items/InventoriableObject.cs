@@ -15,15 +15,19 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     [SerializeField] private Hands hand;
 
     [SyncVar] public NetworkInstanceId ownerPlayerId;
+    private NetworkIdentity networkIdentity;
 
     void Start()
     {
+        networkIdentity = GetComponent<NetworkIdentity>();
         DefaultWeaponSetup();
     }
 
+    [Server]
     public void Interact(PlayerManager pm)
     {
         RpcSetToInventory(pm.gameObject);
+        networkIdentity.AssignClientAuthority(pm.connectionToClient);
     }
 
     [ClientRpc]
