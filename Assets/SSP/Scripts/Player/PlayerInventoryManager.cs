@@ -47,7 +47,7 @@ public class PlayerInventoryManager : NetworkBehaviour
         var type = ConvertInventoriableTypeToInventoryType(inventoriableType);
 
         //(拾ったギミック) -> Gimmick2 -> Gimmick1 -> (捨てる) という感じで、ギミックがいっぱいの時はギミックを押し出す。
-        if (type == InventoryType.Gimmick2 && inventory.weapons.ContainsKey(InventoryType.Gimmick2))
+        if (type == InventoryType.Gimmick2 && inventory.HasWeapon(InventoryType.Gimmick2))
             inventory.SwapGimmicks();
 
         if (inventory.HasWeapon(type))
@@ -57,7 +57,7 @@ public class PlayerInventoryManager : NetworkBehaviour
 
         //装備中の武器と同種の武器がきた場合は装備しなおす。
         //ただし、typeがGimmick1の時はSetされる前にGimmick2だったものであり、まだ所持しているので装備しなおさない。
-        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick2)
+        if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
             inventory.EquipWeapon(type);
     }
 
