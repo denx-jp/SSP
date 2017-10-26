@@ -7,7 +7,7 @@ using UniRx;
 public class PlayerWeaponManager : NetworkBehaviour
 {
     private PlayerInputManager pim;
-    public IAttackable attacker;
+    public IWeapon weapon;
 
     void Start()
     {
@@ -15,10 +15,10 @@ public class PlayerWeaponManager : NetworkBehaviour
 
         pim.AttackButtonShort
             .Where(input => input)
-            .Where(_ => attacker != null)
+            .Where(_ => weapon != null)
             .Subscribe(_ =>
             {
-                attacker.NormalAttack();
+                weapon.NormalAttack();
             });
     }
 }
