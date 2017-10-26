@@ -60,7 +60,7 @@ public class PlayerInventory : MonoBehaviour
         var currentIndex = (int)currentWeaponType;
         for (int i = 1; i <= inventoryTypeCount; i++)
         {
-            var previousIndex = currentIndex - i > 0 ? currentIndex - i : currentIndex - i + inventoryTypeCount;
+            var previousIndex = currentIndex - i >= 0 ? currentIndex - i : currentIndex - i + inventoryTypeCount;
             var previousType = (InventoryType)previousIndex;
             if (HasWeapon(previousType))
                 return previousType;
