@@ -7,6 +7,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
+    [HideInInspector] public bool scoped = false;
     private bool canAttack = true;
     private float shootTime = 0;
     private Transform cameraTransform;
@@ -24,15 +25,9 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
         cameraTransform = Camera.main.transform;
         pm = playerModel;
 
-        pim = transform.root.GetComponent<PlayerInputManager>();
-        pcc = Camera.main.GetComponent<PlayerCameraController>();
-
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
             .Where(_ => !canAttack)
-            .SkipUntil(pim.AttackButtonLong.Where(t => t && pcc.isScoped))
-            .TakeUntil(pim.AttackButtonLong.Where(f => !f || !pcc.isScoped))
-            .RepeatUntilDestroy(gameObject)
             .Subscribe(_ =>
             {
                 if (Time.time - shootTime >= model.coolTime)
@@ -42,7 +37,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
 
     public void NormalAttack()
     {
-        if (canAttack)
+        if (canAttack && scoped)
         {
             shootTime = Time.time;
             canAttack = false;
@@ -52,7 +47,7 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
 
     public void LongPressScope()
     {
-        Camera.main.GetComponent<PlayerCameraController>().ToggleScope();
+        scoped = scoped ? false : true;
     }
 
     [Command]

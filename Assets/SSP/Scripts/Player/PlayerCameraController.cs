@@ -63,18 +63,6 @@ public class PlayerCameraController : MonoBehaviour
             });
     }
 
-    public void ToggleScope()
-    {
-        Debug.Log("scoped");
-        if (isScoped)
-        {
-        }
-        else
-        {
-        }
-        isScoped = isScoped ? false : true;
-    }
-
     public void DetachTarget()
     {
         target = null;

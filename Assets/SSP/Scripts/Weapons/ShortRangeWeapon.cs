@@ -46,7 +46,6 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
 
     public void LongPressScope()
     {
-        Camera.main.GetComponent<PlayerCameraController>().ToggleScope();
     }
 
     [Command]

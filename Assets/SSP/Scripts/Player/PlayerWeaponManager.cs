@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
+using UniRx.Triggers;
 
 public class PlayerWeaponManager : NetworkBehaviour
 {
@@ -21,9 +22,19 @@ public class PlayerWeaponManager : NetworkBehaviour
                 attacker.NormalAttack();
             });
 
+        this.UpdateAsObservable()
+            .SkipUntil(pim.AttackButtonLong.Where(t => t))
+            .TakeUntil(pim.AttackButtonLong.Where(f => !f))
+            .Where(_ => attacker != null)
+            .RepeatUntilDestroy(gameObject)
+            .Subscribe(_ =>
+            {
+                attacker.NormalAttack();
+            });
+
         pim.ScopeButtonLong
             .Where(_ => attacker != null)
-            .Subscribe(_ => 
+            .Subscribe(_ =>
             {
                 attacker.LongPressScope();
             });
