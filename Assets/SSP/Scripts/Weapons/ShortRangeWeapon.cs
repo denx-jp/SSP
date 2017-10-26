@@ -44,6 +44,11 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
         CmdAttack();
     }
 
+    public void LongPressScope()
+    {
+        Camera.main.GetComponent<PlayerCameraController>().ToggleScope();
+    }
+
     [Command]
     private void CmdAttack()
     {

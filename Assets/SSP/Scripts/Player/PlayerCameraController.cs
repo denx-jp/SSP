@@ -13,6 +13,7 @@ public class PlayerCameraController : MonoBehaviour
     private Vector3 temp_offset;
     [SerializeField] private float cameraRotationSpeed = 100;
     [SerializeField] private PlayerInputManager pim;
+    [HideInInspector] public bool isScoped;
 
     private void Start()
     {
@@ -60,6 +61,18 @@ public class PlayerCameraController : MonoBehaviour
                 Debug.DrawLine(this.transform.position, Camere().transform.position + direction);
                 Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             });
+    }
+
+    public void ToggleScope()
+    {
+        Debug.Log("scoped");
+        if (isScoped)
+        {
+        }
+        else
+        {
+        }
+        isScoped = isScoped ? false : true;
     }
 
     public void DetachTarget()

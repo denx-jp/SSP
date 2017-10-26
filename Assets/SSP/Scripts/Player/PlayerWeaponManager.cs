@@ -20,5 +20,12 @@ public class PlayerWeaponManager : NetworkBehaviour
             {
                 attacker.NormalAttack();
             });
+
+        pim.ScopeButtonLong
+            .Where(_ => attacker != null)
+            .Subscribe(_ => 
+            {
+                attacker.LongPressScope();
+            });
     }
 }
