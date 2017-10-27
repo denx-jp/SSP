@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UniRx;
+using UnityEngine.Networking;
+using System.Linq;
+using System;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : NetworkBehaviour
 {
     [SerializeField] private int limitMinutes;
     [SerializeField] private int limitSeconds;
     [SerializeField] private string resultSceneName;
+    private int countDownSpeed = 1;
 
-    public IObservable<int> timeStream;
+    public Subject<int> timeStream = new Subject<int>();
     private Subject<bool> resultStream;
-    private int currentTime = 0;
+    [SerializeField,SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
 
-    void Awake()
-    {
-        int limitTimeSec = limitMinutes * 60 + limitSeconds;
-
-        timeStream = Observable.Interval(System.TimeSpan.FromSeconds(1))
-              .Select(time => currentTime = limitTimeSec - (int)time)
-              .TakeWhile(time => time >= 0)
-              .Publish().RefCount(); ;
-    }
     void Start()
     {
+        int limitTimeSec = limitMinutes * 60 + limitSeconds;
+        if (isServer)
+        {
+            currentTime = limitTimeSec;
+            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).Subscribe(v => currentTime -= countDownSpeed).AddTo(this.gameObject);
+        }
+
         resultStream = new Subject<bool>();
 
         timeStream
@@ -36,12 +38,18 @@ public class TimeManager : MonoBehaviour
             })
             .AddTo(this.gameObject);
     }
-    public IObservable<int> GetTimeStream()
+
+    public UniRx.IObservable<int> GetTimeStream()
     {
         return timeStream;
     }
     public Subject<bool> GetResultStream()
     {
         return resultStream;
+    }
+
+    void OnChangeCurrentTime(int time)
+    {
+        timeStream.OnNext(time);
     }
 }
