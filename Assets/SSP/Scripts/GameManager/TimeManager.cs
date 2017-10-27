@@ -12,6 +12,7 @@ public class TimeManager : NetworkBehaviour
     [SerializeField] private int limitMinutes;
     [SerializeField] private int limitSeconds;
     [SerializeField] private string resultSceneName;
+    private int countDownSpeed = 1;
 
     public Subject<int> timeStream = new Subject<int>();
     private Subject<bool> resultStream;
@@ -23,8 +24,7 @@ public class TimeManager : NetworkBehaviour
         if (isServer)
         {
             currentTime = limitTimeSec;
-            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).TakeUntilDestroy(this.gameObject).Select(_ => (int)1);
-            countdownClock.Subscribe(v => currentTime -= v);
+            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).Subscribe(v => currentTime -= countDownSpeed).AddTo(this.gameObject);
         }
 
         resultStream = new Subject<bool>();
