@@ -11,16 +11,14 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
     [SerializeField]private Transform team1LifeSupportSystemTransform;
     [SerializeField]private Transform team2LifeSupportSystemTransform;
 
-    private GameObject[] LSSAssignPointArray;
-    private List<GameObject> LSSAssignPointList;
+    private List<GameObject> LSSAssignPointObjectList;
 
     [Server]
     void Start()
     {
-        LSSAssignPointArray = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
-        LSSAssignPointList = new List<GameObject>(LSSAssignPointArray);
+        LSSAssignPointObjectList = GameObject.FindGameObjectsWithTag(TagMap.Respawn).ToList();
 
-        if (LSSAssignPointList.Count >= 2)
+        if (LSSAssignPointObjectList.Count >= 2)
         {
             SetPoint(team1LifeSupportSystemTransform);
             SetPoint(team2LifeSupportSystemTransform);
@@ -29,9 +27,9 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
 
     void SetPoint(Transform LSSTransform)
     {
-        int candidatePoint = UnityEngine.Random.Range(0, LSSAssignPointList.Count - 1);
+        int candidatePoint = UnityEngine.Random.Range(0, LSSAssignPointObjectList.Count - 1);
 
-        LSSTransform.position = LSSAssignPointList[candidatePoint].transform.position;
-        LSSAssignPointList.Remove(LSSAssignPointList[candidatePoint]);
+        LSSTransform.position = LSSAssignPointObjectList[candidatePoint].transform.position;
+        LSSAssignPointObjectList.Remove(LSSAssignPointObjectList[candidatePoint]);
     }
 }
