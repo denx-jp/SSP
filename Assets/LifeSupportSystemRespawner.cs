@@ -29,11 +29,12 @@ public class LifeSupportSystemRespawner : MonoBehaviour
 
     void SetPoint(Transform LSSTransform)
     {
-        int candidatePoint = UnityEngine.Random.Range(0, LSSRespawnPoints.Count);
-        while (!availableRespawnPoints[candidatePoint])
+        int candidatePoint;
+        do
         {
             candidatePoint = UnityEngine.Random.Range(0, LSSRespawnPoints.Count);
-        }
+        } while (!availableRespawnPoints[candidatePoint]);
+
         LSSTransform.position = LSSRespawnPoints[candidatePoint];
         availableRespawnPoints[candidatePoint] = false;
     }
