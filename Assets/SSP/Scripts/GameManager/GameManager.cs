@@ -18,8 +18,6 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private LifeSupportSystemEtherManager team1LSS;
     [SerializeField] private LifeSupportSystemEtherManager team2LSS;
-    [SerializeField] private List<PlayerManager> team1Players;
-    [SerializeField] private List<PlayerManager> team2Players;
 
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private float endDelay = 3f;
@@ -53,8 +51,8 @@ public class GameManager : NetworkBehaviour
         //武器を生成
         //LSSをランダムな位置に移動
         //プレイヤーをLSS周辺に移動
-        
-        yield return new WaitForSeconds(2);
+
+        yield return new WaitForSeconds(5);
 
         //カウントダウン開始準備
         StartPanel.SetActive(false);
@@ -68,8 +66,14 @@ public class GameManager : NetworkBehaviour
             message.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
+
+        //戦闘開始
+        isGameStarting = true;
+        team1LSS.Init();
+        team2LSS.Init();
+
         message.text = "Battle Start";
         yield return new WaitForSeconds(1);
-        message.text = "";
+        message.text = string.Empty;
     }
 }

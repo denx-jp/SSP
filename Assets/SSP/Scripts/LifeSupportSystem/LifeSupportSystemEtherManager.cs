@@ -6,7 +6,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine.Networking;
 
-public class LifeSupportSystemEtherManager : NetworkBehaviour , IInteractable, IDamageable
+public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, IDamageable
 {
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
@@ -18,7 +18,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour , IInteractable, I
     private Subject<int> deathStream;
     private LifeSupportSystemModel lifeSupportSystemModel;
 
-    void Start()
+    public void Init()
     {
         lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
 
