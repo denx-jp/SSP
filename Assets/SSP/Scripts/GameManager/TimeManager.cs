@@ -16,9 +16,9 @@ public class TimeManager : NetworkBehaviour
 
     public Subject<int> timeStream = new Subject<int>();
     private Subject<bool> resultStream;
-    [SerializeField,SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
+    [SerializeField, SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
 
-    void Start()
+    public void Init()
     {
         int limitTimeSec = limitMinutes * 60 + limitSeconds;
         if (isServer)

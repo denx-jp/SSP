@@ -55,6 +55,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361fd09cd9a22d5468b4cc73085c72d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clientPlayersManager: {fileID: 114995220335104442}
+  timeManager: {fileID: 114974705603106214}
+  gameJudger: {fileID: 114968024861136860}
+  message: {fileID: 0}
+  team1LSS: {fileID: 0}
+  team2LSS: {fileID: 0}
+  team1Players: []
+  team2Players: []
+  startDelay: 3
+  endDelay: 3
+  isGameStarting: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +125,7 @@ MonoBehaviour:
   limitMinutes: 10
   limitSeconds: 0
   resultSceneName: 
+  currentTime: 0
 --- !u!114 &114995220335104442
 MonoBehaviour:
   m_ObjectHideFlags: 1
