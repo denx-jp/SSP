@@ -1867,7 +1867,6 @@ MonoBehaviour:
   - {x: 5, y: 0, z: 5}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 5, z: 0}
-  - {x: 5, y: 0, z: 5}
   teamALifeSupportSystemTransform: {fileID: 1189230381}
   teamBLifeSupportSystemTransform: {fileID: 1587268976}
 --- !u!1 &2125324023

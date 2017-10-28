@@ -3,10 +3,11 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class LifeSupportSystemRespawner : MonoBehaviour
+public class LifeSupportSystemRespawner : NetworkBehaviour
 {
     [SerializeField]private List<Vector3> LSSRespawnPoints;
     [SerializeField]private Transform teamALifeSupportSystemTransform;
@@ -14,12 +15,12 @@ public class LifeSupportSystemRespawner : MonoBehaviour
 
     private Dictionary<int, bool> availableRespawnPoints;
 
+    [Server]
     void Start()
     {
         availableRespawnPoints = new Dictionary<int, bool>();
 
         Init();
-
         if (LSSRespawnPoints.Count >= 2)
         {
             SetPoint(teamALifeSupportSystemTransform);
