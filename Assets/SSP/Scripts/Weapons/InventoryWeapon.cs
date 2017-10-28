@@ -3,10 +3,10 @@
 public struct InventoryWeapon
 {
     public GameObject gameObject;
-    public IAttackable attacker;
+    public IWeapon weapon;
     public InventoryWeapon(GameObject go)
     {
         gameObject = go;
-        attacker = go.GetComponent<IAttackable>();
+        weapon = go.GetComponent<IWeapon>();
     }
 }

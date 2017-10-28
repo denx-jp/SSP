@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class LongRangeWeapon : NetworkBehaviour, IAttackable
+public class LongRangeWeapon : NetworkBehaviour, IWeapon
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
