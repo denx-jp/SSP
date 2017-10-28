@@ -1863,12 +1863,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aaae730b79a2114f925183ffcd4bf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LSSRespawnPoints:
+  LSSAssignPoints:
   - {x: 5, y: 0, z: 5}
-  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 5, z: 0}
-  teamALifeSupportSystemTransform: {fileID: 1189230381}
-  teamBLifeSupportSystemTransform: {fileID: 1587268976}
+  - {x: 0, y: 0, z: 0}
+  team1LifeSupportSystemTransform: {fileID: 1189230381}
+  team2LifeSupportSystemTransform: {fileID: 1587268976}
 --- !u!1 &2125324023
 GameObject:
   m_ObjectHideFlags: 0
