@@ -20,28 +20,22 @@ public class LifeSupportSystemRespawner : MonoBehaviour
 
         Init();
 
-        if (LSSRespawnPoints.Count != 0)
+        if (LSSRespawnPoints.Count >= 2)
         {
-            Debug.Log(LSSRespawnPoints.Count);
-
-            int candidatePoint = UnityEngine.Random.Range(0, LSSRespawnPoints.Count);
-            Debug.Log(LSSRespawnPoints[candidatePoint]);
-            teamALifeSupportSystemTransform.position = LSSRespawnPoints[candidatePoint];
-            availableRespawnPoints[candidatePoint] = false;
-
-            while (!availableRespawnPoints[candidatePoint])
-            {
-                candidatePoint = UnityEngine.Random.Range(0, LSSRespawnPoints.Count);
-                Debug.Log(LSSRespawnPoints[candidatePoint]);
-            }
-            teamBLifeSupportSystemTransform.position = LSSRespawnPoints[candidatePoint];
+            SetPoint(teamALifeSupportSystemTransform);
+            SetPoint(teamBLifeSupportSystemTransform);
         }
     }
 
-    void SetPoint(ref Vector3 teamTransformPosition)
+    void SetPoint(Transform LSSTransform)
     {
         int candidatePoint = UnityEngine.Random.Range(0, LSSRespawnPoints.Count);
-        teamTransformPosition = LSSRespawnPoints[candidatePoint];
+        while (!availableRespawnPoints[candidatePoint])
+        {
+            candidatePoint = UnityEngine.Random.Range(0, LSSRespawnPoints.Count);
+        }
+        LSSTransform.position = LSSRespawnPoints[candidatePoint];
+        availableRespawnPoints[candidatePoint] = false;
     }
 
     void Init()
