@@ -13,7 +13,7 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
 
     private List<GameObject> LSSAssignPointObjectList;
 
-    [Server]
+    [ServerCallback]
     void Start()
     {
         LSSAssignPointObjectList = GameObject.FindGameObjectsWithTag(TagMap.Respawn).ToList();
