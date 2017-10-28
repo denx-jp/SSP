@@ -35,19 +35,13 @@ public class GameManager : NetworkBehaviour
     [ServerCallback]
     private void Start()
     {
-        StartCoroutine(Game());
-    }
-
-    private IEnumerator Game()
-    {
-        yield return StartCoroutine(GameStart());
-
+        StartCoroutine(GameStart());
     }
 
     private IEnumerator GameStart()
     {
         //初期設定
-        PrepareGame();
+        RpcPrepareGame();
 
         //武器を生成
         //LSSをランダムな位置に移動
@@ -69,17 +63,13 @@ public class GameManager : NetworkBehaviour
         }
 
         //戦闘開始
-        isGameStarting = true;
-        team1LSS.Init();
-        team2LSS.Init();
-
-        RpcChangeMessage("Battle Start");
+        RpcBattleStart();
         yield return new WaitForSeconds(1);
         RpcChangeMessage(string.Empty);
     }
 
     [ClientRpc]
-    void PrepareGame()
+    void RpcPrepareGame()
     {
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
@@ -87,6 +77,15 @@ public class GameManager : NetworkBehaviour
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
+    }
+
+    [ClientRpc]
+    void RpcBattleStart()
+    {
+        isGameStarting = true;
+        team1LSS.Init();
+        team2LSS.Init();
+        message.text = "Battle Start";
     }
 
     [ClientRpc]
