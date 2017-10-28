@@ -22,10 +22,13 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private float endDelay = 3f;
 
-    public bool isGameStarting = false;
+    [SyncVar] public bool isGameStarting = false;
 
     private void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         Instance = this;
     }
 
@@ -44,9 +47,7 @@ public class GameManager : NetworkBehaviour
     private IEnumerator GameStart()
     {
         //初期設定
-        isGameStarting = false;
-        StartPanel.SetActive(true);
-        BattlePanel.SetActive(false);
+        PrepareGame();
 
         //武器を生成
         //LSSをランダムな位置に移動
@@ -63,7 +64,7 @@ public class GameManager : NetworkBehaviour
         //カウントダウン
         for (int i = 5; i > 0; i--)
         {
-            message.text = i.ToString();
+            RpcChangeMessage(i.ToString());
             yield return new WaitForSeconds(1);
         }
 
@@ -72,8 +73,25 @@ public class GameManager : NetworkBehaviour
         team1LSS.Init();
         team2LSS.Init();
 
-        message.text = "Battle Start";
+        RpcChangeMessage("Battle Start");
         yield return new WaitForSeconds(1);
+        RpcChangeMessage(string.Empty);
+    }
+
+    [ClientRpc]
+    void PrepareGame()
+    {
+        isGameStarting = false;
+        var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
+        battleUI.Init(clientPlayersManager.GetLocalPlayer(), clientPlayersManager, timeManager);
+        StartPanel.SetActive(true);
+        BattlePanel.SetActive(false);
         message.text = string.Empty;
+    }
+
+    [ClientRpc]
+    void RpcChangeMessage(string msg)
+    {
+        message.text = msg;
     }
 }

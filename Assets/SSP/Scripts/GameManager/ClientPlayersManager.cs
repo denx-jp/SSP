@@ -7,6 +7,7 @@ public class ClientPlayersManager : MonoBehaviour
 {
     public static ClientPlayersManager Instance;
     public static List<PlayerManager> Players = new List<PlayerManager>();
+    private PlayerManager localPlayer;
 
     private void Awake()
     {
@@ -33,5 +34,12 @@ public class ClientPlayersManager : MonoBehaviour
             return Players.Select(v => (T)(object)v.playerKillLogNotifier).ToList<T>();
         else
             return default(List<T>);
+    }
+
+    public PlayerManager GetLocalPlayer()
+    {
+        if (localPlayer == null)
+            localPlayer = Players.Find(v => v.isLocalPlayer);
+        return localPlayer;
     }
 }
