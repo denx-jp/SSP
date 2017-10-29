@@ -528,6 +528,16 @@ Prefab:
       propertyPath: team2LSS
       value: 
       objectReference: {fileID: 1199875662}
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: team1LifeSupportSystemTransform
+      value: 
+      objectReference: {fileID: 1944900689}
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: team2LifeSupportSystemTransform
+      value: 
+      objectReference: {fileID: 1199875663}
     m_RemovedComponents:
     - {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
@@ -1177,6 +1187,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1199875661}
   m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
+--- !u!4 &1199875663 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1199875661}
 --- !u!1 &1214888051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,22 +1630,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 41
-    i1: 93
-    i2: 220
-    i3: 67
-    i4: 147
-    i5: 239
-    i6: 28
-    i7: 148
-    i8: 24
-    i9: 74
-    i10: 202
-    i11: 137
-    i12: 69
-    i13: 202
-    i14: 127
-    i15: 176
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!23 &1944900685

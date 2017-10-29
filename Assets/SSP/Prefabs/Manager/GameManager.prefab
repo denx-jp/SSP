@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 114257975132688072}
   - component: {fileID: 114146116622853402}
   - component: {fileID: 114995220335104442}
-  - component: {fileID: 114974705603106214}
   - component: {fileID: 114968024861136860}
+  - component: {fileID: 114974360778349634}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team1LSS: {fileID: 0}
   team2LSS: {fileID: 0}
---- !u!114 &114974705603106214
+--- !u!114 &114974360778349634
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -120,13 +120,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452514462489488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda299c7b2c232940a204cb7f81b3857, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aaae730b79a2114f925183ffcd4bf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitMinutes: 10
-  limitSeconds: 0
-  resultSceneName: 
-  currentTime: 0
+  team1LifeSupportSystemTransform: {fileID: 0}
+  team2LifeSupportSystemTransform: {fileID: 0}
 --- !u!114 &114995220335104442
 MonoBehaviour:
   m_ObjectHideFlags: 1

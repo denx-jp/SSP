@@ -609,12 +609,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 119
+      value: 428.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 314
+      value: 241
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
@@ -695,6 +695,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738338712642496, guid: 69914e591659ec94191c27f2348f7ec5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69914e591659ec94191c27f2348f7ec5, type: 2}
@@ -1167,6 +1171,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1099014958}
   m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
+--- !u!4 &1099014960 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1099014958}
 --- !u!1 &1248679842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,11 +1285,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
-      propertyPath: message
+      propertyPath: team1LifeSupportSystemTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 147384203}
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: team2LifeSupportSystemTransform
+      value: 
+      objectReference: {fileID: 1099014960}
+    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: team1LSS
+      value: 
+      objectReference: {fileID: 147384197}
+    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: team2LSS
+      value: 
+      objectReference: {fileID: 1099014959}
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: StartPanel
@@ -1293,49 +1317,15 @@ Prefab:
       objectReference: {fileID: 1384388662}
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
-      propertyPath: team1LSS
-      value: 
-      objectReference: {fileID: 147384197}
-    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team2LSS
-      value: 
-      objectReference: {fileID: 1099014959}
-    - target: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
       propertyPath: ResultPanel
       value: 
       objectReference: {fileID: 1073174437}
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
-      propertyPath: TitleScene
-      value: SSP/Scenes/Production/Title
-      objectReference: {fileID: 0}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team1_LSSManager
-      value: 
-      objectReference: {fileID: 147384197}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team2_LSSManager
-      value: 
-      objectReference: {fileID: 1099014959}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
       propertyPath: team1LSS
       value: 
       objectReference: {fileID: 147384197}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
+    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: team2LSS
       value: 
