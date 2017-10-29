@@ -2,48 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 using UniRx;
+using UnityEngine.Networking;
+using System.Linq;
+using System;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : NetworkBehaviour
 {
-    [SerializeField] private float limitMinutes;
-    [SerializeField] private float limitSeconds;
+    [SerializeField] private int limitMinutes;
+    [SerializeField] private int limitSeconds;
     [SerializeField] private string resultSceneName;
+    private int countDownSpeed = 1;
 
-    public IConnectableObservable<long> timeStream;
+    public Subject<int> timeStream = new Subject<int>();
     private Subject<bool> resultStream;
+    [SerializeField,SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
 
-    void Awake()
-    {
-        float limitTimeSec = limitMinutes * 60 + limitSeconds;
-
-        timeStream = Observable.Interval(TimeSpan.FromSeconds(1))
-            .Select(time => time = (long)limitTimeSec - time)
-            .TakeWhile(time => time >= 0)
-            .Publish();
-    }
     void Start()
     {
-        resultStream = new Subject<bool>();
+        int limitTimeSec = limitMinutes * 60 + limitSeconds;
+        if (isServer)
+        {
+            currentTime = limitTimeSec;
+            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).Subscribe(v => currentTime -= countDownSpeed).AddTo(this.gameObject);
+        }
 
-        timeStream.Connect();
+        resultStream = new Subject<bool>();
 
         timeStream
             .Where(time => time <= 0)
-            .Subscribe(_ => 
+            .Subscribe(_ =>
             {
                 resultStream.OnNext(true);
                 SceneManager.LoadScene(resultSceneName);
             })
             .AddTo(this.gameObject);
     }
-    public IConnectableObservable<long> GetTimeStream()
+
+    public UniRx.IObservable<int> GetTimeStream()
     {
         return timeStream;
     }
     public Subject<bool> GetResultStream()
     {
         return resultStream;
+    }
+
+    void OnChangeCurrentTime(int time)
+    {
+        timeStream.OnNext(time);
     }
 }

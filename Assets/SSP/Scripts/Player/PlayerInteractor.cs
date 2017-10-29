@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System.Linq;
+using UnityEngine.Networking;
 
-public class PlayerInteractor : MonoBehaviour
+public class PlayerInteractor : NetworkBehaviour
 {
 
     private Animator animator;
@@ -38,7 +39,13 @@ public class PlayerInteractor : MonoBehaviour
             .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position));
 
         if (interactionTargetObject.Count() == 0) return;
-        var interactionTarget = interactionTargetObject.First().GetComponent<IInteractable>();
-        interactionTarget.Interact(playerManager);
+        var interactionTarget = interactionTargetObject.First().gameObject;
+        CmdInteract(interactionTarget);
+    }
+
+    [Command]
+    void CmdInteract(GameObject interactableObj)
+    {
+        interactableObj.GetComponent<IInteractable>().Interact(playerManager);
     }
 }

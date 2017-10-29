@@ -32,19 +32,14 @@ public class PlayerTransformSynchronizer : NetworkBehaviour
     }
 
     #region Position
-
-#if ONLINE
     [ClientCallback]
-#endif
     private void TransmitPosition()
     {
         CmdSyncPosition(transform.position);
         lastPosition = transform.position;
     }
 
-#if ONLINE
     [Command]
-#endif
     void CmdSyncPosition(Vector3 pos)
     {
         syncPosition = pos;
@@ -52,22 +47,17 @@ public class PlayerTransformSynchronizer : NetworkBehaviour
     #endregion
 
     #region Rotation
-
-#if ONLINE
     [ClientCallback]
-#endif
     private void TransmitRotation()
     {
         CmdSyncRotation(transform.rotation);
         lastRotation = transform.rotation;
     }
 
-#if ONLINE
     [Command]
-#endif
     void CmdSyncRotation(Quaternion rotation)
     {
         syncRotation = rotation;
     }
-#endregion
+    #endregion
 }

@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliderHealth: {fileID: 114570444666566178}
+  playerObj: {fileID: 0}
 --- !u!114 &114409588655217900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -792,7 +793,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99:99
+  m_Text: 00:00
 --- !u!222 &222059356108300484
 CanvasRenderer:
   m_ObjectHideFlags: 1

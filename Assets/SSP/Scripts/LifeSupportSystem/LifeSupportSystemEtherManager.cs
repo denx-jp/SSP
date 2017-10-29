@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.Networking;
 
-public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDamageable
+public class LifeSupportSystemEtherManager : NetworkBehaviour , IInteractable, IDamageable
 {
     [SerializeField] private float etherReductionRate;
     [SerializeField] private float etherChargeValue;
@@ -15,7 +16,6 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
     [SerializeField] private float emittingEtherCoefficient;
 
     private Subject<int> deathStream;
-
     private LifeSupportSystemModel lifeSupportSystemModel;
 
     void Start()
@@ -46,8 +46,20 @@ public class LifeSupportSystemEtherManager : MonoBehaviour, IInteractable, IDama
 
     public void Interact(PlayerManager playerManager)
     {
-        playerManager.playerEtherManager.EmitEther(etherChargeValue);
-        AcquireEther(etherChargeValue);
+        if (playerManager.playerModel.teamId != lifeSupportSystemModel.GetTeamId()) return;
+
+        float playerEther = playerManager.playerModel.GetEther();
+
+        if (playerEther - etherChargeValue > 0.0f)
+        {
+            playerManager.playerEtherManager.EmitEther(etherChargeValue);
+            AcquireEther(etherChargeValue);
+        }
+        else if (playerEther > 0.0f)
+        {
+            playerManager.playerEtherManager.EmitEther(playerEther);
+            AcquireEther(playerEther);
+        }
     }
 
     public bool CanInteract()

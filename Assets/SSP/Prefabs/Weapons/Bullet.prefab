@@ -165,7 +165,7 @@ MonoBehaviour:
     i14: 20
     i15: 143
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114615027804808878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,6 +181,7 @@ MonoBehaviour:
   shootPlayerTeamId: 0
   damageAmount: 100
   deathTime: 5
+  isShooterLocalPlayer: 0
 --- !u!135 &135769969068720922
 SphereCollider:
   m_ObjectHideFlags: 1

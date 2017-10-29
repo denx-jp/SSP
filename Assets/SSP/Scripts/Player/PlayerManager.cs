@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UniRx;
+using UniRx.Triggers;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -13,29 +15,28 @@ public class PlayerManager : NetworkBehaviour
     public PlayerCameraController playerCameraController;
     public PlayerInventoryManager playerInventoryManager;
 
-    [SerializeField] private bool devIsLocalPlayerCharacter = false;     //デバッグ用フラグ。OFFLINE環境のときtrueの場合のみLocalPlayerに指定される。
-
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-#if ONLINE
+
+        ClientPlayersManager.AddPlayer(this);
         if (isLocalPlayer)
         {
             playerModel.isLocalPlayerCharacter = true;
-            
-            playerInputManager.enabled = true;
-            playerCameraController.enabled = true;
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
+
+            var uiObj = GameObject.Find("PlayerBattleUI");
+            if (uiObj != null)
+            {
+                var ui = uiObj.GetComponent<PlayerBattleUIManager>();
+                ui.SetPlayerManager(this);
+                ui.Init();
+            }
+            else
+                Debug.Log("Battle UI not found");
         }
-#else
-        if (devIsLocalPlayerCharacter)
-        {
-            this.gameObject.layer = LayerMap.LocalPlayer;
-            playerModel.isLocalPlayerCharacter = true;
-        }
-#endif
     }
 
     public void Init()
@@ -48,12 +49,4 @@ public class PlayerManager : NetworkBehaviour
         playerCameraController = GetComponent<PlayerCameraController>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
     }
-
-    public T GetPlayerComponent<T>()
-    {
-        if (typeof(T) == typeof(PlayerModel))
-            return (T)(object)playerModel;
-        return default(T);
-    }
-
 }
