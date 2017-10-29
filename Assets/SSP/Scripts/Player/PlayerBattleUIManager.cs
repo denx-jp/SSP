@@ -6,7 +6,6 @@ public class PlayerBattleUIManager : MonoBehaviour
 {
     [SerializeField] private HealthViewModel healthViewModel;
     [SerializeField] private EtherViewModel etherViewModel;
-    [SerializeField] private TimeViewModel timeViewModel;
     [SerializeField] private KillLogViewModel killLogViewModel;
 
     public void Init(PlayerManager pm, ClientPlayersManager cpm)
