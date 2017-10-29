@@ -115,7 +115,6 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator GameEnd(bool isWin)
     {
-        isGameStarting = false;
         ResultPanel.SetActive(true);
 
         yield return new WaitForSeconds(2);
@@ -124,6 +123,7 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(2);
 
+        isGameStarting = false;
         message.text = string.Empty;
         ResultPanel.transform.Find("Result").gameObject.SetActive(true);
 

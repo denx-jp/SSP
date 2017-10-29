@@ -20,6 +20,7 @@ public class PlayerCameraController : MonoBehaviour
 
         SetTarget(this.gameObject);
         temp_offset = offset;
+        LookPlayer();
 
         pim.CameraResetButtonDown
             .Where(v => v)
@@ -52,17 +53,21 @@ public class PlayerCameraController : MonoBehaviour
                         temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
                 }
 
-                Camere().transform.position = target.transform.position + temp_offset;
-                var delta = (target.transform.position - Camere().transform.position);
-                var direction = new Vector3(delta.x, delta.y + offset.y, delta.z);
-                Debug.DrawLine(this.transform.position, Camere().transform.position + direction);
-                Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                LookPlayer();
             });
     }
-    
+
     public void SetTarget(GameObject _target)
     {
         target = _target;
+    }
+
+    private void LookPlayer()
+    {
+        Camere().transform.position = target.transform.position + temp_offset;
+        var delta = target.transform.position - Camere().transform.position;
+        var direction = new Vector3(delta.x, delta.y + offset.y, delta.z);
+        Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
     }
 
     private GameObject Camere()
