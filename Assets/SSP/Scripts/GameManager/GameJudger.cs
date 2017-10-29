@@ -7,24 +7,20 @@ using UniRx;
 
 public class GameJudger : MonoBehaviour
 {
-    [SerializeField] private LifeSupportSystemEtherManager team1_LSSManager;
-    [SerializeField] private LifeSupportSystemEtherManager team2_LSSManager;
+    [SerializeField] private LifeSupportSystemEtherManager team1LSS;
+    [SerializeField] private LifeSupportSystemEtherManager team2LSS;
 
     private Subject<bool> judgeStream = new Subject<bool>();
 
-    void Init()
+    void Start()
     {
         Observable
-            .Merge(team1_LSSManager.GetDeathStream(), team2_LSSManager.GetDeathStream())
-            .Subscribe(v =>
+            .Merge(team1LSS.GetDeathStream(), team2LSS.GetDeathStream())
+            .Subscribe(deathLSSTeamId =>
             {
-                // 敗北したチームのidを勝利したチームのidに変換
-                // v = 1 -> 2, v = 2 -> 1
-                int winnerTeamId = v * 2 % 3;
-
                 PlayerManager localPlayerManager = ClientPlayersManager.Players.Find(p => p.playerModel.isLocalPlayerCharacter);
                 int localPlayerTeamId = localPlayerManager.playerModel.teamId;
-                bool isWin = winnerTeamId == localPlayerTeamId;
+                bool isWin = deathLSSTeamId != localPlayerTeamId;
                 judgeStream.OnNext(isWin);
             }).AddTo(gameObject);
     }
