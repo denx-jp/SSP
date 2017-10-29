@@ -9,7 +9,6 @@ public class GameManager : NetworkBehaviour
     public static GameManager Instance;
 
     [SerializeField] private ClientPlayersManager clientPlayersManager;
-    [SerializeField] private TimeManager timeManager;
     [SerializeField] private GameJudger gameJudger;
 
     [SerializeField] private Text message;
@@ -73,7 +72,7 @@ public class GameManager : NetworkBehaviour
     {
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
-        battleUI.Init(clientPlayersManager.GetLocalPlayer(), clientPlayersManager, timeManager);
+        battleUI.Init(clientPlayersManager.GetLocalPlayer(), clientPlayersManager);
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;

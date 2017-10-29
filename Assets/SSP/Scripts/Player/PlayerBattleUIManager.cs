@@ -9,25 +9,22 @@ public class PlayerBattleUIManager : MonoBehaviour
     [SerializeField] private TimeViewModel timeViewModel;
     [SerializeField] private KillLogViewModel killLogViewModel;
 
-    public void Init(PlayerManager pm, ClientPlayersManager cpm, TimeManager tm)
+    public void Init(PlayerManager pm, ClientPlayersManager cpm)
     {
         healthViewModel.healthModel = pm.playerModel as IHealth;
         etherViewModel.etherModel = pm.playerModel as IEther;
         killLogViewModel.SetKillLogNotifier(cpm.GetPlayersComponent<PlayerKillLogNotifier>());
-        timeViewModel.SetTimeManager(tm);
 
         //各VMに必要な代入がされる前に初期化処理をされると困るので明示的にタイミングを指定するためにInit()を使っている
         healthViewModel.Init();
         etherViewModel.Init();
         killLogViewModel.Init();
-        timeViewModel.Init();
     }
 
     public void SetComponents()
     {
         healthViewModel = GetComponentInChildren<HealthViewModel>();
         etherViewModel = GetComponentInChildren<EtherViewModel>();
-        timeViewModel = GetComponentInChildren<TimeViewModel>();
         killLogViewModel = GetComponentInChildren<KillLogViewModel>();
     }
 }
