@@ -55,7 +55,6 @@ public class GameManager : NetworkBehaviour
         RpcPrepareGame();
         //初期設定
         //武器を生成 
-        //LSSをランダムな位置に移動
         //プレイヤーをLSS周辺に移動
 
         yield return new WaitForSeconds(5);
