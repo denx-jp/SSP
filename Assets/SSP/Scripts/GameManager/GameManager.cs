@@ -57,7 +57,7 @@ public class GameManager : NetworkBehaviour
         //武器を生成 
         //プレイヤーをLSS周辺に移動
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(startDelay);
 
         //カウントダウン開始準備
         RpcSwapPanel();
@@ -116,11 +116,11 @@ public class GameManager : NetworkBehaviour
     {
         ResultPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(endDelay);
 
         message.text = isWin ? "Victory" : "Defeat";
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(endDelay);
 
         isGameStarting = false;
         message.text = string.Empty;
