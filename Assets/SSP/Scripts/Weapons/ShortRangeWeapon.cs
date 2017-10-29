@@ -44,6 +44,11 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
         CmdAttack();
     }
 
+    public void NormalAttackLong(bool active)
+    {
+
+    }
+
     [Command]
     private void CmdAttack()
     {

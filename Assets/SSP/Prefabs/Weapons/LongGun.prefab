@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 23101878257787678}
   - component: {fileID: 114303862106099984}
   - component: {fileID: 114636341030069382}
-  - component: {fileID: 114091647662173982}
   - component: {fileID: 114948242860574984}
   m_Layer: 0
   m_Name: LongGun
@@ -177,6 +176,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -192,6 +192,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -209,6 +210,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -224,6 +226,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -241,6 +244,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -256,6 +260,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -321,19 +326,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000008, y: 1.0000005, z: 1}
   m_Center: {x: -0.0000038146973, y: 0, z: 0.0000009536743}
---- !u!114 &114091647662173982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1198441546025866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bfaf207992cbd94ba0d1fc7b912847e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 114636341030069382}
-  muzzle: {fileID: 1914257830511014}
 --- !u!114 &114303862106099984
 MonoBehaviour:
   m_ObjectHideFlags: 1
