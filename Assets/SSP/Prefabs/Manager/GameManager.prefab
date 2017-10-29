@@ -59,12 +59,14 @@ MonoBehaviour:
   timeManager: {fileID: 114974705603106214}
   gameJudger: {fileID: 114968024861136860}
   message: {fileID: 0}
+  StartPanel: {fileID: 0}
+  BattlePanel: {fileID: 0}
+  ResultPanel: {fileID: 0}
   team1LSS: {fileID: 0}
   team2LSS: {fileID: 0}
-  team1Players: []
-  team2Players: []
   startDelay: 3
   endDelay: 3
+  TitleScene: SSP/Scenes/Production/Title
   isGameStarting: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:

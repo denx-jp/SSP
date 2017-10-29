@@ -15,7 +15,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
     [SerializeField] private float emitPower;
     [SerializeField] private float emittingEtherCoefficient;
 
-    private Subject<int> deathStream;
+    private Subject<int> deathStream = new Subject<int>();
     private LifeSupportSystemModel lifeSupportSystemModel;
 
     public void Init()
@@ -24,7 +24,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
         lifeSupportSystemModel.ether
             .Where(v => v <= 0)
-            .Subscribe(_ => GetDeathStream().OnNext(lifeSupportSystemModel.GetTeamId()));
+            .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.GetTeamId()));
 
         Observable.Interval(TimeSpan.FromMilliseconds(1000))
             .Where(_ => lifeSupportSystemModel.ether.Value > 0)
@@ -93,8 +93,6 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public Subject<int> GetDeathStream()
     {
-        if (deathStream == null)
-            deathStream = new Subject<int>();
         return deathStream;
     }
 }
