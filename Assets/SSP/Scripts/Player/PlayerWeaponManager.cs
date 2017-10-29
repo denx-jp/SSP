@@ -18,7 +18,17 @@ public class PlayerWeaponManager : NetworkBehaviour
             .Where(_ => attacker != null)
             .Subscribe(_ =>
             {
+                Debug.Log("Normal Attack");
                 attacker.NormalAttack();
+            });
+
+        pim.ScopeButtonDown
+           .Where(input => input)
+           .Where(_ => attacker != null)
+           .Subscribe(_ =>
+            {
+                Debug.Log("Switch Scope");
+                attacker.SwitchScope();
             });
     }
 }

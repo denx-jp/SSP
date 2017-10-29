@@ -44,6 +44,10 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
         CmdAttack();
     }
 
+    public void SwitchScope(){
+        
+    }
+
     [Command]
     private void CmdAttack()
     {

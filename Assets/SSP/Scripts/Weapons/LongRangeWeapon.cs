@@ -14,6 +14,8 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
 
+    private Camera weaponScope;
+
     public void Init(PlayerModel playerModel)
     {
         model.playerId = playerModel.playerId;
@@ -39,6 +41,18 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
             shootTime = Time.time;
             canAttack = false;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
+        }
+    }
+
+    public void SwitchScope()
+    {
+        if(!Camera.main.gameObject.activeInHierarchy){
+            weaponScope.gameObject.SetActive(false);
+            Camera.main.gameObject.SetActive(true);
+        }
+        else{
+            Camera.main.gameObject.SetActive(false);
+            weaponScope.gameObject.SetActive(true);
         }
     }
 
