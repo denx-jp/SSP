@@ -18,6 +18,7 @@ public class PlayerWeaponManager : NetworkBehaviour
             .Where(_ => attacker != null)
             .Subscribe(_ =>
             {
+                Debug.Log(attacker);
                 Debug.Log("Normal Attack");
                 attacker.NormalAttack();
             });
