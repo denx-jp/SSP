@@ -17,25 +17,12 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         ClientPlayersManager.AddPlayer(this);
         if (isLocalPlayer)
         {
             playerModel.isLocalPlayerCharacter = true;
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
-
-            var uiObj = GameObject.Find("PlayerBattleUI");
-            if (uiObj != null)
-            {
-                var ui = uiObj.GetComponent<PlayerBattleUIManager>();
-                ui.SetPlayerManager(this);
-                ui.Init();
-            }
-            else
-                Debug.Log("Battle UI not found");
         }
     }
 
