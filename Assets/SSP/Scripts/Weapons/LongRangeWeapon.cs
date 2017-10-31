@@ -14,8 +14,6 @@ public class LongRangeWeapon : NetworkBehaviour, IAttackable
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
-    private PlayerInputManager pim;
-    private PlayerCameraController pcc;
 
     public void Init(PlayerModel playerModel)
     {

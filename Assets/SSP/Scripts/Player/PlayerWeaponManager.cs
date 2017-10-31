@@ -14,14 +14,6 @@ public class PlayerWeaponManager : NetworkBehaviour
     {
         pim = GetComponent<PlayerInputManager>();
 
-        pim.AttackButtonShort
-            .Where(input => input)
-            .Where(_ => attacker != null)
-            .Subscribe(_ =>
-            {
-                attacker.NormalAttack();
-            });
-
         this.UpdateAsObservable()
             .SkipUntil(pim.AttackButtonLong.Where(t => t))
             .TakeUntil(pim.AttackButtonLong.Where(f => !f))
