@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UniRx;
 using UnityEngine.Networking;
 using System.Linq;
@@ -15,37 +14,27 @@ public class TimeManager : NetworkBehaviour
     private int countDownSpeed = 1;
 
     public Subject<int> timeStream = new Subject<int>();
-    private Subject<bool> resultStream;
-    [SerializeField,SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
+    private Subject<bool> timeupStream = new Subject<bool>();
+    [SerializeField, SyncVar(hook = "OnChangeCurrentTime")] private int currentTime = 0;
 
-    void Start()
+    public void Init()
     {
-        int limitTimeSec = limitMinutes * 60 + limitSeconds;
         if (isServer)
         {
+            int limitTimeSec = limitMinutes * 60 + limitSeconds;
             currentTime = limitTimeSec;
-            var countdownClock = Observable.Interval(System.TimeSpan.FromSeconds(1)).Subscribe(v => currentTime -= countDownSpeed).AddTo(this.gameObject);
+            Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(v => currentTime -= countDownSpeed).AddTo(this.gameObject);
         }
-
-        resultStream = new Subject<bool>();
-
-        timeStream
-            .Where(time => time <= 0)
-            .Subscribe(_ =>
-            {
-                resultStream.OnNext(true);
-                SceneManager.LoadScene(resultSceneName);
-            })
-            .AddTo(this.gameObject);
+        timeStream.Where(time => time <= 0).Subscribe(_ => timeupStream.OnNext(true)).AddTo(this.gameObject);
     }
 
-    public UniRx.IObservable<int> GetTimeStream()
+    public Subject<int> GetTimeStream()
     {
         return timeStream;
     }
-    public Subject<bool> GetResultStream()
+    public Subject<bool> GetTimeupStream()
     {
-        return resultStream;
+        return timeupStream;
     }
 
     void OnChangeCurrentTime(int time)
