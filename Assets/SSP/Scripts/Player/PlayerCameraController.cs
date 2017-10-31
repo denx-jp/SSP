@@ -13,7 +13,6 @@ public class PlayerCameraController : MonoBehaviour
     private Vector3 temp_offset;
     [SerializeField] private float cameraRotationSpeed = 100;
     [SerializeField] private PlayerInputManager pim;
-    [HideInInspector] public bool isScoped;
 
     private void Start()
     {
