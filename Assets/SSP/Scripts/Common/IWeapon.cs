@@ -7,5 +7,5 @@ public interface IWeapon
     void Init(PlayerModel playerModel);
     void NormalAttack();
     void NormalAttackLong(bool active);
-    void LongPressScope();
+    void LongPressScope(bool input);
 }

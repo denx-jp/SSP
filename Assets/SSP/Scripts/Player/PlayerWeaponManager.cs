@@ -14,9 +14,9 @@ public class PlayerWeaponManager : NetworkBehaviour
         pim = GetComponent<PlayerInputManager>();
 
         pim.ScopeButtonLong
-            .Subscribe(_ =>
+            .Subscribe(x =>
             {
-                weapon.LongPressScope();
+                weapon.LongPressScope(x);
             });
 
         pim.AttackButtonShort

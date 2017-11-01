@@ -59,9 +59,9 @@ public class HandGun : NetworkBehaviour, IWeapon
         autoShoot = active;
     }
 
-    public void LongPressScope()
+    public void LongPressScope(bool input)
     {
-        isScoped = isScoped ? false : true;
+        isScoped = input;
     }
 
     [Command]
