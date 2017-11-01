@@ -10,9 +10,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerWeaponManager weaponManager;
 
     public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; } = new Dictionary<InventoryType, InventoryWeapon>();
+    private int inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
     public InventoryType currentWeaponType { get; private set; }
 
-    private int inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
+    private Subject<WeaponModel> WeaponStream = new Subject<WeaponModel>();
 
     public void SetWeapon(InventoryType type, GameObject weaponObj)
     {
