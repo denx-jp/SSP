@@ -50,7 +50,7 @@ public class GameManager : NetworkBehaviour
     private IEnumerator GameStart()
     {
         // すべての準備が整ったことを確認するのを待つ
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
 
         RpcPrepareGame();
         //初期設定

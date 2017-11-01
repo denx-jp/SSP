@@ -12,7 +12,6 @@ public class ClientPlayersManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Players = new List<PlayerManager>();
     }
 
     public static void AddPlayer(PlayerManager pm)
