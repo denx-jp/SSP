@@ -24,7 +24,13 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private float endDelay = 3f;
     [SerializeField] private string TitleScene;
-    [SyncVar] public bool isGameStarting = false;
+    [SyncVar] private bool isGameStarting = false;
+
+    public static bool IsGameStarting()
+    {
+        if (Instance == null) return false;
+        return Instance.isGameStarting;
+    }
 
     private void Awake()
     {
