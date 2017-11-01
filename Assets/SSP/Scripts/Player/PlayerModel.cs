@@ -38,9 +38,9 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
         Health.Value = syncHealth;
     }
 
-    public float GetHealth()
+    public float GetMaxHealth()
     {
-        return Health.Value;
+        return initialHealth;
     }
 
     public ReactiveProperty<float> GetHealthStream()

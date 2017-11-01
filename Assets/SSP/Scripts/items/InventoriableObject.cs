@@ -15,16 +15,29 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     [SerializeField] private Hands hand;
 
     [SyncVar] public NetworkInstanceId ownerPlayerId;
+    private NetworkIdentity networkIdentity;
 
     void Start()
     {
-        SetTransformToOwner();
+        networkIdentity = GetComponent<NetworkIdentity>();
+        DefaultWeaponSetup();
     }
 
+    [Server]
     public void Interact(PlayerManager pm)
     {
-        pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
+        RpcSetToInventory(pm.gameObject);
+        networkIdentity.AssignClientAuthority(pm.connectionToClient);
+    }
+
+    [ClientRpc]
+    void RpcSetToInventory(GameObject player)
+    {
         canInteract = false;
+        ownerPlayerId = player.GetComponent<NetworkIdentity>().netId;
+        var pm = player.GetComponent<PlayerManager>();
+        SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
+        pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
     }
 
     public bool CanInteract()
@@ -37,16 +50,22 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         canInteract = _canInteract;
     }
 
+    //所持中の武器を持ち主のインベントリに格納・装備する
     [ClientCallback]
-    private void SetTransformToOwner()
+    private void DefaultWeaponSetup()
     {
-        var player = ClientScene.FindLocalObject(ownerPlayerId);
-        if (player == null) return;
-        var pim = player.GetComponent<PlayerInventoryManager>();
-        pim.SetDefaultWeapon(this.gameObject, inventoriableType);
+        var owner = ClientScene.FindLocalObject(ownerPlayerId);
+        if (owner == null) return;
+        var pim = owner.GetComponent<PlayerInventoryManager>();
+
+        pim.SetWeaponToInventory(this.gameObject, inventoriableType);
+        var inventoryType = pim.ConvertInventoriableTypeToInventoryType(inventoriableType);
+        if (pim.inventory.currentWeaponType == inventoryType)
+            pim.inventory.EquipWeapon(inventoryType);
+        SetTransformOwnerHand(pim.leftHandTransform, pim.rightHandTransform);
     }
 
-    public void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
+    private void SetTransformOwnerHand(Transform leftHand, Transform rightHand)
     {
         switch (hand)
         {

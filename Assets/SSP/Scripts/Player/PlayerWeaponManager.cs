@@ -3,32 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
-using UniRx.Triggers;
 
 public class PlayerWeaponManager : NetworkBehaviour
 {
     private PlayerInputManager pim;
-    public IAttackable attacker;
+    public IWeapon weapon;
 
     void Start()
     {
         pim = GetComponent<PlayerInputManager>();
 
-        this.UpdateAsObservable()
-            .SkipUntil(pim.AttackButtonLong.Where(t => t))
-            .TakeUntil(pim.AttackButtonLong.Where(f => !f))
-            .Where(_ => attacker != null)
-            .RepeatUntilDestroy(gameObject)
+        pim.AttackButtonShort
+            .Where(input => input)
+            .Where(_ => weapon != null)
             .Subscribe(_ =>
             {
-                attacker.NormalAttack();
+                weapon.NormalAttack();
             });
 
-        pim.ScopeButtonLong
-            .Where(_ => attacker != null)
-            .Subscribe(_ =>
+        pim.AttackButtonLong
+            .Where(_ => weapon != null)
+            .Subscribe(v =>
             {
-                attacker.LongPressScope();
+                weapon.NormalAttackLong(v);
             });
     }
 }

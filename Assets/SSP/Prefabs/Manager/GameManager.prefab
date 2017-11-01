@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4827270185244938}
   - component: {fileID: 114257975132688072}
+  - component: {fileID: 114146116622853402}
   - component: {fileID: 114995220335104442}
-  - component: {fileID: 114974705603106214}
   - component: {fileID: 114968024861136860}
+  - component: {fileID: 114974360778349634}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,6 +44,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114146116622853402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361fd09cd9a22d5468b4cc73085c72d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clientPlayersManager: {fileID: 114995220335104442}
+  gameJudger: {fileID: 114968024861136860}
+  message: {fileID: 0}
+  StartPanel: {fileID: 0}
+  BattlePanel: {fileID: 0}
+  ResultPanel: {fileID: 0}
+  team1LSS: {fileID: 0}
+  team2LSS: {fileID: 0}
+  startDelay: 3
+  endDelay: 3
+  TitleScene: SSP/Scenes/Production/Title
+  isGameStarting: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,8 +97,8 @@ MonoBehaviour:
     i13: 250
     i14: 210
     i15: 235
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114968024861136860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,10 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0aa5091f84f9741b3638f8a5d71367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clientPlayersManager: {fileID: 114995220335104442}
-  team1_LSSManager: {fileID: 0}
-  team2_LSSManager: {fileID: 0}
---- !u!114 &114974705603106214
+  team1LSS: {fileID: 0}
+  team2LSS: {fileID: 0}
+--- !u!114 &114974360778349634
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,12 +120,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452514462489488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda299c7b2c232940a204cb7f81b3857, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aaae730b79a2114f925183ffcd4bf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitMinutes: 10
-  limitSeconds: 0
-  resultSceneName: 
+  team1LifeSupportSystemTransform: {fileID: 0}
+  team2LifeSupportSystemTransform: {fileID: 0}
 --- !u!114 &114995220335104442
 MonoBehaviour:
   m_ObjectHideFlags: 1

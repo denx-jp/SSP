@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23663708474324750}
   - component: {fileID: 65401762014862234}
   - component: {fileID: 114787115348719196}
-  - component: {fileID: 114781646343392798}
+  - component: {fileID: 114008378418759894}
   - component: {fileID: 114036954499573146}
   m_Layer: 0
   m_Name: GimmickGun 1
@@ -115,6 +115,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -130,6 +131,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -147,6 +149,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -162,6 +165,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -208,6 +212,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000005, y: 0.99999994, z: 1.0000005}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114008378418759894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135113161938838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166ae1beae32a0f4f9c812d74eb6cff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: HandGun
+  damageAmount: 1000
+  isOwnerLocalPlayer: 0
+  playerId: 0
+  teamId: 0
+  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
+  bulletVelocity: 3
+  bulletDeathTime: 5
+  coolTime: 0.5
 --- !u!114 &114036954499573146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -224,23 +248,6 @@ MonoBehaviour:
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}
   hand: 1
---- !u!114 &114781646343392798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135113161938838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bfaf207992cbd94ba0d1fc7b912847e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coolTime: 3
-  bulletSpeed: 500
-  bullet: {fileID: 54890028688491532, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
-  muzzle: {fileID: 1724691918699860}
-  bulletDamageAmount: 5000
-  bulletDeathTime: 5
 --- !u!114 &114787115348719196
 MonoBehaviour:
   m_ObjectHideFlags: 1

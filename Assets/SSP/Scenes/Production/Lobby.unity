@@ -384,6 +384,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f,
         type: 2}
+    - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
+        type: 2}
+      propertyPath: m_MinPlayers
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42a78b57c135d5b438fd95b4683c097a, type: 2}
   m_IsPrefabParent: 0

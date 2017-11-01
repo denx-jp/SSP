@@ -51,6 +51,7 @@ public class PlayerInputManager : MonoBehaviour
 
         this.UpdateAsObservable()
             .Where(_ => playerModel.IsAlive())
+            .Where(_ => GameManager.Instance.isGameStarting)
             .Subscribe(_ =>
             {
                 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -78,6 +79,7 @@ public class PlayerInputManager : MonoBehaviour
 
         this.UpdateAsObservable()
             .Where(_ => !playerModel.IsAlive())
+            .Where(_ => GameManager.Instance.isGameStarting)
             .Subscribe(_ =>
             {
                 //死亡時入力受付ストリーム

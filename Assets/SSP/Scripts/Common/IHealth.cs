@@ -5,6 +5,6 @@ using UniRx;
 
 public interface IHealth
 {
-    float GetHealth();
+    float GetMaxHealth();
     ReactiveProperty<float> GetHealthStream();
 }
