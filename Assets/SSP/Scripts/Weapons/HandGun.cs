@@ -1,13 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class LongRangeWeapon : NetworkBehaviour, IWeapon
+public class HandGun : NetworkBehaviour, IWeapon
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
     private bool canAttack = true;
+    private bool autoShoot = false;
     private float shootTime = 0;
     private Transform cameraTransform;
     private RaycastHit hit;
@@ -30,16 +33,27 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
                 if (Time.time - shootTime >= model.coolTime)
                     canAttack = true;
             });
+
+        this.ObserveEveryValueChanged(_ => canAttack)
+            .Where(v => v)
+            .Where(_ => autoShoot)
+            .Subscribe(_ => NormalAttack());
     }
 
     public void NormalAttack()
     {
         if (canAttack)
         {
-            shootTime = Time.time;
             canAttack = false;
+            shootTime = Time.time;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
+    }
+
+    public void NormalAttackLong(bool active)
+    {
+        NormalAttack();
+        autoShoot = active;
     }
 
     [Command]
