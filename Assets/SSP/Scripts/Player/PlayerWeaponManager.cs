@@ -13,6 +13,12 @@ public class PlayerWeaponManager : NetworkBehaviour
     {
         pim = GetComponent<PlayerInputManager>();
 
+        pim.ScopeButtonLong
+            .Subscribe(_ =>
+            {
+                weapon.LongPressScope();
+            });
+
         pim.AttackButtonShort
             .Where(input => input)
             .Where(_ => weapon != null)

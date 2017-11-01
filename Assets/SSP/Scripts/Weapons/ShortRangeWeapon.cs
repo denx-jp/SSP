@@ -49,6 +49,11 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     }
 
+    public void LongPressScope()
+    {
+
+    }
+
     [Command]
     private void CmdAttack()
     {

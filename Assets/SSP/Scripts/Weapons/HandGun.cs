@@ -7,8 +7,10 @@ using UniRx.Triggers;
 
 public class HandGun : NetworkBehaviour, IWeapon
 {
-    [SerializeField] LongRangeWeaponModel model;
-    [SerializeField] GameObject muzzle;
+    [SerializeField]
+    LongRangeWeaponModel model;
+    [SerializeField]
+    GameObject muzzle;
     private bool canAttack = true;
     private bool autoShoot = false;
     private float shootTime = 0;
@@ -16,6 +18,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
+    private bool isScoped = false;
 
     public void Init(PlayerModel playerModel)
     {
@@ -42,7 +45,7 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     public void NormalAttack()
     {
-        if (canAttack)
+        if (canAttack && isScoped)
         {
             canAttack = false;
             shootTime = Time.time;
@@ -54,6 +57,11 @@ public class HandGun : NetworkBehaviour, IWeapon
     {
         NormalAttack();
         autoShoot = active;
+    }
+
+    public void LongPressScope()
+    {
+        isScoped = isScoped ? false : true;
     }
 
     [Command]
