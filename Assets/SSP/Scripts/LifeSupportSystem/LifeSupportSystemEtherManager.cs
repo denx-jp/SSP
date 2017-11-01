@@ -36,12 +36,12 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     private void ReduceEther(float ether)
     {
-        lifeSupportSystemModel.ether.Value -= ether;
+        lifeSupportSystemModel.syncEther -= ether;
     }
 
     private void AcquireEther(float ether)
     {
-        lifeSupportSystemModel.ether.Value += ether;
+        lifeSupportSystemModel.syncEther += ether;
     }
 
     public void Interact(PlayerManager playerManager)
