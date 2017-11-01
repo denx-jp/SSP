@@ -20,5 +20,12 @@ public class PlayerWeaponManager : NetworkBehaviour
             {
                 weapon.NormalAttack();
             });
+
+        pim.AttackButtonLong
+            .Where(_ => weapon != null)
+            .Subscribe(v =>
+            {
+                weapon.NormalAttackLong(v);
+            });
     }
 }
