@@ -7,8 +7,7 @@ using System;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField]
-    private float longPressSecond;
+    [SerializeField] private float longPressSecond;
 
     public readonly Subject<Vector2> CameraRotate = new Subject<Vector2>();
     public readonly Subject<bool> CameraResetButtonDown = new Subject<bool>();

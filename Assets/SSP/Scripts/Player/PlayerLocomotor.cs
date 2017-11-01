@@ -2,62 +2,130 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 public class PlayerLocomotor : MonoBehaviour
 {
-    private ThirdPersonCharacter thirdPersonCharacter;
-    private Transform cameraTransform;
-    private Vector3 cameraForward;
-    private Vector3 m_Move;
-    [SerializeField] private float dashSpeed = 2f;
+    [SerializeField] protected Rigidbody rb;
+
+    [SerializeField] protected float walkSpeed = 3f;
+    [SerializeField] protected float runSpeed = 6f;
+    [SerializeField] protected float rotateSpeed = 10f;
+    [SerializeField] private float jumpSpeed = 6f;
+    [SerializeField] private float gravityMultiplier = -9.8f;
+    [SerializeField] private float groundCheckDistance = 1f;
+    [SerializeField] private float inAirSpeed = 8f;
+    [SerializeField] private float maxVelocity = 2f;
+    [SerializeField] private float minVelocity = -2f;
+    [SerializeField] private float maxAngle = 90f;
+
+    public bool isGrounded;
     private bool isJumping;
-    private bool isDashing;
-    private PlayerInputManager pim;
+    private bool isFalling;
 
-    void Start()
+    private void FixedUpdate()
     {
-        if (cameraTransform == null && Camera.main != null)
-        {
-            cameraTransform = Camera.main.transform;
-        }
-        thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
-        pim = GetComponent<PlayerInputManager>();
+        // 重力をかける
+        rb.AddForce(0, gravityMultiplier, 0, ForceMode.Acceleration);
 
-        pim.Move
-            .Subscribe(input =>
-            {
-                if (cameraTransform != null)
-                {
-                    cameraForward = Vector3.Scale(cameraTransform.forward, new Vector3(1, 0, 1)).normalized;
-                    m_Move = input.y * cameraForward + input.x * cameraTransform.right;
-                }
-                else
-                {
-                    m_Move = input.y * Vector3.forward + input.x * Vector3.right;
-                }
+        CheckForGrounded();
 
-                if (isDashing)
-                    m_Move *= dashSpeed;
-
-                thirdPersonCharacter.Move(m_Move * 0.5f, false, isJumping);        //しゃがむのは仕様にないのでcrouchの部分はとりあえずfalseで
-                isJumping = false;
-            });
-
-        pim.JumpButtonDown
-            .Where(v => v)
-            .Subscribe(input =>
-            {
-                if (!isJumping)
-                {
-                    isJumping = input;
-                }
-            });
-
-        pim.DashButtonDown
-            .Subscribe(input =>
-            {
-                isDashing = input;
-            });
+        if (!isGrounded)
+            AirControl();
     }
+
+    void CheckForGrounded()
+    {
+        RaycastHit hit;
+        Vector3 rayOffset = Vector3.up * 0.1f;
+        if (Physics.Raycast((transform.position + rayOffset), -Vector3.up, out hit, groundCheckDistance))
+        {
+            isGrounded = true;
+            isFalling = false;
+            //if (!isJumping)
+            //    animator.SetInteger("Jumping", 0);
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
+
+    #region 移動(地上)
+    public void Move(Vector3 input, bool isRun)
+    {
+        if (!isGrounded) return;
+        Vector3 motion = input.magnitude > 1 ? input.normalized : input;
+        Vector3 newVelocity = isRun ? motion * runSpeed : motion * walkSpeed;
+
+        // 落下中ならy速度はそのまま
+        newVelocity.y = rb.velocity.y;
+        rb.velocity = newVelocity;
+    }
+
+    public void RotateTowardsMovementDir(Vector3 input)
+    {
+        if (input == Vector3.zero || !isGrounded) return;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(input), Time.deltaTime * rotateSpeed);
+    }
+
+    public void RotateCameraDir(Vector3 camerDir)
+    {
+        Vector3 localCameraDirection = transform.InverseTransformDirection(camerDir);
+        float angle = Mathf.Atan2(localCameraDirection.x, localCameraDirection.z) * Mathf.Rad2Deg;
+
+        // Find the rotation
+        float rotation = angle * Time.deltaTime * rotateSpeed;
+
+        // Clamp the rotation to maxAngle
+        if (angle > maxAngle) rotation = Mathf.Clamp(rotation, angle - maxAngle, rotation);
+        if (angle < -maxAngle) rotation = Mathf.Clamp(rotation, rotation, angle + maxAngle);
+
+        // Rotate the character
+        transform.Rotate(Vector3.up, rotation);
+        Debug.Log(rotation.ToString("0.00"));
+    }
+    #endregion
+
+    #region ジャンプ
+    public void Jump()
+    {
+        if (isGrounded)
+        {
+            isGrounded = false;
+            isJumping = true;
+            rb.velocity += jumpSpeed * Vector3.up;
+        }
+    }
+
+    void AirControl()
+    {
+        // 達成可能な速度を制限する
+        float velocityX = 0;
+        float velocityZ = 0;
+        if (rb.velocity.x > maxVelocity)
+        {
+            velocityX = rb.velocity.x - maxVelocity;
+            if (velocityX < 0) velocityX = 0;
+            rb.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
+        }
+        if (rb.velocity.x < minVelocity)
+        {
+            velocityX = rb.velocity.x - minVelocity;
+            if (velocityX > 0) velocityX = 0;
+            rb.AddForce(new Vector3(-velocityX, 0, 0), ForceMode.Acceleration);
+        }
+        if (rb.velocity.z > maxVelocity)
+        {
+            velocityZ = rb.velocity.z - maxVelocity;
+            if (velocityZ < 0) velocityZ = 0;
+            rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
+        }
+        if (rb.velocity.z < minVelocity)
+        {
+            velocityZ = rb.velocity.z - minVelocity;
+            if (velocityZ > 0) velocityZ = 0;
+            rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
+        }
+    }
+    #endregion
 }
