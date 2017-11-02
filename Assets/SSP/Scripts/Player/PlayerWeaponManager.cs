@@ -23,9 +23,16 @@ public class PlayerWeaponManager : NetworkBehaviour
 
         pim.AttackButtonLong
             .Where(_ => weapon != null)
-            .Subscribe(v =>
+            .Subscribe(input =>
             {
-                weapon.NormalAttackLong(v);
+                weapon.NormalAttackLong(input);
+            });
+
+        pim.ScopeButtonLong
+            .Where(_ => weapon != null)
+            .Subscribe(input =>
+            {
+                weapon.LongPressScope(input);
             });
     }
 }
