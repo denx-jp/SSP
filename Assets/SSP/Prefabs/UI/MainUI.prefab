@@ -186,6 +186,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224199469867953422}
+  - component: {fileID: 114860733039034968}
   m_Layer: 5
   m_Name: Gimmick1
   m_TagString: Untagged
@@ -264,7 +265,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224442427395437658}
-  - component: {fileID: 114001173608555998}
+  - component: {fileID: 114132645715825424}
   m_Layer: 5
   m_Name: HandGun
   m_TagString: Untagged
@@ -331,8 +332,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224228816847538594}
+  - component: {fileID: 114520404462118668}
   m_Layer: 5
-  m_Name: Weapons
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,6 +416,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224522126429753970}
+  - component: {fileID: 114566139922786034}
   m_Layer: 5
   m_Name: LRWeapon
   m_TagString: Untagged
@@ -463,6 +466,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224976630181362658}
+  - component: {fileID: 114963203577872650}
   m_Layer: 5
   m_Name: SRWeapon
   m_TagString: Untagged
@@ -613,6 +617,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224386077778248528}
+  - component: {fileID: 114451280919804850}
   m_Layer: 5
   m_Name: Gimmick2
   m_TagString: Untagged
@@ -982,17 +987,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &114001173608555998
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1215985950651756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6719285b5a6416d4b8480ef41927e693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114039243393094160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1114,6 +1108,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderHealth: {fileID: 114733151846053186}
   playerObj: {fileID: 0}
+--- !u!114 &114132645715825424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215985950651756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f723b17d822b354aae5e76b906380ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  image: {fileID: 114511908074012486}
+  slider: {fileID: 114374007548410578}
 --- !u!114 &114142366176495990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1253,6 +1261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthViewModel: {fileID: 114093662787075078}
   etherViewModel: {fileID: 114378642866369698}
+  inventoryViewModel: {fileID: 114520404462118668}
   lssEtherViewModel: {fileID: 114334258171755528}
   killLogViewModel: {fileID: 114842519824852002}
 --- !u!114 &114264372418044678
@@ -1545,6 +1554,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114451280919804850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1584716971997362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f723b17d822b354aae5e76b906380ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+  image: {fileID: 114817288135355648}
+  slider: {fileID: 114576943936739098}
 --- !u!114 &114511908074012486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1605,6 +1628,25 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!114 &114520404462118668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1283061487518344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3144bf949e737ad479825e6421082109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  weaponVM:
+  - {fileID: 114132645715825424}
+  - {fileID: 114566139922786034}
+  - {fileID: 114963203577872650}
+  - {fileID: 114860733039034968}
+  - {fileID: 114451280919804850}
+  defaultImage: {fileID: 2800000, guid: 0b8d60ed10383684aabdadfa0e44306d, type: 3}
 --- !u!114 &114524150784706892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1686,6 +1728,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114566139922786034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1431515569820436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f723b17d822b354aae5e76b906380ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  image: {fileID: 114082432147072120}
+  slider: {fileID: 114593735947822496}
 --- !u!114 &114576943936739098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2246,6 +2302,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: School
+--- !u!114 &114860733039034968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122390960544794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f723b17d822b354aae5e76b906380ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  image: {fileID: 114053709902113938}
+  slider: {fileID: 114623125227515118}
 --- !u!114 &114916577165980068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2360,6 +2430,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!114 &114963203577872650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508220936965960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f723b17d822b354aae5e76b906380ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  image: {fileID: 114085242724341034}
+  slider: {fileID: 114313513476057852}
 --- !u!222 &222018939890688218
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -3378,7 +3462,7 @@ RectTransform:
   m_GameObject: {fileID: 1621175142001308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.909375, y: 0.909375, z: 0.909375}
   m_Children:
   - {fileID: 224386984103941188}
   - {fileID: 224008843541423276}

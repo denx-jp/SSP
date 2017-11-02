@@ -9,11 +9,9 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerWeaponManager weaponManager;
 
-    public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; } = new Dictionary<InventoryType, InventoryWeapon>();
+    public ReactiveDictionary<InventoryType, InventoryWeapon> weapons { get; private set; } = new ReactiveDictionary<InventoryType, InventoryWeapon>();
     private int inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
     public InventoryType currentWeaponType { get; private set; }
-
-    private Subject<WeaponModel> WeaponStream = new Subject<WeaponModel>();
 
     public void SetWeapon(InventoryType type, GameObject weaponObj)
     {
@@ -25,8 +23,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void ReleaseWeapon(InventoryType releaseWeaponType)
     {
-        if (currentWeaponType == releaseWeaponType)
-            weaponManager.weapon = null;
+        if (currentWeaponType == releaseWeaponType) weaponManager.weapon = null;
         weapons[releaseWeaponType].gameObject.transform.parent = null;
         weapons[releaseWeaponType].gameObject.GetComponent<InventoriableObject>().SetCanInteract(true);
         weapons[releaseWeaponType].gameObject.SetActive(true);
@@ -34,7 +31,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void EquipWeapon(InventoryType nextWeaponType)
     {
-        //武器を持ち替えるので、持ち帰る前の武器は非表示に
+        // 持ち帰る前の武器は非表示に
         if (HasWeapon(currentWeaponType))
             weapons[currentWeaponType].gameObject.SetActive(false);
 
@@ -50,8 +47,7 @@ public class PlayerInventory : MonoBehaviour
         {
             var nextIndex = currentIndex + i < inventoryTypeCount ? currentIndex + i : currentIndex + i - inventoryTypeCount;
             var nextType = (InventoryType)nextIndex;
-            if (HasWeapon(nextType))
-                return nextType;
+            if (HasWeapon(nextType)) return nextType;
         }
         return currentWeaponType;
     }
@@ -63,8 +59,7 @@ public class PlayerInventory : MonoBehaviour
         {
             var previousIndex = currentIndex - i >= 0 ? currentIndex - i : currentIndex - i + inventoryTypeCount;
             var previousType = (InventoryType)previousIndex;
-            if (HasWeapon(previousType))
-                return previousType;
+            if (HasWeapon(previousType)) return previousType;
         }
         return currentWeaponType;
     }

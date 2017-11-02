@@ -5419,6 +5419,7 @@ MonoBehaviour:
   playerInputManager: {fileID: 114134000520712444}
   playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
+  playerInventory: {fileID: 114077097428542020}
   playerInventoryManager: {fileID: 114084645704703300}
 --- !u!114 &114355481432560930
 MonoBehaviour:

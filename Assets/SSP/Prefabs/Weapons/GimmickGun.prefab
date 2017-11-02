@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 65542213572461756}
   - component: {fileID: 114729662647059564}
   - component: {fileID: 114334225377017156}
+  - component: {fileID: 114907455439351146}
   - component: {fileID: 114250481760157286}
   m_Layer: 0
   m_Name: GimmickGun
@@ -159,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1595191971914448}
   m_LocalRotation: {x: 0.5431916, y: 0.47949147, z: 0.5378593, w: 0.43097356}
-  m_LocalPosition: {x: 0.25799996, y: 0.53600013, z: -0.17100024}
+  m_LocalPosition: {x: -0.22255075, y: 4.3093587e-18, z: -0.19407627}
   m_LocalScale: {x: 0.029826362, y: 0.10867493, z: 0.027502986}
   m_Children:
   - {fileID: 4186427666346114}
@@ -337,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 114334225377017156}
   canInteract: 1
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}
@@ -357,7 +358,7 @@ MonoBehaviour:
   type: 3
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 0}
+  image: {fileID: 2800000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
@@ -396,3 +397,16 @@ MonoBehaviour:
     i15: 130
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114907455439351146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595191971914448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 114334225377017156}
+  muzzle: {fileID: 1524562514333706}

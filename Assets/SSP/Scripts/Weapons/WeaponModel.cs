@@ -9,7 +9,7 @@ public class WeaponModel : NetworkBehaviour
     public WeaponType type;
     public float damageAmount;
     public bool isOwnerLocalPlayer;
-    public Image image;
+    public Sprite image;
     [HideInInspector, SyncVar] public int playerId, teamId;
 
     public Damage GetDamage()
