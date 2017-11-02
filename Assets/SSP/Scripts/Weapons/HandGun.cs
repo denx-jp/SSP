@@ -7,10 +7,8 @@ using UniRx.Triggers;
 
 public class HandGun : NetworkBehaviour, IWeapon
 {
-    [SerializeField]
-    LongRangeWeaponModel model;
-    [SerializeField]
-    GameObject muzzle;
+    [SerializeField] LongRangeWeaponModel model;
+    [SerializeField] GameObject muzzle;
     private bool canAttack = true;
     private bool autoShoot = false;
     private float shootTime = 0;
@@ -59,9 +57,9 @@ public class HandGun : NetworkBehaviour, IWeapon
         autoShoot = active;
     }
 
-    public void LongPressScope(bool input)
+    public void LongPressScope(bool active)
     {
-        isScoped = input;
+        isScoped = active;
     }
 
     [Command]
