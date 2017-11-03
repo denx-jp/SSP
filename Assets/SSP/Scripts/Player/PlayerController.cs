@@ -8,7 +8,6 @@ public enum MoveMode { normal, battle };
 public class PlayerController : MonoBehaviour
 {
     private PlayerLocomotor locomotor;
-
     private Transform cameraTransform;
     private bool isJumping;
     private bool isDashing;
@@ -17,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        var input = GetComponent<OfflineInput>();
+        var input = GetComponent<PlayerInputManager>();
         locomotor = GetComponent<PlayerLocomotor>();
         cameraTransform = Camera.main.transform;
         mode = MoveMode.normal;
