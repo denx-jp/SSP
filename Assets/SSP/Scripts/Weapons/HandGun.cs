@@ -56,7 +56,7 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     public void SwitchScope()
     {
-        pcc.SwitchCamera(scope.gameObject.activeSelf, scope);
+        pcc.SwitchCamera(!scope.gameObject.activeSelf,scope);
     }
 
     public void NormalAttackLong(bool active)
