@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/SSP/Scenes/Production/Title.unity
     guid: a92f2f1d619617f449ac3aea6d665993
-  - enabled: 1
+  - enabled: 0
     path: Assets/SSP/Scenes/Production/Lobby.unity
     guid: c92ff6d31ae01f44fa540cc13de98394
-  - enabled: 1
+  - enabled: 0
     path: Assets/SSP/Scenes/Production/Network.unity
     guid: c02581fa5a384e44294a8a98653f77b2
   - enabled: 0
@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/SSP/Scenes/Dev/Network/NB29979Network.unity
     guid: bd8bdf29159f0014b909fa1906ae5fd1
+  - enabled: 1
+    path: Assets/SSP/Scenes/Dev/Odaka.unity
+    guid: 0ade6a49d9a17004795e9b9b381a140d

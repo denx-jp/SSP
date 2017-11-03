@@ -5,11 +5,12 @@ using UniRx;
 
 public class PlayerLocomotor : MonoBehaviour
 {
-    [SerializeField] protected Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Animator animator;
 
-    [SerializeField] protected float walkSpeed = 3f;
-    [SerializeField] protected float runSpeed = 6f;
-    [SerializeField] protected float rotateSpeed = 10f;
+    [SerializeField] private float walkSpeed = 3f;
+    [SerializeField] private float runSpeed = 6f;
+    [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float jumpSpeed = 6f;
     [SerializeField] private float gravityMultiplier = -9.8f;
     [SerializeField] private float groundCheckDistance = 1f;
@@ -19,8 +20,6 @@ public class PlayerLocomotor : MonoBehaviour
     [SerializeField] private float maxAngle = 90f;
 
     public bool isGrounded;
-    private bool isJumping;
-    private bool isFalling;
 
     private void FixedUpdate()
     {
@@ -40,26 +39,34 @@ public class PlayerLocomotor : MonoBehaviour
         if (Physics.Raycast((transform.position + rayOffset), -Vector3.up, out hit, groundCheckDistance))
         {
             isGrounded = true;
-            isFalling = false;
-            //if (!isJumping)
-            //    animator.SetInteger("Jumping", 0);
         }
         else
         {
             isGrounded = false;
         }
+        animator.SetBool("OnGround", isGrounded);
     }
 
     #region 移動(地上)
-    public void Move(Vector3 input, bool isRun)
+    public void Move(Vector3 input, bool isRun, MoveMode mode)
     {
         if (!isGrounded) return;
-        Vector3 motion = input.magnitude > 1 ? input.normalized : input;
-        Vector3 newVelocity = isRun ? motion * runSpeed : motion * walkSpeed;
+        Vector3 moveDir = input.magnitude > 1 ? input.normalized : input;
+        Vector3 newVelocity;
+        if (mode == MoveMode.normal && isRun)
+            newVelocity = moveDir * runSpeed;
+        else
+            newVelocity = moveDir * walkSpeed;
 
         // 落下中ならy速度はそのまま
         newVelocity.y = rb.velocity.y;
         rb.velocity = newVelocity;
+
+        var z = Vector3.Dot(transform.forward, rb.velocity);
+        var x = mode == MoveMode.battle ? Vector3.Dot(transform.right, rb.velocity) : 0;
+        animator.SetFloat("Move Z", z);
+        animator.SetFloat("Move X", x);
+        animator.SetBool("Battle Mode", mode == MoveMode.battle);
     }
 
     public void RotateTowardsMovementDir(Vector3 input)
@@ -82,7 +89,6 @@ public class PlayerLocomotor : MonoBehaviour
 
         // Rotate the character
         transform.Rotate(Vector3.up, rotation);
-        Debug.Log(rotation.ToString("0.00"));
     }
     #endregion
 
@@ -92,7 +98,7 @@ public class PlayerLocomotor : MonoBehaviour
         if (isGrounded)
         {
             isGrounded = false;
-            isJumping = true;
+            animator.SetBool("OnGround", isGrounded);
             rb.velocity += jumpSpeed * Vector3.up;
         }
     }
@@ -126,6 +132,8 @@ public class PlayerLocomotor : MonoBehaviour
             if (velocityZ > 0) velocityZ = 0;
             rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
         }
+
+        animator.SetFloat("Move Y", rb.velocity.y);
     }
     #endregion
 }

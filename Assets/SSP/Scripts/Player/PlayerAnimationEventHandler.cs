@@ -7,4 +7,6 @@ public class PlayerAnimationEventHandler : MonoBehaviour {
     void FootR() { }
     void FootL() { }
     void Hit() { }
+    void Land() { }
+    void WeaponSwitch() { }
 }

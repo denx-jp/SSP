@@ -2442,12 +2442,12 @@ GameObject:
   - component: {fileID: 95268588012316118}
   - component: {fileID: 114196207367232310}
   - component: {fileID: 114710198958959678}
-  - component: {fileID: 114171318920857858}
   - component: {fileID: 114220765609894058}
   - component: {fileID: 114774096608856190}
   - component: {fileID: 114974365051159386}
   - component: {fileID: 114755544746082094}
   - component: {fileID: 114134000520712444}
+  - component: {fileID: 114333101000929388}
   - component: {fileID: 114660740567837552}
   - component: {fileID: 114453876016800092}
   - component: {fileID: 114516493038036196}
@@ -5351,25 +5351,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   longPressSecond: 0.6
---- !u!114 &114171318920857858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
-  m_StationaryTurnSpeed: 180
-  m_JumpPower: 12
-  m_GravityMultiplier: 2
-  m_RunCycleLegOffset: 0.2
-  m_MoveSpeedMultiplier: 1
-  m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.3
 --- !u!114 &114196207367232310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5420,6 +5401,17 @@ MonoBehaviour:
   playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
   playerInventoryManager: {fileID: 114084645704703300}
+--- !u!114 &114333101000929388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c8a8f7edf0642448b929313ceaeb55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114355481432560930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5584,7 +5576,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 10
+  rb: {fileID: 54482828738837568}
+  animator: {fileID: 95268588012316118}
+  walkSpeed: 2
+  runSpeed: 6
+  rotateSpeed: 10
+  jumpSpeed: 6
+  gravityMultiplier: -9.8
+  groundCheckDistance: 1
+  inAirSpeed: 8
+  maxVelocity: 2
+  minVelocity: -2
+  maxAngle: 90
+  isGrounded: 0
 --- !u!114 &114710198958959678
 MonoBehaviour:
   m_ObjectHideFlags: 1

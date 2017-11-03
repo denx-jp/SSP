@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-//移動やジャンプにおけるTransform・RigidBodyの操作など
+public enum MoveMode { normal, battle };
 public class PlayerController : MonoBehaviour
 {
     private PlayerLocomotor locomotor;
@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     private bool isDashing;
 
-    private enum MoveMode { normal, battle };
     private MoveMode mode;
 
     void Start()
@@ -29,7 +28,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 cameraForward = Vector3.Scale(cameraTransform.forward, new Vector3(1, 0, 1)).normalized;
                 Vector3 moveDir = v.y * cameraForward + v.x * cameraTransform.right;
 
-                locomotor.Move(moveDir, isDashing);
+                locomotor.Move(moveDir, isDashing, mode);
                 if (mode == MoveMode.normal)
                     locomotor.RotateTowardsMovementDir(moveDir);
                 else
