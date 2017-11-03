@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerAnimationController : MonoBehaviour
+public class PlayerAnimationController : NetworkBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
@@ -33,5 +34,26 @@ public class PlayerAnimationController : MonoBehaviour
             {
                 animator.SetInteger("Weapon", (int)type);
             });
+
+        healthManager.GetDeathStream()
+            .Where(_ => isLocalPlayer)
+             .Subscribe(isdeath =>
+             {
+                 CmdStartDeathAnimation(isdeath);
+             });
     }
+
+    #region Death
+    [Command]
+    private void CmdStartDeathAnimation(bool isdeath)
+    {
+        RpcStartDeathAnimation(isdeath);
+    }
+
+    [ClientRpc]
+    private void RpcStartDeathAnimation(bool isdeath)
+    {
+        animator.SetBool("Death", isdeath);
+    }
+    #endregion
 }
