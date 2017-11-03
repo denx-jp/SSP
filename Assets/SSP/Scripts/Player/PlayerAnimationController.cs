@@ -9,6 +9,11 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private PlayerLocomotor locomotor;
     [SerializeField] private PlayerController controller;
 
+    [SerializeField] private PlayerHealthManager healthManager;
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private PlayerWeaponManager weaponManager;
+    [SerializeField] private PlayerAvoider avoider;
+
     private void Start()
     {
         this.UpdateAsObservable()
@@ -21,6 +26,12 @@ public class PlayerAnimationController : MonoBehaviour
                 animator.SetFloat("Move Y", rb.velocity.y);
                 animator.SetFloat("Move Z", Vector3.Dot(transform.forward, rb.velocity));
                 animator.SetBool("Battle Mode", controller.mode == MoveMode.battle);
+            });
+
+        this.ObserveEveryValueChanged(_ => inventory.currentWeaponType)
+            .Subscribe(type =>
+            {
+                animator.SetInteger("Weapon", (int)type);
             });
     }
 }
