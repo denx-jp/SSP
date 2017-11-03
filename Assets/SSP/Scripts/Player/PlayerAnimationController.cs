@@ -1,0 +1,26 @@
+﻿using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+
+public class PlayerAnimationController : MonoBehaviour
+{
+    [SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private PlayerLocomotor locomotor;
+    [SerializeField] private PlayerController controller;
+
+    private void Start()
+    {
+        this.UpdateAsObservable()
+            .Subscribe(_ =>
+            {
+                animator.SetBool("OnGround", locomotor.isGrounded);
+
+                var x = controller.mode == MoveMode.battle ? Vector3.Dot(transform.right, rb.velocity) : 0;
+                animator.SetFloat("Move X", x);
+                animator.SetFloat("Move Y", rb.velocity.y);
+                animator.SetFloat("Move Z", Vector3.Dot(transform.forward, rb.velocity));
+                animator.SetBool("Battle Mode", controller.mode == MoveMode.battle);
+            });
+    }
+}

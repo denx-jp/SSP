@@ -44,7 +44,6 @@ public class PlayerLocomotor : MonoBehaviour
         {
             isGrounded = false;
         }
-        animator.SetBool("OnGround", isGrounded);
     }
 
     #region 移動(地上)
@@ -61,12 +60,6 @@ public class PlayerLocomotor : MonoBehaviour
         // 落下中ならy速度はそのまま
         newVelocity.y = rb.velocity.y;
         rb.velocity = newVelocity;
-
-        var z = Vector3.Dot(transform.forward, rb.velocity);
-        var x = mode == MoveMode.battle ? Vector3.Dot(transform.right, rb.velocity) : 0;
-        animator.SetFloat("Move Z", z);
-        animator.SetFloat("Move X", x);
-        animator.SetBool("Battle Mode", mode == MoveMode.battle);
     }
 
     public void RotateTowardsMovementDir(Vector3 input)
@@ -132,8 +125,6 @@ public class PlayerLocomotor : MonoBehaviour
             if (velocityZ > 0) velocityZ = 0;
             rb.AddForce(new Vector3(0, 0, -velocityZ), ForceMode.Acceleration);
         }
-
-        animator.SetFloat("Move Y", rb.velocity.y);
     }
     #endregion
 }

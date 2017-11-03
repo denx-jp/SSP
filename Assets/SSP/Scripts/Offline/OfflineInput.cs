@@ -71,7 +71,6 @@ public class OfflineInput : MonoBehaviour
             });
 
         this.UpdateAsObservable()
-            .Where(_ => GameManager.Instance.isGameStarting)
             .Subscribe(_ =>
             {
                 //死亡時入力受付ストリーム

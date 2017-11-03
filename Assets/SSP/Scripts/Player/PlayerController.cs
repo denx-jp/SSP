@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     private bool isDashing;
 
-    private MoveMode mode;
+    [HideInInspector] public MoveMode mode { get; private set; }
 
     void Start()
     {

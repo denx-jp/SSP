@@ -2399,6 +2399,8 @@ GameObject:
   - component: {fileID: 114214494050788380}
   - component: {fileID: 114882521758498106}
   - component: {fileID: 114334939118342726}
+  - component: {fileID: 114757456030087582}
+  - component: {fileID: 114189682314368796}
   m_Layer: 0
   m_Name: OfflinePlayer
   m_TagString: Player
@@ -5444,6 +5446,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114189682314368796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e52a2dd2cfbc94880b48e9a25f3112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 95268588012316118}
+  rb: {fileID: 54482828738837568}
+  locomotor: {fileID: 114334939118342726}
+  controller: {fileID: 114882521758498106}
 --- !u!114 &114214494050788380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5470,12 +5487,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 54482828738837568}
   animator: {fileID: 95268588012316118}
-  walkSpeed: 3
+  walkSpeed: 2
   runSpeed: 6
   rotateSpeed: 10
-  jumpSpeed: 6
+  jumpSpeed: 10
   gravityMultiplier: -9.8
-  groundCheckDistance: 1
+  groundCheckDistance: 0.5
   inAirSpeed: 8
   maxVelocity: 2
   minVelocity: -2
@@ -5493,6 +5510,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   longPressSecond: 0.3
+--- !u!114 &114757456030087582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9e81bb2b3042d468e53aa686701033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114882521758498106
 MonoBehaviour:
   m_ObjectHideFlags: 1
