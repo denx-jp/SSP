@@ -17,6 +17,8 @@ public class HandGun : NetworkBehaviour, IWeapon
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
     private bool isScoped = false;
+    [SerializeField] private PlayerCameraController pcc;
+    [SerializeField] private Camera scope;
 
     public void Init(PlayerModel playerModel)
     {
@@ -25,6 +27,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
         pm = playerModel;
+        scope.gameObject.SetActive(false);
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -49,6 +52,11 @@ public class HandGun : NetworkBehaviour, IWeapon
             shootTime = Time.time;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
+    }
+
+    public void SwitchScope()
+    {
+        pcc.SwitchCamera(scope.gameObject.activeSelf, scope);
     }
 
     public void NormalAttackLong(bool active)

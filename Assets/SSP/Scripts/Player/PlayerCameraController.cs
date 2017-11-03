@@ -76,4 +76,10 @@ public class PlayerCameraController : MonoBehaviour
         mainCamera = GameObject.FindWithTag("MainCamera");
         return mainCamera;
     }
+
+    public void SwitchCamera(bool _isScoped, Camera _scope)
+    {
+        Camere().SetActive(_isScoped);
+        _scope.gameObject.SetActive(!_isScoped);
+    }
 }

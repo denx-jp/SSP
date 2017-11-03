@@ -34,5 +34,13 @@ public class PlayerWeaponManager : NetworkBehaviour
             {
                 weapon.LongPressScope(input);
             });
+
+        pim.ScopeButtonDown
+           .Where(input => input)
+           .Where(_ => weapon != null)
+           .Subscribe(_ =>
+            {
+                weapon.SwitchScope();
+            });
     }
 }

@@ -8,4 +8,5 @@ public interface IWeapon
     void NormalAttack();
     void NormalAttackLong(bool active);
     void LongPressScope(bool active);
+    void SwitchScope();
 }
