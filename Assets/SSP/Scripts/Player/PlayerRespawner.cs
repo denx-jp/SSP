@@ -33,7 +33,7 @@ public class PlayerRespawner : NetworkBehaviour
                 CmdPlayerRespawnStart();
             });
     }
-    
+
     [Command]
     private void CmdPlayerRespawnStart()
     {
@@ -44,8 +44,7 @@ public class PlayerRespawner : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
     {
-        playerModel.Init();
         this.transform.position = _respawnPointPosition;
-        animator.SetBool(deathHash, false);
+        playerHealthManager.Revive();
     }
 }

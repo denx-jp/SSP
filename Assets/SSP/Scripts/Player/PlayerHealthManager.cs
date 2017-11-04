@@ -38,4 +38,10 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     {
         return deathStream;
     }
+
+    public void Revive()
+    {
+        playerModel.Init();
+        deathStream.OnNext(false);
+    }
 }
