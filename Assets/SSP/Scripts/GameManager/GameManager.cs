@@ -12,6 +12,7 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
+    [SerializeField] private KillLogManager killLogManager;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -24,7 +25,13 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private float endDelay = 3f;
     [SerializeField] private string TitleScene;
-    [SyncVar] public bool isGameStarting = false;
+    [SyncVar] private bool isGameStarting = false;
+
+    public static bool IsGameStarting()
+    {
+        if (Instance == null) return false;
+        return Instance.isGameStarting;
+    }
 
     private void Awake()
     {
@@ -50,7 +57,7 @@ public class GameManager : NetworkBehaviour
     private IEnumerator GameStart()
     {
         // すべての準備が整ったことを確認するのを待つ
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
 
         RpcPrepareGame();
         //初期設定
@@ -81,6 +88,7 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     void RpcPrepareGame()
     {
+        killLogManager.Init();
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();

@@ -9,8 +9,8 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     [SyncVar] public int teamId = 0;
     [SyncVar] public float syncHealth;
     [SyncVar] public float syncEther;
-    public ReactiveProperty<float> Health { get; private set; }
-    public ReactiveProperty<float> Ether { get; private set; }
+    public ReactiveProperty<float> Health { get; private set; } = new ReactiveProperty<float>();
+    public ReactiveProperty<float> Ether { get; private set; } = new ReactiveProperty<float>();
     [SerializeField] private float initialHealth;
     [SerializeField] private float initialEther;
 
@@ -20,9 +20,6 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
 
     private void Awake()
     {
-        Health = new ReactiveProperty<float>();
-        Ether = new ReactiveProperty<float>();
-
         syncEther = initialEther;
         Ether.Value = syncEther;
 
