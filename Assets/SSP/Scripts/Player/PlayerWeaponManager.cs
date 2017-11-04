@@ -7,11 +7,13 @@ using UniRx;
 public class PlayerWeaponManager : NetworkBehaviour
 {
     private PlayerInputManager pim;
+    private PlayerAnimationController animationController;
     public IWeapon weapon;
 
     void Start()
     {
         pim = GetComponent<PlayerInputManager>();
+        animationController = GetComponent<PlayerAnimationController>();
 
         pim.AttackButtonShort
             .Where(input => input)
@@ -19,6 +21,7 @@ public class PlayerWeaponManager : NetworkBehaviour
             .Subscribe(_ =>
             {
                 weapon.NormalAttack();
+                animationController.Attack();
             });
 
         pim.AttackButtonLong
