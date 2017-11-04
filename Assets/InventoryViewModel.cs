@@ -25,7 +25,7 @@ public class InventoryViewModel : MonoBehaviour
         // Initされる前から所持している武器のViewを更新
         inventory.weapons.ToObservable().Subscribe(v => UpdateView(v.Key, v.Value.model));
 
-        inventory.weapons.ObserveReplace().Subscribe(v => UpdateView(v.Key, v.OldValue.model));
+        inventory.weapons.ObserveReplace().Subscribe(v => UpdateView(v.Key, v.NewValue.model));
         inventory.weapons.ObserveAdd().Subscribe(v => UpdateView(v.Key, v.Value.model));
         //inventory.weapons.ObserveRemove().Subscribe(v => UpdateView(v.Key, defaultModel));
     }

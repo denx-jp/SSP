@@ -685,6 +685,12 @@ Prefab:
       propertyPath: m_Name
       value: GimmickGun2
       objectReference: {fileID: 0}
+    - target: {fileID: 114334225377017156, guid: b9512561b1fdeae46b082303d3eff782,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9512561b1fdeae46b082303d3eff782, type: 2}
   m_IsPrefabParent: 0
@@ -819,12 +825,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 436.5
+      value: 428.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 245.5
+      value: 241
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
@@ -909,18 +915,69 @@ Prefab:
     - target: {fileID: 224588292220629390, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 224028051319886670, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 114520404462118668, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: defaultImage
       value: 
-      objectReference: {fileID: 2800000, guid: 0b8d60ed10383684aabdadfa0e44306d, type: 3}
+      objectReference: {fileID: 21300000, guid: 0b8d60ed10383684aabdadfa0e44306d,
+        type: 3}
+    - target: {fileID: 114511908074012486, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114511908074012486, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817288135355648, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114817288135355648, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085242724341034, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114085242724341034, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082432147072120, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114082432147072120, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114053709902113938, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114053709902113938, guid: 69914e591659ec94191c27f2348f7ec5,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69914e591659ec94191c27f2348f7ec5, type: 2}
   m_IsPrefabParent: 0
@@ -1215,7 +1272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 678728296}
   canInteract: 1
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}
@@ -1248,7 +1305,7 @@ MonoBehaviour:
   type: 1
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 2800000, guid: 9f42523be91652c4ea5da4d9e5590963, type: 3}
+  image: {fileID: 21300000, guid: 90cafd6355d4e624198a9b604136600d, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
@@ -1679,7 +1736,8 @@ Prefab:
         type: 2}
       propertyPath: image
       value: 
-      objectReference: {fileID: 2800000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
+      objectReference: {fileID: 21300000, guid: 9f42523be91652c4ea5da4d9e5590963,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5d4cf07adb2b4348a6a1e1722c15bf5, type: 2}
   m_IsPrefabParent: 0
@@ -1814,7 +1872,7 @@ MonoBehaviour:
   type: 3
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 2800000, guid: b57f3c9caeff86547bc7daa58b74b937, type: 3}
+  image: {fileID: 21300000, guid: b57f3c9caeff86547bc7daa58b74b937, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
@@ -2152,7 +2210,7 @@ MonoBehaviour:
   type: 3
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 2800000, guid: 0b8d60ed10383684aabdadfa0e44306d, type: 3}
+  image: {fileID: 21300000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
