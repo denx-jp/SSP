@@ -17,7 +17,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
     private bool isScoped = false;
-    [SerializeField] private PlayerCameraController pcc;
+    private PlayerCameraController pcc;
     [SerializeField] private Camera scope;
 
     public void Init(PlayerModel playerModel)
@@ -27,6 +27,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
         pm = playerModel;
+        pcc = pm.gameObject.GetComponent<PlayerCameraController>();
         scope.gameObject.SetActive(false);
 
         this.FixedUpdateAsObservable()
