@@ -1,26 +1,43 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UniRx;
+using UnityEngine.Networking;
 
-public class EtherPopper : MonoBehaviour
+public class EtherPopper : NetworkBehaviour
 {
     [SerializeField] private GameObject ether;
-    [SerializeField] private float popINterval;
+    [SerializeField] private float popInterval;
+    [SerializeField] private float popDuration;
+    [SerializeField] private int initEtherValue;
     [SerializeField] private List<Transform> popPoints = new List<Transform>();
     private Transform popPoint;
 
-    void Start()
+    public void Init()
     {
-        Observable.Interval(TimeSpan.FromSeconds(popINterval)).Subscribe(_ =>
+        if (isServer)
         {
-            popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
-            Instantiate(ether, popPoint.position, Quaternion.identity);
-        }).AddTo(this);
+            float timeCounter = 0.0f;
+            Observable.Interval(TimeSpan.FromSeconds(popInterval)).TakeWhile(_ => timeCounter <= popDuration).Subscribe(_ =>
+            {
+                timeCounter++;
+                CmdSpawnEtherObject();
+            }).AddTo(this);
+        }
+    }
 
+    [Command]
+    void CmdSpawnEtherObject()
+    {
+        popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
+        var etherObject = Instantiate(ether, popPoint.position, Quaternion.identity);
+        NetworkServer.SpawnWithClientAuthority(etherObject, NetworkServer.connections[0]);//NetworkPlayerに紐づいていないためConnectionToClientではなくHostの権限でSpawn
+        var etherInfo = etherObject.GetComponent<EtherObject>();
+        etherInfo.CmdSetEtherValue(initEtherValue);
     }
 
 #if UNITY_EDITOR

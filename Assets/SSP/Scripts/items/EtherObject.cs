@@ -50,7 +50,7 @@ public class EtherObject : NetworkBehaviour
             .Subscribe(col => CmdSetTarget(col.gameObject));
 
         //targetを追従
-        this.UpdateAsObservable()
+        this.FixedUpdateAsObservable()
             .Where(_ => target != null)
             .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
 
@@ -79,6 +79,12 @@ public class EtherObject : NetworkBehaviour
     {
         go.GetComponent<IEtherAcquirer>().AcquireEther(etherValue);
         NetworkServer.Destroy(gameObject);
+    }
+
+    [Command]
+    public void CmdSetEtherValue(int etherValue)
+    {
+        Init(etherValue);
     }
 }
 

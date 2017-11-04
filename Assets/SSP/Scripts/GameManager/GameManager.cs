@@ -13,6 +13,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
+    [SerializeField] private EtherPopper etherPopper;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -108,6 +109,7 @@ public class GameManager : NetworkBehaviour
     void RpcBattleStart()
     {
         isGameStarting = true;
+        etherPopper.Init();
         team1LSS.Init();
         team2LSS.Init();
         message.text = "Battle Start";
