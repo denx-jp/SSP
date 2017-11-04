@@ -15,7 +15,7 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
         spawnPointsDic = new Dictionary<Transform, List<Transform>>();
 
         this.ObserveEveryValueChanged(_ => distance)
-            .Subscribe(v => SetSpawnPoints(v));
+            .Subscribe(v => SetLSS_SpawnPoints());
     }
 
     public void Init()
@@ -32,30 +32,28 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
         foreach (Transform spawnPoint in lss)
             spawnPoints.Add(spawnPoint);
 
-        spawnPointsDic.Add(lss, spawnPoints);
-
-        SetSpawnPoints(1.0f);
+        spawnPointsDic.Add(lss,spawnPoints);
     }
 
-    private void SetSpawnPoints(float distance)
+    private void SetLSS_SpawnPoints()
     {
-        foreach(var pointPair in spawnPointsDic)
+        foreach(var spawnPositionList in spawnPointsDic)
+            CalcSpawnPoints(spawnPositionList);
+    }
+
+    private void CalcSpawnPoints(KeyValuePair<Transform,List<Transform>> LSSSpawnPoints)
+    {
+        var LSSPosition = LSSSpawnPoints.Key.position;
+
+        foreach (var spawnPoint in LSSSpawnPoints.Value)
         {
-            foreach(var point in pointPair.Value)
-            {
-                Vector3 relative = pointPair.Key.position - point.position;
-                Vector3.Normalize(relative);
-                float angle = 90 - Vector3.Angle(relative, transform.forward);
+            Vector3 relative = spawnPoint.position - LSSPosition;
+            float rad = Mathf.Atan2(relative.z, relative.x);
 
-                Vector3 newPosition = 
-                    new Vector3(distance * Mathf.Sin(Mathf.Deg2Rad*angle),
-                                0,
-                                distance * Mathf.Cos(Mathf.Deg2Rad * angle));
+            Vector3 newPosition =
+                new Vector3(distance * Mathf.Cos(rad), 0, distance * Mathf.Sin(rad));
 
-                point.transform.position = pointPair.Key.position + newPosition;
-
-                Debug.Log(pointPair.Key.position + " " + point.position + " " + angle);
-            }
+            spawnPoint.position = LSSPosition + newPosition;
         }
     }
 }
