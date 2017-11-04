@@ -6,25 +6,29 @@ using UnityEngine.Networking;
 public class PlayersSpawnManager : NetworkManager
 {
     [SerializeField] private List<Transform> LifeSupportSystemObjects;
+    [SerializeField, Range(1.0f, 5.0f)] private float distance;
 
-    private Dictionary<GameObject, int> spawnPoints;
+    private Dictionary<int,List<Transform>> spawnPointsDic;
 
     void Start()
     {
-        spawnPoints = new Dictionary<GameObject, int>();
+        spawnPointsDic = new Dictionary<int, List<Transform>>();
     }
 
     public void Init()
     {
         foreach (var lss in LifeSupportSystemObjects)
-            SetSpawnPoints(lss);
+            InitSpawnPoints(lss);
     }
-
-    private void SetSpawnPoints(Transform lss)
+    private void InitSpawnPoints(Transform lss)
     {
         var teamId = lss.GetComponent<LifeSupportSystemModel>().GetTeamId();
+        var spawnPoints = new List<Transform>();
+
         foreach (Transform spawnPoint in lss)
-            spawnPoints.Add(spawnPoint.gameObject, teamId);
+            spawnPoints.Add(spawnPoint);
+
+        spawnPointsDic.Add(teamId, spawnPoints);
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
