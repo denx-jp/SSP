@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 65542213572461756}
   - component: {fileID: 114729662647059564}
   - component: {fileID: 114334225377017156}
+  - component: {fileID: 114142241987139830}
   - component: {fileID: 114250481760157286}
   m_Layer: 0
   m_Name: GimmickGun
@@ -326,6 +327,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000005, y: 0.99999994, z: 1.0000005}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114142241987139830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595191971914448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 114334225377017156}
+  muzzle: {fileID: 1077616347337618}
 --- !u!114 &114250481760157286
 MonoBehaviour:
   m_ObjectHideFlags: 1

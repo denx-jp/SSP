@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 23101878257787678}
   - component: {fileID: 114303862106099984}
   - component: {fileID: 114636341030069382}
+  - component: {fileID: 114667004423403546}
   - component: {fileID: 114948242860574984}
   m_Layer: 0
   m_Name: LongGun
@@ -134,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1160114455778178}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.73}
+  m_LocalPosition: {x: -0, y: 0, z: -0.481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4224834321804456}
@@ -378,6 +379,19 @@ MonoBehaviour:
   bulletVelocity: 20
   bulletDeathTime: 5
   coolTime: 0.5
+--- !u!114 &114667004423403546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198441546025866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 114334225377017156, guid: b9512561b1fdeae46b082303d3eff782, type: 2}
+  muzzle: {fileID: 1160114455778178}
 --- !u!114 &114948242860574984
 MonoBehaviour:
   m_ObjectHideFlags: 1
