@@ -11,6 +11,8 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
     [SerializeField]private Transform team1LifeSupportSystemTransform;
     [SerializeField]private Transform team2LifeSupportSystemTransform;
 
+    [SerializeField]private PlayersSpawnManager playersSpawnManager; 
+
     private List<GameObject> LSSAssignPointObjectList;
 
     [ServerCallback]
@@ -22,6 +24,8 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
         {
             SetPoint(team1LifeSupportSystemTransform);
             SetPoint(team2LifeSupportSystemTransform);
+
+            playersSpawnManager.Init();
         }
     }
 
