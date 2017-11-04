@@ -38,6 +38,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         var pm = player.GetComponent<PlayerManager>();
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
+        pm.playerAnimationController.Pickup();
     }
 
     public bool CanInteract()
