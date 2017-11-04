@@ -21,7 +21,6 @@ public class PlayerWeaponManager : NetworkBehaviour
             .Subscribe(_ =>
             {
                 weapon.NormalAttack();
-                animationController.Attack();
             });
 
         pim.AttackButtonLong

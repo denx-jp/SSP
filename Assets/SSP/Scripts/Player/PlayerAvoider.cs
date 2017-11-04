@@ -8,28 +8,22 @@ using UniRx.Triggers;
 
 public class PlayerAvoider : NetworkBehaviour
 {
-    private int avoidHash = Animator.StringToHash("Avoid");
-    private Animator animator;
-    private AnimatorStateInfo state;
     private PlayerInputManager pim;
     private PlayerModel playerModel;
+    private PlayerAnimationController animationController;
 
     [SerializeField] private float avoidStartTime = 0.1f;
     [SerializeField] private float avoidDuration = 0.3f;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         pim = GetComponent<PlayerInputManager>();
         playerModel = GetComponent<PlayerModel>();
-
-        this.UpdateAsObservable()
-            .Subscribe(_ => state = animator.GetCurrentAnimatorStateInfo(0));
+        animationController = GetComponent<PlayerAnimationController>();
 
         pim.AvoidButtonDown
             .Where(v => v)
             .Where(_ => playerModel.MoveMode == MoveMode.battle)
-            .Where(_ => state.shortNameHash != avoidHash)
             .Subscribe(v =>
             {
                 CmdAvoiding();
@@ -50,7 +44,7 @@ public class PlayerAvoider : NetworkBehaviour
 
     private IEnumerator Avoiding()
     {
-        animator.SetTrigger(avoidHash);
+        animationController.Avoid();
         yield return new WaitForSeconds(avoidStartTime);
         SetLayer(LayerMap.Invincible);
         yield return new WaitForSeconds(avoidDuration);

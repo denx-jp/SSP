@@ -54,6 +54,22 @@ public class PlayerAnimationController : NetworkBehaviour
         animator.SetTrigger("Attack");
     }
 
+    public void Avoid()
+    {
+        if (model.MoveMode != MoveMode.battle) return;
+        animator.SetTrigger("Avoid");
+    }
+
+    public void Active()
+    {
+        animator.SetTrigger("Active");
+    }
+
+    public void Pickup()
+    {
+        animator.SetTrigger("Pickup");
+    }
+
     #region Death
     [Command]
     private void CmdStartDeathAnimation(bool isdeath)
