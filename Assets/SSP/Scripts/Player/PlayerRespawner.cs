@@ -9,14 +9,12 @@ using UniRx.Triggers;
 public class PlayerRespawner : NetworkBehaviour
 {
     private PlayerHealthManager playerHealthManager;
-    private PlayerModel playerModel;
     private GameObject[] respawnPoints;
 
     [SerializeField] private int timeToRespawn;
     
     void Start()
     {
-        playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 

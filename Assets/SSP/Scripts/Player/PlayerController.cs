@@ -7,46 +7,39 @@ using UniRx.Triggers;
 public enum MoveMode { normal, battle };
 public class PlayerController : MonoBehaviour
 {
-    private PlayerLocomotor locomotor;
-    private Transform cameraTransform;
-    private bool isJumping;
-    private bool isDashing;
+    [SerializeField] private PlayerModel model;
+    [SerializeField] private PlayerLocomotor locomotor;
+    [SerializeField] private PlayerInputManager pim;
 
-    [HideInInspector] public MoveMode mode { get; private set; }
+    private Transform cameraTransform;
+    private bool isDashing;
 
     void Start()
     {
-        var input = GetComponent<PlayerInputManager>();
-        locomotor = GetComponent<PlayerLocomotor>();
         cameraTransform = Camera.main.transform;
-        mode = MoveMode.normal;
+        model.MoveMode = MoveMode.normal;
 
-        input.Move
+        pim.Move
             .Subscribe(v =>
             {
                 Vector3 cameraForward = Vector3.Scale(cameraTransform.forward, new Vector3(1, 0, 1)).normalized;
                 Vector3 moveDir = v.y * cameraForward + v.x * cameraTransform.right;
 
-                locomotor.Move(moveDir, isDashing, mode);
-                if (mode == MoveMode.normal)
+                locomotor.Move(moveDir, isDashing, model.MoveMode);
+                if (model.MoveMode == MoveMode.normal)
                     locomotor.RotateTowardsMovementDir(moveDir);
                 else
                     locomotor.RotateCameraDir(cameraTransform.forward);
             });
 
-        input.JumpButtonDown
+        pim.JumpButtonDown
             .Where(v => v)
             .Subscribe(v => locomotor.Jump());
 
-        input.DashButtonDown
-            .Subscribe(v => isDashing = v);
+        pim.DashButtonDown
+            .Subscribe(v => isDashing = v && model.MoveMode == MoveMode.normal);  // 移動モード時のみダッシュ可能
 
-        input.ScopeButtonLong
-            .Subscribe(v => SwitchMoveMode(v));
-    }
-
-    public void SwitchMoveMode(bool toBattleMode)
-    {
-        mode = toBattleMode ? MoveMode.battle : MoveMode.normal;
+        pim.ScopeButtonLong
+            .Subscribe(v => model.MoveMode = v ? MoveMode.battle : MoveMode.normal);
     }
 }

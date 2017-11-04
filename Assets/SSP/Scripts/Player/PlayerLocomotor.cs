@@ -14,7 +14,6 @@ public class PlayerLocomotor : MonoBehaviour
     [SerializeField] private float jumpSpeed = 6f;
     [SerializeField] private float gravityMultiplier = -9.8f;
     [SerializeField] private float groundCheckDistance = 1f;
-    [SerializeField] private float inAirSpeed = 8f;
     [SerializeField] private float maxVelocity = 2f;
     [SerializeField] private float minVelocity = -2f;
     [SerializeField] private float maxAngle = 90f;

@@ -28,19 +28,20 @@ public class PlayerAvoider : NetworkBehaviour
 
         pim.AvoidButtonDown
             .Where(v => v)
+            .Where(_ => playerModel.MoveMode == MoveMode.battle)
             .Where(_ => state.shortNameHash != avoidHash)
             .Subscribe(v =>
             {
                 CmdAvoiding();
             });
     }
-    
+
     [Command]
     private void CmdAvoiding()
     {
         RpcAvoiding();
     }
-    
+
     [ClientRpc]
     private void RpcAvoiding()
     {

@@ -5402,6 +5402,7 @@ MonoBehaviour:
   playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
   playerInventoryManager: {fileID: 114084645704703300}
+  playerAnimationController: {fileID: 114965255933758764}
 --- !u!114 &114333101000929388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5413,6 +5414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c8a8f7edf0642448b929313ceaeb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 114774096608856190}
+  locomotor: {fileID: 114660740567837552}
+  pim: {fileID: 114134000520712444}
 --- !u!114 &114355481432560930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5585,7 +5589,6 @@ MonoBehaviour:
   jumpSpeed: 10
   gravityMultiplier: -9.8
   groundCheckDistance: 1
-  inAirSpeed: 8
   maxVelocity: 2
   minVelocity: -2
   maxAngle: 90
@@ -5656,6 +5659,7 @@ MonoBehaviour:
   initialEther: 500
   isLocalPlayerCharacter: 0
   defaultLayer: 0
+  MoveMode: 0
 --- !u!114 &114801546013469574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5728,8 +5732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95268588012316118}
   rb: {fileID: 54482828738837568}
+  model: {fileID: 114774096608856190}
   locomotor: {fileID: 114660740567837552}
-  controller: {fileID: 114333101000929388}
   healthManager: {fileID: 114974365051159386}
   inventory: {fileID: 114077097428542020}
   weaponManager: {fileID: 114516493038036196}

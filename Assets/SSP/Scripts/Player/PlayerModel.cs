@@ -17,6 +17,7 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     [SerializeField] public bool isLocalPlayerCharacter = false;
     //ネットワーク実装時にはローカルプレイヤーのみLayerMap.LocalPlayerになる。
     [HideInInspector] public int defaultLayer = LayerMap.Default;
+    public MoveMode MoveMode;
 
     private void Awake()
     {
