@@ -948,7 +948,7 @@ Prefab:
     - target: {fileID: 114991693653325594, guid: 88176f7f3b19f224599dd13731b6f95c,
         type: 2}
       propertyPath: popDuration
-      value: 5
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88176f7f3b19f224599dd13731b6f95c, type: 2}
