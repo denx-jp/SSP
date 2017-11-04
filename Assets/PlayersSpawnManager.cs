@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UniRx;
 
 public class PlayersSpawnManager : NetworkManager
 {
     [SerializeField] private List<Transform> LifeSupportSystemObjects;
     [SerializeField, Range(1.0f, 5.0f)] private float distance;
 
-    private Dictionary<int,List<Transform>> spawnPointsDic;
+    private Dictionary<Transform,List<Transform>> spawnPointsDic;
 
     void Start()
     {
-        spawnPointsDic = new Dictionary<int, List<Transform>>();
+        spawnPointsDic = new Dictionary<Transform, List<Transform>>();
+
+        this.ObserveEveryValueChanged(_ => distance)
+            .Subscribe(v => SetSpawnPoints(v));
     }
 
     public void Init()
@@ -20,15 +24,21 @@ public class PlayersSpawnManager : NetworkManager
         foreach (var lss in LifeSupportSystemObjects)
             InitSpawnPoints(lss);
     }
-    private void InitSpawnPoints(Transform lss)
+
+    void InitSpawnPoints(Transform lss)
     {
-        var teamId = lss.GetComponent<LifeSupportSystemModel>().GetTeamId();
+        ///var teamId = lss.GetComponent<LifeSupportSystemModel>().GetTeamId();
         var spawnPoints = new List<Transform>();
 
         foreach (Transform spawnPoint in lss)
             spawnPoints.Add(spawnPoint);
 
-        spawnPointsDic.Add(teamId, spawnPoints);
+        spawnPointsDic.Add(lss, spawnPoints);
+    }
+
+    private void SetSpawnPoints(float distance)
+    {
+        
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
