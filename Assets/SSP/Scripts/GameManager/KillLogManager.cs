@@ -10,7 +10,6 @@ public class KillLogManager : NetworkBehaviour
 
     private Dictionary<int, PlayerRecord> playerRecords = new Dictionary<int, PlayerRecord>();
 
-    // Use this for initialization
     public void Init()
     {
         playerRecords = ClientPlayersManager.Players.ToDictionary(v => v.playerModel.playerId, _ => new PlayerRecord());
