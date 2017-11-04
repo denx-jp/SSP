@@ -56,6 +56,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -71,6 +72,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -114,8 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigid: {fileID: 54270739398327058}
   etherValue: 0
-  floatHeight: 1
-  trackingSpeed: 12
+  floatHeight: 3
+  trackingSpeed: 20
   popEtherInitValue: 50
 --- !u!114 &114603879454852254
 MonoBehaviour:

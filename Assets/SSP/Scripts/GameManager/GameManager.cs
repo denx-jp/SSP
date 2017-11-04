@@ -93,7 +93,7 @@ public class GameManager : NetworkBehaviour
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();
         var lss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
-        battleUI.Init(player, lss.GetComponent<LifeSupportSystemModel>(), clientPlayersManager);
+        battleUI.Init(player, lss.GetComponent<LifeSupportSystemModel>());
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;

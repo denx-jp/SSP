@@ -10,13 +10,13 @@ public class PlayerBattleUIManager : MonoBehaviour
     [SerializeField] private EtherViewModel lssEtherViewModel;
     [SerializeField] private KillLogViewModel killLogViewModel;
 
-    public void Init(PlayerManager pm, IEther lssModel, ClientPlayersManager cpm)
+    public void Init(PlayerManager pm, IEther lssModel)
     {
         healthViewModel.healthModel = pm.playerModel as IHealth;
         etherViewModel.etherModel = pm.playerModel as IEther;
         inventoryViewModel.inventory = pm.playerInventory;
         lssEtherViewModel.etherModel = lssModel;
-        killLogViewModel.SetKillLogNotifier(cpm.GetPlayersComponent<PlayerKillLogNotifier>());
+        killLogViewModel.SetKillLogNotifier(ClientPlayersManager.Instance.GetPlayersComponent<PlayerKillLogNotifier>());
 
         //各VMに必要な代入がされる前に初期化処理をされると困るので明示的にタイミングを指定するためにInit()を使っている
         healthViewModel.Init();
