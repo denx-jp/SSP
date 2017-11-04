@@ -5730,6 +5730,10 @@ MonoBehaviour:
   rb: {fileID: 54482828738837568}
   locomotor: {fileID: 114660740567837552}
   controller: {fileID: 114333101000929388}
+  healthManager: {fileID: 114974365051159386}
+  inventory: {fileID: 114077097428542020}
+  weaponManager: {fileID: 114516493038036196}
+  avoider: {fileID: 114453876016800092}
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
