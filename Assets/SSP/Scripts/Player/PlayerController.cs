@@ -42,14 +42,11 @@ public class PlayerController : MonoBehaviour
             .Subscribe(v => isDashing = v);
 
         input.ScopeButtonLong
-            .Subscribe(_ =>
-            {
-                SwitchMoveMode();
-            });
+            .Subscribe(v => SwitchMoveMode(v));
     }
 
-    public void SwitchMoveMode()
+    public void SwitchMoveMode(bool toBattleMode)
     {
-        mode = mode == MoveMode.normal ? MoveMode.battle : MoveMode.normal;
+        mode = toBattleMode ? MoveMode.battle : MoveMode.normal;
     }
 }

@@ -29,18 +29,24 @@ public class PlayerAnimationController : NetworkBehaviour
                 animator.SetBool("Battle Mode", controller.mode == MoveMode.battle);
             });
 
-        this.ObserveEveryValueChanged(_ => inventory.currentWeaponType)
-            .Subscribe(type =>
-            {
-                animator.SetInteger("Weapon", (int)type);
-            });
-
         healthManager.GetDeathStream()
             .Where(_ => isLocalPlayer)
-             .Subscribe(isdeath =>
-             {
-                 CmdStartDeathAnimation(isdeath);
-             });
+            .Subscribe(isdeath =>
+            {
+                CmdStartDeathAnimation(isdeath);
+            });
+
+        this.ObserveEveryValueChanged(_ => inventory.currentWeaponType)
+            .Subscribe(type =>
+            {                
+                animator.SetInteger("Weapon", (int)type);
+                animator.SetTrigger("Sheath");
+            });
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
 
     #region Death

@@ -13,15 +13,11 @@ public class PlayerRespawner : NetworkBehaviour
     private GameObject[] respawnPoints;
 
     [SerializeField] private int timeToRespawn;
-
-    private Animator animator;
-    private int deathHash = Animator.StringToHash("Death");
-
+    
     void Start()
     {
         playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
-        animator = GetComponent<Animator>();
         respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 
         this.playerHealthManager.GetDeathStream()

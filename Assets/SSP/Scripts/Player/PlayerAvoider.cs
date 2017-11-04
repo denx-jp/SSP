@@ -8,7 +8,7 @@ using UniRx.Triggers;
 
 public class PlayerAvoider : NetworkBehaviour
 {
-    private int avoidHash = Animator.StringToHash("RollForward");
+    private int avoidHash = Animator.StringToHash("Avoid");
     private Animator animator;
     private AnimatorStateInfo state;
     private PlayerInputManager pim;
@@ -54,7 +54,6 @@ public class PlayerAvoider : NetworkBehaviour
         SetLayer(LayerMap.Invincible);
         yield return new WaitForSeconds(avoidDuration);
         SetLayer(playerModel.defaultLayer);
-        SetLayer(LayerMap.LocalPlayer);
     }
 
     private void SetLayer(int layer)
