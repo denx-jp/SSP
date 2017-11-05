@@ -529,7 +529,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1914480152885886, guid: 85190b57675cda940b2cd16157a434e7, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 136968364903373988, guid: 85190b57675cda940b2cd16157a434e7,
         type: 2}
@@ -1558,6 +1558,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79239d169984b974aa16657af0865c75, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1422918375 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 1558177660}
+--- !u!114 &1422918376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1422918375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64227e3d351f804090454699f707f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1506993711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,6 +1883,11 @@ Prefab:
       propertyPath: startDelay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: killLogManager
+      value: 
+      objectReference: {fileID: 1422918376}
     m_RemovedComponents:
     - {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}

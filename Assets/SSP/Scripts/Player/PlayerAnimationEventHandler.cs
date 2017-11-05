@@ -13,4 +13,5 @@ public class PlayerAnimationEventHandler : MonoBehaviour
         // 速度制限処理使予定
     }
     void WeaponSwitch() { }
+    void Shoot() { }
 }
