@@ -368,8 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114476576303947814}
   muzzle: {fileID: 1722006071851656}
-  pcc: {fileID: 114079660245503310, guid: 85190b57675cda940b2cd16157a434e7, type: 2}
-  scope: {fileID: 20954448687201288}
+  scopeCamera: {fileID: 1052858297738984}
 --- !u!124 &124532166764609372
 Behaviour:
   m_ObjectHideFlags: 1
