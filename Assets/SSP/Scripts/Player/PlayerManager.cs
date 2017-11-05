@@ -13,6 +13,7 @@ public class PlayerManager : NetworkBehaviour
     public PlayerInputManager playerInputManager;
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
+    public PlayerInventory playerInventory;
     public PlayerInventoryManager playerInventoryManager;
 
     private void Start()

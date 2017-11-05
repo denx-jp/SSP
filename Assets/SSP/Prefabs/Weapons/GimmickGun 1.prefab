@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65401762014862234}
   - component: {fileID: 114787115348719196}
   - component: {fileID: 114008378418759894}
+  - component: {fileID: 114263649361425104}
   - component: {fileID: 114036954499573146}
   m_Layer: 0
   m_Name: GimmickGun 1
@@ -224,8 +225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: HandGun
+  type: 3
   damageAmount: 1000
   isOwnerLocalPlayer: 0
+  image: {fileID: 21300000, guid: 9f42523be91652c4ea5da4d9e5590963, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
@@ -243,11 +246,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoriableType: 3
+  model: {fileID: 0}
   canInteract: 1
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}
   hand: 1
+--- !u!114 &114263649361425104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135113161938838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 114334225377017156, guid: b9512561b1fdeae46b082303d3eff782, type: 2}
+  muzzle: {fileID: 0}
 --- !u!114 &114787115348719196
 MonoBehaviour:
   m_ObjectHideFlags: 1

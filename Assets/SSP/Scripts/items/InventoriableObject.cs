@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public enum InventoriableType { HandGun, LongRangeWeapon, ShortRangeWeapon, Gimmick }
 public class InventoriableObject : NetworkBehaviour, IInteractable
 {
-    [SerializeField] public InventoriableType inventoriableType;
+    [SerializeField] public WeaponModel model;
     [SerializeField] private bool canInteract = true;
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
@@ -37,7 +36,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         ownerPlayerId = player.GetComponent<NetworkIdentity>().netId;
         var pm = player.GetComponent<PlayerManager>();
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
-        pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, inventoriableType);
+        pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, model.type);
     }
 
     public bool CanInteract()
@@ -58,8 +57,8 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         if (owner == null) return;
         var pim = owner.GetComponent<PlayerInventoryManager>();
 
-        pim.SetWeaponToInventory(this.gameObject, inventoriableType);
-        var inventoryType = pim.ConvertInventoriableTypeToInventoryType(inventoriableType);
+        pim.SetWeaponToInventory(this.gameObject, model.type);
+        var inventoryType = pim.ConvertInventoriableTypeToInventoryType(model.type);
         if (pim.inventory.currentWeaponType == inventoryType)
             pim.inventory.EquipWeapon(inventoryType);
         SetTransformOwnerHand(pim.leftHandTransform, pim.rightHandTransform);
