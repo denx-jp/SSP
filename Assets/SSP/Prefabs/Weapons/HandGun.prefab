@@ -260,7 +260,7 @@ MonoBehaviour:
   type: 0
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 21300000, guid: 0b8d60ed10383684aabdadfa0e44306d, type: 3}
+  image: {fileID: 0}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}

@@ -916,12 +916,12 @@ Prefab:
     - target: {fileID: 224028051319886670, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224588292220629390, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1621175142001308, guid: 69914e591659ec94191c27f2348f7ec5, type: 2}
       propertyPath: m_IsActive
