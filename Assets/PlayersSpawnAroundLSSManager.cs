@@ -8,7 +8,7 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
     [SerializeField] private List<Transform> LifeSupportSystemObjects;
     [SerializeField, Range(1.0f, 5.0f)] private float distance;
 
-    private Dictionary<Transform,List<Transform>> spawnPointsDic;
+    public Dictionary<Transform,List<Transform>> spawnPointsDic;
 
     void Start()
     {
