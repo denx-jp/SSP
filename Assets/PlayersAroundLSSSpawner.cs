@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayersAroundLSSSpawner : NetworkManager
+public class PlayersAroundLSSSpawner : NetworkLobbyManager
 {
     [SerializeField]private PlayersSpawnAroundLSSManager playersSpawnAroundLSSManager;
     private Vector3 playerSpawnPosition;
