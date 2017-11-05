@@ -5,7 +5,7 @@ using UniRx.Triggers;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    [SerializeField] private NetworkAnimator networkAnimator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerModel model;
     [SerializeField] private PlayerLocomotor locomotor;
@@ -20,54 +20,54 @@ public class PlayerAnimationController : MonoBehaviour
     {
         if (!model.isLocalPlayerCharacter) return;
         this.UpdateAsObservable()
-           .Subscribe(_ => state = animator.GetCurrentAnimatorStateInfo(0));
+           .Subscribe(_ => state = networkAnimator.animator.GetCurrentAnimatorStateInfo(0));
 
         this.UpdateAsObservable()
             .Subscribe(_ =>
             {
-                animator.SetBool("OnGround", locomotor.isGrounded);
+                networkAnimator.animator.SetBool("OnGround", locomotor.isGrounded);
 
                 var x = model.MoveMode == MoveMode.battle ? Vector3.Dot(transform.right, rb.velocity) : 0;
-                animator.SetFloat("Move X", x);
-                animator.SetFloat("Move Y", rb.velocity.y);
-                animator.SetFloat("Move Z", Vector3.Dot(transform.forward, rb.velocity));
-                animator.SetBool("Battle Mode", model.MoveMode == MoveMode.battle);
+                networkAnimator.animator.SetFloat("Move X", x);
+                networkAnimator.animator.SetFloat("Move Y", rb.velocity.y);
+                networkAnimator.animator.SetFloat("Move Z", Vector3.Dot(transform.forward, rb.velocity));
+                networkAnimator.animator.SetBool("Battle Mode", model.MoveMode == MoveMode.battle);
             });
 
         healthManager.GetDeathStream()
             .Subscribe(isdeath =>
             {
                 var trigger = isdeath ? "Death" : "Revive";
-                animator.SetTrigger(trigger);
+                networkAnimator.SetTrigger(trigger);
             });
 
         this.ObserveEveryValueChanged(_ => inventory.currentWeaponType)
             .Subscribe(type =>
             {
-                animator.SetInteger("Weapon", (int)type);
-                animator.SetTrigger("Sheath");
+                networkAnimator.animator.SetInteger("Weapon", (int)type);
+                networkAnimator.SetTrigger("Sheath");
             });
     }
 
     public void Attack()
     {
         if (model.MoveMode != MoveMode.battle) return;
-        animator.SetTrigger("Attack");
+        networkAnimator.SetTrigger("Attack");
     }
 
     public void Avoid()
     {
         if (model.MoveMode != MoveMode.battle) return;
-        animator.SetTrigger("Avoid");
+        networkAnimator.SetTrigger("Avoid");
     }
 
     public void Active()
     {
-        animator.SetTrigger("Active");
+        networkAnimator.SetTrigger("Active");
     }
 
     public void Pickup()
     {
-        animator.SetTrigger("Pickup");
+        networkAnimator.SetTrigger("Pickup");
     }
 }

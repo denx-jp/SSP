@@ -5731,7 +5731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e52a2dd2cfbc94880b48e9a25f3112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95268588012316118}
+  networkAnimator: {fileID: 114710198958959678}
   rb: {fileID: 54482828738837568}
   model: {fileID: 114774096608856190}
   locomotor: {fileID: 114660740567837552}
