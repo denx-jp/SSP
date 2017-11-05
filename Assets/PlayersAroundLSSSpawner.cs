@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UniRx;
 
 public class PlayersAroundLSSSpawner : NetworkManager
 {
-    [SerializeField]private PlayersSpawnAroundLSSManager playersSpawnAroundLSSManager; 
-
-    void Start()
-    {
-    }
+    [SerializeField]private PlayersSpawnAroundLSSManager playersSpawnAroundLSSManager;
+    private Vector3 playerSpawnPosition;
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
@@ -20,11 +16,18 @@ public class PlayersAroundLSSSpawner : NetworkManager
         {
             var lssTeamId = spawnPositionList.Key.GetComponent<LifeSupportSystemModel>().GetTeamId();
             if(playerTeamId == lssTeamId)
-                Debug.Log("I found the target");
+                SetSpawnPosition(spawnPositionList.Value);
         }
 
-        var playerSpawnPos = new Vector3(0, 0, 0);
-        var player = Instantiate(playerPrefab, playerSpawnPos, Quaternion.identity);
+        var player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+    }
+
+    private void SetSpawnPosition(List<Transform> _spawnPositionList)
+    {
+        int candidatePoint = UnityEngine.Random.Range(0, _spawnPositionList.Count - 1);
+
+        playerSpawnPosition = _spawnPositionList[candidatePoint].position;
+        _spawnPositionList.Remove(_spawnPositionList[candidatePoint]);
     }
 }
