@@ -18,14 +18,10 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     //ネットワーク実装時にはローカルプレイヤーのみLayerMap.LocalPlayerになる。
     [HideInInspector] public int defaultLayer = LayerMap.Default;
 
-    public PlayerCameraController pcc;
-
     private void Awake()
     {
         syncEther = initialEther;
         Ether.Value = syncEther;
-
-        pcc = GetComponent<PlayerCameraController>();
 
         this.ObserveEveryValueChanged(_ => syncHealth).Subscribe(v => Health.Value = v);
         this.ObserveEveryValueChanged(_ => syncEther).Subscribe(v => Ether.Value = v);

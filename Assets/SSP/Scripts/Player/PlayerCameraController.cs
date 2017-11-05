@@ -7,17 +7,22 @@ using System.Linq;
 
 public class PlayerCameraController : MonoBehaviour
 {
+    [SerializeField] private PlayerInputManager pim;
+    [SerializeField] private float cameraRotationSpeed = 100;
+    [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
+
+    private GameObject currentCamera;
     private GameObject mainCamera;
     private GameObject target;
-    [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
     private Vector3 temp_offset;
-    [SerializeField] private float cameraRotationSpeed = 100;
-    [SerializeField] private PlayerInputManager pim;
+    private bool isScoped;
 
     private void Start()
     {
         if (!GetComponent<PlayerModel>().isLocalPlayerCharacter) return;
 
+        mainCamera = Camera.main.gameObject;
+        currentCamera = mainCamera;
         SetTarget(this.gameObject);
         temp_offset = offset;
         LookPlayer();
@@ -73,12 +78,15 @@ public class PlayerCameraController : MonoBehaviour
     private GameObject Camere()
     {
         if (mainCamera != null) return mainCamera;
-        mainCamera = GameObject.FindWithTag("MainCamera");
+        mainCamera = Camera.main.gameObject;
         return mainCamera;
     }
 
-    public void SwitchCamera(bool toScope,Camera _scope){
-        _scope.gameObject.SetActive(toScope);
-        Camere().SetActive(!toScope);
+    public void SwitchCamera(bool _isScoped, GameObject scopeCamera)
+    {
+        isScoped = _isScoped;
+        scopeCamera.SetActive(_isScoped);
+        Camere().SetActive(!_isScoped);
+        currentCamera = isScoped ? scopeCamera : mainCamera;
     }
 }

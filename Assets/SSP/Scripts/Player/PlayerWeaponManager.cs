@@ -28,19 +28,19 @@ public class PlayerWeaponManager : NetworkBehaviour
                 weapon.NormalAttackLong(input);
             });
 
+        pim.ScopeButtonShort
+           .Where(input => input)
+           .Where(_ => weapon != null)
+           .Subscribe(_ =>
+           {
+               weapon.SwitchScope();
+           });
+
         pim.ScopeButtonLong
             .Where(_ => weapon != null)
             .Subscribe(input =>
             {
                 weapon.LongPressScope(input);
-            });
-
-        pim.ScopeButtonDown
-           .Where(input => input)
-           .Where(_ => weapon != null)
-           .Subscribe(_ =>
-            {
-                weapon.SwitchScope();
             });
     }
 }
