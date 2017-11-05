@@ -113,8 +113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bat
+  type: 2
   damageAmount: 100
   isOwnerLocalPlayer: 0
+  image: {fileID: 0}
   playerId: 0
   teamId: 0
 --- !u!114 &114506838946006212
@@ -160,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoriableType: 2
-  canInteract: 1
+  model: {fileID: 0}
+  canInteract: 0
   weaponPos: {x: -0.0659, y: 0.5034, z: 0}
   weaponRot: {x: 0, y: 0, z: 0}
   hand: 1

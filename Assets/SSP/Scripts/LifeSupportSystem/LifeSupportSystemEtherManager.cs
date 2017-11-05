@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -8,15 +7,16 @@ using UnityEngine.Networking;
 
 public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, IDamageable
 {
-    [SerializeField] private float etherReductionRate;
-    [SerializeField] private float etherChargeValue;
+    private LifeSupportSystemModel lifeSupportSystemModel;
 
+    [SerializeField] private float etherReductionRate;           // 毎秒減少するエーテル量
+    [SerializeField] private float etherChargeValue;              // インタラクトアクション1回で渡されるエーテル量
+    [SerializeField] private float emittingEtherCoefficient;    //攻撃で放出されるエーテル量(攻撃力にかける係数)
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
-    [SerializeField] private float emittingEtherCoefficient;
+    [SerializeField] private Vector3 emitDirectionRange;
 
     private Subject<int> deathStream = new Subject<int>();
-    private LifeSupportSystemModel lifeSupportSystemModel;
 
     public void Init()
     {
@@ -26,22 +26,25 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
             .Where(v => v <= 0)
             .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.GetTeamId()));
 
-        Observable.Interval(TimeSpan.FromMilliseconds(1000))
-            .Where(_ => lifeSupportSystemModel.ether.Value > 0)
-            .Subscribe(_ =>
-            {
-                ReduceEther(etherReductionRate);
-            }).AddTo(this);
+        if (isServer)
+        {
+            Observable.Interval(System.TimeSpan.FromMilliseconds(1000))
+                .Where(_ => lifeSupportSystemModel.ether.Value > 0)
+                .Subscribe(_ =>
+                {
+                    ReduceEther(etherReductionRate);
+                }).AddTo(this);
+        }
     }
 
     private void ReduceEther(float ether)
     {
-        lifeSupportSystemModel.ether.Value -= ether;
+        lifeSupportSystemModel.syncEther -= ether;
     }
 
     private void AcquireEther(float ether)
     {
-        lifeSupportSystemModel.ether.Value += ether;
+        lifeSupportSystemModel.syncEther += ether;
     }
 
     public void Interact(PlayerManager playerManager)
@@ -67,32 +70,39 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
         return lifeSupportSystemModel.ether.Value > 0;
     }
 
-    public void SetDamage(Damage damage)
-    {
-        if (damage.teamId == lifeSupportSystemModel.GetTeamId()) return;
-
-        float LSSemithigh = 0.0f;
-        float emittingEtherAmount = damage.amount * emittingEtherCoefficient;
-        ReduceEther(emittingEtherAmount);
-        var singleEtherValue = damage.amount;
-
-        while (emittingEtherAmount > 0)
-        {
-            var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * LSSemithigh, transform.rotation);
-
-            if (emittingEtherAmount < singleEtherValue) singleEtherValue = emittingEtherAmount;
-
-            emittingEtherAmount -= singleEtherValue;
-            emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
-            LSSemithigh += emittedEtherObject.transform.localScale.y;
-
-            var emitDirestion = Vector3.up + new Vector3(UnityEngine.Random.Range(-emitPower, emitPower), 0, UnityEngine.Random.Range(-emitPower, emitPower));
-            emittedEtherObject.GetComponent<Rigidbody>().AddForce(emitDirestion, ForceMode.Impulse);
-        }
-    }
-
     public Subject<int> GetDeathStream()
     {
         return deathStream;
+    }
+
+    public void SetDamage(Damage damage)
+    {
+        if (damage.teamId == lifeSupportSystemModel.GetTeamId()) return;
+        var emitEtherValue = damage.amount * emittingEtherCoefficient;
+        CmdGenerateEtherObject(emitEtherValue);
+        ReduceEther(emitEtherValue);
+    }
+
+    [Command]
+    private void CmdGenerateEtherObject(float emitEtherValue)
+    {
+        float emitHeight = transform.localScale.y / 2;
+        var singleEtherValue = emitEtherValue / 10;
+        while (emitEtherValue > 0)
+        {
+            var emittedEtherObject = Instantiate(etherObject, transform.position + Vector3.up * emitHeight, transform.rotation);
+
+            if (emitEtherValue < singleEtherValue) singleEtherValue = emitEtherValue;
+            emitEtherValue -= singleEtherValue;
+            emittedEtherObject.GetComponent<EtherObject>().Init(singleEtherValue);
+
+            emitHeight += emittedEtherObject.transform.localScale.y;
+            var emitDirection = new Vector3(
+                Random.Range(-emitDirectionRange.x, emitDirectionRange.x),
+                Random.Range(emitDirectionRange.y / 2, emitDirectionRange.y),
+                Random.Range(-emitDirectionRange.z, emitDirectionRange.z)).normalized;
+            emittedEtherObject.GetComponent<Rigidbody>().velocity = emitDirection * emitPower;
+            NetworkServer.SpawnWithClientAuthority(emittedEtherObject, NetworkServer.connections[0]);
+        }
     }
 }
