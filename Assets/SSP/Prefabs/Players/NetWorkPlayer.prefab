@@ -2450,7 +2450,6 @@ GameObject:
   - component: {fileID: 114333101000929388}
   - component: {fileID: 114660740567837552}
   - component: {fileID: 114965255933758764}
-  - component: {fileID: 114453876016800092}
   - component: {fileID: 114516493038036196}
   - component: {fileID: 114454726837417924}
   - component: {fileID: 114636296208160710}
@@ -5482,19 +5481,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114453876016800092
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914480152885886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15dfbe5673656694986991cb256a5d10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avoidStartTime: 0.1
-  avoidDuration: 0.5
 --- !u!114 &114454726837417924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5731,13 +5717,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e52a2dd2cfbc94880b48e9a25f3112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkAnimator: {fileID: 114710198958959678}
+  animator: {fileID: 95268588012316118}
   rb: {fileID: 54482828738837568}
   model: {fileID: 114774096608856190}
   locomotor: {fileID: 114660740567837552}
   healthManager: {fileID: 114974365051159386}
   inventory: {fileID: 114077097428542020}
-  avoider: {fileID: 114453876016800092}
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
