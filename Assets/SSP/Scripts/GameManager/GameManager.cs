@@ -12,6 +12,7 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
+    [SerializeField] private KillLogManager killLogManager;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -87,6 +88,7 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     void RpcPrepareGame()
     {
+        killLogManager.Init();
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         battleUI.Init(clientPlayersManager.GetLocalPlayer(), clientPlayersManager);

@@ -29,7 +29,7 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
 
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
-            recentAttackerId = damage.playerId;
+            RpcSyncRecentAttackerID(damage.playerId);
             playerModel.syncHealth -= damage.amount;
         }
     }
@@ -43,5 +43,11 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     {
         playerModel.Init();
         deathStream.OnNext(false);
+    }
+
+    [ClientRpc]
+    void RpcSyncRecentAttackerID(int attackerID)
+    {
+        recentAttackerId = attackerID;
     }
 }
