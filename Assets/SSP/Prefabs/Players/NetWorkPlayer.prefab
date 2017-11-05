@@ -5309,7 +5309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1, z: -3}
+  offset: {x: 0, y: 1.8, z: -3}
   cameraRotationSpeed: 100
   pim: {fileID: 114134000520712444}
 --- !u!114 &114082969731735372
@@ -5606,7 +5606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 95268588012316118}
-  m_ParameterSendBits: 8191
+  m_ParameterSendBits: 16383
   param0: 
   param1: 
   param2: 

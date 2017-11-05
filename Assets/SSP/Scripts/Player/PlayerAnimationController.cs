@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerAnimationController : NetworkBehaviour
+public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
@@ -18,6 +18,7 @@ public class PlayerAnimationController : NetworkBehaviour
 
     private void Start()
     {
+        if (!model.isLocalPlayerCharacter) return;
         this.UpdateAsObservable()
            .Subscribe(_ => state = animator.GetCurrentAnimatorStateInfo(0));
 
@@ -34,10 +35,10 @@ public class PlayerAnimationController : NetworkBehaviour
             });
 
         healthManager.GetDeathStream()
-            .Where(_ => isLocalPlayer)
             .Subscribe(isdeath =>
             {
-                CmdStartDeathAnimation(isdeath);
+                var trigger = isdeath ? "Death" : "Revive";
+                animator.SetTrigger(trigger);
             });
 
         this.ObserveEveryValueChanged(_ => inventory.currentWeaponType)
@@ -69,18 +70,4 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         animator.SetTrigger("Pickup");
     }
-
-    #region Death
-    [Command]
-    private void CmdStartDeathAnimation(bool isdeath)
-    {
-        RpcStartDeathAnimation(isdeath);
-    }
-
-    [ClientRpc]
-    private void RpcStartDeathAnimation(bool isdeath)
-    {
-        animator.SetBool("Death", isdeath);
-    }
-    #endregion
 }
