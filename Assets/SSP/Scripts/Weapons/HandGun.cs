@@ -27,7 +27,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
         pm = playerModel;
-        pcc = pm.gameObject.GetComponent<PlayerCameraController>();
+        pcc = pm.pcc;
         scope.gameObject.SetActive(false);
 
         this.FixedUpdateAsObservable()
