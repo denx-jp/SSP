@@ -22,11 +22,12 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
     {
         foreach (var lss in LifeSupportSystemObjects)
             InitSpawnPoints(lss);
+
+        SetLSS_SpawnPoints();
     }
 
     void InitSpawnPoints(Transform lss)
     {
-        ///var teamId = lss.GetComponent<LifeSupportSystemModel>().GetTeamId();
         var spawnPoints = new List<Transform>();
 
         foreach (Transform spawnPoint in lss)
