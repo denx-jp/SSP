@@ -15,7 +15,7 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
         spawnPointsDic = new Dictionary<Transform, List<Transform>>();
 
         this.ObserveEveryValueChanged(_ => distance)
-            .Subscribe(v => SetLSS_SpawnPoints());
+            .Subscribe(v => SetSpawnPoints());
     }
 
     public void Init()
@@ -23,7 +23,7 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
         foreach (var lss in LifeSupportSystemObjects)
             InitSpawnPoints(lss);
 
-        SetLSS_SpawnPoints();
+        SetSpawnPoints();
     }
 
     void InitSpawnPoints(Transform lss)
@@ -36,7 +36,7 @@ public class PlayersSpawnAroundLSSManager : MonoBehaviour
         spawnPointsDic.Add(lss,spawnPoints);
     }
 
-    private void SetLSS_SpawnPoints()
+    private void SetSpawnPoints()
     {
         foreach(var spawnPositionList in spawnPointsDic)
             CalcSpawnPoints(spawnPositionList);
