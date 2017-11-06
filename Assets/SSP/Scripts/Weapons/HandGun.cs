@@ -9,7 +9,7 @@ public class HandGun : NetworkBehaviour, IWeapon
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
-    private bool canAttack = true;
+    private bool isReloaded = true;
     private bool autoShoot = false;
     private float shootTime = 0;
     private Transform cameraTransform;
@@ -17,6 +17,12 @@ public class HandGun : NetworkBehaviour, IWeapon
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
     private bool isScoped = false;
+
+    private void OnEnable()
+    {
+        if (pm != null && pm.MoveMode == MoveMode.battle)
+            isScoped = true;
+    }
 
     public void Init(PlayerModel playerModel)
     {
@@ -28,14 +34,14 @@ public class HandGun : NetworkBehaviour, IWeapon
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
-            .Where(_ => !canAttack)
+            .Where(_ => !isReloaded)
             .Subscribe(_ =>
             {
                 if (Time.time - shootTime >= model.coolTime)
-                    canAttack = true;
+                    isReloaded = true;
             });
 
-        this.ObserveEveryValueChanged(_ => canAttack)
+        this.ObserveEveryValueChanged(_ => isReloaded)
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
@@ -43,9 +49,9 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     public void NormalAttack()
     {
-        if (canAttack && isScoped)
+        if (isReloaded && isScoped)
         {
-            canAttack = false;
+            isReloaded = false;
             shootTime = Time.time;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
