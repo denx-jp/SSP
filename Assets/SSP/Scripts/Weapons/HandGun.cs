@@ -24,6 +24,11 @@ public class HandGun : NetworkBehaviour, IWeapon
             isScoped = true;
     }
 
+    private void OnDisable()
+    {
+        isScoped = false;
+    }
+
     public void Init(PlayerModel playerModel)
     {
         model.playerId = playerModel.playerId;
