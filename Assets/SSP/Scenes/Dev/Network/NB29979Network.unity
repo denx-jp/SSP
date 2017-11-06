@@ -456,6 +456,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: LSSTransforms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4827270185244938, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -542,12 +547,22 @@ Prefab:
         type: 2}
       propertyPath: playersSpawnManager
       value: 
-      objectReference: {fileID: 2128352956}
+      objectReference: {fileID: 0}
     - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: playersSpawnAroundLSSManager
       value: 
-      objectReference: {fileID: 2128352956}
+      objectReference: {fileID: 0}
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: LSSTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 1105319240}
+    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: LSSTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 1199875663}
     m_RemovedComponents:
     - {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
@@ -1932,23 +1947,3 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2034459251}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!1 &2128352949 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
-    type: 2}
-  m_PrefabInternal: {fileID: 73757729}
---- !u!114 &2128352956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2128352949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e21a78f8dac85284f9b37ac764f72a69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LifeSupportSystemObjects:
-  - {fileID: 1105319240}
-  - {fileID: 1199875663}
-  distance: 3.08
