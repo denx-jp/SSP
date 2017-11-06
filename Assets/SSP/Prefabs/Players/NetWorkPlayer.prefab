@@ -2459,6 +2459,7 @@ GameObject:
   - component: {fileID: 114084645704703300}
   - component: {fileID: 114856490275401810}
   - component: {fileID: 114082969731735372}
+  - component: {fileID: 114965840832500278}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -5710,6 +5711,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114965840832500278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07bb126d5d25d894e952d4fc60fb02dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeSupportSystemTransformList: []
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
