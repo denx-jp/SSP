@@ -21,13 +21,13 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
         if (LSSAssignPointObjectList.Count >= 2)
         {
             foreach(var LSSTransform in LSSTransforms)
-                SetPoint(LSSTransform);
+                SetLSSStartPosition(LSSTransform);
 
             UpdateLSSPositionDic();
         }
     }
 
-    void SetPoint(Transform _LSSTransform)
+    void SetLSSStartPosition(Transform _LSSTransform)
     {
         int candidatePoint = UnityEngine.Random.Range(0, LSSAssignPointObjectList.Count - 1);
 
