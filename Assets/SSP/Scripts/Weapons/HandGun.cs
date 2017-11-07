@@ -29,13 +29,13 @@ public class HandGun : NetworkBehaviour, IWeapon
         isScoped = false;
     }
 
-    public void Init(PlayerModel playerModel)
+    public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerModel.playerId;
-        model.teamId = playerModel.teamId;
-        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
+        model.playerId = playerManager.playerModel.playerId;
+        model.teamId = playerManager.playerModel.teamId;
+        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
-        pm = playerModel;
+        pm = playerManager.playerModel;
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)

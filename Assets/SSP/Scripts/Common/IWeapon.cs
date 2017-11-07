@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Init(PlayerModel playerModel);
+    void Init(PlayerManager playerManager);
     void NormalAttack();
     void NormalAttackLong(bool active);
     void LongPressScope(bool active);

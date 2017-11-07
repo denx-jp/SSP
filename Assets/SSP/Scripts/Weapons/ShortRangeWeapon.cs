@@ -12,12 +12,12 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     private bool detectable;
     private PlayerAnimationController animationController;
 
-    public void Init(PlayerModel playerModel)
+    public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerModel.playerId;
-        model.teamId = playerModel.teamId;
-        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
-        animationController = playerModel.gameObject.GetComponent<PlayerAnimationController>();
+        model.playerId = playerManager.playerModel.playerId;
+        model.teamId = playerManager.playerModel.teamId;
+        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
+        animationController = playerManager.gameObject.GetComponent<PlayerAnimationController>();
 
         //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
         if (model.isOwnerLocalPlayer)

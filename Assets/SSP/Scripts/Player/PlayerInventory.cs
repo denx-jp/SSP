@@ -6,7 +6,7 @@ using UniRx;
 public enum InventoryType { HandGun, LongRangeWeapon, ShortRangeWeapon, Gimmick1, Gimmick2 }
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private PlayerModel playerModel;
+    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlayerWeaponManager weaponManager;
 
     public ReactiveDictionary<InventoryType, InventoryWeapon> weapons { get; private set; } = new ReactiveDictionary<InventoryType, InventoryWeapon>();
@@ -16,7 +16,7 @@ public class PlayerInventory : MonoBehaviour
     public void SetWeapon(InventoryType type, GameObject weaponObj)
     {
         var inventoryWeapon = new InventoryWeapon(weaponObj);
-        inventoryWeapon.weapon.Init(playerModel);
+        inventoryWeapon.weapon.Init(playerManager);
         inventoryWeapon.gameObject.SetActive(false);
         weapons[type] = inventoryWeapon;
     }
