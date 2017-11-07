@@ -112,8 +112,8 @@ public class GameManager : NetworkBehaviour
     void RpcBattleStart()
     {
         isGameStarting = true;
-        team1LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
-        team2LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
+        team1LSS.Init();
+        team2LSS.Init();
         message.text = "Battle Start";
     }
 
