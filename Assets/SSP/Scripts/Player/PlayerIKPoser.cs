@@ -4,13 +4,15 @@ using UnityEngine;
 using RootMotion.FinalIK;
 using UniRx;
 using UniRx.Triggers;
+using RootMotion.Demos;
 
 [RequireComponent(typeof(AimIK))]
 [RequireComponent(typeof(FullBodyBipedIK))]
-public class PlyaerIKPoser : MonoBehaviour
+public class PlayerIKPoser : MonoBehaviour
 {
     private AimIK aim;
     private FullBodyBipedIK ik;
+    private PlayerModel playerModel;
 
     [SerializeField, Range(0f, 1f)] private float headLookWeight = 1f;
     [SerializeField] private Vector3 gunHoldOffset;
@@ -20,21 +22,25 @@ public class PlyaerIKPoser : MonoBehaviour
     private Vector3 headLookAxis;
     private Vector3 leftHandPosRelToRightHand;
     private Quaternion leftHandRotRelToRightHand;
-    private Transform aimTarget;
+    private Vector3 aimTarget;
     private Quaternion rightHandRotation;
 
     private void Start()
     {
         aim = GetComponent<AimIK>();
         ik = GetComponent<FullBodyBipedIK>();
+        playerModel = GetComponent<PlayerModel>();
         ik.solver.OnPreRead += OnPreRead;
-
         aim.enabled = false;
         ik.enabled = false;
 
         headLookAxis = ik.references.head.InverseTransformVector(ik.references.root.forward);
-        Debug.Log(aim.solver.transform);
-        this.UpdateAsObservable()
+
+        var cam = Camera.main.transform;
+
+        this.LateUpdateAsObservable()
+            .Where(_ => aim.solver.transform != null)
+            .Where(_ => playerModel.MoveMode == MoveMode.battle)
             .Subscribe(_ =>
             {
                 // IK手続き、カメラが移動/回転した後にこれが更新されていることを確認する文字の現在のポーズから何かをサンプリングする
@@ -47,13 +53,18 @@ public class PlyaerIKPoser : MonoBehaviour
                 FBBIK();
 
                 // Rotate the head to look at the aim target
-                HeadLookAt(aimTarget.position);
+                HeadLookAt(aimTarget);
             });
     }
 
-    public void SetTarget(Transform _target)
+    public void SetAimTransform(Transform _transform)
     {
-        aimTarget = _target;
+        aim.solver.transform = _transform;
+    }
+
+    public void SetTarget(Vector3 _targetPos)
+    {
+        aimTarget = _targetPos;
     }
 
     private void Read()
@@ -66,7 +77,7 @@ public class PlyaerIKPoser : MonoBehaviour
     private void AimIK()
     {
         // Set AimIK target position and update
-        aim.solver.IKPosition = aimTarget.position;
+        aim.solver.IKPosition = aimTarget;
         aim.solver.Update(); // Update AimIK
     }
 

@@ -15,12 +15,13 @@ public class HandGun : NetworkBehaviour, IWeapon
     private Transform cameraTransform;
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
-    private PlayerModel pm;
+    private PlayerModel playerModel;
+    private PlayerIKPoser ikPoser;
     private bool isScoped = false;
 
     private void OnEnable()
     {
-        if (pm != null && pm.MoveMode == MoveMode.battle)
+        if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
     }
 
@@ -35,7 +36,9 @@ public class HandGun : NetworkBehaviour, IWeapon
         model.teamId = playerManager.playerModel.teamId;
         model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
-        pm = playerManager.playerModel;
+        playerModel = playerManager.playerModel;
+        ikPoser = playerManager.playerIKPoser;
+        ikPoser.SetAimTransform(muzzle.transform);
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -50,6 +53,23 @@ public class HandGun : NetworkBehaviour, IWeapon
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
+
+
+
+        RaycastHit IKHit;
+        this.UpdateAsObservable()
+            .Where(_ => playerModel.MoveMode == MoveMode.battle)
+            .Subscribe(_ =>
+            {
+                if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out IKHit, 1000, layerMask))
+                {
+                    ikPoser.SetTarget(IKHit.point);
+                }
+                else
+                {
+                    ikPoser.SetTarget(cameraTransform.position + (cameraTransform.forward * 10));
+                }
+            });
     }
 
     public void NormalAttack()
@@ -83,7 +103,7 @@ public class HandGun : NetworkBehaviour, IWeapon
             bulletInstance.transform.rotation = uncastableDirection;
 
         bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * model.bulletVelocity;
-        NetworkServer.SpawnWithClientAuthority(bulletInstance.gameObject, pm.connectionToClient);
+        NetworkServer.SpawnWithClientAuthority(bulletInstance.gameObject, playerModel.connectionToClient);
         RpcShoot(bulletInstance);
     }
 
