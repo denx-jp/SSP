@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1694645179068416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -125,10 +125,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   etherReductionRate: 10
   etherChargeValue: 10
+  emittingEtherCoefficient: 10
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
     type: 2}
   emitPower: 15
-  emittingEtherCoefficient: 10
+  emitDirectionRange: {x: 0, y: 0, z: 0}
 --- !u!114 &114239987218241372
 MonoBehaviour:
   m_ObjectHideFlags: 1

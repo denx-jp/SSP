@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114995220335104442}
   - component: {fileID: 114968024861136860}
   - component: {fileID: 114974360778349634}
+  - component: {fileID: 114718046599258146}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientPlayersManager: {fileID: 114995220335104442}
   gameJudger: {fileID: 114968024861136860}
+  killLogManager: {fileID: 114718046599258146}
   message: {fileID: 0}
   StartPanel: {fileID: 0}
   BattlePanel: {fileID: 0}
@@ -66,7 +68,6 @@ MonoBehaviour:
   startDelay: 3
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
-  isGameStarting: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +100,17 @@ MonoBehaviour:
     i15: 235
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114718046599258146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64227e3d351f804090454699f707f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114968024861136860
 MonoBehaviour:
   m_ObjectHideFlags: 1
