@@ -24,7 +24,7 @@ public class EtherPopper : NetworkBehaviour
             float timeCounter = 0.0f;
             Observable.Interval(TimeSpan.FromSeconds(popInterval)).TakeWhile(_ => timeCounter <= popDuration).Subscribe(_ =>
             {
-                timeCounter++;
+                timeCounter += popInterval;
                 CmdSpawnEtherObject();
             }).AddTo(this);
         }
