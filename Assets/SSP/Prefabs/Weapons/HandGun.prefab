@@ -280,8 +280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114476576303947814}
   canInteract: 0
-  weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
-  weaponRot: {x: 0, y: 90, z: 0}
+  weaponPos: {x: -0.0685, y: 0.00055, z: -0.0039}
+  weaponRot: {x: -5.38, y: 90.23, z: 6.833}
   hand: 1
 --- !u!114 &114930993466919184
 MonoBehaviour:
