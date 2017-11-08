@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UniRx;
+using UniRx.Triggers;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -11,19 +13,15 @@ public class PlayerManager : NetworkBehaviour
     public PlayerInputManager playerInputManager;
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
+    public PlayerInventory playerInventory;
     public PlayerInventoryManager playerInventoryManager;
-    
+
     private void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
+        ClientPlayersManager.AddPlayer(this);
         if (isLocalPlayer)
         {
             playerModel.isLocalPlayerCharacter = true;
-            
-            playerInputManager.enabled = true;
-            playerCameraController.enabled = true;
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
         }
@@ -39,5 +37,4 @@ public class PlayerManager : NetworkBehaviour
         playerCameraController = GetComponent<PlayerCameraController>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
     }
-
 }

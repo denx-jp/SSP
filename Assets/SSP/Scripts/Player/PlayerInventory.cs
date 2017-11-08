@@ -6,45 +6,38 @@ using UniRx;
 public enum InventoryType { HandGun, LongRangeWeapon, ShortRangeWeapon, Gimmick1, Gimmick2 }
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerWeaponManager weaponManager;
 
-    public Dictionary<InventoryType, InventoryWeapon> weapons { get; private set; }
+    public ReactiveDictionary<InventoryType, InventoryWeapon> weapons { get; private set; } = new ReactiveDictionary<InventoryType, InventoryWeapon>();
+    private int inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
     public InventoryType currentWeaponType { get; private set; }
-    
-    private int inventoryTypeCount = 0;
 
-    public void Init()
+    public void SetWeapon(InventoryType type, GameObject weaponObj)
     {
-        weapons = new Dictionary<InventoryType, InventoryWeapon>();
-        inventoryTypeCount = Enum.GetNames(typeof(InventoryType)).Length;
-    }
-
-    public void AddWeapon(InventoryType type, InventoryWeapon weapon)
-    {
-        if (weapons.ContainsKey(type))
-            weapons[type] = weapon;
-        else
-            weapons.Add(type, weapon);
-    }
-
-    public void EquipWeapon(InventoryType nextWeaponType)
-    {
-        //武器を持ち替えるので、持ち帰る前の武器は非表示に
-        if (weapons.ContainsKey(currentWeaponType))
-            weapons[currentWeaponType].gameObject.SetActive(false);
-
-        currentWeaponType = nextWeaponType;
-        weapons[nextWeaponType].gameObject.SetActive(true);
-        weaponManager.attacker = weapons[nextWeaponType].attacker;
+        var inventoryWeapon = new InventoryWeapon(weaponObj);
+        inventoryWeapon.weapon.Init(playerModel);
+        inventoryWeapon.gameObject.SetActive(false);
+        weapons[type] = inventoryWeapon;
     }
 
     public void ReleaseWeapon(InventoryType releaseWeaponType)
     {
-        if (weaponManager.attacker == weapons[releaseWeaponType].attacker)
-            weaponManager.attacker = null;
+        if (currentWeaponType == releaseWeaponType) weaponManager.weapon = null;
         weapons[releaseWeaponType].gameObject.transform.parent = null;
         weapons[releaseWeaponType].gameObject.GetComponent<InventoriableObject>().SetCanInteract(true);
         weapons[releaseWeaponType].gameObject.SetActive(true);
+    }
+
+    public void EquipWeapon(InventoryType nextWeaponType)
+    {
+        // 持ち帰る前の武器は非表示に
+        if (HasWeapon(currentWeaponType))
+            weapons[currentWeaponType].gameObject.SetActive(false);
+
+        currentWeaponType = nextWeaponType;
+        weapons[nextWeaponType].gameObject.SetActive(true);
+        weaponManager.weapon = weapons[nextWeaponType].weapon;
     }
 
     public InventoryType GetNextWeaponType()
@@ -54,8 +47,7 @@ public class PlayerInventory : MonoBehaviour
         {
             var nextIndex = currentIndex + i < inventoryTypeCount ? currentIndex + i : currentIndex + i - inventoryTypeCount;
             var nextType = (InventoryType)nextIndex;
-            if (weapons.ContainsKey(nextType))
-                return nextType;
+            if (HasWeapon(nextType)) return nextType;
         }
         return currentWeaponType;
     }
@@ -65,10 +57,9 @@ public class PlayerInventory : MonoBehaviour
         var currentIndex = (int)currentWeaponType;
         for (int i = 1; i <= inventoryTypeCount; i++)
         {
-            var previousIndex = currentIndex - i > 0 ? currentIndex - i : currentIndex - i + inventoryTypeCount;
+            var previousIndex = currentIndex - i >= 0 ? currentIndex - i : currentIndex - i + inventoryTypeCount;
             var previousType = (InventoryType)previousIndex;
-            if (weapons.ContainsKey(previousType))
-                return previousType;
+            if (HasWeapon(previousType)) return previousType;
         }
         return currentWeaponType;
     }
@@ -85,4 +76,8 @@ public class PlayerInventory : MonoBehaviour
             currentWeaponType = InventoryType.Gimmick1;
     }
 
+    public bool HasWeapon(InventoryType type)
+    {
+        return weapons.ContainsKey(type);
+    }
 }

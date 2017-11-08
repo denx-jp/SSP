@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 using UniRx;
 using UniRx.Triggers;
 
-public class ShortRangeWeapon : NetworkBehaviour, IAttackable
+public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 {
     [SerializeField] WeaponModel model;
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
@@ -44,8 +44,19 @@ public class ShortRangeWeapon : NetworkBehaviour, IAttackable
         CmdAttack();
     }
 
-    public void SwitchScope(){
-        
+    public void SwitchScope()
+    {
+
+    }
+
+    public void NormalAttackLong(bool active)
+    {
+
+    }
+
+    public void LongPressScope(bool active)
+    {
+
     }
 
     [Command]

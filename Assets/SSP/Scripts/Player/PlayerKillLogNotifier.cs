@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.Networking;
 
-public class PlayerKillLogNotifier : MonoBehaviour
+public class PlayerKillLogNotifier : NetworkBehaviour
 {
     private PlayerHealthManager playerHealthManager;
-    private Subject<KeyValuePair<int, int>> killLogStream;
+    private Subject<KeyValuePair<int, int>> killLogStream = new Subject<KeyValuePair<int, int>>();
+    private int myId;
 
     private void Start()
     {
-        killLogStream = new Subject<KeyValuePair<int, int>>();
-        GetPlayerHealthManager().GetDeathStream()
+        playerHealthManager = GetComponent<PlayerHealthManager>();
+        myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+
+        playerHealthManager.GetDeathStream()
             .Subscribe(_ =>
             {
-                var myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
-                killLogStream.OnNext(new KeyValuePair<int, int>(GetPlayerHealthManager().recentAttackerId, myId));
+                if (isLocalPlayer)
+                {
+                    CmdPlayerKilled();
+                }
             });
     }
 
@@ -24,10 +30,15 @@ public class PlayerKillLogNotifier : MonoBehaviour
         return killLogStream;
     }
 
-    private PlayerHealthManager GetPlayerHealthManager()
+    [Command]
+    void CmdPlayerKilled()
     {
-        if (playerHealthManager == null)
-            playerHealthManager = GetComponent<PlayerHealthManager>();
-        return playerHealthManager;
+        RpcPlayerKilled();
+    }
+
+    [ClientRpc]
+    void RpcPlayerKilled()
+    {
+        killLogStream.OnNext(new KeyValuePair<int, int>(playerHealthManager.recentAttackerId, myId));
     }
 }

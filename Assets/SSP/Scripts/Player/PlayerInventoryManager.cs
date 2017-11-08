@@ -7,17 +7,14 @@ using UniRx.Triggers;
 
 public class PlayerInventoryManager : NetworkBehaviour
 {
-    [SerializeField] private PlayerModel playerModel;
     [SerializeField] private PlayerInputManager pim;
-    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] public PlayerInventory inventory;
     [SerializeField] private GameObject handGunPrefab;
     public Transform rightHandTransform;
     public Transform leftHandTransform;
 
     void Start()
     {
-        inventory.Init();
-
         //ハンドガンは初期状態から所持。
         if (isLocalPlayer)
         {
@@ -26,7 +23,7 @@ public class PlayerInventoryManager : NetworkBehaviour
             if (isServer)
                 StartCoroutine(SetUpHandGun());
             else if (isClient)
-                CmdSetupHandGun();
+                CmdSetupDefaultWeapon();
         }
 
         pim.WeaponChange
@@ -35,54 +32,51 @@ public class PlayerInventoryManager : NetworkBehaviour
                 if (v < 0)
                 {
                     var nextWeaponType = inventory.GetNextWeaponType();
-                    inventory.EquipWeapon(nextWeaponType);
+                    CmdChangeWeapon((int)nextWeaponType);
                 }
                 else if (v > 0)
                 {
                     var previousWeaponType = inventory.GetPreviousWeaponType();
-                    inventory.EquipWeapon(previousWeaponType);
+                    CmdChangeWeapon((int)previousWeaponType);
                 }
             });
     }
 
-    public void SetWeaponToInventory(GameObject go, InventoriableType inventoriableType)
+    public void SetWeaponToInventory(GameObject go, WeaponType weaponType)
     {
-        var type = ConvertInventoriableTypeToInventoryType(inventoriableType);
-        if (inventory.weapons.ContainsKey(type))
+        var type = ConvertInventoriableTypeToInventoryType(weaponType);
+
+        //(拾ったギミック) -> Gimmick2 -> Gimmick1 -> (捨てる) という感じで、ギミックがいっぱいの時はギミックを押し出す。
+        if (type == InventoryType.Gimmick2 && inventory.HasWeapon(InventoryType.Gimmick2))
+            inventory.SwapGimmicks();
+
+        if (inventory.HasWeapon(type))
             inventory.ReleaseWeapon(type);
 
-        var weapon = new InventoryWeapon(go);
-        weapon.attacker.Init(playerModel);
-        weapon.gameObject.SetActive(false);
+        inventory.SetWeapon(type, go);
 
-        var invObject = weapon.gameObject.GetComponent<InventoriableObject>();
-        invObject.SetTransformOwnerHand(leftHandTransform, rightHandTransform);
-
-        inventory.AddWeapon(type, weapon);
-        //Gimmick1の時は入れ替える前Gimmick2だったもので、まだ所持しているので装備しなおさない
+        //装備中の武器と同種の武器がきた場合は装備しなおす。
+        //ただし、typeがGimmick1の時はSetされる前にGimmick2だったものであり、まだ所持しているので装備しなおさない。
         if (type == inventory.currentWeaponType && type != InventoryType.Gimmick1)
             inventory.EquipWeapon(type);
     }
 
-    #region enum変換
-    private Dictionary<InventoriableType, InventoryType> inventoryTypeMap
-        = new Dictionary<InventoriableType, InventoryType>()
+    #region InventoryType変換
+    private Dictionary<WeaponType, InventoryType> inventoryTypeMap
+        = new Dictionary<WeaponType, InventoryType>()
         {
-            {InventoriableType.HandGun, InventoryType.HandGun },
-            {InventoriableType.LongRangeWeapon, InventoryType.LongRangeWeapon },
-            {InventoriableType.ShortRangeWeapon,InventoryType.ShortRangeWeapon },
-            {InventoriableType.Gimmick, InventoryType.Gimmick1 }
+            {WeaponType.HandGun, InventoryType.HandGun },
+            {WeaponType.LongRangeWeapon, InventoryType.LongRangeWeapon },
+            {WeaponType.ShortRangeWeapon,InventoryType.ShortRangeWeapon },
+            {WeaponType.Gimmick, InventoryType.Gimmick1 }
         };
-    private InventoryType ConvertInventoriableTypeToInventoryType(InventoriableType inventoriableType)
+
+    public InventoryType ConvertInventoriableTypeToInventoryType(WeaponType weaponType)
     {
-        InventoryType type = inventoryTypeMap[inventoriableType];
-
-        //初回のみGimmick1に収納。以降はGimmick1を押し出すようにするため、G1とG2を入れ替えてからG2を返す。
+        InventoryType type = inventoryTypeMap[weaponType];
+        //Gimmick1に格納するのは最初にGimmickを拾ったときだけ。2回目以降はGimmick2のギミックをGimmick1に移動してGimmick2に新しいギミックを格納する
         if (type == InventoryType.Gimmick1)
-            inventoryTypeMap[InventoriableType.Gimmick] = InventoryType.Gimmick2;
-        if (type == InventoryType.Gimmick2 && inventory.weapons.ContainsKey(InventoryType.Gimmick2))
-            inventory.SwapGimmicks();
-
+            inventoryTypeMap[WeaponType.Gimmick] = InventoryType.Gimmick2;
         return type;
     }
     #endregion
@@ -92,31 +86,37 @@ public class PlayerInventoryManager : NetworkBehaviour
     {
         //ホストのみNetworkConnectionが確立される前にStartが呼び出されてしまうため、NetworkConnectionが確立するまで待つ。
         yield return this.UpdateAsObservable().FirstOrDefault(_ => connectionToClient.isReady).ToYieldInstruction();
-        CmdSetupHandGun();
+        CmdSetupDefaultWeapon();
     }
 
     [Command]
-    private void CmdSetupHandGun()
+    private void CmdSetupDefaultWeapon()
     {
         var handGunObj = Instantiate(handGunPrefab);
         NetworkServer.SpawnWithClientAuthority(handGunObj, connectionToClient);
-        RpcSetupHandGun(handGunObj.GetComponent<NetworkIdentity>().netId);
+        RpcAssignPlayerToDefaultWeapon(handGunObj.GetComponent<NetworkIdentity>().netId);
     }
 
     [ClientRpc]
-    private void RpcSetupHandGun(NetworkInstanceId instanceId)
+    private void RpcAssignPlayerToDefaultWeapon(NetworkInstanceId instanceId)
     {
         var weapon = ClientScene.FindLocalObject(instanceId);
         var invObj = weapon.GetComponent<InventoriableObject>();
         invObj.ownerPlayerId = GetComponent<NetworkIdentity>().netId;
-        SetDefaultWeapon(weapon, invObj.inventoriableType);
+    }
+    #endregion
+
+    #region 武器持ち替え処理
+    [Command]
+    void CmdChangeWeapon(int inventoryTypeIndex)
+    {
+        RpcChangeWeapon(inventoryTypeIndex);
     }
 
-    public void SetDefaultWeapon(GameObject weapon, InventoriableType type)
+    [ClientRpc]
+    void RpcChangeWeapon(int inventoryTypeIndex)
     {
-        SetWeaponToInventory(weapon, type);
-        var inventoryType = ConvertInventoriableTypeToInventoryType(type);
-        inventory.EquipWeapon(inventoryType);
+        inventory.EquipWeapon((InventoryType)inventoryTypeIndex);
     }
     #endregion
 }
