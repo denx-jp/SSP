@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114968024861136860}
   - component: {fileID: 114974360778349634}
   - component: {fileID: 114718046599258146}
+  - component: {fileID: 114490288624165420}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -59,6 +60,7 @@ MonoBehaviour:
   clientPlayersManager: {fileID: 114995220335104442}
   gameJudger: {fileID: 114968024861136860}
   killLogManager: {fileID: 114718046599258146}
+  etherPopper: {fileID: 114490288624165420}
   message: {fileID: 0}
   StartPanel: {fileID: 0}
   BattlePanel: {fileID: 0}
@@ -100,6 +102,21 @@ MonoBehaviour:
     i15: 235
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114490288624165420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41dc1fe44f0ede41943c6b9f0f70b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ether: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3, type: 2}
+  popInterval: 1
+  popDuration: 180
+  initEtherValue: 10
 --- !u!114 &114718046599258146
 MonoBehaviour:
   m_ObjectHideFlags: 1

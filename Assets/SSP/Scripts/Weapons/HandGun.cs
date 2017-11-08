@@ -20,6 +20,8 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     public void Init(PlayerModel playerModel)
     {
+        Debug.Log(model);
+        Debug.Log(playerModel);
         model.playerId = playerModel.playerId;
         model.teamId = playerModel.teamId;
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;

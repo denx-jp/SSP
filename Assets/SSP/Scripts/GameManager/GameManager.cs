@@ -13,6 +13,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
+    [SerializeField] private EtherPopper etherPopper;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -93,7 +94,6 @@ public class GameManager : NetworkBehaviour
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();
         var lss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
-        Debug.LogError(lss.gameObject.name);
         battleUI.Init(player, lss.GetComponent<LifeSupportSystemModel>());
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
@@ -111,6 +111,7 @@ public class GameManager : NetworkBehaviour
     void RpcBattleStart()
     {
         isGameStarting = true;
+        etherPopper.Init();
         team1LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
         team2LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
         message.text = "Battle Start";
