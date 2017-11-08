@@ -17,6 +17,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel pm;
     private bool isScoped = false;
+    private AudioSource audioSource;
 
     public void Init(PlayerModel playerModel)
     {
@@ -27,6 +28,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         cameraTransform = Camera.main.transform;
         pm = playerModel;
+        audioSource = this.gameObject.GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -82,5 +84,6 @@ public class HandGun : NetworkBehaviour, IWeapon
     private void RpcShoot(GameObject bulletInstance)
     {
         bulletInstance.GetComponent<BulletManager>().Init(model);
+        audioSource.Play();
     }
 }
