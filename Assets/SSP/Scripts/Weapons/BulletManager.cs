@@ -23,16 +23,13 @@ public class BulletManager : NetworkBehaviour
                 .Where(col => !col.isTrigger)
                 .Subscribe(col =>
                 {
-                    var playerModel = col.gameObject.GetComponent<PlayerModel>();
-                    if (playerModel != null && playerModel.teamId != model.shootPlayerTeamId)
+                    var damageable = col.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
                     {
-                        var damageable = col.gameObject.GetComponent<IDamageable>();
-                        if (damageable != null)
-                        {
-                            var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
-                            CmdSetDamage(col.gameObject, damage);
-                        }
+                        var damage = new Damage(model.damageAmount, model.shootPlayerId, model.shootPlayerTeamId);
+                        CmdSetDamage(col.gameObject, damage);
                     }
+                    var playerModel = col.gameObject.GetComponent<PlayerModel>();
                     if (playerModel == null || playerModel.playerId != model.shootPlayerId)
                     {
                         GetComponent<NetworkTransform>().enabled = false;

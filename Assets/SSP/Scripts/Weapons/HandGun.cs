@@ -23,6 +23,7 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     private PlayerModel pm;
     private PlayerCameraController pcc;
+    private AudioSource audioSource;
 
     public void Init(PlayerModel playerModel)
     {
@@ -36,6 +37,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         mainCamera = Camera.main.gameObject;
         cameraTransform = mainCamera.transform;
         pcc = pm.gameObject.GetComponent<PlayerCameraController>();
+        audioSource = this.gameObject.GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -102,5 +104,6 @@ public class HandGun : NetworkBehaviour, IWeapon
     private void RpcShoot(GameObject bulletInstance)
     {
         bulletInstance.GetComponent<BulletManager>().Init(model);
+        audioSource.Play();
     }
 }

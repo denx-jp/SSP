@@ -13,14 +13,15 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
+    [SerializeField] private EtherPopper etherPopper;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
     [SerializeField] private GameObject BattlePanel;
     [SerializeField] private GameObject ResultPanel;
 
-    [SerializeField] private LifeSupportSystemEtherManager team1LSS;
-    [SerializeField] private LifeSupportSystemEtherManager team2LSS;
+    [SerializeField] private GameObject team1LSS;
+    [SerializeField] private GameObject team2LSS;
 
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private float endDelay = 3f;
@@ -91,7 +92,9 @@ public class GameManager : NetworkBehaviour
         killLogManager.Init();
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
-        battleUI.Init(clientPlayersManager.GetLocalPlayer(), clientPlayersManager);
+        var player = clientPlayersManager.GetLocalPlayer();
+        var lss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
+        battleUI.Init(player, lss.GetComponent<LifeSupportSystemModel>());
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
@@ -108,8 +111,9 @@ public class GameManager : NetworkBehaviour
     void RpcBattleStart()
     {
         isGameStarting = true;
-        team1LSS.Init();
-        team2LSS.Init();
+        etherPopper.Init();
+        team1LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
+        team2LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
         message.text = "Battle Start";
     }
 
