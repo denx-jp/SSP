@@ -826,12 +826,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 428.5
+      value: 429.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 241
+      value: 241.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
@@ -1239,6 +1239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 678728296}
   muzzle: {fileID: 217039583}
+  scopeCamera: {fileID: 0}
 --- !u!114 &678728296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1806,6 +1807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 882487385}
   muzzle: {fileID: 2143827415}
+  scopeCamera: {fileID: 0}
 --- !u!114 &882487385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2164,6 +2166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 1365662385}
   muzzle: {fileID: 710610339}
+  scopeCamera: {fileID: 0}
 --- !u!114 &1365662385
 MonoBehaviour:
   m_ObjectHideFlags: 0
