@@ -49,6 +49,10 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     }
 
+    public void SwitchScope(){
+        
+    }
+
     public void LongPressScope(bool active)
     {
 

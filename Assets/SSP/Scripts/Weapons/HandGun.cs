@@ -9,15 +9,19 @@ public class HandGun : NetworkBehaviour, IWeapon
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
+    [SerializeField] GameObject scopeCamera;
+    private GameObject mainCamera;
     private bool isReloaded = true;
     private bool autoShoot = false;
+    private bool isScoped = false;
     private float shootTime = 0;
     private Transform cameraTransform;
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
     private PlayerModel playerModel;
     private PlayerIKPoser ikPoser;
-    private bool isScoped = false;
+    private PlayerCameraController pcc;
+    private AudioSource audioSource;
 
     private void OnEnable()
     {
@@ -35,26 +39,28 @@ public class HandGun : NetworkBehaviour, IWeapon
         model.playerId = playerManager.playerModel.playerId;
         model.teamId = playerManager.playerModel.teamId;
         model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
-        cameraTransform = Camera.main.transform;
+
         playerModel = playerManager.playerModel;
         ikPoser = playerManager.playerIKPoser;
         ikPoser.SetAimTransform(muzzle.transform);
 
+        scopeCamera.gameObject.SetActive(false);
+        mainCamera = Camera.main.gameObject;
+        cameraTransform = mainCamera.transform;
+
+        pcc = playerManager.playerCameraController;
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
             .Where(_ => !isReloaded)
-            .Subscribe(_ =>
-            {
-                if (Time.time - shootTime >= model.coolTime)
-                    isReloaded = true;
-            });
+            .Where(_ => Time.time - shootTime >= model.coolTime)
+            .Subscribe(_ => isReloaded = true);
 
         this.ObserveEveryValueChanged(_ => isReloaded)
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
-
-
 
         RaycastHit IKHit;
         this.UpdateAsObservable()
@@ -72,6 +78,7 @@ public class HandGun : NetworkBehaviour, IWeapon
             });
     }
 
+    #region IWeaponメソッド
     public void NormalAttack()
     {
         if (isReloaded && isScoped)
@@ -80,6 +87,15 @@ public class HandGun : NetworkBehaviour, IWeapon
             shootTime = Time.time;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
+    }
+
+    public void SwitchScope()
+    {
+        var toScope = !scopeCamera.activeSelf;
+        pcc.SwitchCamera(toScope, scopeCamera);
+        // Rayを飛ばすカメラを切り替える
+        cameraTransform = toScope ? scopeCamera.transform : mainCamera.transform;
+        isScoped = scopeCamera.activeSelf;
     }
 
     public void NormalAttackLong(bool active)
@@ -92,6 +108,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     {
         isScoped = active;
     }
+    #endregion
 
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
@@ -111,5 +128,6 @@ public class HandGun : NetworkBehaviour, IWeapon
     private void RpcShoot(GameObject bulletInstance)
     {
         bulletInstance.GetComponent<BulletManager>().Init(model);
+        audioSource.Play();
     }
 }

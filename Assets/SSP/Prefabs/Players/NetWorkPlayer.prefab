@@ -5299,8 +5299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f876a68369079d74ca33d5a707e3e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 114220765609894058}
-  weaponManager: {fileID: 114516493038036196}
 --- !u!114 &114079660245503310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5312,9 +5310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.8, z: -3}
-  cameraRotationSpeed: 100
   pim: {fileID: 114134000520712444}
+  cameraRotationSpeed: 100
+  offset: {x: 0, y: 1.8, z: -3}
 --- !u!114 &114082969731735372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6153,8 +6151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 54482828738837568}
-  animator: {fileID: 95268588012316118}
   walkSpeed: 3
   runSpeed: 6
   rotateSpeed: 10

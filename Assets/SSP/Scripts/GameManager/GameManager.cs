@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +13,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
+    [SerializeField] private EtherPopper etherPopper;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -110,6 +111,7 @@ public class GameManager : NetworkBehaviour
     void RpcBattleStart()
     {
         isGameStarting = true;
+        etherPopper.Init();
         team1LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
         team2LSS.GetComponent<LifeSupportSystemEtherManager>().Init();
         message.text = "Battle Start";

@@ -5,12 +5,12 @@ using UniRx;
 
 public class PlayerLocomotor : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private Animator animator;
+    private Rigidbody rb;
+    private Animator animator;
 
     [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float runSpeed = 6f;
-    [SerializeField] private float rotateSpeed = 10f;
+    [SerializeField] private float rotateSpeed = 12f;
     [SerializeField] private float jumpSpeed = 6f;
     [SerializeField] private float gravityMultiplier = -9.8f;
     [SerializeField] private float groundCheckDistance = 1f;
@@ -19,6 +19,12 @@ public class PlayerLocomotor : MonoBehaviour
     [SerializeField] private float maxAngle = 90f;
 
     public bool isGrounded;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+    }
 
     private void FixedUpdate()
     {
