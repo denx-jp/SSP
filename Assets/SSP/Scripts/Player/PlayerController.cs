@@ -38,8 +38,5 @@ public class PlayerController : MonoBehaviour
 
         pim.DashButtonDown
             .Subscribe(v => isDashing = v && model.MoveMode == MoveMode.normal);  // 移動モード時のみダッシュ可能
-
-        pim.ScopeButtonLong
-            .Subscribe(v => model.MoveMode = v ? MoveMode.battle : MoveMode.normal);
     }
 }

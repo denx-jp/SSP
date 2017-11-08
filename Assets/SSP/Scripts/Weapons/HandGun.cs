@@ -96,6 +96,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         // Rayを飛ばすカメラを切り替える
         cameraTransform = toScope ? scopeCamera.transform : mainCamera.transform;
         isScoped = scopeCamera.activeSelf;
+        playerModel.MoveMode = isScoped ? MoveMode.battle : MoveMode.normal;
     }
 
     public void NormalAttackLong(bool active)
@@ -107,6 +108,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     public void LongPressScope(bool active)
     {
         isScoped = active;
+        playerModel.MoveMode = isScoped ? MoveMode.battle : MoveMode.normal;
     }
     #endregion
 
