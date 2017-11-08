@@ -52,7 +52,8 @@ public class EtherObject : NetworkBehaviour
         //targetを追従
         this.FixedUpdateAsObservable()
             .Where(_ => target != null)
-            .Subscribe(_ => rigid.AddForce((target.transform.position - transform.position) * trackingSpeed, ForceMode.Force));
+            .Select(v => target.transform.position + Vector3.up)    // target.transform.positionだと地面をはいずって追いかけてみっともない感じがするのでちょっと上を追従する
+            .Subscribe(v => rigid.AddForce((v - transform.position) * trackingSpeed, ForceMode.Force));
 
         //targetに衝突時に消滅・吸収
         this.OnCollisionEnterAsObservable()
