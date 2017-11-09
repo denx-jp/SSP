@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class PlayerSpawnAroundLSSAssigner : MonoBehaviour
 {
-    void SpawnAroundLSS()
+    public void SpawnAroundLSS(Transform _lifeSupportSystemTransform)
     {
         var teamId = gameObject.GetComponent<PlayerModel>().teamId;
+
+        gameObject.transform.position = _lifeSupportSystemTransform.position;
     }
 }
