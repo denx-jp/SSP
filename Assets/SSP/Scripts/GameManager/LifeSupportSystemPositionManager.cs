@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 
-public class LifeSupportSystemAssigner : NetworkBehaviour
+public class LifeSupportSystemPositionManager : NetworkBehaviour
 {
     [SerializeField] private List<Transform> LSSTransforms;
     private List<GameObject> LSSAssignPointObjectList;
@@ -27,7 +27,7 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
         }
     }
 
-    void SetLSSStartPosition(Transform _LSSTransform)
+    private void SetLSSStartPosition(Transform _LSSTransform)
     {
         int candidatePoint = UnityEngine.Random.Range(0, LSSAssignPointObjectList.Count - 1);
 
