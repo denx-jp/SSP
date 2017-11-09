@@ -21,6 +21,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private LifeSupportSystemEtherManager team1LSS;
     [SerializeField] private LifeSupportSystemEtherManager team2LSS;
 
+    [SerializeField] private LifeSupportSystemPositionManager lifeSupportSystemPositionManager;
+
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private float endDelay = 3f;
     [SerializeField] private string TitleScene;
@@ -56,12 +58,21 @@ public class GameManager : NetworkBehaviour
     private IEnumerator GameStart()
     {
         // すべての準備が整ったことを確認するのを待つ
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
 
         RpcPrepareGame();
         //初期設定
         //武器を生成 
         //プレイヤーをLSS周辺に移動
+        /// 現在全てのプレイヤーが移動できない状態
+        Debug.Log(clientPlayersManager.GetPlayerManagers().Count);
+        foreach(var pm in clientPlayersManager.GetPlayerManagers())
+        {
+            var playerTeamId = pm.playerModel.teamId;
+            var lssTransform = lifeSupportSystemPositionManager.LSSPositionDic[playerTeamId];
+            Debug.Log(pm);
+            pm.playerSpawnAroundLSSAssigner.SpawnAroundLSS(lssTransform);
+        }
 
         yield return new WaitForSeconds(startDelay);
 
