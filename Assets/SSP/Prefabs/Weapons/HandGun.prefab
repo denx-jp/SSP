@@ -409,3 +409,4 @@ MonoBehaviour:
   scope: {fileID: 4451773248574068}
   gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
   leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
+  socpeCameraOffset: {x: 0, y: 0.15, z: 0.5}
