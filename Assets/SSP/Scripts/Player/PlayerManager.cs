@@ -14,6 +14,7 @@ public class PlayerManager : NetworkBehaviour
     public PlayerKillLogNotifier playerKillLogNotifier;
     public PlayerCameraController playerCameraController;
     public PlayerInventoryManager playerInventoryManager;
+    public PlayerSpawnAroundLSSAssigner playerSpawnAroundLSSAssigner;
 
     private void Start()
     {
@@ -35,5 +36,6 @@ public class PlayerManager : NetworkBehaviour
         playerKillLogNotifier = GetComponent<PlayerKillLogNotifier>();
         playerCameraController = GetComponent<PlayerCameraController>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
+        playerSpawnAroundLSSAssigner = GetComponent<PlayerSpawnAroundLSSAssigner>();
     }
 }
