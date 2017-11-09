@@ -6019,7 +6019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpRate: 15
-  positionThreshold: 0.1
+  positionThreshold: 0.01
   rotationThreshold: 1
 --- !u!114 &114581025299805848
 MonoBehaviour:
