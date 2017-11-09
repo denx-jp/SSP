@@ -27,7 +27,6 @@ public class HandGun : NetworkBehaviour, IWeapon
     private PlayerModel playerModel;
     private PlayerIKPoser ikPoser;
     private PlayerCameraController pcc;
-    private PlayerLocomotor playerLocomotor;
     private AudioSource audioSource;
 
     private void OnEnable()
@@ -59,7 +58,6 @@ public class HandGun : NetworkBehaviour, IWeapon
         cameraTransform = Camera.main.gameObject.transform;
 
         pcc = playerManager.playerCameraController;
-        playerLocomotor = playerManager.playerLocomotor;
         audioSource = GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
@@ -111,8 +109,8 @@ public class HandGun : NetworkBehaviour, IWeapon
         isScoped = !isScoped;
         if (isScoped)
         {
+            pcc.FitRotate();
             pcc.SetScopeOffset(socpeCameraOffset);
-            playerLocomotor.RotateCameraDir(cameraTransform.forward);
             pcc.ChangeCameraMode(CameraMode.Scope);
             playerModel.MoveMode = MoveMode.battle;
         }
@@ -128,7 +126,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         isScoped = active;
         if (isScoped)
         {
-            playerLocomotor.RotateCameraDir(cameraTransform.forward);
+            pcc.FitRotate();
             pcc.ChangeCameraMode(CameraMode.Battle);
             playerModel.MoveMode = MoveMode.battle;
         }

@@ -39,7 +39,7 @@ public class PlayerCameraController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         mode = CameraMode.Normal;
 
-        #region NormalMode
+        #region Normal Mode
         tempOffset = normalModeOffset;
         LookPlayer();
 
@@ -80,38 +80,22 @@ public class PlayerCameraController : MonoBehaviour
             });
         #endregion
 
-        #region BattleMode
+        #region Battle/Scope Mode
         pim.CameraRotate
-            .Where(_ => mode == CameraMode.Battle)
+            .Where(_ => mode != CameraMode.Normal)
             .Where(_ => target != null)
             .Subscribe(input =>
             {
                 x += input.x * rotationSensitivity;
                 y = ClampAngle(y - input.y * rotationSensitivity, yMinLimit, yMaxLimit);
+                var offset = mode == CameraMode.Battle ? balltleModeOffset : scopeModeOffset;
 
                 var rotation = Quaternion.AngleAxis(x, Vector3.up) * Quaternion.AngleAxis(y, Vector3.right);
-                var position = target.position + rotation * balltleModeOffset;
+                var position = target.position + rotation * offset;
 
                 cameraTransform.position = position;
                 cameraTransform.rotation = rotation;
             });
-        #endregion
-
-        #region Scope
-        pim.CameraRotate
-           .Where(_ => mode == CameraMode.Scope)
-           .Where(_ => target != null)
-           .Subscribe(input =>
-           {
-               x += input.x * scopeRotationSensitivity;
-               y = ClampAngle(y - input.y * scopeRotationSensitivity, yMinLimit, yMaxLimit);
-
-               var rotation = Quaternion.AngleAxis(x, Vector3.up) * Quaternion.AngleAxis(y, Vector3.right);
-               var position = target.position + rotation * scopeModeOffset;
-
-               cameraTransform.position = position;
-               cameraTransform.rotation = rotation;
-           });
         #endregion
     }
 
@@ -143,5 +127,11 @@ public class PlayerCameraController : MonoBehaviour
     public void SetScopeOffset(Vector3 offset)
     {
         scopeModeOffset = offset;
+    }
+
+    public void FitRotate()
+    {
+        // Vector3.upをxだけ回転させるので、y軸の回転を取得
+        x = cameraTransform.eulerAngles.y;
     }
 }
