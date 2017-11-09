@@ -12,6 +12,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     [SerializeField] Transform scope;
     [SerializeField] Vector3 gunHoldOffset;
     [SerializeField] Vector3 leftHandOffset;
+    [SerializeField] Vector3 socpeCameraOffset;
 
     private Transform cameraTransform;
 
@@ -108,6 +109,7 @@ public class HandGun : NetworkBehaviour, IWeapon
         isScoped = !isScoped;
         if (isScoped)
         {
+            pcc.SetScopeOffset(socpeCameraOffset);
             pcc.ChangeCameraMode(CameraMode.Scope);
             playerModel.MoveMode = MoveMode.battle;
         }

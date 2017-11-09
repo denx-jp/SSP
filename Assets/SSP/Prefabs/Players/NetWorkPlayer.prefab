@@ -222,21 +222,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1106441469335246
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4389887795023174}
-  m_Layer: 0
-  m_Name: JumpPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1116613313892736
 GameObject:
   m_ObjectHideFlags: 1
@@ -881,21 +866,6 @@ GameObject:
   - component: {fileID: 4897257839709644}
   m_Layer: 0
   m_Name: Character1_Spine1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1389488273137458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4083441147749446}
-  m_Layer: 0
-  m_Name: FrontPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1595,21 +1565,6 @@ GameObject:
   - component: {fileID: 4350248188457502}
   m_Layer: 0
   m_Name: J_L_HairSide_00
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1626274532013494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4719832229204790}
-  m_Layer: 0
-  m_Name: CamPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2877,19 +2832,6 @@ Transform:
   m_Father: {fileID: 4083884442510310}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4083441147749446
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1389488273137458}
-  m_LocalRotation: {x: -0.000000008911413, y: 0.99850297, z: -0.05469786, w: -0.00000016267678}
-  m_LocalPosition: {x: 0.1, y: 1.3677425, z: 2.6517928}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4752933912816226}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4083884442510310
 Transform:
   m_ObjectHideFlags: 1
@@ -3459,8 +3401,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1554264301113638}
-  m_LocalRotation: {x: 0.49999982, y: -0.50000024, z: -0.4999999, w: -0.5000001}
-  m_LocalPosition: {x: 0, y: -1, z: -0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.187, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4752933912816226}
@@ -3519,19 +3461,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4771443124925540}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4389887795023174
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1106441469335246}
-  m_LocalRotation: {x: -0.3695515, y: 0, z: 0, w: 0.92921025}
-  m_LocalPosition: {x: 0, y: 0.54045296, z: -0.8993217}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4752933912816226}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4392247559130696
 Transform:
@@ -4208,19 +4137,6 @@ Transform:
   m_Father: {fileID: 4823555361621160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.356, y: -0.030000001, z: 12.608001}
---- !u!4 &4719832229204790
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1626274532013494}
-  m_LocalRotation: {x: 0.06540314, y: 0, z: 0, w: 0.99785894}
-  m_LocalPosition: {x: 0, y: 1.25, z: -2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4752933912816226}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4721511420542410
 Transform:
   m_ObjectHideFlags: 1
@@ -4376,9 +4292,6 @@ Transform:
   - {fileID: 4805508537063892}
   - {fileID: 4345525689598022}
   - {fileID: 4816412078104776}
-  - {fileID: 4719832229204790}
-  - {fileID: 4083441147749446}
-  - {fileID: 4389887795023174}
   - {fileID: 224805905042896224}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5311,13 +5224,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pim: {fileID: 114134000520712444}
+  target: {fileID: 4345525689598022}
   cameraRotationSpeed: 100
-  offset: {x: 0, y: 1.8, z: -3}
-  cameraDistance: 2
-  yMinLimit: -20
+  normalModeOffset: {x: 0, y: 0, z: -3}
+  yMinLimit: -80
   yMaxLimit: 80
   rotationSensitivity: 3.5
-  balltleModeOffset: {x: 0.5, y: 1.5, z: 0.5}
+  balltleModeOffset: {x: 0.5, y: 0.5, z: -1.5}
+  scopeRotationSensitivity: 3.5
 --- !u!114 &114082969731735372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7848,7 +7762,7 @@ RectTransform:
   m_Children:
   - {fileID: 224990489807914362}
   m_Father: {fileID: 4752933912816226}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
