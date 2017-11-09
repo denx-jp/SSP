@@ -10,14 +10,20 @@ public class HandGun : NetworkBehaviour, IWeapon
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
     [SerializeField] GameObject scopeCamera;
+    [SerializeField] Vector3 gunHoldOffset;
+    [SerializeField] Vector3 leftHandOffset;
+
     private GameObject mainCamera;
+    private Transform cameraTransform;
+
+    private float shootTime = 0;
     private bool isReloaded = true;
     private bool autoShoot = false;
     private bool isScoped = false;
-    private float shootTime = 0;
-    private Transform cameraTransform;
+
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
+
     private PlayerModel playerModel;
     private PlayerIKPoser ikPoser;
     private PlayerCameraController pcc;
@@ -25,8 +31,13 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     private void OnEnable()
     {
-        if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
-            isScoped = true;
+        if (playerModel == null) return;
+        if (playerModel.MoveMode == MoveMode.battle) isScoped = true;
+
+        if (ikPoser == null) return;
+        ikPoser.gunHoldOffset = gunHoldOffset;
+        ikPoser.leftHandOffset = leftHandOffset;
+
     }
 
     private void OnDisable()

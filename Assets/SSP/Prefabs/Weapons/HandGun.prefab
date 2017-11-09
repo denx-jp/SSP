@@ -74,10 +74,10 @@ GameObject:
   - component: {fileID: 65139783768924182}
   - component: {fileID: 23128071150024078}
   - component: {fileID: 114397692148794256}
+  - component: {fileID: 82332949709394078}
   - component: {fileID: 114476576303947814}
   - component: {fileID: 114930993466919184}
   - component: {fileID: 114611022078819548}
-  - component: {fileID: 82332949709394078}
   m_Layer: 0
   m_Name: HandGun
   m_TagString: Untagged
@@ -452,6 +452,8 @@ MonoBehaviour:
   model: {fileID: 114476576303947814}
   muzzle: {fileID: 1722006071851656}
   scopeCamera: {fileID: 1634956831454598}
+  gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
+  leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
 --- !u!124 &124725157139574258
 Behaviour:
   m_ObjectHideFlags: 1

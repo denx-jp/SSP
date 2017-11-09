@@ -15,8 +15,8 @@ public class PlayerIKPoser : MonoBehaviour
     private PlayerModel playerModel;
 
     [SerializeField, Range(0f, 1f)] private float headLookWeight = 1f;
-    [SerializeField] private Vector3 gunHoldOffset;
-    [SerializeField] private Vector3 leftHandOffset;
+    [SerializeField] public Vector3 gunHoldOffset;
+    [SerializeField] public Vector3 leftHandOffset;
     [SerializeField] private Recoil recoil;
 
     private Vector3 headLookAxis;
