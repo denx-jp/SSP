@@ -31,13 +31,11 @@ public class HandGun : NetworkBehaviour, IWeapon
 
     private void OnEnable()
     {
-        if (playerModel == null) return;
-        if (playerModel.MoveMode == MoveMode.battle) isScoped = true;
+        if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
+            isScoped = true;
 
-        if (ikPoser == null) return;
-        ikPoser.gunHoldOffset = gunHoldOffset;
-        ikPoser.leftHandOffset = leftHandOffset;
-
+        if (isLocalPlayer && ikPoser != null)
+            ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
     }
 
     private void OnDisable()
@@ -74,15 +72,16 @@ public class HandGun : NetworkBehaviour, IWeapon
         RaycastHit IKHit;
         this.UpdateAsObservable()
             .Where(_ => playerModel.MoveMode == MoveMode.battle)
+            .Where(_ => hasAuthority)
             .Subscribe(_ =>
             {
                 if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out IKHit, 1000, layerMask))
                 {
-                    ikPoser.SetTarget(IKHit.point);
+                    ikPoser.CmdSetTarget(IKHit.point);
                 }
                 else
                 {
-                    ikPoser.SetTarget(cameraTransform.position + (cameraTransform.forward * 10));
+                    ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
                 }
             });
     }

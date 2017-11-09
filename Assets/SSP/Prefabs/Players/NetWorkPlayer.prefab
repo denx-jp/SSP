@@ -5325,7 +5325,7 @@ MonoBehaviour:
     polePosition: {x: 0.4802475, y: 1.0723363, z: 1.7949942}
     poleWeight: 0
     poleTarget: {fileID: 0}
-    clampWeight: 0
+    clampWeight: 0.25
     clampSmoothing: 1
 --- !u!114 &114093575997407882
 MonoBehaviour:
@@ -6074,7 +6074,7 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 6
   rotateSpeed: 10
-  jumpSpeed: 6
+  jumpSpeed: 8
   gravityMultiplier: -9.8
   groundCheckDistance: 1
   maxVelocity: 2
@@ -6095,7 +6095,6 @@ MonoBehaviour:
   headLookWeight: 1
   gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
   leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
-  recoil: {fileID: 114274080367258098}
 --- !u!114 &114710198958959678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6162,7 +6161,6 @@ MonoBehaviour:
   initialEther: 500
   isLocalPlayerCharacter: 0
   defaultLayer: 0
-  MoveMode: 0
 --- !u!114 &114801546013469574
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using RootMotion.FinalIK;
 using UniRx;
 using UniRx.Triggers;
@@ -8,28 +9,30 @@ using RootMotion.Demos;
 
 [RequireComponent(typeof(AimIK))]
 [RequireComponent(typeof(FullBodyBipedIK))]
-public class PlayerIKPoser : MonoBehaviour
+public class PlayerIKPoser : NetworkBehaviour
 {
     private AimIK aim;
     private FullBodyBipedIK ik;
+    private Recoil recoil;
     private PlayerModel playerModel;
 
     [SerializeField, Range(0f, 1f)] private float headLookWeight = 1f;
-    [HideInInspector] public Vector3 gunHoldOffset;
-    [HideInInspector] public Vector3 leftHandOffset;
-    [SerializeField] private Recoil recoil;
+    [HideInInspector, SyncVar] public Vector3 gunHoldOffset;
+    [HideInInspector, SyncVar] public Vector3 leftHandOffset;
 
+    [SyncVar] private Vector3 aimTarget;
     private Vector3 headLookAxis;
     private Vector3 leftHandPosRelToRightHand;
     private Quaternion leftHandRotRelToRightHand;
-    private Vector3 aimTarget;
     private Quaternion rightHandRotation;
 
     private void Start()
     {
         aim = GetComponent<AimIK>();
         ik = GetComponent<FullBodyBipedIK>();
+        recoil = GetComponent<Recoil>();
         playerModel = GetComponent<PlayerModel>();
+
         ik.solver.OnPreRead += OnPreRead;
         aim.enabled = false;
         ik.enabled = false;
@@ -62,11 +65,20 @@ public class PlayerIKPoser : MonoBehaviour
         aim.solver.transform = _transform;
     }
 
-    public void SetTarget(Vector3 _targetPos)
+    [Command]
+    public void CmdSetTarget(Vector3 _targetPos)
     {
         aimTarget = _targetPos;
     }
 
+    [Command]
+    public void CmdSetHandOffset(Vector3 right, Vector3 left)
+    {
+        gunHoldOffset = right;
+        leftHandOffset = left;
+    }
+
+    #region IK Controll
     private void Read()
     {
         // 右手に対する左手の位置と回転を記録する
@@ -124,6 +136,7 @@ public class PlayerIKPoser : MonoBehaviour
         Quaternion headRotationTarget = Quaternion.FromToRotation(ik.references.head.rotation * headLookAxis, lookAtTarget - ik.references.head.position);
         ik.references.head.rotation = Quaternion.Lerp(Quaternion.identity, headRotationTarget, headLookWeight) * ik.references.head.rotation;
     }
+    #endregion
 
     // Cleaning up the delegates
     void OnDestroy()

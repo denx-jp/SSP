@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cameraTransform = Camera.main.transform;
-        model.MoveMode = MoveMode.normal;
 
         pim.Move
             .Subscribe(v =>
