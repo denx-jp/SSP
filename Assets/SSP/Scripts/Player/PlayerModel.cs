@@ -5,7 +5,8 @@ using UniRx.Triggers;
 
 public class PlayerModel : NetworkBehaviour, IHealth, IEther
 {
-    [SyncVar] public int playerId = 0;
+    [SyncVar] public int Id = 0;
+    [SyncVar] public string Name = "えすぴこ";
     [SyncVar] public int teamId = 0;
     [SyncVar] public float syncHealth;
     [SyncVar] public float syncEther;

@@ -12,7 +12,7 @@ public class KillLogManager : NetworkBehaviour
 
     public void Init()
     {
-        playerRecords = ClientPlayersManager.Players.ToDictionary(v => v.playerModel.playerId, _ => new PlayerRecord());
+        playerRecords = ClientPlayersManager.Players.ToDictionary(v => v.playerModel.Id, _ => new PlayerRecord());
 
         if (isServer)
         {

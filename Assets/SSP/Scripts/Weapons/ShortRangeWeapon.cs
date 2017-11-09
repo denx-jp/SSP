@@ -14,7 +14,7 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     public void Init(PlayerModel playerModel)
     {
-        model.playerId = playerModel.playerId;
+        model.playerId = playerModel.Id;
         model.teamId = playerModel.teamId;
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
         animator = playerModel.gameObject.GetComponent<Animator>();

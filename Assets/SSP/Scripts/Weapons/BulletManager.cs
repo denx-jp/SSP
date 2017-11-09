@@ -30,7 +30,7 @@ public class BulletManager : NetworkBehaviour
                         CmdSetDamage(col.gameObject, damage);
                     }
                     var playerModel = col.gameObject.GetComponent<PlayerModel>();
-                    if (playerModel == null || playerModel.playerId != model.shootPlayerId)
+                    if (playerModel == null || playerModel.Id != model.shootPlayerId)
                     {
                         GetComponent<NetworkTransform>().enabled = false;
                         CmdDestroy();

@@ -29,7 +29,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     {
         pm = playerModel;
 
-        model.playerId = playerModel.playerId;
+        model.playerId = playerModel.Id;
         model.teamId = playerModel.teamId;
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
 

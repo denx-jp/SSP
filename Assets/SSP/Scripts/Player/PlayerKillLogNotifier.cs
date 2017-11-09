@@ -13,7 +13,7 @@ public class PlayerKillLogNotifier : NetworkBehaviour
     private void Start()
     {
         playerHealthManager = GetComponent<PlayerHealthManager>();
-        myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+        myId = this.transform.GetComponentInParent<PlayerModel>().Id;
 
         playerHealthManager.GetDeathStream()
             .Subscribe(_ =>
