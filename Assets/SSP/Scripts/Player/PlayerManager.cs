@@ -17,6 +17,7 @@ public class PlayerManager : NetworkBehaviour
     public PlayerInventoryManager playerInventoryManager;
     public PlayerAnimationController playerAnimationController;
     public PlayerIKPoser playerIKPoser;
+    public PlayerLocomotor playerLocomotor;
 
     private void Start()
     {

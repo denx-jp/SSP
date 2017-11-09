@@ -5279,7 +5279,7 @@ MonoBehaviour:
     target: {fileID: 0}
     tolerance: 0
     maxIterations: 2
-    useRotationLimits: 0
+    useRotationLimits: 1
     XY: 0
     bones:
     - transform: {fileID: 4897257839709644}
@@ -5326,7 +5326,7 @@ MonoBehaviour:
     poleWeight: 0
     poleTarget: {fileID: 0}
     clampWeight: 0
-    clampSmoothing: 0
+    clampSmoothing: 1
 --- !u!114 &114093575997407882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5849,6 +5849,7 @@ MonoBehaviour:
   playerInventoryManager: {fileID: 114084645704703300}
   playerAnimationController: {fileID: 114965255933758764}
   playerIKPoser: {fileID: 114691682039507972}
+  playerLocomotor: {fileID: 114660740567837552}
 --- !u!114 &114274080367258098
 MonoBehaviour:
   m_ObjectHideFlags: 1
