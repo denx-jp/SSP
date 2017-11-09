@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 23101878257787678}
   - component: {fileID: 114303862106099984}
   - component: {fileID: 114636341030069382}
+  - component: {fileID: 114178682629709206}
   - component: {fileID: 114948242860574984}
   m_Layer: 0
   m_Name: LongGun
@@ -105,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1198441546025866}
   m_LocalRotation: {x: 0.5431916, y: 0.47949147, z: 0.5378593, w: 0.43097356}
-  m_LocalPosition: {x: -0.123000145, y: 0.5360001, z: -0.36400008}
+  m_LocalPosition: {x: -2.112, y: 0.068, z: 0.126}
   m_LocalScale: {x: 0.029826362, y: 0.10867493, z: 0.027502986}
   m_Children:
   - {fileID: 4224834321804456}
@@ -326,6 +327,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000008, y: 1.0000005, z: 1}
   m_Center: {x: -0.0000038146973, y: 0, z: 0.0000009536743}
+--- !u!114 &114178682629709206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198441546025866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 114636341030069382}
+  muzzle: {fileID: 1914257830511014}
 --- !u!114 &114303862106099984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,8 +384,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: HandGun
+  type: 1
   damageAmount: 100
   isOwnerLocalPlayer: 0
+  image: {fileID: 21300000, guid: b57f3c9caeff86547bc7daa58b74b937, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
@@ -389,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoriableType: 1
+  model: {fileID: 114636341030069382}
   canInteract: 1
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}

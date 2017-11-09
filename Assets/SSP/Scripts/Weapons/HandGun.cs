@@ -7,24 +7,37 @@ using UniRx.Triggers;
 
 public class HandGun : NetworkBehaviour, IWeapon
 {
-    [SerializeField] LongRangeWeaponModel model;
-    [SerializeField] GameObject muzzle;
+    [SerializeField] private LongRangeWeaponModel model;
+    [SerializeField] private GameObject muzzle;
+    [SerializeField] private GameObject scopeCamera;
+    private GameObject mainCamera;
+    private Transform cameraTransform;
+
     private bool canAttack = true;
     private bool autoShoot = false;
+    private bool isScoped = false;
     private float shootTime = 0;
-    private Transform cameraTransform;
+
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
+
     private PlayerModel pm;
-    private bool isScoped = false;
+    private PlayerCameraController pcc;
+    private AudioSource audioSource;
 
     public void Init(PlayerModel playerModel)
     {
+        pm = playerModel;
+
         model.playerId = playerModel.playerId;
         model.teamId = playerModel.teamId;
         model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
-        cameraTransform = Camera.main.transform;
-        pm = playerModel;
+
+        scopeCamera.gameObject.SetActive(false);
+        mainCamera = Camera.main.gameObject;
+        cameraTransform = mainCamera.transform;
+        pcc = pm.gameObject.GetComponent<PlayerCameraController>();
+        audioSource = this.gameObject.GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -41,6 +54,7 @@ public class HandGun : NetworkBehaviour, IWeapon
             .Subscribe(_ => NormalAttack());
     }
 
+    #region IWeaponメソッド
     public void NormalAttack()
     {
         if (canAttack && isScoped)
@@ -49,6 +63,15 @@ public class HandGun : NetworkBehaviour, IWeapon
             shootTime = Time.time;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
+    }
+
+    public void SwitchScope()
+    {
+        var toScope = !scopeCamera.activeSelf;
+        pcc.SwitchCamera(toScope, scopeCamera);
+        // Rayを飛ばすカメラを切り替える
+        cameraTransform = toScope ? scopeCamera.transform : mainCamera.transform;
+        isScoped = scopeCamera.activeSelf;
     }
 
     public void NormalAttackLong(bool active)
@@ -61,6 +84,7 @@ public class HandGun : NetworkBehaviour, IWeapon
     {
         isScoped = active;
     }
+    #endregion
 
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
@@ -80,5 +104,6 @@ public class HandGun : NetworkBehaviour, IWeapon
     private void RpcShoot(GameObject bulletInstance)
     {
         bulletInstance.GetComponent<BulletManager>().Init(model);
+        audioSource.Play();
     }
 }
