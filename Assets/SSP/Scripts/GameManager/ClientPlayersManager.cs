@@ -41,4 +41,9 @@ public class ClientPlayersManager : MonoBehaviour
             localPlayer = Players.Find(v => v.isLocalPlayer);
         return localPlayer;
     }
+
+    public List<PlayerManager> GetPlayerManagers()
+    {
+        return Players;
+    }
 }
