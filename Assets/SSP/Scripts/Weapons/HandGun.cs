@@ -9,11 +9,10 @@ public class HandGun : NetworkBehaviour, IWeapon
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
-    [SerializeField] GameObject scopeCamera;
+    [SerializeField] Transform scope;
     [SerializeField] Vector3 gunHoldOffset;
     [SerializeField] Vector3 leftHandOffset;
 
-    private GameObject mainCamera;
     private Transform cameraTransform;
 
     private float shootTime = 0;
@@ -55,12 +54,10 @@ public class HandGun : NetworkBehaviour, IWeapon
         ikPoser = playerManager.playerIKPoser;
         ikPoser.SetAimTransform(muzzle.transform);
 
-        scopeCamera.gameObject.SetActive(false);
-        mainCamera = Camera.main.gameObject;
-        cameraTransform = mainCamera.transform;
+        cameraTransform = Camera.main.gameObject.transform;
 
         pcc = playerManager.playerCameraController;
-        audioSource = this.gameObject.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
@@ -100,29 +97,44 @@ public class HandGun : NetworkBehaviour, IWeapon
         }
     }
 
-    public void SwitchScope()
-    {
-        var toScope = !scopeCamera.activeSelf;
-        pcc.SwitchCamera(toScope, scopeCamera);
-        // Rayを飛ばすカメラを切り替える
-        cameraTransform = toScope ? scopeCamera.transform : mainCamera.transform;
-        isScoped = scopeCamera.activeSelf;
-        playerModel.MoveMode = isScoped ? MoveMode.battle : MoveMode.normal;
-    }
-
     public void NormalAttackLong(bool active)
     {
         NormalAttack();
         autoShoot = active;
     }
 
+    public void SwitchScope()
+    {
+        isScoped = !isScoped;
+        if (isScoped)
+        {
+            pcc.ChangeCameraMode(CameraMode.Scope);
+            playerModel.MoveMode = MoveMode.battle;
+        }
+        else
+        {
+            pcc.ChangeCameraMode(CameraMode.Normal);
+            playerModel.MoveMode = MoveMode.normal;
+        }
+    }
+
     public void LongPressScope(bool active)
     {
         isScoped = active;
-        playerModel.MoveMode = isScoped ? MoveMode.battle : MoveMode.normal;
+        if (isScoped)
+        {
+            pcc.ChangeCameraMode(CameraMode.Battle);
+            playerModel.MoveMode = MoveMode.battle;
+        }
+        else
+        {
+            pcc.ChangeCameraMode(CameraMode.Normal);
+            playerModel.MoveMode = MoveMode.normal;
+        }
     }
     #endregion
 
+    #region Shoot
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
@@ -143,4 +155,5 @@ public class HandGun : NetworkBehaviour, IWeapon
         bulletInstance.GetComponent<BulletManager>().Init(model);
         audioSource.Play();
     }
+    #endregion
 }

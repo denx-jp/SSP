@@ -1511,7 +1511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81532c76ebbd2a94aa7e5d47b26a174f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 238022316}
 --- !u!1 &135553464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,12 +3753,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 426.7922
+      value: 396.2922
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 241.5
+      value: 224.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
@@ -3844,12 +3843,12 @@ Prefab:
     - target: {fileID: 224028051319886670, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224588292220629390, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1621175142001308, guid: 69914e591659ec94191c27f2348f7ec5, type: 2}
       propertyPath: m_IsActive
@@ -5182,7 +5181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 678728296}
   muzzle: {fileID: 217039583}
-  scopeCamera: {fileID: 0}
+  scope: {fileID: 0}
+  gunHoldOffset: {x: 0, y: 0, z: 0}
+  leftHandOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &678728296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6498,7 +6499,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 882487385}
   muzzle: {fileID: 2143827415}
-  scopeCamera: {fileID: 0}
+  scope: {fileID: 0}
+  gunHoldOffset: {x: 0, y: 0, z: 0}
+  leftHandOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &882487385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9884,7 +9887,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 1365662385}
   muzzle: {fileID: 710610339}
-  scopeCamera: {fileID: 0}
+  scope: {fileID: 0}
+  gunHoldOffset: {x: 0, y: 0, z: 0}
+  leftHandOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1365662385
 MonoBehaviour:
   m_ObjectHideFlags: 0

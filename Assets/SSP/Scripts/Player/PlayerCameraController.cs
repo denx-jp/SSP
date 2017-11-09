@@ -5,29 +5,43 @@ using UniRx;
 using UniRx.Triggers;
 using System.Linq;
 
+public enum CameraMode { Normal, Battle, Scope }
 public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager pim;
-    [SerializeField] private float cameraRotationSpeed = 100;
-    [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
+    private CameraMode mode;
+    private Transform target;
 
-    private GameObject currentCamera;
-    private GameObject mainCamera;
-    private GameObject target;
-    private Vector3 temp_offset;
-    private bool isScoped;
+    [Header("Noraml Mode")]
+    [SerializeField]
+    private float cameraRotationSpeed = 100;
+    [SerializeField] private Vector3 offset = new Vector3(0, 2, -3);
+    private Transform cameraTransform;
+    private Vector3 tempOffset;
+
+    [Header("Battle Mode")]
+    [SerializeField]
+    private float cameraDistance = 2.0f; // The current distance to target
+    [SerializeField] private float yMinLimit = -20; // Min vertical angle
+    [SerializeField] private float yMaxLimit = 80; // Max vertical angle
+    [SerializeField] private float rotationSensitivity = 3.5f; // The sensitivity of rotation
+    [SerializeField] private Vector3 balltleModeOffset = new Vector3(0.5f, 1.5f, 0.5f); // The offset from target relative to camera rotation
+    private float x, y;
 
     private void Start()
     {
         if (!GetComponent<PlayerModel>().isLocalPlayerCharacter) return;
 
-        mainCamera = Camera.main.gameObject;
-        currentCamera = mainCamera;
-        SetTarget(this.gameObject);
-        temp_offset = offset;
+        cameraTransform = Camera.main.transform;
+        mode = CameraMode.Normal;
+        SetTarget(transform);
+
+        #region NormalMode
+        tempOffset = offset;
         LookPlayer();
 
         pim.CameraResetButtonDown
+            .Where(_ => mode == CameraMode.Normal)
             .Where(v => v)
             .Where(_ => target != null)
             .Subscribe(_ =>
@@ -35,58 +49,74 @@ public class PlayerCameraController : MonoBehaviour
                 var targetDir = target.transform.forward;
                 targetDir = new Vector3(targetDir.x, 0.0f, targetDir.z);
                 var rotation = Quaternion.LookRotation(targetDir, Vector3.up);
-                temp_offset = rotation * offset;
+                tempOffset = rotation * offset;
             });
 
         pim.CameraRotate
+            .Where(_ => mode == CameraMode.Normal)
             .Where(v => target != null)
             .Subscribe(input =>
             {
-                temp_offset = Quaternion.Euler(0.0f, input.x * Time.deltaTime * cameraRotationSpeed, 0.0f) * temp_offset;
+                tempOffset = Quaternion.Euler(0.0f, input.x * Time.deltaTime * cameraRotationSpeed, 0.0f) * tempOffset;
 
                 //ジンバルロックしないように制御
-                var temp_delta = target.transform.position - Camere().transform.position;
+                var temp_delta = target.transform.position - cameraTransform.position;
                 if ((Vector3.Dot(temp_delta, new Vector3(temp_delta.x, 0.0f, temp_delta.z))) > 0.1f)
                 {
-                    temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
+                    tempOffset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, cameraTransform.right) * tempOffset;
                 }
                 else
                 {
                     if (temp_delta.y > 0.0f && input.y < 0.0f)
-                        temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
+                        tempOffset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, cameraTransform.right) * tempOffset;
                     else if (temp_delta.y < 0.0f && input.y > 0.0f)
-                        temp_offset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, Camere().transform.right) * temp_offset;
+                        tempOffset = Quaternion.AngleAxis(-1.0f * input.y * Time.deltaTime * cameraRotationSpeed, cameraTransform.right) * tempOffset;
                 }
 
                 LookPlayer();
             });
-    }
+        #endregion
 
-    public void SetTarget(GameObject _target)
-    {
-        target = _target;
+        #region BattleMode
+        pim.CameraRotate
+            .Where(_ => mode == CameraMode.Battle)
+            .Where(_ => target != null)
+            .Subscribe(input =>
+            {
+                x += input.x * rotationSensitivity;
+                y = ClampAngle(y - input.y * rotationSensitivity, yMinLimit, yMaxLimit);
+
+                var rotation = Quaternion.AngleAxis(x, Vector3.up) * Quaternion.AngleAxis(y, Vector3.right);
+                var position = target.position + rotation * (balltleModeOffset - Vector3.forward * cameraDistance);
+
+                cameraTransform.position = position;
+                cameraTransform.rotation = rotation;
+            });
+        #endregion
     }
 
     private void LookPlayer()
     {
-        Camere().transform.position = target.transform.position + temp_offset;
-        var delta = target.transform.position - Camere().transform.position;
+        cameraTransform.position = target.transform.position + tempOffset;
+        var delta = target.transform.position - cameraTransform.position;
         var direction = new Vector3(delta.x, delta.y + offset.y, delta.z);
-        Camere().transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        cameraTransform.rotation = Quaternion.LookRotation(direction, Vector3.up);
     }
 
-    private GameObject Camere()
+    private float ClampAngle(float angle, float min, float max)
     {
-        if (mainCamera != null) return mainCamera;
-        mainCamera = Camera.main.gameObject;
-        return mainCamera;
+        if (angle < -360) angle += 360;
+        if (angle > 360) angle -= 360;
+        return Mathf.Clamp(angle, min, max);
     }
 
-    public void SwitchCamera(bool _isScoped, GameObject scopeCamera)
+    public void SetTarget(Transform _target)
     {
-        isScoped = _isScoped;
-        scopeCamera.SetActive(_isScoped);
-        Camere().SetActive(!_isScoped);
-        currentCamera = isScoped ? scopeCamera : mainCamera;
+        target = _target;
+    }
+
+    public void ChangeCameraMode(CameraMode _mode)
+    {
+        mode = _mode;
     }
 }

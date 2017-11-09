@@ -5313,6 +5313,11 @@ MonoBehaviour:
   pim: {fileID: 114134000520712444}
   cameraRotationSpeed: 100
   offset: {x: 0, y: 1.8, z: -3}
+  cameraDistance: 2
+  yMinLimit: -20
+  yMaxLimit: 80
+  rotationSensitivity: 3.5
+  balltleModeOffset: {x: 0.5, y: 1.5, z: 0.5}
 --- !u!114 &114082969731735372
 MonoBehaviour:
   m_ObjectHideFlags: 1
