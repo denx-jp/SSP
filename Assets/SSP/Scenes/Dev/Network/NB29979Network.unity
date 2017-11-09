@@ -563,6 +563,11 @@ Prefab:
       propertyPath: LSSTransforms.Array.data[1]
       value: 
       objectReference: {fileID: 1199875663}
+    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: lifeSupportSystemPositionManager
+      value: 
+      objectReference: {fileID: 348845417}
     m_RemovedComponents:
     - {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
@@ -776,6 +781,12 @@ Transform:
   m_Father: {fileID: 1199875663}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &348845417 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 73757729}
+  m_Script: {fileID: 11500000, guid: 1aaae730b79a2114f925183ffcd4bf13, type: 3}
 --- !u!1 &404796663
 GameObject:
   m_ObjectHideFlags: 0

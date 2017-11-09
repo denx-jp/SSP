@@ -5421,6 +5421,7 @@ MonoBehaviour:
   playerKillLogNotifier: {fileID: 114856490275401810}
   playerCameraController: {fileID: 114079660245503310}
   playerInventoryManager: {fileID: 114084645704703300}
+  playerSpawnAroundLSSAssigner: {fileID: 114965840832500278}
 --- !u!114 &114355481432560930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5722,7 +5723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bb126d5d25d894e952d4fc60fb02dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifeSupportSystemTransformList: []
 --- !u!114 &114974365051159386
 MonoBehaviour:
   m_ObjectHideFlags: 1
