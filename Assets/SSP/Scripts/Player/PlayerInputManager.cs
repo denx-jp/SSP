@@ -16,6 +16,8 @@ public class PlayerInputManager : MonoBehaviour
     public readonly Subject<bool> AvoidButtonDown = new Subject<bool>();
     public readonly Subject<bool> DashButtonDown = new Subject<bool>();
     public readonly Subject<bool> JumpButtonDown = new Subject<bool>();
+    public readonly Subject<bool> ActionButtonDown = new Subject<bool>();
+    public readonly Subject<bool> Action2ButtonDown = new Subject<bool>();
 
     #region Mouse Button
     public readonly Subject<bool> AttackButtonDown = new Subject<bool>();
@@ -26,7 +28,6 @@ public class PlayerInputManager : MonoBehaviour
     public readonly Subject<bool> ScopeButtonUp = new Subject<bool>();
     public readonly Subject<bool> ScopeButtonShort = new Subject<bool>();
     public readonly Subject<bool> ScopeButtonLong = new Subject<bool>();
-    public readonly Subject<bool> ActionButtonDown = new Subject<bool>();
     #endregion
 
     public UniRx.IObservable<float> WeaponChange { get; private set; }
@@ -71,6 +72,7 @@ public class PlayerInputManager : MonoBehaviour
                 ScopeButtonDown.OnNext(Input.GetButtonDown("Scope"));
                 ScopeButtonUp.OnNext(Input.GetButtonUp("Scope"));
                 ActionButtonDown.OnNext(Input.GetButtonDown("Action"));
+                Action2ButtonDown.OnNext(Input.GetButtonDown("Action2"));
 
                 WeaponChangeWhellScroll.OnNext(Input.GetAxis("Mouse ScrollWheel"));
                 WeaponChangeButtonDown.OnNext(Input.GetButtonDown("Weapon Change"));
