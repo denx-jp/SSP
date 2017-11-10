@@ -17,11 +17,24 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     [SerializeField] public bool isLocalPlayerCharacter = false;
     //ネットワーク実装時にはローカルプレイヤーのみLayerMap.LocalPlayerになる。
     [HideInInspector] public int defaultLayer = LayerMap.Default;
+    [SyncVar] int moveModeIndex;
+    public MoveMode MoveMode
+    {
+        get { return (MoveMode)moveModeIndex; }
+        set
+        {
+            if (isLocalPlayer)
+                CmdSetMovemode((int)value);
+            else
+                moveModeIndex = (int)value;
+        }
+    }
 
     private void Awake()
     {
         syncEther = initialEther;
         Ether.Value = syncEther;
+        MoveMode = MoveMode.normal;
 
         this.ObserveEveryValueChanged(_ => syncHealth).Subscribe(v => Health.Value = v);
         this.ObserveEveryValueChanged(_ => syncEther).Subscribe(v => Ether.Value = v);
@@ -58,5 +71,11 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     public ReactiveProperty<float> GetEtherStream()
     {
         return Ether;
+    }
+
+    [Command]
+    private void CmdSetMovemode(int index)
+    {
+        moveModeIndex = index;
     }
 }

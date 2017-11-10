@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1189635630215696}
   m_IsPrefabParent: 1
+--- !u!1 &1122918781997966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4553168357190482}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1189635630215696
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,12 +55,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1189635630215696}
   m_LocalRotation: {x: 0.0016922557, y: 0.9957593, z: 0.024133367, w: -0.08875933}
-  m_LocalPosition: {x: 0.036112364, y: 0.63323766, z: -3.5832145}
-  m_LocalScale: {x: 0.049999923, y: 0.6327693, z: 0.05000007}
-  m_Children: []
+  m_LocalPosition: {x: 3.227, y: 0.5739999, z: 3.928}
+  m_LocalScale: {x: 0.050000038, y: 0.6327693, z: 0.050000217}
+  m_Children:
+  - {fileID: 4553168357190482}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 87.02901, y: 0, z: 0}
+--- !u!4 &4553168357190482
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122918781997966}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4422443768188704}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23623335034185964
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -116,7 +145,7 @@ MonoBehaviour:
   type: 2
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
   playerId: 0
   teamId: 0
 --- !u!114 &114506838946006212
@@ -162,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 114323705450369532}
   canInteract: 1
   weaponPos: {x: -0.0659, y: 0.5034, z: 0}
   weaponRot: {x: 0, y: 0, z: 0}

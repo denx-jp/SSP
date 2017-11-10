@@ -10,14 +10,14 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
     private bool detectable;
-    private Animator animator;
+    private PlayerAnimationController animationController;
 
-    public void Init(PlayerModel playerModel)
+    public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerModel.playerId;
-        model.teamId = playerModel.teamId;
-        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
-        animator = playerModel.gameObject.GetComponent<Animator>();
+        model.playerId = playerManager.playerModel.playerId;
+        model.teamId = playerManager.playerModel.teamId;
+        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
+        animationController = playerManager.gameObject.GetComponent<PlayerAnimationController>();
 
         //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
         if (model.isOwnerLocalPlayer)
@@ -67,12 +67,12 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     [ClientRpc]
     private void RpcAttack()
     {
-        animator.SetTrigger("Attack");
         StartCoroutine(Attacking());
     }
 
     IEnumerator Attacking()
     {
+        animationController.Attack();
         yield return new WaitForSeconds(hitDetectionTimeOffset);
         detectable = true;
         gameObject.layer = LayerMap.Attack;
