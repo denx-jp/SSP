@@ -856,6 +856,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1382592870822398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4693858749849826}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1384680236176412
 GameObject:
   m_ObjectHideFlags: 1
@@ -2399,6 +2414,7 @@ GameObject:
   - component: {fileID: 114710198958959678}
   - component: {fileID: 114093575997407882}
   - component: {fileID: 114090898805546484}
+  - component: {fileID: 114904420321893264}
   - component: {fileID: 114274080367258098}
   - component: {fileID: 114220765609894058}
   - component: {fileID: 114774096608856190}
@@ -2418,6 +2434,7 @@ GameObject:
   - component: {fileID: 114856490275401810}
   - component: {fileID: 114082969731735372}
   - component: {fileID: 114691682039507972}
+  - component: {fileID: 114419671331715338}
   m_Layer: 0
   m_Name: NetWorkPlayer
   m_TagString: Player
@@ -4067,6 +4084,19 @@ Transform:
   m_Father: {fileID: 4805508537063892}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4693858749849826
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1382592870822398}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.838, z: 0.398}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4752933912816226}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4698660068674228
 Transform:
   m_ObjectHideFlags: 1
@@ -4293,6 +4323,7 @@ Transform:
   - {fileID: 4345525689598022}
   - {fileID: 4816412078104776}
   - {fileID: 224805905042896224}
+  - {fileID: 4693858749849826}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
@@ -5968,6 +5999,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114419671331715338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3cdd43cd6481d438b2fc575f7b78ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  searchRadius: 2
+  holdPoint: {fileID: 4693858749849826}
 --- !u!114 &114438839222202326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6220,6 +6264,33 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114904420321893264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1914480152885886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537b81dc57e504256a6c74c4bcf6bca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: 
+  fadeInTime: 0.3
+  speed: 1
+  resetToDefaultsSpeed: 1
+  characterCollider: {fileID: 136968364903373988}
+  FPSCamera: {fileID: 0}
+  camRaycastLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  camRaycastDistance: 1
+  fullBody: {fileID: 114093575997407882}
+  lookAt:
+    ik: {fileID: 0}
+    lerpSpeed: 10
+    weightSpeed: 2
+    isPaused: 0
 --- !u!114 &114965255933758764
 MonoBehaviour:
   m_ObjectHideFlags: 1
