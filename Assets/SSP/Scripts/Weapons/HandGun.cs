@@ -9,7 +9,6 @@ public class HandGun : NetworkBehaviour, IWeapon
 {
     [SerializeField] LongRangeWeaponModel model;
     [SerializeField] GameObject muzzle;
-    [SerializeField] Transform scope;
     [SerializeField] Vector3 gunHoldOffset;
     [SerializeField] Vector3 leftHandOffset;
     [SerializeField] Vector3 socpeCameraOffset;

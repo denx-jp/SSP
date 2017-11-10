@@ -5230,7 +5230,7 @@ MonoBehaviour:
   yMinLimit: -80
   yMaxLimit: 80
   rotationSensitivity: 3.5
-  balltleModeOffset: {x: 0.5, y: 0.5, z: -1.5}
+  balltleModeOffset: {x: 0.75, y: 0.4, z: -1.5}
   scopeRotationSensitivity: 3.5
 --- !u!114 &114082969731735372
 MonoBehaviour:
@@ -5795,7 +5795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cb04879e91fa64ba659d4a433d29d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  longPressSecond: 0.6
+  longPressSecond: 0.1
 --- !u!114 &114196207367232310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6073,8 +6073,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 6
-  rotateSpeed: 10
-  jumpSpeed: 8
+  rotateSpeed: 12
+  jumpSpeed: 6
   gravityMultiplier: -9.8
   groundCheckDistance: 1
   maxVelocity: 2
