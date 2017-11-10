@@ -13,7 +13,7 @@ public class PlayerInventoryManager : NetworkBehaviour
     public Transform rightHandTransform;
     public Transform leftHandTransform;
 
-    void Start()
+    public void Init()
     {
         //ハンドガンは初期状態から所持。
         if (isLocalPlayer)

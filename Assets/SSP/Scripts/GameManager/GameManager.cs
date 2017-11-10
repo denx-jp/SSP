@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -60,8 +61,20 @@ public class GameManager : NetworkBehaviour
         // すべての準備が整ったことを確認するのを待つ
         yield return new WaitForSeconds(2);
 
+        #region ID割り当て        
+        var players = ClientPlayersManager.Players.Select((player, index) => new { index, player }).ToList();
+        var playerCount = players.Count;
+        players.ForEach(v => v.player.playerModel.RpcSeId(v.index + 1));
+        players.OrderBy(i => Guid.NewGuid()).ToList().ForEach(v =>
+        {
+            if (v.index < playerCount / 2)
+                v.player.playerModel.RpcSetTeamId(1);
+            else
+                v.player.playerModel.RpcSetTeamId(2);
+        });
+        #endregion
+
         RpcPrepareGame();
-        //初期設定
         //武器を生成 
         //プレイヤーをLSS周辺に移動
 
@@ -98,6 +111,8 @@ public class GameManager : NetworkBehaviour
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
+        // 初期所持武器のTeamIdはプレイヤーのTeamIdを設定した後でないと行いえないためここでInitする
+        player.playerInventoryManager.Init();
     }
 
     [ClientRpc]

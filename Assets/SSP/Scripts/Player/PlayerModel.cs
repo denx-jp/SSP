@@ -60,4 +60,16 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     {
         return Ether;
     }
+
+    [ClientRpc]
+    public void RpcSeId(int id)
+    {
+        Id = id;
+    }
+
+    [ClientRpc]
+    public void RpcSetTeamId(int tid)
+    {
+        teamId = tid;
+    }
 }

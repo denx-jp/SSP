@@ -27,7 +27,7 @@ public class KillLogManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcUpdatePlayerReport(int killerId,int victimId)
+    void RpcUpdatePlayerReport(int killerId, int victimId)
     {
         playerRecords[killerId].killCount++;
         playerRecords[victimId].deathCount++;
