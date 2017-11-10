@@ -537,31 +537,9 @@ Prefab:
       propertyPath: team2LifeSupportSystemTransform
       value: 
       objectReference: {fileID: 1199875663}
-    m_RemovedComponents:
-    - {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &73757730 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
-    type: 2}
-  m_PrefabInternal: {fileID: 73757729}
---- !u!114 &73757731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 73757730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41dc1fe44f0ede41943c6b9f0f70b11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ether: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3, type: 2}
-  popInterval: 0
-  popDuration: 0
-  initEtherValue: 0
-  popPoints: []
 --- !u!1 &182888598
 GameObject:
   m_ObjectHideFlags: 0
