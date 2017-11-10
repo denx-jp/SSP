@@ -5,10 +5,10 @@ using UnityEngine.Networking;
 
 public class InventoriableObject : NetworkBehaviour, IInteractable
 {
-    [SerializeField] public WeaponModel model;
-    [SerializeField] private bool canInteract = true;
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
+    [HideInInspector] public WeaponModel model;
+    [SerializeField] private bool canInteract = true;
 
     private enum Hands { leftHand, rightHand };
     [SerializeField] private Hands hand;
@@ -19,6 +19,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     void Start()
     {
         networkIdentity = GetComponent<NetworkIdentity>();
+        model = GetComponent<WeaponModel>();
         DefaultWeaponSetup();
     }
 
