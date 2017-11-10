@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +24,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject team2LSS;
 
     [SerializeField] private float startDelay = 3f;
+    [SerializeField] private int countDownCount = 5;
     [SerializeField] private float endDelay = 3f;
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
@@ -73,7 +74,7 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(1);
 
         //カウントダウン
-        for (int i = 5; i > 0; i--)
+        for (int i = countDownCount; i > 0; i--)
         {
             RpcChangeMessage(i.ToString());
             yield return new WaitForSeconds(1);

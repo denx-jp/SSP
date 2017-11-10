@@ -19,7 +19,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     void Start()
     {
         networkIdentity = GetComponent<NetworkIdentity>();
-        DefaultWeaponSetup();
+        StartCoroutine(DefaultWeaponSetup());
     }
 
     [Server]
@@ -37,6 +37,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         var pm = player.GetComponent<PlayerManager>();
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, model.type);
+        pm.playerAnimationController.Pickup();
     }
 
     public bool CanInteract()
@@ -51,10 +52,12 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 
     //所持中の武器を持ち主のインベントリに格納・装備する
     [ClientCallback]
-    private void DefaultWeaponSetup()
+    IEnumerator DefaultWeaponSetup()
     {
+        yield return new WaitForSeconds(1);     // ownerPlayerId(SyncVar)の同期に少し時間がかかるらしいので待つ。
+
         var owner = ClientScene.FindLocalObject(ownerPlayerId);
-        if (owner == null) return;
+        if (owner == null) yield break;
         var pim = owner.GetComponent<PlayerInventoryManager>();
 
         pim.SetWeaponToInventory(this.gameObject, model.type);

@@ -29,19 +29,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1634956831454598
+--- !u!1 &1684454043637744
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4755635753657304}
-  - component: {fileID: 20870269078587366}
-  - component: {fileID: 124725157139574258}
-  - component: {fileID: 81804273406037632}
+  - component: {fileID: 4451773248574068}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,10 +71,10 @@ GameObject:
   - component: {fileID: 65139783768924182}
   - component: {fileID: 23128071150024078}
   - component: {fileID: 114397692148794256}
+  - component: {fileID: 82332949709394078}
   - component: {fileID: 114476576303947814}
   - component: {fileID: 114930993466919184}
   - component: {fileID: 114611022078819548}
-  - component: {fileID: 82332949709394078}
   m_Layer: 0
   m_Name: HandGun
   m_TagString: Untagged
@@ -112,6 +109,19 @@ Transform:
   m_Father: {fileID: 4515867202828200}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4451773248574068
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1684454043637744}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.81, z: -2.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4515867202828200}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4515867202828200
 Transform:
   m_ObjectHideFlags: 1
@@ -123,58 +133,10 @@ Transform:
   m_LocalScale: {x: 0.029826352, y: 0.10867492, z: 0.027502982}
   m_Children:
   - {fileID: 4184204856146398}
-  - {fileID: 4755635753657304}
+  - {fileID: 4451773248574068}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4755635753657304
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1634956831454598}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.43, z: -6.43}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4515867202828200}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!20 &20870269078587366
-Camera:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1634956831454598}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!23 &23128071150024078
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -281,13 +243,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000008, y: 1.0000005, z: 1}
   m_Center: {x: -0.0000038146973, y: 0, z: 0.0000009536743}
---- !u!81 &81804273406037632
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1634956831454598}
-  m_Enabled: 1
 --- !u!82 &82332949709394078
 AudioSource:
   m_ObjectHideFlags: 1
@@ -297,7 +252,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0b6c288fd552bd14aaed5385544d2cf5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3a3138cdd84a4274b9ec04daee86a380, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -415,7 +370,7 @@ MonoBehaviour:
   type: 0
   damageAmount: 100
   isOwnerLocalPlayer: 0
-  image: {fileID: 21300000, guid: 0b8d60ed10383684aabdadfa0e44306d, type: 3}
+  image: {fileID: 21300000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
   playerId: 0
   teamId: 0
   bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
@@ -435,8 +390,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114476576303947814}
   canInteract: 0
-  weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
-  weaponRot: {x: 0, y: 90, z: 0}
+  weaponPos: {x: -0.0685, y: 0.00055, z: -0.0039}
+  weaponRot: {x: -5.38, y: 90.23, z: 6.833}
   hand: 1
 --- !u!114 &114930993466919184
 MonoBehaviour:
@@ -451,11 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114476576303947814}
   muzzle: {fileID: 1722006071851656}
-  scopeCamera: {fileID: 1634956831454598}
---- !u!124 &124725157139574258
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1634956831454598}
-  m_Enabled: 1
+  scope: {fileID: 4451773248574068}
+  gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
+  leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
+  socpeCameraOffset: {x: 0, y: 0.15, z: 0.5}

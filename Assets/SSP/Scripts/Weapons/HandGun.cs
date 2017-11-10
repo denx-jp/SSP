@@ -7,71 +7,93 @@ using UniRx.Triggers;
 
 public class HandGun : NetworkBehaviour, IWeapon
 {
-    [SerializeField] private LongRangeWeaponModel model;
-    [SerializeField] private GameObject muzzle;
-    [SerializeField] private GameObject scopeCamera;
-    private GameObject mainCamera;
+    [SerializeField] LongRangeWeaponModel model;
+    [SerializeField] GameObject muzzle;
+    [SerializeField] Vector3 gunHoldOffset;
+    [SerializeField] Vector3 leftHandOffset;
+    [SerializeField] Vector3 socpeCameraOffset;
+
     private Transform cameraTransform;
 
-    private bool canAttack = true;
+    private float shootTime = 0;
+    private bool isReloaded = true;
     private bool autoShoot = false;
     private bool isScoped = false;
-    private float shootTime = 0;
 
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
 
-    private PlayerModel pm;
+    private PlayerModel playerModel;
+    private PlayerIKPoser ikPoser;
     private PlayerCameraController pcc;
     private AudioSource audioSource;
 
-    public void Init(PlayerModel playerModel)
+    private void OnEnable()
     {
-        pm = playerModel;
+        if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
+            isScoped = true;
 
-        model.playerId = playerModel.playerId;
-        model.teamId = playerModel.teamId;
-        model.isOwnerLocalPlayer = playerModel.isLocalPlayerCharacter;
+        if (isLocalPlayer && ikPoser != null)
+            ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+    }
 
-        scopeCamera.gameObject.SetActive(false);
-        mainCamera = Camera.main.gameObject;
-        cameraTransform = mainCamera.transform;
-        pcc = pm.gameObject.GetComponent<PlayerCameraController>();
-        audioSource = this.gameObject.GetComponent<AudioSource>();
+    private void OnDisable()
+    {
+        isScoped = false;
+    }
+
+    public void Init(PlayerManager playerManager)
+    {
+        model.playerId = playerManager.playerModel.playerId;
+        model.teamId = playerManager.playerModel.teamId;
+        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
+
+        playerModel = playerManager.playerModel;
+        ikPoser = playerManager.playerIKPoser;
+        ikPoser.SetAimTransform(muzzle.transform);
+
+        cameraTransform = Camera.main.gameObject.transform;
+
+        pcc = playerManager.playerCameraController;
+        audioSource = GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
             .Where(_ => this.gameObject.activeSelf)
-            .Where(_ => !canAttack)
-            .Subscribe(_ =>
-            {
-                if (Time.time - shootTime >= model.coolTime)
-                    canAttack = true;
-            });
+            .Where(_ => !isReloaded)
+            .Where(_ => Time.time - shootTime >= model.coolTime)
+            .Subscribe(_ => isReloaded = true);
 
-        this.ObserveEveryValueChanged(_ => canAttack)
+        this.ObserveEveryValueChanged(_ => isReloaded)
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
+
+        RaycastHit IKHit;
+        this.UpdateAsObservable()
+            .Where(_ => playerModel.MoveMode == MoveMode.battle)
+            .Where(_ => hasAuthority)
+            .Subscribe(_ =>
+            {
+                if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out IKHit, 1000, layerMask))
+                {
+                    ikPoser.CmdSetTarget(IKHit.point);
+                }
+                else
+                {
+                    ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
+                }
+            });
     }
 
     #region IWeaponメソッド
     public void NormalAttack()
     {
-        if (canAttack && isScoped)
+        if (isReloaded && isScoped)
         {
-            canAttack = false;
+            isReloaded = false;
             shootTime = Time.time;
             CmdShoot(cameraTransform.position, cameraTransform.forward, cameraTransform.rotation);
         }
-    }
-
-    public void SwitchScope()
-    {
-        var toScope = !scopeCamera.activeSelf;
-        pcc.SwitchCamera(toScope, scopeCamera);
-        // Rayを飛ばすカメラを切り替える
-        cameraTransform = toScope ? scopeCamera.transform : mainCamera.transform;
-        isScoped = scopeCamera.activeSelf;
     }
 
     public void NormalAttackLong(bool active)
@@ -80,12 +102,41 @@ public class HandGun : NetworkBehaviour, IWeapon
         autoShoot = active;
     }
 
+    public void SwitchScope()
+    {
+        isScoped = !isScoped;
+        if (isScoped)
+        {
+            pcc.FitRotate();
+            pcc.SetScopeOffset(socpeCameraOffset);
+            pcc.ChangeCameraMode(CameraMode.Scope);
+            playerModel.MoveMode = MoveMode.battle;
+        }
+        else
+        {
+            pcc.ChangeCameraMode(CameraMode.Normal);
+            playerModel.MoveMode = MoveMode.normal;
+        }
+    }
+
     public void LongPressScope(bool active)
     {
         isScoped = active;
+        if (isScoped)
+        {
+            pcc.FitRotate();
+            pcc.ChangeCameraMode(CameraMode.Battle);
+            playerModel.MoveMode = MoveMode.battle;
+        }
+        else
+        {
+            pcc.ChangeCameraMode(CameraMode.Normal);
+            playerModel.MoveMode = MoveMode.normal;
+        }
     }
     #endregion
 
+    #region Shoot
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
@@ -96,7 +147,7 @@ public class HandGun : NetworkBehaviour, IWeapon
             bulletInstance.transform.rotation = uncastableDirection;
 
         bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * model.bulletVelocity;
-        NetworkServer.SpawnWithClientAuthority(bulletInstance.gameObject, pm.connectionToClient);
+        NetworkServer.SpawnWithClientAuthority(bulletInstance.gameObject, playerModel.connectionToClient);
         RpcShoot(bulletInstance);
     }
 
@@ -106,4 +157,5 @@ public class HandGun : NetworkBehaviour, IWeapon
         bulletInstance.GetComponent<BulletManager>().Init(model);
         audioSource.Play();
     }
+    #endregion
 }

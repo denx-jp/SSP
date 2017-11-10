@@ -9,9 +9,6 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     private PlayerModel playerModel;
     private Subject<bool> deathStream;
 
-    private int deathHash = Animator.StringToHash("Death");
-    private Animator animator;
-
     public int recentAttackerId { get; private set; }
 
     private void Start()
@@ -23,26 +20,6 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
         playerModel.Health
             .Where(v => v <= 0.0f)
             .Subscribe(_ => deathStream.OnNext(true));
-
-        animator = GetComponent<Animator>();
-        this.deathStream
-            .Where(_ => isLocalPlayer)
-             .Subscribe(isdeath =>
-             {
-                 CmdStartDeathAnimation(isdeath);
-             });
-    }
-
-    [Command]
-    private void CmdStartDeathAnimation(bool isdeath)
-    {
-        RpcStartDeathAnimation(isdeath);
-    }
-
-    [ClientRpc]
-    private void RpcStartDeathAnimation(bool isdeath)
-    {
-        animator.SetBool(deathHash, isdeath);
     }
 
     public void SetDamage(Damage damage)
@@ -60,6 +37,12 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     public Subject<bool> GetDeathStream()
     {
         return deathStream;
+    }
+
+    public void Revive()
+    {
+        playerModel.Init();
+        deathStream.OnNext(false);
     }
 
     [ClientRpc]

@@ -7,9 +7,6 @@ using UnityEngine.Networking;
 
 public class PlayerInteractor : NetworkBehaviour
 {
-
-    private Animator animator;
-    private AnimatorStateInfo state;
     private PlayerInputManager pim;
     private PlayerManager playerManager;
 
