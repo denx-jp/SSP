@@ -24,18 +24,13 @@ public class EtherPopper : NetworkBehaviour
                 .Subscribe(_ =>
                 {
                     timeCounter += popInterval;
-                    CmdSpawnEtherObject();
+                    var popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
+                    var etherObject = Instantiate(ether, popPoint.position + Vector3.up * 5, Quaternion.identity);
+                    //NetworkPlayerに紐づいていないためConnectionToClientではなくHostの権限でSpawn
+                    NetworkServer.SpawnWithClientAuthority(etherObject, NetworkServer.connections[0]);
+                    var etherInfo = etherObject.GetComponent<EtherObject>();
+                    etherInfo.CmdSetEtherValue(initEtherValue);
                 }).AddTo(this);
         }
-    }
-
-    [Command]
-    void CmdSpawnEtherObject()
-    {
-        var popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
-        var etherObject = Instantiate(ether, popPoint.position + Vector3.up * 5, Quaternion.identity);
-        NetworkServer.SpawnWithClientAuthority(etherObject, NetworkServer.connections[0]);//NetworkPlayerに紐づいていないためConnectionToClientではなくHostの権限でSpawn
-        var etherInfo = etherObject.GetComponent<EtherObject>();
-        etherInfo.CmdSetEtherValue(initEtherValue);
     }
 }
