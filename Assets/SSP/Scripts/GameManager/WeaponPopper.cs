@@ -8,6 +8,7 @@ using UniRx;
 public class WeaponPopper : NetworkBehaviour
 {
     [SerializeField] private int weaponCount = 36;
+    [SerializeField] private Vector3 spawnOffset = new Vector3(0, 1, 0);
     [SerializeField] private List<GameObject> popWeapons;
     private Stack<Transform> popPoints = new Stack<Transform>();
 
@@ -22,7 +23,7 @@ public class WeaponPopper : NetworkBehaviour
             {
                 var popPoint = popPoints.Pop();
                 var popWeapon = popWeapons[Random.Range(0, popWeapons.Count - 1)];
-                var weapon = Instantiate(popWeapon, popPoint.position + Vector3.up, popPoint.rotation);
+                var weapon = Instantiate(popWeapon, popPoint.position + spawnOffset, popPoint.rotation);
                 NetworkServer.Spawn(weapon);
             }
         }
