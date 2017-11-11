@@ -53,7 +53,9 @@ public class PlayerCarrier : MonoBehaviour
 
     void SearchCarriable()
     {
-        var castResult = Physics.OverlapBox(transform.position + boxCastCenterOffset, boxCastHalfExtents, transform.rotation);
+        // boxCastCenterOffsetをプレイヤーのローカル空間におけるオフセットに変換
+        var offset = transform.right * boxCastCenterOffset.x + transform.up * boxCastCenterOffset.y + transform.forward * boxCastCenterOffset.z;
+        var castResult = Physics.OverlapBox(transform.position + offset, boxCastHalfExtents, transform.rotation);
 
         if (castResult.Length <= 0) return;
 
