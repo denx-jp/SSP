@@ -17,8 +17,8 @@ public class WeaponPopper : NetworkBehaviour
         {
             GameObject.FindGameObjectsWithTag(TagMap.PopPoint).Select(v => v.transform)
                 .OrderBy(i => System.Guid.NewGuid()).ToList().ForEach(v => popPoints.Push(v));
-            var spawnCoiunt = weaponCount < popPoints.Count ? weaponCount : popPoints.Count;
-            for (int i = 0; i < spawnCoiunt; i++)
+            var spawnCount = weaponCount < popPoints.Count ? weaponCount : popPoints.Count;
+            for (int i = 0; i < spawnCount; i++)
             {
                 var popPoint = popPoints.Pop();
                 var popWeapon = popWeapons[Random.Range(0, popWeapons.Count - 1)];
