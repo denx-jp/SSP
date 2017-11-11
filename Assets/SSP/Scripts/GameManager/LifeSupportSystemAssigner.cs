@@ -8,8 +8,9 @@ using UniRx;
 
 public class LifeSupportSystemAssigner : NetworkBehaviour
 {
-    [SerializeField]private Transform team1LifeSupportSystemTransform;
-    [SerializeField]private Transform team2LifeSupportSystemTransform;
+    [SerializeField] private Transform team1LifeSupportSystemTransform;
+    [SerializeField] private Transform team2LifeSupportSystemTransform;
+    [SerializeField] private Vector3 offset;
 
     private List<GameObject> LSSAssignPointObjectList;
 
@@ -29,7 +30,7 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
     {
         int candidatePoint = UnityEngine.Random.Range(0, LSSAssignPointObjectList.Count - 1);
 
-        LSSTransform.position = LSSAssignPointObjectList[candidatePoint].transform.position;
+        LSSTransform.position = LSSAssignPointObjectList[candidatePoint].transform.position + offset;
         LSSAssignPointObjectList.Remove(LSSAssignPointObjectList[candidatePoint]);
     }
 }
