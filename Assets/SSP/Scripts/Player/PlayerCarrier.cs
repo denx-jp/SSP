@@ -7,7 +7,8 @@ using UniRx.Triggers;
 
 public class PlayerCarrier : MonoBehaviour
 {
-    [SerializeField] private float searchRadius;
+    [SerializeField] private Vector3 boxCastCenterOffset;
+    [SerializeField] private Vector3 boxCastHalfExtents;
     [SerializeField] private Transform holdPoint;
 
     private PlayerModel model;
@@ -33,8 +34,6 @@ public class PlayerCarrier : MonoBehaviour
                 if (canCarry)
                 {
                     SearchCarriable();
-                    canCarry = false;
-                    model.MoveMode = MoveMode.carry;
                 }
                 else
                 {
@@ -54,7 +53,7 @@ public class PlayerCarrier : MonoBehaviour
 
     void SearchCarriable()
     {
-        var castResult = Physics.OverlapSphere(this.transform.position, searchRadius);
+        var castResult = Physics.OverlapBox(transform.position + boxCastCenterOffset, boxCastHalfExtents, transform.rotation);
 
         if (castResult.Length <= 0) return;
 
@@ -68,6 +67,8 @@ public class PlayerCarrier : MonoBehaviour
 
         carriableObject = carriableObjects.First().gameObject.GetComponent<CarriableObject>();
         carriableObject.Pickup(interactionSystem, holdPoint);
+        canCarry = false;
+        model.MoveMode = MoveMode.carry;
     }
 
     void Drop()
