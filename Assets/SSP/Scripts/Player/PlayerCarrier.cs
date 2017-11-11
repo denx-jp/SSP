@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UniRx;
 using System.Linq;
 using UnityEngine.Networking;
 using RootMotion.FinalIK;
@@ -10,6 +9,8 @@ public class PlayerCarrier : MonoBehaviour
 {
     [SerializeField] private float searchRadius;
     [SerializeField] private Transform holdPoint;
+
+    private PlayerModel model;
     private PlayerInputManager pim;
     private FullBodyBipedIK ik;
     private InteractionSystem interactionSystem;
@@ -21,21 +22,25 @@ public class PlayerCarrier : MonoBehaviour
     {
         ik = GetComponent<FullBodyBipedIK>();
         interactionSystem = GetComponent<InteractionSystem>();
+        model = GetComponent<PlayerModel>();
         pim = GetComponent<PlayerInputManager>();
 
         pim.Action2ButtonDown
             .Where(v => v)
+            .Where(_ => model.MoveMode != MoveMode.battle)
             .Subscribe(v =>
             {
                 if (canCarry)
                 {
                     SearchCarriable();
                     canCarry = false;
+                    model.MoveMode = MoveMode.carry;
                 }
                 else
                 {
                     Drop();
                     canCarry = true;
+                    model.MoveMode = MoveMode.normal;
                 }
             });
 
