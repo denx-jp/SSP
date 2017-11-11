@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using RootMotion;
 using RootMotion.FinalIK;
+using UniRx;
+using UniRx.Triggers;
 
 public class CarriableObject : MonoBehaviour
 {
@@ -10,19 +12,43 @@ public class CarriableObject : MonoBehaviour
     [SerializeField] private float pickUpTime = 0.3f;
     [HideInInspector] public InteractionObject obj;
 
+    private Rigidbody rigid;
     private InteractionSystem interactionSystem;
     private Transform holdPoint;
     private float holdWeight, holdWeightVel;
     private Vector3 pickUpPosition;
     private Quaternion pickUpRotation;
+    private int defaultLayer;
 
     public bool CanCarry = true;
 
-    private bool isHolding { get { return interactionSystem != null && interactionSystem.IsPaused(FullBodyBipedEffector.LeftHand); } }
+
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody>();
+        obj = GetComponent<InteractionObject>();
+        CanCarry = true;
+        defaultLayer = gameObject.layer;
+
+        this.LateUpdateAsObservable()
+            .Where(_ => !CanCarry)
+            .Where(_ => holdWeight < 0.999)     //< 0.999を1とみなす
+            .Subscribe(_ =>
+            {
+                // Smoothing in the hold weight
+                holdWeight = Mathf.SmoothDamp(holdWeight, 1f, ref holdWeightVel, pickUpTime);
+
+                // Interpolation
+                transform.position = Vector3.Lerp(pickUpPosition, holdPoint.position, holdWeight);
+                transform.rotation = Quaternion.Lerp(pickUpRotation, holdPoint.rotation, holdWeight);
+            });
+    }
 
     public void Pickup(InteractionSystem _interactionSystem, Transform _holdPoint)
     {
         CanCarry = false;
+        gameObject.layer = LayerMap.CarryObject;
+
         interactionSystem = _interactionSystem;
         holdPoint = _holdPoint;
 
@@ -32,7 +58,7 @@ public class CarriableObject : MonoBehaviour
         interactionSystem.OnInteractionResume += OnDrop;
 
         // オブジェクトがキャラクターの動きを継承するようにする
-        obj.transform.parent = interactionSystem.transform;
+        transform.parent = interactionSystem.transform;
 
         interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, obj, false);
         interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, obj, false);
@@ -49,13 +75,8 @@ public class CarriableObject : MonoBehaviour
         interactionSystem = null;
         holdPoint = null;
 
+        gameObject.layer = defaultLayer;
         CanCarry = true;
-    }
-
-    void Start()
-    {
-        CanCarry = true;
-        obj = GetComponent<InteractionObject>();
     }
 
     // インタラクションが一時停止されたとき（トリガーの場合）、InteractionSystemによって呼び出されます。
@@ -64,14 +85,12 @@ public class CarriableObject : MonoBehaviour
         if (effectorType != FullBodyBipedEffector.LeftHand) return;
         if (interactionObject != obj) return;
 
-
         // Make the object kinematic
-        var r = obj.GetComponent<Rigidbody>();
-        if (r != null) r.isKinematic = true;
+        rigid.isKinematic = true;
 
         // Set object pick up position and rotation to current
-        pickUpPosition = obj.transform.position;
-        pickUpRotation = obj.transform.rotation;
+        pickUpPosition = transform.position;
+        pickUpRotation = transform.rotation;
         holdWeight = 0f;
         holdWeightVel = 0f;
     }
@@ -86,7 +105,7 @@ public class CarriableObject : MonoBehaviour
         RotatePivot();
 
         // Rotate the hold point so it matches the current rotation of the object
-        holdPoint.rotation = obj.transform.rotation;
+        holdPoint.rotation = transform.rotation;
     }
 
     // 相互作用が再開されて一時停止されたときにInteractionSystemによって呼び出されます。
@@ -95,11 +114,8 @@ public class CarriableObject : MonoBehaviour
         if (effectorType != FullBodyBipedEffector.LeftHand) return;
         if (interactionObject != obj) return;
 
-        // Make the object independent of the character
-        obj.transform.parent = null;
-
-        // Turn on physics for the object
-        if (obj.GetComponent<Rigidbody>() != null) obj.GetComponent<Rigidbody>().isKinematic = false;
+        transform.parent = null;
+        rigid.isKinematic = false;
     }
 
     private void RotatePivot()
@@ -117,18 +133,5 @@ public class CarriableObject : MonoBehaviour
 
         // Rotate towards axis and upAxis
         pivot.localRotation = Quaternion.LookRotation(axis, upAxis);
-    }
-
-    void LateUpdate()
-    {
-        if (isHolding)
-        {
-            // Smoothing in the hold weight
-            holdWeight = Mathf.SmoothDamp(holdWeight, 1f, ref holdWeightVel, pickUpTime);
-
-            // Interpolation
-            obj.transform.position = Vector3.Lerp(pickUpPosition, holdPoint.position, holdWeight);
-            obj.transform.rotation = Quaternion.Lerp(pickUpRotation, holdPoint.rotation, holdWeight);
-        }
     }
 }
