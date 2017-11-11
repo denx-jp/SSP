@@ -1919,6 +1919,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4264272987011664}
+  - component: {fileID: 114526141710161342}
   m_Layer: 0
   m_Name: Character1_RightHand
   m_TagString: Untagged
@@ -2286,6 +2287,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4723894345551248}
+  - component: {fileID: 114287267636098624}
   m_Layer: 0
   m_Name: Character1_LeftHand
   m_TagString: Untagged
@@ -4091,7 +4093,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382592870822398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.838, z: 0.398}
+  m_LocalPosition: {x: 0, y: 1.35, z: 0.475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4752933912816226}
@@ -5394,7 +5396,7 @@ MonoBehaviour:
     IKPosition: {x: 0, y: 0, z: 0}
     IKPositionWeight: 1
     root: {fileID: 4752933912816226}
-    iterations: 0
+    iterations: 1
     chain:
     - pin: 0
       pull: 1
@@ -5937,6 +5939,22 @@ MonoBehaviour:
     - effector: 0
       weight: 0.1
   rotationOffset: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &114287267636098624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1849131158882442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98c3501ec8dc43c8a64321bd55c3f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  poseRoot: {fileID: 0}
+  weight: 1
+  localRotationWeight: 1
+  localPositionWeight: 0
 --- !u!114 &114333101000929388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6065,6 +6083,22 @@ MonoBehaviour:
   lerpRate: 15
   positionThreshold: 0.01
   rotationThreshold: 1
+--- !u!114 &114526141710161342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713459099380762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98c3501ec8dc43c8a64321bd55c3f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  poseRoot: {fileID: 0}
+  weight: 1
+  localRotationWeight: 1
+  localPositionWeight: 0
 --- !u!114 &114581025299805848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6118,7 +6152,7 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 6
   rotateSpeed: 12
-  jumpSpeed: 6
+  jumpSpeed: 10
   gravityMultiplier: -9.8
   groundCheckDistance: 1
   maxVelocity: 2
