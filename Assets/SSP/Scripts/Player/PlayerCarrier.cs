@@ -7,8 +7,8 @@ using UniRx.Triggers;
 
 public class PlayerCarrier : MonoBehaviour
 {
-    [SerializeField] private Vector3 boxCastCenterOffset;
-    [SerializeField] private Vector3 boxCastHalfExtents;
+    [SerializeField] private Vector3 castCenterOffset;
+    [SerializeField] private float castRadius;
     [SerializeField] private Transform holdPoint;
 
     private PlayerModel model;
@@ -54,8 +54,8 @@ public class PlayerCarrier : MonoBehaviour
     void SearchCarriable()
     {
         // boxCastCenterOffsetをプレイヤーのローカル空間におけるオフセットに変換
-        var offset = transform.right * boxCastCenterOffset.x + transform.up * boxCastCenterOffset.y + transform.forward * boxCastCenterOffset.z;
-        var castResult = Physics.OverlapBox(transform.position + offset, boxCastHalfExtents, transform.rotation);
+        var offset = transform.right * castCenterOffset.x + transform.up * castCenterOffset.y + transform.forward * castCenterOffset.z;
+        var castResult = Physics.OverlapSphere(transform.position + offset, castRadius);
 
         if (castResult.Length <= 0) return;
 

@@ -6028,8 +6028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3cdd43cd6481d438b2fc575f7b78ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxCastCenterOffset: {x: 0, y: 0.2, z: 0.5}
-  boxCastHalfExtents: {x: 0.4, y: 0.25, z: 0.4}
+  castCenterOffset: {x: 0, y: 0, z: 0.125}
+  castRadius: 0.25
   holdPoint: {fileID: 4693858749849826}
 --- !u!114 &114438839222202326
 MonoBehaviour:
