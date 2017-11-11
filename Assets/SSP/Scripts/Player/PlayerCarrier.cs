@@ -62,12 +62,15 @@ public class PlayerCarrier : MonoBehaviour
         var carriableObjects = castResult
             .Select(v => v.GetComponent<CarriableObject>())
             .Where(v => v != null)
-            .Where(v => v.CanCarry)
+            .Where(v => v.canCarry)
             .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position));
 
         if (carriableObjects.Count() <= 0) return;
 
         carriableObject = carriableObjects.First().gameObject.GetComponent<CarriableObject>();
+
+        if (!carriableObject.CanCarry(model.teamId)) return;
+
         carriableObject.Pickup(interactionSystem, holdPoint);
         canCarry = false;
         model.MoveMode = MoveMode.carry;

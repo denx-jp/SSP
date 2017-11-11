@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class LifeSupportSystemModel : NetworkBehaviour, IEther
 {
-    [SerializeField] private int teamId;
+    public int teamId;
     public ReactiveProperty<float> ether = new ReactiveProperty<float>();
     [SyncVar] public float syncEther;
     [SerializeField] private float initEtherValue;
@@ -18,11 +18,6 @@ public class LifeSupportSystemModel : NetworkBehaviour, IEther
 
         syncEther = initEtherValue;
         ether.Value = syncEther;
-    }
-
-    public int GetTeamId()
-    {
-        return teamId;
     }
 
     public float GetEther()

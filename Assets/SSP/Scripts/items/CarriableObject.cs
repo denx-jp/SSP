@@ -20,18 +20,18 @@ public class CarriableObject : MonoBehaviour
     private Quaternion pickUpRotation;
     private int defaultLayer;
 
-    public bool CanCarry = true;
+    public bool canCarry = true;
 
 
-    void Start()
+    protected virtual void Start()
     {
         rigid = GetComponent<Rigidbody>();
         obj = GetComponent<InteractionObject>();
-        CanCarry = true;
+        canCarry = true;
         defaultLayer = gameObject.layer;
 
         this.LateUpdateAsObservable()
-            .Where(_ => !CanCarry)
+            .Where(_ => !canCarry)
             .Where(_ => holdWeight < 0.999)     //< 0.999を1とみなす
             .Subscribe(_ =>
             {
@@ -44,9 +44,14 @@ public class CarriableObject : MonoBehaviour
             });
     }
 
+    public virtual bool CanCarry(int teamId)
+    {
+        return canCarry;
+    }
+
     public void Pickup(InteractionSystem _interactionSystem, Transform _holdPoint)
     {
-        CanCarry = false;
+        canCarry = false;
         gameObject.layer = LayerMap.CarryObject;
 
         interactionSystem = _interactionSystem;
@@ -76,7 +81,7 @@ public class CarriableObject : MonoBehaviour
         holdPoint = null;
 
         gameObject.layer = defaultLayer;
-        CanCarry = true;
+        canCarry = true;
     }
 
     // インタラクションが一時停止されたとき（トリガーの場合）、InteractionSystemによって呼び出されます。
