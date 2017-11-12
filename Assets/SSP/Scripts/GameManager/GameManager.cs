@@ -73,7 +73,7 @@ public class GameManager : NetworkBehaviour
             int playerTeamId = player.GetComponent<PlayerModel>().teamId;
             player.transform.position = 
                 lifeSupportSystemPositionManager.GetSpawnPosition(playerTeamId).transform.position;
-            Debug.Log(player.transform.position);
+            Debug.Log("player" + playerTeamId + " : " + player.transform.position);
         }
 
         yield return new WaitForSeconds(startDelay);
