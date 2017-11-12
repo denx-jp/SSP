@@ -32,10 +32,10 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
 
         SetSpawnablePosition(LSSTeamId);
     }
-
     private void SetSpawnablePosition(int _teamId)
     {
-        spawnablePositionDic[_teamId].Clear();
+        // 連想配列の値を強制的に上書きするためにListを使用
+        List<Transform> spawnablePositions = new List<Transform>();
 
         float distance;
         foreach(var spawnPosition in spawnPositionObjectList)
@@ -45,8 +45,12 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
                                 spawnPosition.transform.position);
 
             if (distance <= spawnableDistance)
-                spawnablePositionDic[_teamId].Add(spawnPosition.transform);
+                spawnablePositions.Add(spawnPosition.transform);
         }
+        spawnablePositionDic[_teamId] = spawnablePositions;
+
+        foreach(var p in spawnablePositionDic[_teamId])
+            Debug.Log(_teamId+" "+p.position);
     }
 
     public Transform GetSpawnPosition(int _teamId)
@@ -60,11 +64,16 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
         spawnablePositionList.Remove(spawnPosition);
         return spawnPosition;
     }
-
     private List<Transform> GetSpawnablePositionList(int _teamId)
     {
         if (spawnablePositionDic[_teamId].Count == 0)
             return null;
         return spawnablePositionDic[_teamId];
+    }
+
+    public void Init()
+    {
+        foreach(var lssTransform in lifeSupportSystemTransforms)
+            UpdateLSSPositionDic(lssTransform);
     }
 }
