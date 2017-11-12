@@ -41,7 +41,7 @@ public class PlayerCameraController : MonoBehaviour
 
         cameraTransform = Camera.main.transform;
         mode = CameraMode.Normal;
-        defaultFieldOfDistance = cameraTransform.gameObject.GetComponent<Camera>().fieldOfView;
+        defaultFieldOfDistance = Camera.main.fieldOfView;
 
         #region Normal Mode
         tempOffset = normalModeOffset;
@@ -57,8 +57,6 @@ public class PlayerCameraController : MonoBehaviour
                 targetDir = new Vector3(targetDir.x, 0.0f, targetDir.z);
                 var rotation = Quaternion.LookRotation(targetDir, Vector3.up);
                 tempOffset = rotation * normalModeOffset;
-
-                cameraTransform.gameObject.GetComponent<Camera>().fieldOfView = defaultFieldOfDistance;
             });
 
         pim.CameraRotate
@@ -144,7 +142,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void SetCameraFov(CameraMode mode)
     {
-        var fov = 1.0f;
+        var fov = defaultFieldOfDistance;
         switch (mode)
         {
             case CameraMode.Normal:
@@ -160,6 +158,6 @@ public class PlayerCameraController : MonoBehaviour
                 break;
         }
 
-        cameraTransform.gameObject.GetComponent<Camera>().fieldOfView = fov;
+        Camera.main.fieldOfView = fov;
     }
 }
