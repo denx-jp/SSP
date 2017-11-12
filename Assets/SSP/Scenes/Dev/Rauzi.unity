@@ -169,7 +169,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -280,7 +280,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -464,7 +464,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -594,7 +594,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1092,7 +1092,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1164,7 +1164,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1248,7 +1248,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1355,7 +1355,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 678728296}
   muzzle: {fileID: 217039583}
-  scope: {fileID: 0}
   gunHoldOffset: {x: 0, y: 0, z: 0}
   leftHandOffset: {x: 0, y: 0, z: 0}
   socpeCameraOffset: {x: 0, y: 0, z: 0}
@@ -1438,7 +1437,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1537,7 +1536,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1662,7 +1661,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1734,7 +1733,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1952,7 +1951,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 882487385}
   muzzle: {fileID: 2143827415}
-  scope: {fileID: 0}
   gunHoldOffset: {x: 0, y: 0, z: 0}
   leftHandOffset: {x: 0, y: 0, z: 0}
   socpeCameraOffset: {x: 0, y: 0, z: 0}
@@ -2047,7 +2045,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2139,7 +2137,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2201,62 +2199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundParams:
   - groundType: 0
-    bypassEffect: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    dopplerLevel: 0
-    maxDistance: 0
-    minDistance: 0
-    panStereo: 0
-    pitch: 0
-    reverbZoneMix: 0
-    spatialBlend: 0
-    spatialize: 0
-    spread: 0
-    volume: 0
-  - groundType: 1
-    bypassEffect: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    dopplerLevel: 0
-    maxDistance: 0
-    minDistance: 0
-    panStereo: 0
-    pitch: 0
-    reverbZoneMix: 0
-    spatialBlend: 0
-    spatialize: 0
-    spread: 0
-    volume: 0
-  - groundType: 2
-    bypassEffect: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    dopplerLevel: 0
-    maxDistance: 0
-    minDistance: 0
-    panStereo: 0
-    pitch: 0
-    reverbZoneMix: 0
-    spatialBlend: 0
-    spatialize: 0
-    spread: 0
-    volume: 0
-  - groundType: 3
-    bypassEffect: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    dopplerLevel: 0
-    maxDistance: 0
-    minDistance: 0
-    panStereo: 0
-    pitch: 0
-    reverbZoneMix: 0
-    spatialBlend: 0
-    spatialize: 0
-    spread: 0
-    volume: 0
-  - groundType: 4
     bypassEffect: 0
     bypassListenerEffects: 0
     bypassReverbZones: 0
@@ -2607,7 +2549,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 1365662385}
   muzzle: {fileID: 710610339}
-  scope: {fileID: 0}
   gunHoldOffset: {x: 0, y: 0, z: 0}
   leftHandOffset: {x: 0, y: 0, z: 0}
   socpeCameraOffset: {x: 0, y: 0, z: 0}
@@ -2702,7 +2643,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3008,7 +2949,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3080,7 +3021,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3315,7 +3256,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3412,7 +3353,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3502,7 +3443,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchSeams: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

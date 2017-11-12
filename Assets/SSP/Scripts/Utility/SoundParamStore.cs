@@ -16,6 +16,8 @@ public class SoundParamStore : MonoBehaviour {
 
     public static SoundParameter GetSoundParam(GroundType groundType)
     {
-        return Instance.soundParams.Where(v => v.groundType == groundType).First();
+        var candidates = Instance.soundParams.Where(v => v.groundType == groundType);
+        if (candidates.Count() == 0) return GetSoundParam(GroundType.Dart);
+        return candidates.First();
     }
 }
