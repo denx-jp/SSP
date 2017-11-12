@@ -224,10 +224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 114334225377017156}
-  canInteract: 1
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}
+  model: {fileID: 114334225377017156}
+  canInteract: 1
   hand: 1
 --- !u!114 &114334225377017156
 MonoBehaviour:
@@ -243,6 +243,7 @@ MonoBehaviour:
   name: HandGun
   type: 3
   damageAmount: 100
+  scopeMagnification: 1
   isOwnerLocalPlayer: 0
   image: {fileID: 21300000, guid: 90cafd6355d4e624198a9b604136600d, type: 3}
   playerId: 0
@@ -296,3 +297,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114334225377017156}
   muzzle: {fileID: 1077616347337618}
+  gunHoldOffset: {x: 0, y: 0, z: 0}
+  leftHandOffset: {x: 0, y: 0, z: 0}
+  scopeCameraOffset: {x: 0, y: 0, z: 0}

@@ -43,7 +43,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1722006071851656
 GameObject:
   m_ObjectHideFlags: 1
@@ -369,6 +369,7 @@ MonoBehaviour:
   name: HandGun
   type: 0
   damageAmount: 100
+  scopeMagnification: 1.5
   isOwnerLocalPlayer: 0
   image: {fileID: 21300000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
   playerId: 0
@@ -388,10 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 114476576303947814}
-  canInteract: 0
   weaponPos: {x: -0.0685, y: 0.00055, z: -0.0039}
   weaponRot: {x: -5.38, y: 90.23, z: 6.833}
+  model: {fileID: 114476576303947814}
+  canInteract: 0
   hand: 1
 --- !u!114 &114930993466919184
 MonoBehaviour:
@@ -406,7 +407,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114476576303947814}
   muzzle: {fileID: 1722006071851656}
-  scope: {fileID: 4451773248574068}
   gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
   leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
-  socpeCameraOffset: {x: 0, y: 0.15, z: 0.5}
+  socpeCameraOffset: {x: -0.1, y: 0.2, z: 0.1}
