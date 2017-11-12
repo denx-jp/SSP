@@ -5,13 +5,12 @@ using UnityEngine.Networking;
 using UniRx;
 using System.Linq;
 
-public enum FootstepType { Right, Left, Landing }
+public enum FootstepType { Walk, Landing }
 
 public class PlayerFootstep : MonoBehaviour
 {
-    [SerializeField] private AudioClip footstep_Right;
-    [SerializeField] private AudioClip footstep_Left;
-    [SerializeField] private AudioClip footstep_Landing;
+    [SerializeField] private AudioClip footstepWalk;
+    [SerializeField] private AudioClip footstepLanding;
     [SerializeField] private PlayerAnimationEventHandler animationEventHandler;
     [SerializeField] private AudioSource audioSource;
     private float castRadius = 0.1f;
@@ -35,16 +34,12 @@ public class PlayerFootstep : MonoBehaviour
         
         switch (footstepType)
         {
-            case FootstepType.Left:
-                audioSource.clip = footstep_Left;
-                audioSource.Play();
-                break;
-            case FootstepType.Right:
-                audioSource.clip = footstep_Right;
+            case FootstepType.Walk:
+                audioSource.clip = footstepWalk;
                 audioSource.Play();
                 break;
             case FootstepType.Landing:
-                audioSource.clip = footstep_Landing;//一時的にLeft用の足音で代替
+                audioSource.clip = footstepLanding;
                 audioSource.Play();
                 break;
         }

@@ -14,13 +14,13 @@ public class PlayerAnimationEventHandler : MonoBehaviour
     void FootR()
     {
         if (!IsPlayerMoving()) return;
-        FootstepStream.OnNext(FootstepType.Right);
+        FootstepStream.OnNext(FootstepType.Walk);
     }
 
     void FootL()
     {
         if (!IsPlayerMoving()) return;
-        FootstepStream.OnNext(FootstepType.Left);
+        FootstepStream.OnNext(FootstepType.Walk);
     }
 
     void Hit() { }

@@ -5355,8 +5355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9e81bb2b3042d468e53aa686701033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 54482828738837568}
-  threshold_idle: 0.01
+  thresholdIdle: 0
 --- !u!114 &114084645704703300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5921,9 +5920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82de3aaf124acf94e8ac5128a982cedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstep_Right: {fileID: 8300000, guid: 0d3f84290620b374f99d1ef31ff760cb, type: 3}
-  footstep_Left: {fileID: 8300000, guid: 54d171e2c688303499477d8dc58cd060, type: 3}
-  footstep_Landing: {fileID: 8300000, guid: fe52b953debbff248aef384b9695147c, type: 3}
+  footstepWalk: {fileID: 8300000, guid: 0d3f84290620b374f99d1ef31ff760cb, type: 3}
+  footstepLanding: {fileID: 8300000, guid: 67ef92d391f509b4aaf83d9bdff610ad, type: 3}
   animationEventHandler: {fileID: 114082969731735372}
   audioSource: {fileID: 82491118706065598}
 --- !u!114 &114196207367232310
