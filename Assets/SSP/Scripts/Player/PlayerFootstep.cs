@@ -14,14 +14,14 @@ public class PlayerFootstep : MonoBehaviour
     [SerializeField] private PlayerAnimationEventHandler animationEventHandler;
     [SerializeField] private AudioSource audioSource;
     private float castRadius = 0.1f;
+
     void Start()
     {
-        animationEventHandler.FootstepStream.Subscribe(
-            v =>
+        animationEventHandler.FootstepStream
+            .Subscribe(v =>
             {
                 PlayFootstep(v);
-            }
-        );
+            });
     }
 
     void PlayFootstep(FootstepType footstepType)
@@ -31,7 +31,7 @@ public class PlayerFootstep : MonoBehaviour
 
         var soundParam = SoundParamStore.GetSoundParam(groundType);
         SetupAudioSourceParams(soundParam);
-        
+
         switch (footstepType)
         {
             case FootstepType.Walk:
@@ -48,7 +48,7 @@ public class PlayerFootstep : MonoBehaviour
     GroundType GetGroundType()
     {
         //足元でスフィアキャストして地面の種類を判定
-        var results = Physics.OverlapSphere(this.transform.position,0.2f);
+        var results = Physics.OverlapSphere(this.transform.position, 0.2f);
         if (results.Length == 0) return GroundType.Air;
         var grounds = results.Select(v => v.gameObject).Where(v => v.GetComponent<GroundModel>() != null);
         if (grounds.Count() == 0) return GroundType.Air;

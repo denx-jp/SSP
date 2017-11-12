@@ -540,6 +540,37 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &73757730 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 73757729}
+--- !u!114 &73757731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 73757730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6976d1552ac58ac47b0dc552da9e1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundParams:
+  - groundType: 0
+    bypassEffect: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    dopplerLevel: 0
+    maxDistance: 0
+    minDistance: 0
+    panStereo: 0
+    pitch: 0
+    reverbZoneMix: 0
+    spatialBlend: 0
+    spatialize: 0
+    spread: 0
+    volume: 0
 --- !u!1 &182888598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1500,7 @@ GameObject:
   - component: {fileID: 1798876043}
   - component: {fileID: 1798876042}
   - component: {fileID: 1798876041}
+  - component: {fileID: 1798876044}
   m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
@@ -1544,6 +1576,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1798876039}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1798876044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1798876039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9fd3f3ee2502946a8747c1fe77bb00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundType: 0
 --- !u!1 &1876509760
 GameObject:
   m_ObjectHideFlags: 0
