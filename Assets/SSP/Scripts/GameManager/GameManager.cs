@@ -15,6 +15,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private KillLogManager killLogManager;
     [SerializeField] private EtherPopper etherPopper;
     [SerializeField] private WeaponPopper weaponPopper;
+    [SerializeField] private LifeSupportSystemPositionManager lifeSupportSystemPositionManager;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -64,7 +65,16 @@ public class GameManager : NetworkBehaviour
 
         RpcPrepareGame();
         weaponPopper.Init();
+        lifeSupportSystemPositionManager.Init();
+
         //プレイヤーをLSS周辺に移動
+        foreach(var player in clientPlayersManager.GetPlayerManagers())
+        {
+            int playerTeamId = player.GetComponent<PlayerModel>().teamId;
+            player.transform.position = 
+                lifeSupportSystemPositionManager.GetSpawnPosition(playerTeamId).transform.position;
+            Debug.Log(player.transform.position);
+        }
 
         yield return new WaitForSeconds(startDelay);
 
