@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 
-public class LifeSupportSystemPositionManager : NetworkBehaviour
+public class LifeSupportSystemAssigner: NetworkBehaviour
 {
     [SerializeField] private List<Transform> LSSTransforms;
     private List<GameObject> LSSAssignPointObjectList;
