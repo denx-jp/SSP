@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +14,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
     [SerializeField] private EtherPopper etherPopper;
+    [SerializeField] private WeaponPopper weaponPopper;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -23,9 +24,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject team1LSS;
     [SerializeField] private GameObject team2LSS;
 
-    [SerializeField] private LifeSupportSystemPositionManager lifeSupportSystemPositionManager;
-
     [SerializeField] private float startDelay = 3f;
+    [SerializeField] private int countDownCount = 5;
     [SerializeField] private float endDelay = 3f;
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
@@ -63,19 +63,8 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(2);
 
         RpcPrepareGame();
-        //初期設定
-        //武器を生成 
+        weaponPopper.Init();
         //プレイヤーをLSS周辺に移動
-        /// 現在全てのプレイヤーが移動できない状態
-        Debug.Log(NetworkServer.connections.Count);
-        foreach(var pm in clientPlayersManager.GetPlayerManagers())
-        {
-            var playerTeamId = pm.playerModel.teamId;
-            var playerId = pm.playerModel.playerControllerId;
-            var lssTransform = lifeSupportSystemPositionManager.LSSPositionDic[playerTeamId];
-            Debug.Log(playerId+" "+playerTeamId);
-            pm.playerSpawnAroundLSSAssigner.SpawnAroundLSS(lssTransform);
-        }
 
         yield return new WaitForSeconds(startDelay);
 
@@ -85,7 +74,7 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(1);
 
         //カウントダウン
-        for (int i = 5; i > 0; i--)
+        for (int i = countDownCount; i > 0; i--)
         {
             RpcChangeMessage(i.ToString());
             yield return new WaitForSeconds(1);

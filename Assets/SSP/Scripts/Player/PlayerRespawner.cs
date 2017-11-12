@@ -9,19 +9,13 @@ using UniRx.Triggers;
 public class PlayerRespawner : NetworkBehaviour
 {
     private PlayerHealthManager playerHealthManager;
-    private PlayerModel playerModel;
     private GameObject[] respawnPoints;
 
     [SerializeField] private int timeToRespawn;
-
-    private Animator animator;
-    private int deathHash = Animator.StringToHash("Death");
-
+    
     void Start()
     {
-        playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
-        animator = GetComponent<Animator>();
         respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 
         this.playerHealthManager.GetDeathStream()
@@ -33,7 +27,7 @@ public class PlayerRespawner : NetworkBehaviour
                 CmdPlayerRespawnStart();
             });
     }
-    
+
     [Command]
     private void CmdPlayerRespawnStart()
     {
@@ -44,8 +38,7 @@ public class PlayerRespawner : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
     {
-        playerModel.Init();
         this.transform.position = _respawnPointPosition;
-        animator.SetBool(deathHash, false);
+        playerHealthManager.Revive();
     }
 }
