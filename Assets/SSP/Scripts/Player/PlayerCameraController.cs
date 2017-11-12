@@ -27,8 +27,8 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float yMaxLimit = 80; // Max vertical angle
     [SerializeField] private float rotationSensitivity = 3.5f; // The sensitivity of rotation
     [SerializeField] private Vector3 balltleModeOffset = new Vector3(0.5f, 1.5f, -1.5f); // The offset from target relative to camera rotation
+    [SerializeField] private float battleMagnification = 1.0f;
     private float x, y;
-    private float battleMagnification = 1.0f;
 
     [Header("Scope Mode")]
     [SerializeField]
