@@ -1573,6 +1573,7 @@ MonoBehaviour:
   - {fileID: 1105319240}
   - {fileID: 1199875663}
   spawnableDistance: 10
+  lssToSpawnPositionDisableDistance: 3
 --- !u!1 &1876509760
 GameObject:
   m_ObjectHideFlags: 0

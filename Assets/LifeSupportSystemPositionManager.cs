@@ -6,11 +6,12 @@ using UnityEngine;
 public class LifeSupportSystemPositionManager : MonoBehaviour
 {
     public static LifeSupportSystemPositionManager Instance;
-    public static Dictionary<int, Transform> lifeSupportSystemPositionDic;
+    public static Dictionary<int, Transform> lifeSupportSystemTransformDic;
     public static Dictionary<int, List<Transform>> spawnablePositionDic;
 
     [SerializeField] private List<Transform> lifeSupportSystemTransforms;
     [SerializeField] private float spawnableDistance;
+    [SerializeField] private float lssToSpawnPositionDisableDistance;
 
     private List<GameObject> spawnPositionObjectList;
 
@@ -18,7 +19,7 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
     {
         Instance = this;
 
-        lifeSupportSystemPositionDic = new Dictionary<int, Transform>();
+        lifeSupportSystemTransformDic = new Dictionary<int, Transform>();
         spawnablePositionDic = new Dictionary<int, List<Transform>>();
 
         spawnPositionObjectList =
@@ -28,7 +29,7 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
     public void UpdateLSSPositionDic(Transform _LSSTransform)
     {
         var LSSTeamId = _LSSTransform.GetComponent<LifeSupportSystemModel>().GetTeamId();
-        lifeSupportSystemPositionDic[LSSTeamId] = _LSSTransform;
+        lifeSupportSystemTransformDic[LSSTeamId] = _LSSTransform;
 
         SetSpawnablePosition(LSSTeamId);
     }
@@ -41,7 +42,7 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
         foreach(var spawnPosition in spawnPositionObjectList)
         {
             distance = 
-                Vector3.Distance(lifeSupportSystemPositionDic[_teamId].position,
+                Vector3.Distance(lifeSupportSystemTransformDic[_teamId].position,
                                 spawnPosition.transform.position);
 
             if (distance <= spawnableDistance)
@@ -58,11 +59,18 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
         var spawnablePositionList = GetSpawnablePositionList(_teamId);
         if (spawnablePositionList == null) return null;
 
-        int candidatePoint = UnityEngine.Random.Range(0, spawnablePositionList.Count-1);
-        var spawnPosition = spawnablePositionList[candidatePoint];
+        var candidatePoint = UnityEngine.Random.Range(0, spawnablePositionList.Count-1);
+        var spawnTransform = spawnablePositionList[candidatePoint];
 
-        spawnablePositionList.Remove(spawnPosition);
-        return spawnPosition;
+        // lssがスポーン位置近くにあったときにスポーン位置を少しずらす
+        Transform lssTransform = lifeSupportSystemTransformDic[_teamId];
+        if(Vector3.Distance(lssTransform.position, spawnTransform.position)
+            <= lssToSpawnPositionDisableDistance)
+        {
+            spawnTransform.position -= 1.5f * (lssTransform.position - spawnTransform.position);
+        }
+
+        return spawnTransform;
     }
     private List<Transform> GetSpawnablePositionList(int _teamId)
     {
