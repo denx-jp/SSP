@@ -67,12 +67,13 @@ public class GameManager : NetworkBehaviour
         //武器を生成 
         //プレイヤーをLSS周辺に移動
         /// 現在全てのプレイヤーが移動できない状態
-        Debug.Log(clientPlayersManager.GetPlayerManagers().Count);
+        Debug.Log(NetworkServer.connections.Count);
         foreach(var pm in clientPlayersManager.GetPlayerManagers())
         {
             var playerTeamId = pm.playerModel.teamId;
+            var playerId = pm.playerModel.playerControllerId;
             var lssTransform = lifeSupportSystemPositionManager.LSSPositionDic[playerTeamId];
-            Debug.Log(pm);
+            Debug.Log(playerId+" "+playerTeamId);
             pm.playerSpawnAroundLSSAssigner.SpawnAroundLSS(lssTransform);
         }
 
