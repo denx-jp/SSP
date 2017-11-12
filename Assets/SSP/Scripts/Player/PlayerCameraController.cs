@@ -10,7 +10,10 @@ public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private Transform target;
+    [SerializeField] private PlayerInventory inventory;
     private CameraMode mode;
+    private float defaultFieldOfView;
+    private Camera mainCamera;
 
     [Header("Noraml Mode")]
     [SerializeField]
@@ -25,6 +28,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float yMaxLimit = 80; // Max vertical angle
     [SerializeField] private float rotationSensitivity = 3.5f; // The sensitivity of rotation
     [SerializeField] private Vector3 balltleModeOffset = new Vector3(0.5f, 1.5f, -1.5f); // The offset from target relative to camera rotation
+    [SerializeField] private float battleMagnification = 1.0f;
     private float x, y;
 
     [Header("Scope Mode")]
@@ -36,8 +40,10 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (!GetComponent<PlayerModel>().isLocalPlayerCharacter) return;
 
-        cameraTransform = Camera.main.transform;
+        mainCamera = Camera.main;
+        cameraTransform = mainCamera.transform;
         mode = CameraMode.Normal;
+        defaultFieldOfView = mainCamera.fieldOfView;
 
         #region Normal Mode
         tempOffset = normalModeOffset;
@@ -122,6 +128,7 @@ public class PlayerCameraController : MonoBehaviour
     public void ChangeCameraMode(CameraMode _mode)
     {
         mode = _mode;
+        SetCameraFov(mode);
     }
 
     public void SetScopeOffset(Vector3 offset)
@@ -133,5 +140,24 @@ public class PlayerCameraController : MonoBehaviour
     {
         // Vector3.upをxだけ回転させるので、y軸の回転を取得
         x = cameraTransform.eulerAngles.y;
+    }
+
+    private void SetCameraFov(CameraMode mode)
+    {
+        var fov = defaultFieldOfView;
+        switch (mode)
+        {
+            case CameraMode.Normal:
+                fov = defaultFieldOfView;
+                break;
+            case CameraMode.Battle:
+                fov = defaultFieldOfView / battleMagnification;
+                break;
+            case CameraMode.Scope:
+                var gun = inventory.weapons[inventory.currentWeaponType].model;
+                fov = gun == null ? defaultFieldOfView / battleMagnification : defaultFieldOfView / gun.scopeMagnification;
+                break;
+        }
+        mainCamera.fieldOfView = fov;
     }
 }
