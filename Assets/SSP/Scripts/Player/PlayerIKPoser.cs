@@ -33,13 +33,19 @@ public class PlayerIKPoser : NetworkBehaviour
         recoil = GetComponent<Recoil>();
         playerModel = GetComponent<PlayerModel>();
 
-        ik.solver.OnPreRead += OnPreRead;
         aim.enabled = false;
         ik.enabled = false;
 
         headLookAxis = ik.references.head.InverseTransformVector(ik.references.root.forward);
 
-        var cam = Camera.main.transform;
+        this.ObserveEveryValueChanged(_ => playerModel.MoveMode)
+            .Subscribe(mode =>
+            {
+                if (mode == MoveMode.battle)
+                    ik.solver.OnPreRead += OnPreRead;
+                else
+                    ik.solver.OnPreRead -= OnPreRead;
+            });
 
         this.LateUpdateAsObservable()
             .Where(_ => aim.solver.transform != null)
@@ -121,10 +127,11 @@ public class PlayerIKPoser : NetworkBehaviour
         }
     }
 
-    // FBBIKが解決される前の最終的な計算。 リコイルはすでに解決されているので、計算されたオフセットを使用することができます。
+    // FBBIKが解決される前の最終的な計算。 recoilはすでに解決されているので、計算されたオフセットを使用することができます。
     // ここでは、右手の位置と回転に関連して左手の位置を設定します。
     private void OnPreRead()
     {
+        Debug.Log("pre read");
         Quaternion r = recoil != null ? recoil.rotationOffset * rightHandRotation : rightHandRotation;
         Vector3 leftHandTarget = ik.references.rightHand.position + ik.solver.rightHandEffector.positionOffset + r * leftHandPosRelToRightHand;
         ik.solver.leftHandEffector.positionOffset += leftHandTarget - ik.references.leftHand.position - ik.solver.leftHandEffector.positionOffset + r * leftHandOffset;
@@ -137,10 +144,4 @@ public class PlayerIKPoser : NetworkBehaviour
         ik.references.head.rotation = Quaternion.Lerp(Quaternion.identity, headRotationTarget, headLookWeight) * ik.references.head.rotation;
     }
     #endregion
-
-    // Cleaning up the delegates
-    void OnDestroy()
-    {
-        if (ik != null) ik.solver.OnPreRead -= OnPreRead;
-    }
 }

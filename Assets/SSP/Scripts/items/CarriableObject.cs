@@ -31,7 +31,8 @@ public class CarriableObject : MonoBehaviour
         defaultLayer = gameObject.layer;
 
         this.LateUpdateAsObservable()
-            .Where(_ => !canCarry)
+            .Where(_ => interactionSystem != null)
+            .Where(_ => interactionSystem.IsPaused(FullBodyBipedEffector.LeftHand))
             .Where(_ => holdWeight < 0.999)     //< 0.999を1とみなす
             .Subscribe(_ =>
             {

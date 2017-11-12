@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using System.Linq;
-using UnityEngine.Networking;
 using RootMotion.FinalIK;
 using UniRx;
 using UniRx.Triggers;
@@ -72,8 +72,8 @@ public class PlayerCarrier : MonoBehaviour
         if (!carriableObject.CanCarry(model.teamId)) return;
 
         carriableObject.Pickup(interactionSystem, holdPoint);
-        canCarry = false;
         model.MoveMode = MoveMode.carry;
+        canCarry = false;
     }
 
     void Drop()
