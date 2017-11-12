@@ -14,7 +14,6 @@ public class LifeSupportSystemAssigner: NetworkBehaviour
     [ServerCallback]
     void Start()
     {
-        LSSPositionDic = new Dictionary<int, Transform>();
         LSSAssignPointObjectList = GameObject.FindGameObjectsWithTag(TagMap.Respawn).ToList();
 
         if (LSSAssignPointObjectList.Count >= 2)
