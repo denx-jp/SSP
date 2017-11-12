@@ -10,7 +10,6 @@ public class LifeSupportSystemAssigner: NetworkBehaviour
 {
     [SerializeField] private List<Transform> LSSTransforms;
     private List<GameObject> LSSAssignPointObjectList;
-    public Dictionary<int, Transform> LSSPositionDic;
 
     [ServerCallback]
     void Start()
@@ -22,8 +21,6 @@ public class LifeSupportSystemAssigner: NetworkBehaviour
         {
             foreach(var LSSTransform in LSSTransforms)
                 SetLSSStartPosition(LSSTransform);
-
-            UpdateLSSPositionDic();
         }
     }
 
@@ -33,14 +30,5 @@ public class LifeSupportSystemAssigner: NetworkBehaviour
 
         _LSSTransform.position = LSSAssignPointObjectList[candidatePoint].transform.position;
         LSSAssignPointObjectList.Remove(LSSAssignPointObjectList[candidatePoint]);
-    }
-
-    public void UpdateLSSPositionDic()
-    {
-        foreach(var LSSTransform in LSSTransforms)
-        {
-            var LSSTeamId = LSSTransform.GetComponent<LifeSupportSystemModel>().GetTeamId();
-            LSSPositionDic[LSSTeamId] = LSSTransform;
-        }
     }
 }
