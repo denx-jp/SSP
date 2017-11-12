@@ -10,7 +10,9 @@ public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private Transform target;
+    [SerializeField] private PlayerInventory inventory;
     private CameraMode mode;
+    private float defaultFieldOfDistance;
 
     [Header("Noraml Mode")]
     [SerializeField]
@@ -26,6 +28,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float rotationSensitivity = 3.5f; // The sensitivity of rotation
     [SerializeField] private Vector3 balltleModeOffset = new Vector3(0.5f, 1.5f, -1.5f); // The offset from target relative to camera rotation
     private float x, y;
+    private float battleMagnification = 1.0f;
 
     [Header("Scope Mode")]
     [SerializeField]
@@ -38,6 +41,7 @@ public class PlayerCameraController : MonoBehaviour
 
         cameraTransform = Camera.main.transform;
         mode = CameraMode.Normal;
+        defaultFieldOfDistance = cameraTransform.gameObject.GetComponent<Camera>().fieldOfView;
 
         #region Normal Mode
         tempOffset = normalModeOffset;
@@ -53,6 +57,8 @@ public class PlayerCameraController : MonoBehaviour
                 targetDir = new Vector3(targetDir.x, 0.0f, targetDir.z);
                 var rotation = Quaternion.LookRotation(targetDir, Vector3.up);
                 tempOffset = rotation * normalModeOffset;
+
+                cameraTransform.gameObject.GetComponent<Camera>().fieldOfView = defaultFieldOfDistance;
             });
 
         pim.CameraRotate
@@ -122,6 +128,7 @@ public class PlayerCameraController : MonoBehaviour
     public void ChangeCameraMode(CameraMode _mode)
     {
         mode = _mode;
+        SetCameraFov(mode);
     }
 
     public void SetScopeOffset(Vector3 offset)
@@ -133,5 +140,26 @@ public class PlayerCameraController : MonoBehaviour
     {
         // Vector3.upをxだけ回転させるので、y軸の回転を取得
         x = cameraTransform.eulerAngles.y;
+    }
+
+    private void SetCameraFov(CameraMode mode)
+    {
+        var fov = 1.0f;
+        switch (mode)
+        {
+            case CameraMode.Normal:
+                fov = defaultFieldOfDistance;
+                break;
+            case CameraMode.Battle:
+                fov = defaultFieldOfDistance / battleMagnification;
+                break;
+            case CameraMode.Scope:
+                var gun = inventory.weapons[inventory.currentWeaponType].model;
+                if (gun == null) fov = defaultFieldOfDistance / battleMagnification;
+                fov = defaultFieldOfDistance / gun.scopeMagnification;
+                break;
+        }
+
+        cameraTransform.gameObject.GetComponent<Camera>().fieldOfView = fov;
     }
 }
