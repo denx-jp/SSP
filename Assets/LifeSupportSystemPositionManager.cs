@@ -49,7 +49,19 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
         }
     }
 
-    public List<Transform> GetSpawnablePositionList(int _teamId)
+    public Transform GetSpawnPosition(int _teamId)
+    {
+        var spawnablePositionList = GetSpawnablePositionList(_teamId);
+        if (spawnablePositionList == null) return null;
+
+        int candidatePoint = UnityEngine.Random.Range(0, spawnablePositionList.Count-1);
+        var spawnPosition = spawnablePositionList[candidatePoint];
+
+        spawnablePositionList.Remove(spawnPosition);
+        return spawnPosition;
+    }
+
+    private List<Transform> GetSpawnablePositionList(int _teamId)
     {
         if (spawnablePositionDic[_teamId].Count == 0)
             return null;
