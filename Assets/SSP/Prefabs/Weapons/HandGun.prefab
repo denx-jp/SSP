@@ -323,7 +323,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  m_ExtensionPropertyValues: []
 --- !u!114 &114397692148794256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,4 +409,4 @@ MonoBehaviour:
   muzzle: {fileID: 1722006071851656}
   gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
   leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
-  scopeCameraOffset: {x: 0, y: 0.2, z: 0}
+  socpeCameraOffset: {x: -0.1, y: 0.2, z: 0.1}

@@ -12,7 +12,8 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private PlayerInventory inventory;
     private CameraMode mode;
-    private float defaultFieldOfDistance;
+    private float defaultFieldOfView;
+    private Camera mainCamera;
 
     [Header("Noraml Mode")]
     [SerializeField]
@@ -39,9 +40,10 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (!GetComponent<PlayerModel>().isLocalPlayerCharacter) return;
 
-        cameraTransform = Camera.main.transform;
+        mainCamera = Camera.main;
+        cameraTransform = mainCamera.transform;
         mode = CameraMode.Normal;
-        defaultFieldOfDistance = Camera.main.fieldOfView;
+        defaultFieldOfView = mainCamera.fieldOfView;
 
         #region Normal Mode
         tempOffset = normalModeOffset;
@@ -142,22 +144,20 @@ public class PlayerCameraController : MonoBehaviour
 
     private void SetCameraFov(CameraMode mode)
     {
-        var fov = defaultFieldOfDistance;
+        var fov = defaultFieldOfView;
         switch (mode)
         {
             case CameraMode.Normal:
-                fov = defaultFieldOfDistance;
+                fov = defaultFieldOfView;
                 break;
             case CameraMode.Battle:
-                fov = defaultFieldOfDistance / battleMagnification;
+                fov = defaultFieldOfView / battleMagnification;
                 break;
             case CameraMode.Scope:
                 var gun = inventory.weapons[inventory.currentWeaponType].model;
-                if (gun == null) fov = defaultFieldOfDistance / battleMagnification;
-                fov = defaultFieldOfDistance / gun.scopeMagnification;
+                fov = gun == null ? defaultFieldOfView / battleMagnification : defaultFieldOfView / gun.scopeMagnification;
                 break;
         }
-
-        Camera.main.fieldOfView = fov;
+        mainCamera.fieldOfView = fov;
     }
 }

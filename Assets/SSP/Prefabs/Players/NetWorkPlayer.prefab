@@ -5232,6 +5232,7 @@ MonoBehaviour:
   yMaxLimit: 80
   rotationSensitivity: 3.5
   balltleModeOffset: {x: 0.75, y: 0.4, z: -1.5}
+  battleMagnification: 1.2
   scopeRotationSensitivity: 3.5
 --- !u!114 &114082969731735372
 MonoBehaviour:
