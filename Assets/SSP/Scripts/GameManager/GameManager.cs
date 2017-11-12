@@ -14,6 +14,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
     [SerializeField] private EtherPopper etherPopper;
+    [SerializeField] private WeaponPopper weaponPopper;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -62,8 +63,7 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(2);
 
         RpcPrepareGame();
-        //初期設定
-        //武器を生成 
+        weaponPopper.Init();
         //プレイヤーをLSS周辺に移動
 
         yield return new WaitForSeconds(startDelay);

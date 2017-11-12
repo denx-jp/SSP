@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114974360778349634}
   - component: {fileID: 114718046599258146}
   - component: {fileID: 114490288624165420}
+  - component: {fileID: 114712106021701462}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -61,6 +62,7 @@ MonoBehaviour:
   gameJudger: {fileID: 114968024861136860}
   killLogManager: {fileID: 114718046599258146}
   etherPopper: {fileID: 114490288624165420}
+  weaponPopper: {fileID: 114712106021701462}
   message: {fileID: 0}
   StartPanel: {fileID: 0}
   BattlePanel: {fileID: 0}
@@ -114,9 +116,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ether: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3, type: 2}
-  popInterval: 1
+  popInterval: 10
   popDuration: 180
-  initEtherValue: 10
+  initEtherValue: 100
+--- !u!114 &114712106021701462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6c5c6ba5b4451478d057836926c9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCount: 25
+  popWeapons:
+  - {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
+  - {fileID: 1595191971914448, guid: b9512561b1fdeae46b082303d3eff782, type: 2}
+  - {fileID: 1135113161938838, guid: 79239d169984b974aa16657af0865c75, type: 2}
+  - {fileID: 1198441546025866, guid: e5d4cf07adb2b4348a6a1e1722c15bf5, type: 2}
 --- !u!114 &114718046599258146
 MonoBehaviour:
   m_ObjectHideFlags: 1
