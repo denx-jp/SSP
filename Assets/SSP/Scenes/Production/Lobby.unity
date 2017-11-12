@@ -277,12 +277,12 @@ Prefab:
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 429.5
+      value: 313.5
       objectReference: {fileID: 0}
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 241.5
+      value: 205
       objectReference: {fileID: 0}
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
@@ -395,7 +395,7 @@ Prefab:
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_PlayScene
-      value: Network
+      value: NB29979Network
       objectReference: {fileID: 0}
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
