@@ -15,18 +15,12 @@ public class PlayerFootstep : MonoBehaviour
     [SerializeField] private PlayerAnimationEventHandler animationEventHandler;
     [SerializeField] private AudioSource audioSource;
     private float castRadius = 0.1f;
-    // Use this for initialization
     void Start()
     {
         animationEventHandler.FootstepStream.Subscribe(
             v =>
             {
                 PlayFootstep(v);
-                //CmdPlayFootstep((int)v);
-                //if (isLocalPlayer)
-                //{
-                //    PlayFootstep(v);
-                //}
             }
         );
     }

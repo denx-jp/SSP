@@ -8,7 +8,7 @@ public class PlayerAnimationEventHandler : MonoBehaviour
 {
     public readonly Subject<FootstepType> FootstepStream = new Subject<FootstepType>();
 
-    [SerializeField] private float threshold_idle;
+    [SerializeField] private float thresholdIdle;
     private Vector3 previousPosition = new Vector3();
 
     void FootR()
@@ -36,6 +36,6 @@ public class PlayerAnimationEventHandler : MonoBehaviour
     {
         var velocity = (this.transform.position - previousPosition).sqrMagnitude;
         previousPosition = this.transform.position;
-        return velocity > threshold_idle;
+        return velocity > thresholdIdle;
     }
 }
