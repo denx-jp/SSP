@@ -31,8 +31,10 @@ public class PlayerRespawner : NetworkBehaviour
     [Command]
     private void CmdPlayerRespawnStart()
     {
-        var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
-        RpcPlayerRespawnStart(respawnPoint.transform.position);
+        var teamId = this.GetComponent<PlayerModel>().teamId;
+        var respawnPoint = LifeSupportSystemPositionManager.Instance.GetSpawnPosition(teamId);
+
+        RpcPlayerRespawnStart(respawnPoint.position);
     }
 
     [ClientRpc]
