@@ -49,4 +49,10 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
         }
     }
 
+    public List<Transform> GetSpawnablePositionList(int _teamId)
+    {
+        if (spawnablePositionDic[_teamId].Count == 0)
+            return null;
+        return spawnablePositionDic[_teamId];
+    }
 }
