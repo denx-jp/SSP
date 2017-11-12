@@ -1,23 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LifeSupportSystemPositionManager : MonoBehaviour
 {
     public static LifeSupportSystemPositionManager Instance;
-    public static Dictionary<int, Transform> LSSPositionDic;
+    public static Dictionary<int, Transform> lifeSupportSystemPositionDic;
+    public static Dictionary<int, List<Transform>> spawnablePositionDic;
+
+    [SerializeField] private List<Transform> lifeSupportSystemTransforms;
+    [SerializeField] private float spawnableDistance;
+
+    private List<GameObject> spawnPositionObjectList;
 
     private void Awake()
     {
         Instance = this;
+
+        lifeSupportSystemPositionDic = new Dictionary<int, Transform>();
+        spawnablePositionDic = new Dictionary<int, List<Transform>>();
+
+        spawnPositionObjectList =
+            GameObject.FindGameObjectsWithTag(TagMap.Respawn).ToList();
     }
 
-    public void UpdateLSSPositionDic()
+    public void UpdateLSSPositionDic(Transform _LSSTransform)
     {
-        foreach(var LSSTransform in LSSTransforms)
+        var LSSTeamId = _LSSTransform.GetComponent<LifeSupportSystemModel>().GetTeamId();
+        lifeSupportSystemPositionDic[LSSTeamId] = _LSSTransform;
+
+        SetSpawnablePosition(LSSTeamId);
+    }
+
+    private void SetSpawnablePosition(int _teamId)
+    {
+        spawnablePositionDic[_teamId].Clear();
+
+        float distance;
+        foreach(var spawnPosition in spawnPositionObjectList)
         {
-            var LSSTeamId = LSSTransform.GetComponent<LifeSupportSystemModel>().GetTeamId();
-            LSSPositionDic[LSSTeamId] = LSSTransform;
+            distance = 
+                Vector3.Distance(lifeSupportSystemPositionDic[_teamId].position,
+                                spawnPosition.transform.position);
+
+            if (distance <= spawnableDistance)
+                spawnablePositionDic[_teamId].Add(spawnPosition.transform);
         }
     }
+
 }
