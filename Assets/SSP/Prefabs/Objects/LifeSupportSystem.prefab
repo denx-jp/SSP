@@ -760,7 +760,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1694645179068416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 0.5, z: -4.39}
+  m_LocalPosition: {x: 1.59, y: 1, z: 8.8}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children:
   - {fileID: 4767834452274390}
@@ -1348,12 +1348,12 @@ Rigidbody:
   m_GameObject: {fileID: 1694645179068416}
   serializedVersion: 2
   m_Mass: 5000
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 10
+  m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &65316425672280066
 BoxCollider:
@@ -1470,7 +1470,7 @@ MonoBehaviour:
   pivot: {fileID: 4767834452274390}
   pickUpTime: 0.3
   obj: {fileID: 0}
-  CanCarry: 1
+  canCarry: 1
 --- !u!114 &114523097370153074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5694377d487edd6468db7d11dfc70534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamId: 0
+  teamId: 2
   syncEther: 0
   initEtherValue: 5000
 --- !u!114 &114911263605801474
