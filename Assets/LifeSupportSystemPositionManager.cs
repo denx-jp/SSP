@@ -49,9 +49,6 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
                 spawnablePositions.Add(spawnPosition.transform);
         }
         spawnablePositionDic[_teamId] = spawnablePositions;
-
-        foreach(var p in spawnablePositionDic[_teamId])
-            Debug.Log(_teamId+" "+p.position);
     }
 
     public Transform GetSpawnPosition(int _teamId)
