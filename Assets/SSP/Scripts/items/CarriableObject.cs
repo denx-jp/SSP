@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using RootMotion;
 using RootMotion.FinalIK;
 using UniRx;
@@ -22,11 +23,13 @@ public class CarriableObject : MonoBehaviour
 
     public bool canCarry = true;
 
+    private NetworkTransform networkTransform;
 
     protected virtual void Start()
     {
         rigid = GetComponent<Rigidbody>();
         obj = GetComponent<InteractionObject>();
+        networkTransform = GetComponent<NetworkTransform>();
         canCarry = true;
         defaultLayer = gameObject.layer;
 
@@ -64,6 +67,7 @@ public class CarriableObject : MonoBehaviour
         interactionSystem.OnInteractionResume += OnDrop;
 
         // オブジェクトがキャラクターの動きを継承するようにする
+        networkTransform.enabled = false;
         transform.parent = interactionSystem.transform;
 
         interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, obj, false);
@@ -107,25 +111,7 @@ public class CarriableObject : MonoBehaviour
         if (effectorType != FullBodyBipedEffector.LeftHand) return;
         if (interactionObject != obj) return;
 
-        // Rotate the pivot of the hand targets
-        RotatePivot();
-
-        // Rotate the hold point so it matches the current rotation of the object
-        holdPoint.rotation = transform.rotation;
-    }
-
-    // 相互作用が再開されて一時停止されたときにInteractionSystemによって呼び出されます。
-    private void OnDrop(FullBodyBipedEffector effectorType, InteractionObject interactionObject)
-    {
-        if (effectorType != FullBodyBipedEffector.LeftHand) return;
-        if (interactionObject != obj) return;
-
-        transform.parent = null;
-        rigid.isKinematic = false;
-    }
-
-    private void RotatePivot()
-    {
+        #region Pivotの回転
         // キャラクターに向かって平らな方向を得る
         Vector3 characterDirection = (pivot.position - interactionSystem.transform.position).normalized;
         characterDirection.y = 0f;
@@ -139,5 +125,20 @@ public class CarriableObject : MonoBehaviour
 
         // Rotate towards axis and upAxis
         pivot.localRotation = Quaternion.LookRotation(axis, upAxis);
+        #endregion
+
+        // Rotate the hold point so it matches the current rotation of the object
+        holdPoint.rotation = transform.rotation;
+    }
+
+    // 相互作用が再開されて一時停止されたときにInteractionSystemによって呼び出されます。
+    private void OnDrop(FullBodyBipedEffector effectorType, InteractionObject interactionObject)
+    {
+        if (effectorType != FullBodyBipedEffector.LeftHand) return;
+        if (interactionObject != obj) return;
+
+        transform.parent = null;
+        networkTransform.enabled = true;
+        rigid.isKinematic = false;
     }
 }
