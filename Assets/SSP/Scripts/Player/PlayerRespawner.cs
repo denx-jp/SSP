@@ -12,7 +12,7 @@ public class PlayerRespawner : NetworkBehaviour
     private GameObject[] respawnPoints;
 
     [SerializeField] private int timeToRespawn;
-    
+
     void Start()
     {
         playerHealthManager = GetComponent<PlayerHealthManager>();
@@ -24,23 +24,25 @@ public class PlayerRespawner : NetworkBehaviour
             .Where(_ => isLocalPlayer)
             .Subscribe(_ =>
             {
-                CmdPlayerRespawnStart();
+                CmdPlayerRespawnStart("inGame");
             });
     }
 
     [Command]
-    private void CmdPlayerRespawnStart()
+    public void CmdPlayerRespawnStart(string _state)
     {
         var teamId = this.GetComponent<PlayerModel>().teamId;
         var respawnPoint = LifeSupportSystemPositionManager.Instance.GetSpawnPosition(teamId);
 
-        RpcPlayerRespawnStart(respawnPoint.position);
+        RpcPlayerRespawnStart(respawnPoint.position, _state);
     }
 
     [ClientRpc]
-    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
+    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition, string _state)
     {
         this.transform.position = _respawnPointPosition;
-        playerHealthManager.Revive();
+
+        if(_state == "inGame")
+            playerHealthManager.Revive();
     }
 }
