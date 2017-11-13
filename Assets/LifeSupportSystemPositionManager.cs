@@ -67,7 +67,7 @@ public class LifeSupportSystemPositionManager : MonoBehaviour
         if(Vector3.Distance(lssTransform.position, spawnTransform.position)
             <= lssToSpawnPositionDisableDistance)
         {
-            spawnTransform.position -= 1.5f * (lssTransform.position - spawnTransform.position);
+            spawnTransform.position -= 3.0f * (lssTransform.position - spawnTransform.position);
         }
 
         return spawnTransform;
