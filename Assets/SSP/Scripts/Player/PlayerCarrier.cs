@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 using RootMotion.FinalIK;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerCarrier : MonoBehaviour
+public class PlayerCarrier : NetworkBehaviour
 {
     [SerializeField] private Vector3 castCenterOffset;
     [SerializeField] private float castRadius;
@@ -16,7 +17,7 @@ public class PlayerCarrier : MonoBehaviour
     private FullBodyBipedIK ik;
     private InteractionSystem interactionSystem;
 
-    private bool canCarry = true;
+    [SyncVar] private bool canCarry = true;
     private CarriableObject carriableObject;
 
     void Start()
@@ -37,9 +38,8 @@ public class PlayerCarrier : MonoBehaviour
                 }
                 else
                 {
-                    Drop();
-                    canCarry = true;
-                    model.MoveMode = MoveMode.normal;
+                    if (carriableObject == null) return;
+                    CmdDrop();
                 }
             });
 
@@ -67,16 +67,37 @@ public class PlayerCarrier : MonoBehaviour
 
         if (carriableObjects.Count() <= 0) return;
 
-        carriableObject = carriableObjects.First().gameObject.GetComponent<CarriableObject>();
+        var firstObject = carriableObjects.First().gameObject.GetComponent<CarriableObject>();
 
-        if (!carriableObject.CanCarry(model.teamId)) return;
-
-        carriableObject.Pickup(interactionSystem, holdPoint);
-        model.MoveMode = MoveMode.carry;
-        canCarry = false;
+        if (!firstObject.CanCarry(model.teamId)) return;
+        CmdCarry(firstObject.gameObject);
     }
 
-    void Drop()
+    [Command]
+    void CmdCarry(GameObject go)
+    {
+        model.MoveMode = MoveMode.carry;
+        canCarry = false;
+        RpcCarry(go);
+    }
+
+    [ClientRpc]
+    void RpcCarry(GameObject go)
+    {
+        carriableObject = go.GetComponent<CarriableObject>();
+        carriableObject.Pickup(interactionSystem, holdPoint);
+    }
+
+    [Command]
+    void CmdDrop()
+    {
+        canCarry = true;
+        model.MoveMode = MoveMode.normal;
+        RpcDrop();
+    }
+
+    [ClientRpc]
+    void RpcDrop()
     {
         carriableObject.Drop();
     }
