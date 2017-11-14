@@ -154,7 +154,7 @@ public class PlayerCameraController : MonoBehaviour
                 fov = defaultFieldOfView / battleMagnification;
                 break;
             case CameraMode.Scope:
-                var gun = inventory.weapons[inventory.currentWeaponType].model;
+                var gun = (LongRangeWeaponModel)inventory.weapons[inventory.currentWeaponType].model;
                 fov = gun == null ? defaultFieldOfView / battleMagnification : defaultFieldOfView / gun.scopeMagnification;
                 break;
         }

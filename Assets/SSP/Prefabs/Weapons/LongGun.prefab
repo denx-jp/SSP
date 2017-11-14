@@ -56,9 +56,9 @@ GameObject:
   - component: {fileID: 65415841827844980}
   - component: {fileID: 23101878257787678}
   - component: {fileID: 114303862106099984}
-  - component: {fileID: 114636341030069382}
   - component: {fileID: 114178682629709206}
   - component: {fileID: 114948242860574984}
+  - component: {fileID: 114450203267675378}
   m_Layer: 0
   m_Name: LongGun
   m_TagString: Untagged
@@ -338,11 +338,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 114636341030069382}
+  model: {fileID: 114450203267675378}
   muzzle: {fileID: 1914257830511014}
   gunHoldOffset: {x: 0, y: 0, z: 0}
   leftHandOffset: {x: 0, y: 0, z: 0}
-  scopeCameraOffset: {x: 0, y: 0, z: 0}
+  socpeCameraOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &114303862106099984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -375,7 +375,7 @@ MonoBehaviour:
     i15: 245
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114636341030069382
+--- !u!114 &114450203267675378
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -383,21 +383,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1198441546025866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 166ae1beae32a0f4f9c812d74eb6cff7, type: 3}
+  m_Script: {fileID: 11500000, guid: f0b914f142c9ed5438ce56c2ebc9a5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   name: HandGun
   type: 1
   damageAmount: 100
-  scopeMagnification: 1
   isOwnerLocalPlayer: 0
-  image: {fileID: 21300000, guid: b57f3c9caeff86547bc7daa58b74b937, type: 3}
+  image: {fileID: 21300000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
   playerId: 0
   teamId: 0
-  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
-  bulletVelocity: 20
-  bulletDeathTime: 5
   coolTime: 0.5
+  scopeMagnification: 1.5
+  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
+  bulletVelocity: 10
+  bulletDeathTime: 5
 --- !u!114 &114948242860574984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -411,6 +411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
   weaponRot: {x: 0, y: 90, z: 0}
-  model: {fileID: 114636341030069382}
+  model: {fileID: 0}
   canInteract: 1
   hand: 1

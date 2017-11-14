@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114476576303947814}
   - component: {fileID: 114930993466919184}
   - component: {fileID: 114611022078819548}
+  - component: {fileID: 114777560185994564}
   m_Layer: 0
   m_Name: HandGun
   m_TagString: Untagged
@@ -374,9 +375,6 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
   playerId: 0
   teamId: 0
-  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
-  bulletVelocity: 10
-  bulletDeathTime: 5
   coolTime: 0.5
 --- !u!114 &114611022078819548
 MonoBehaviour:
@@ -394,6 +392,29 @@ MonoBehaviour:
   model: {fileID: 114476576303947814}
   canInteract: 0
   hand: 1
+--- !u!114 &114777560185994564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996856847404154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b914f142c9ed5438ce56c2ebc9a5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: HandGun
+  type: 0
+  damageAmount: 100
+  scopeMagnification: 1.5
+  isOwnerLocalPlayer: 0
+  image: {fileID: 21300000, guid: 1f3b5537aebf5f34f9cd93065de4970f, type: 3}
+  playerId: 0
+  teamId: 0
+  coolTime: 0.5
+  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
+  bulletVelocity: 10
+  bulletDeathTime: 5
 --- !u!114 &114930993466919184
 MonoBehaviour:
   m_ObjectHideFlags: 1

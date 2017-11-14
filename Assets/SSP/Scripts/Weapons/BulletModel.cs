@@ -17,12 +17,12 @@ public class BulletModel : NetworkBehaviour
         deathTime = _deathTime;
     }
 
-    public void SetProperties(LongRangeWeaponModel lrwm)
+    public void SetProperties(HandGunModel handgunModel)
     {
-        shootPlayerId = lrwm.playerId;
-        shootPlayerTeamId = lrwm.teamId;
-        damageAmount = lrwm.damageAmount;
-        deathTime = lrwm.bulletDeathTime;
-        isShooterLocalPlayer = lrwm.isOwnerLocalPlayer;
+        shootPlayerId = handgunModel.playerId;
+        shootPlayerTeamId = handgunModel.teamId;
+        damageAmount = handgunModel.damageAmount;
+        deathTime = handgunModel.bulletDeathTime;
+        isShooterLocalPlayer = handgunModel.isOwnerLocalPlayer;
     }
 }
