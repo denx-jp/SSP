@@ -10,12 +10,12 @@ public class BulletManager : NetworkBehaviour
 {
     [SerializeField] BulletModel model;
 
-    public void Init(HandGunModel handgunModel)
+    public void Init(ProjectileModel projectileModel)
     {
         if (isServer)
             Destroy(gameObject, model.deathTime);
 
-        model.SetProperties(handgunModel);
+        model.SetProperties(projectileModel);
 
         if (model.isShooterLocalPlayer)
         {

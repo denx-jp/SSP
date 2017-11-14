@@ -3,11 +3,11 @@ using UnityEngine.Networking;
 
 public class HandGun : LongRangeWeapon
 {
-    protected HandGunModel hgModel;
+    protected ProjectileModel hgModel;
 
     private void Start()
     {
-        hgModel = (HandGunModel)model;
+        hgModel = (ProjectileModel)model;
     }
 
     protected override void Shoot()

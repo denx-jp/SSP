@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class HandGunModel : LongRangeWeaponModel
+public class ProjectileModel : LongRangeWeaponModel
 {
     public GameObject bullet;
     public float bulletVelocity = 10;
