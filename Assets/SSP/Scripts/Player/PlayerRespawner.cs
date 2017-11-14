@@ -11,6 +11,7 @@ public class PlayerRespawner : NetworkBehaviour
     private PlayerHealthManager playerHealthManager;
     private GameObject[] respawnPoints;
 
+    [SerializeField] private PlayerModel playerModel;
     [SerializeField] private int timeToRespawn;
 
     void Start()
@@ -31,7 +32,7 @@ public class PlayerRespawner : NetworkBehaviour
     [Command]
     public void CmdPlayerRespawnStart(string _state)
     {
-        var teamId = this.GetComponent<PlayerModel>().teamId;
+        var teamId = playerModel.teamId;
         var respawnPoint = SpawnablePositionManager.Instance.GetSpawnPosition(teamId);
 
         RpcPlayerRespawnStart(respawnPoint.position, _state);
