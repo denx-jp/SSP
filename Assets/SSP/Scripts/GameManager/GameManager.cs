@@ -68,7 +68,7 @@ public class GameManager : NetworkBehaviour
         spawnablePositionManager.Init();
 
         //プレイヤーをLSS周辺に移動
-        foreach(var player in clientPlayersManager.GetPlayerManagers())
+        foreach(var player in ClientPlayersManager.Players)
         {
             player.GetComponent<PlayerRespawner>().CmdInitPlayerSpawnStart();
         }
