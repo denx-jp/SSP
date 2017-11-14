@@ -22,7 +22,7 @@ public class WeaponPopper : NetworkBehaviour
             for (int i = 0; i < spawnCount; i++)
             {
                 var popPoint = popPoints.Pop();
-                var popWeapon = popWeapons[Random.Range(0, popWeapons.Count - 1)];
+                var popWeapon = popWeapons[Random.Range(0, popWeapons.Count)];
                 var weapon = Instantiate(popWeapon, popPoint.position + spawnOffset, popPoint.rotation);
                 NetworkServer.Spawn(weapon);
             }

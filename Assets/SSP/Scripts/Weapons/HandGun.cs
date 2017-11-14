@@ -3,7 +3,9 @@ using UnityEngine.Networking;
 
 public class HandGun : LongRangeWeapon
 {
-    protected ProjectileModel hgModel;
+    private ProjectileModel hgModel;
+    private RaycastHit hit;
+    private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
 
     private void Start()
     {

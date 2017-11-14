@@ -17,9 +17,6 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
     protected bool autoShoot = false;
     protected bool isScoped = false;
 
-    protected RaycastHit hit;
-    protected int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
-
     protected PlayerModel playerModel;
     protected PlayerIKPoser ikPoser;
     protected PlayerCameraController pcc;
@@ -65,21 +62,13 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
-
-        RaycastHit IKHit;
+        
         this.UpdateAsObservable()
             .Where(_ => playerModel.MoveMode == MoveMode.battle)
             .Where(_ => hasAuthority)
             .Subscribe(_ =>
             {
-                if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out IKHit, 1000, layerMask))
-                {
-                    ikPoser.CmdSetTarget(IKHit.point);
-                }
-                else
-                {
                     ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
-                }
             });
     }
 
