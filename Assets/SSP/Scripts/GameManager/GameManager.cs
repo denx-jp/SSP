@@ -141,7 +141,7 @@ public class GameManager : NetworkBehaviour
         var result = ResultPanel.transform.Find("Result").gameObject;
         result.SetActive(true);
         result.GetComponent<ResultPanelUIManager>().Init(isWin, killLogManager);
-       
+
         yield return new WaitForSeconds(30);
 
         SceneManager.LoadScene(TitleScene);

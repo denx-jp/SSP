@@ -11,6 +11,8 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
 
     public int recentAttackerId { get; private set; }
 
+    bool isDeath = false;
+
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
@@ -19,7 +21,15 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
 
         playerModel.Health
             .Where(v => v <= 0.0f)
-            .Subscribe(_ => deathStream.OnNext(true));
+            .Subscribe(_ => 
+                {
+                    if (!isDeath)
+                    {
+                        deathStream.OnNext(true);
+                        isDeath = true;
+                    }
+                }
+            );
     }
 
     public void SetDamage(Damage damage)
@@ -43,6 +53,7 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     {
         playerModel.Init();
         deathStream.OnNext(false);
+        isDeath = false;
     }
 
     [ClientRpc]
