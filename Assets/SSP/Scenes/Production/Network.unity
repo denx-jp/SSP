@@ -537,9 +537,35 @@ Prefab:
       propertyPath: team2LifeSupportSystemTransform
       value: 
       objectReference: {fileID: 1199875663}
+    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: spawnablePositionManager
+      value: 
+      objectReference: {fileID: 73757731}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &73757730 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 73757729}
+--- !u!114 &73757731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 73757730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a36d72b1c073e42aba69f1d841b799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeSupportSystemTransforms:
+  - {fileID: 1944900689}
+  - {fileID: 1199875663}
+  spawnableDistance: 10
+  lssToSpawnPositionDisableDistance: 3
 --- !u!1 &182888598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,12 +1889,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 429.5
+      value: 306.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 241.5
+      value: 205
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}

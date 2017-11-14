@@ -11,12 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SSP/Scenes/Production/Lobby.unity
     guid: c92ff6d31ae01f44fa540cc13de98394
-  - enabled: 0
+  - enabled: 1
     path: Assets/SSP/Scenes/Production/Network.unity
     guid: c02581fa5a384e44294a8a98653f77b2
   - enabled: 0
     path: Assets/SSP/Scenes/Dev/Chorome.unity
     guid: 168f84b9a525a244dacaff066bbbebce
-  - enabled: 1
-    path: Assets/SSP/Scenes/Dev/Network/NB29979Network.unity
-    guid: 58dc5f62ac75f4c49883d7751bda01dd
