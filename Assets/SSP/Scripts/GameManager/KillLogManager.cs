@@ -26,6 +26,11 @@ public class KillLogManager : NetworkBehaviour
         }
     }
 
+    public PlayerRecord GetPlayerRecord(int playerId)
+    {
+        return playerRecords[playerId];
+    }
+
     [ClientRpc]
     void RpcUpdatePlayerReport(int killerId,int victimId)
     {

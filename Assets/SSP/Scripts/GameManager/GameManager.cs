@@ -24,9 +24,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject team1LSS;
     [SerializeField] private GameObject team2LSS;
 
-    [SerializeField] private float startDelay = 3f;
-    [SerializeField] private int countDownCount = 5;
-    [SerializeField] private float endDelay = 3f;
+    [SerializeField] private float startDelay = 1f;//3f;
+    [SerializeField] private int countDownCount = 1;//5;
+    [SerializeField] private float endDelay = 1f;//3f;
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
 
@@ -51,6 +51,7 @@ public class GameManager : NetworkBehaviour
         }
 
         gameJudger.GetJudgeStream()
+            .Take(1)
             .Subscribe(v =>
             {
                 StartCoroutine(GameEnd(v));
@@ -137,8 +138,10 @@ public class GameManager : NetworkBehaviour
 
         isGameStarting = false;
         message.text = string.Empty;
-        ResultPanel.transform.Find("Result").gameObject.SetActive(true);
-
+        var result = ResultPanel.transform.Find("Result").gameObject;
+        result.SetActive(true);
+        result.GetComponent<ResultPanelUIManager>().Init(isWin, killLogManager);
+       
         yield return new WaitForSeconds(30);
 
         SceneManager.LoadScene(TitleScene);
