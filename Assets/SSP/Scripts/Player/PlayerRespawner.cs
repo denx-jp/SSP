@@ -32,7 +32,7 @@ public class PlayerRespawner : NetworkBehaviour
     public void CmdPlayerRespawnStart(string _state)
     {
         var teamId = this.GetComponent<PlayerModel>().teamId;
-        var respawnPoint = LifeSupportSystemPositionManager.Instance.GetSpawnPosition(teamId);
+        var respawnPoint = SpawnablePositionManager.Instance.GetSpawnPosition(teamId);
 
         RpcPlayerRespawnStart(respawnPoint.position, _state);
     }

@@ -573,6 +573,11 @@ Prefab:
       propertyPath: LifeSupportSystemPositionManager
       value: 
       objectReference: {fileID: 1837548714}
+    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: spawnablePositionManager
+      value: 
+      objectReference: {fileID: 1837548714}
     m_RemovedComponents:
     - {fileID: 114974705603106214, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
@@ -1701,7 +1706,7 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 297.5
+      value: 302
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}

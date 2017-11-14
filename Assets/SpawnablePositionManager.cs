@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LifeSupportSystemPositionManager : MonoBehaviour
+public class SpawnablePositionManager : MonoBehaviour
 {
-    public static LifeSupportSystemPositionManager Instance;
+    public static SpawnablePositionManager Instance;
     public static Dictionary<int, Transform> lifeSupportSystemTransformDic;
     public static Dictionary<int, List<Transform>> spawnablePositionDic;
 
