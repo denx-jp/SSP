@@ -13,7 +13,7 @@ public class PlayerRecordViewModel : MonoBehaviour
 
     public void Init(PlayerModel playerModel, PlayerRecord record)
     {
-        playerNameText.text = playerModel.playerId.ToString(); //一時的にPlayerIDを代入(プレイヤー名をここで代入する予定)
+        playerNameText.text = playerModel.playerName;
         killCountText.text = record.killCount.ToString();
         deathCountText.text = record.deathCount.ToString();
     }

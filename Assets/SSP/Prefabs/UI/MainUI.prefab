@@ -214,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1122390960544794
 GameObject:
   m_ObjectHideFlags: 1
@@ -564,7 +564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1502134714003876
 GameObject:
   m_ObjectHideFlags: 1
@@ -783,7 +783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1549264112004306
 GameObject:
   m_ObjectHideFlags: 1
@@ -929,12 +929,12 @@ GameObject:
   - component: {fileID: 114846001677246946}
   - component: {fileID: 114842501091309226}
   m_Layer: 0
-  m_Name: RivalTeamPlayerRecordPanel2
+  m_Name: RivalTeamPlayerRecordPanel0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1676709636098586
 GameObject:
   m_ObjectHideFlags: 1
@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1733406402757472
 GameObject:
   m_ObjectHideFlags: 1
@@ -1266,12 +1266,12 @@ GameObject:
   - component: {fileID: 114677979897029892}
   - component: {fileID: 114332028397691628}
   m_Layer: 0
-  m_Name: RivalTeamPlayerRecordPanel0
+  m_Name: RivalTeamPlayerRecordPanel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1942659984217652
 GameObject:
   m_ObjectHideFlags: 1
@@ -3556,9 +3556,9 @@ MonoBehaviour:
   - {fileID: 114543073260458228}
   - {fileID: 114898336705234508}
   rivaTeamPlayerRecordViewModels:
-  - {fileID: 114332028397691628}
-  - {fileID: 114222506010477688}
   - {fileID: 114842501091309226}
+  - {fileID: 114222506010477688}
+  - {fileID: 114332028397691628}
 --- !u!114 &114956808472862852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4806,7 +4806,7 @@ RectTransform:
   - {fileID: 224895256092433020}
   - {fileID: 224187076048249392}
   m_Father: {fileID: 224509863947480332}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4935,9 +4935,9 @@ RectTransform:
   m_LocalPosition: {x: 125, y: 45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224697099665512228}
-  - {fileID: 224161873066622738}
   - {fileID: 224408081039861540}
+  - {fileID: 224161873066622738}
+  - {fileID: 224697099665512228}
   m_Father: {fileID: 224913640851503584}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5285,7 +5285,7 @@ RectTransform:
   - {fileID: 224411640441902704}
   - {fileID: 224769469011841484}
   m_Father: {fileID: 224509863947480332}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}

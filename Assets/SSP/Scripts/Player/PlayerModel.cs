@@ -18,6 +18,7 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     //ネットワーク実装時にはローカルプレイヤーのみLayerMap.LocalPlayerになる。
     [HideInInspector] public int defaultLayer = LayerMap.Default;
     [SyncVar] int moveModeIndex;
+    [SyncVar] public string playerName;
     public MoveMode MoveMode
     {
         get { return (MoveMode)moveModeIndex; }
