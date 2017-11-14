@@ -25,25 +25,36 @@ public class PlayerRespawner : NetworkBehaviour
             .Where(_ => isLocalPlayer)
             .Subscribe(_ =>
             {
-                CmdPlayerRespawnStart("inGame");
+                CmdPlayerRespawnStart();
             });
     }
 
     [Command]
-    public void CmdPlayerRespawnStart(string _state)
+    private void CmdPlayerRespawnStart()
     {
         var teamId = playerModel.teamId;
         var respawnPoint = SpawnablePositionManager.Instance.GetSpawnPosition(teamId);
 
-        RpcPlayerRespawnStart(respawnPoint.position, _state);
+        RpcPlayerRespawnStart(respawnPoint.position);
     }
-
     [ClientRpc]
-    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition, string _state)
+    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
     {
         this.transform.position = _respawnPointPosition;
+        playerHealthManager.Revive();
+    }
 
-        if(_state == "inGame")
-            playerHealthManager.Revive();
+    [Command]
+    public void CmdInitPlayerSpawnStart()
+    {
+        var teamId = playerModel.teamId;
+        var respawnPoint = SpawnablePositionManager.Instance.GetSpawnPosition(teamId);
+
+        RpcInitPlayerSpawnStart(respawnPoint.position);
+    }
+    [ClientRpc]
+    private void RpcInitPlayerSpawnStart(Vector3 _spawnPointPosition)
+    {
+        this.transform.position = _spawnPointPosition;
     }
 }

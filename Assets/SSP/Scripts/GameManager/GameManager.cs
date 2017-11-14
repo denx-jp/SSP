@@ -70,7 +70,7 @@ public class GameManager : NetworkBehaviour
         //プレイヤーをLSS周辺に移動
         foreach(var player in clientPlayersManager.GetPlayerManagers())
         {
-            player.GetComponent<PlayerRespawner>().CmdPlayerRespawnStart("init");
+            player.GetComponent<PlayerRespawner>().CmdInitPlayerSpawnStart();
         }
 
         yield return new WaitForSeconds(startDelay);
