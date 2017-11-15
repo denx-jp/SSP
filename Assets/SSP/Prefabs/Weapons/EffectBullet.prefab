@@ -24,8 +24,9 @@ GameObject:
   - component: {fileID: 135426295125671222}
   - component: {fileID: 54830384459397430}
   - component: {fileID: 96718948243196292}
+  - component: {fileID: 114188034083717294}
   m_Layer: 0
-  m_Name: InvisibleBullet
+  m_Name: EffectBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,23 +167,23 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0, g: 0, b: 0, a: 1}
-      key1: {r: 0.6764706, g: 0.6764706, b: 0.6764706, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0.6707317, g: 0.6707317, b: 0.6707317, a: 1}
+      key2: {r: 1, g: 1, b: 1, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 1}
       key4: {r: 0.39215684, g: 0.39215684, b: 0.39215684, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 31997
-      ctime2: 65535
+      ctime1: 31804
+      ctime2: 63222
       ctime3: 65535
       ctime4: 64571
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 32382
+      atime1: 20046
       atime2: 65535
       atime3: 65535
       atime4: 0
@@ -199,6 +200,17 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114188034083717294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1610161927253904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e56989fc766d44cbb1cbb0d9db813b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135426295125671222
 SphereCollider:
   m_ObjectHideFlags: 1

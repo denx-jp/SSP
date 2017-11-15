@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114303862106099984}
   - component: {fileID: 82378538580600272}
   - component: {fileID: 114948242860574984}
-  - component: {fileID: 114780131718685784}
+  - component: {fileID: 114656995363542148}
   - component: {fileID: 114136039409138944}
   m_Layer: 0
   m_Name: SniperRifle
@@ -315,8 +315,8 @@ MonoBehaviour:
   coolTime: 1.5
   scopeMagnification: 2
   bulletVelocity: 100
-  bulletDeathTime: 5
-  RayDistance: 100
+  bulletDeathTime: 3
+  RayDistance: 300
 --- !u!114 &114303862106099984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -349,7 +349,7 @@ MonoBehaviour:
     i15: 245
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114780131718685784
+--- !u!114 &114656995363542148
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1198441546025866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14a43162fdf254f4aa843cc9dbf5f274, type: 3}
+  m_Script: {fileID: 11500000, guid: 51783ba17acb6f347b8f8cf5fe341720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 114136039409138944}
