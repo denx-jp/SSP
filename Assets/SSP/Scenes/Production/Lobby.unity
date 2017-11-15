@@ -138,6 +138,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 407356316}
   m_Enabled: 1
+  m_ExtensionPropertyValues: []
 --- !u!124 &407356318
 Behaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +188,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &407356321
 Transform:
   m_ObjectHideFlags: 0
@@ -277,12 +279,12 @@ Prefab:
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 429.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 241.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
@@ -413,6 +415,26 @@ Prefab:
       value: 
       objectReference: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
         type: 2}
+    - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
+        type: 2}
+      propertyPath: m_CustomConfig
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
+        type: 2}
+      propertyPath: m_Channels.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
+        type: 2}
+      propertyPath: m_RunInBackground
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
+        type: 2}
+      propertyPath: m_MaxBufferedPackets
+      value: 32
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42a78b57c135d5b438fd95b4683c097a, type: 2}
   m_IsPrefabParent: 0

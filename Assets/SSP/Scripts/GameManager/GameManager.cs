@@ -24,9 +24,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject team1LSS;
     [SerializeField] private GameObject team2LSS;
 
-    [SerializeField] private float startDelay = 1f;//3f;
-    [SerializeField] private int countDownCount = 1;//5;
-    [SerializeField] private float endDelay = 1f;//3f;
+    [SerializeField] private float startDelay = 3f;
+    [SerializeField] private int countDownCount = 5;
+    [SerializeField] private float endDelay = 3f;
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
 
