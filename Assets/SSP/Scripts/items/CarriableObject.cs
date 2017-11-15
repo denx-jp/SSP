@@ -40,7 +40,7 @@ public class CarriableObject : MonoBehaviour
             .Subscribe(_ =>
             {
                 holdWeight = Mathf.SmoothDamp(holdWeight, 1f, ref holdWeightVel, pickUpTime);
-                
+
                 transform.position = Vector3.Lerp(pickUpPosition, holdPoint.position, holdWeight);
                 transform.rotation = Quaternion.Lerp(pickUpRotation, holdPoint.rotation, holdWeight);
             });
@@ -58,11 +58,11 @@ public class CarriableObject : MonoBehaviour
 
         interactionSystem = _interactionSystem;
         holdPoint = _holdPoint;
-        
+
         interactionSystem.OnInteractionStart += OnStart;
         interactionSystem.OnInteractionPause += OnPause;
         interactionSystem.OnInteractionResume += OnDrop;
-        
+
         networkTransform.enabled = false;
         transform.parent = interactionSystem.transform;
 
@@ -84,40 +84,45 @@ public class CarriableObject : MonoBehaviour
         gameObject.layer = defaultLayer;
         canCarry = true;
     }
-    
+
     private void OnPause(FullBodyBipedEffector effectorType, InteractionObject interactionObject)
     {
         if (effectorType != FullBodyBipedEffector.LeftHand) return;
         if (interactionObject != obj) return;
-        
-        rigid.isKinematic = true;
-        
+
         pickUpPosition = transform.position;
         pickUpRotation = transform.rotation;
         holdWeight = 0f;
         holdWeightVel = 0f;
     }
-    
+
     private void OnStart(FullBodyBipedEffector effectorType, InteractionObject interactionObject)
     {
         if (effectorType != FullBodyBipedEffector.LeftHand) return;
         if (interactionObject != obj) return;
 
+        rigid.isKinematic = true;
+
+        // LSSをプレイヤー方向に向ける
+        var groundDirectionFromPlayer = (this.transform.position - interactionSystem.transform.position).normalized;
+        groundDirectionFromPlayer.y = 0;
+        this.transform.forward = groundDirectionFromPlayer;
+
         #region Pivotの回転
         Vector3 characterDirection = (pivot.position - interactionSystem.transform.position).normalized;
         characterDirection.y = 0f;
-        
+
         Vector3 characterDirectionLocal = obj.transform.InverseTransformDirection(characterDirection);
-        
+
         Vector3 axis = QuaTools.GetAxis(characterDirectionLocal);
         Vector3 upAxis = QuaTools.GetAxis(obj.transform.InverseTransformDirection(interactionSystem.transform.up));
-        
+
         pivot.localRotation = Quaternion.LookRotation(axis, upAxis);
         #endregion
-        
+
         holdPoint.rotation = transform.rotation;
     }
-    
+
     private void OnDrop(FullBodyBipedEffector effectorType, InteractionObject interactionObject)
     {
         if (effectorType != FullBodyBipedEffector.LeftHand) return;
@@ -125,6 +130,7 @@ public class CarriableObject : MonoBehaviour
 
         transform.parent = null;
         networkTransform.enabled = true;
+        transform.transform.rotation = Quaternion.identity;
         rigid.isKinematic = false;
     }
 }
