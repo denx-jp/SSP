@@ -3,6 +3,8 @@ using UnityEngine.Networking;
 
 public class HandGun : LongRangeWeapon
 {
+    [SerializeField] private GameObject bullet;
+
     private ProjectileModel hgModel;
     private RaycastHit hit;
     private int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
@@ -20,7 +22,7 @@ public class HandGun : LongRangeWeapon
     [Command]
     private void CmdShoot(Vector3 castPosition, Vector3 castDirection, Quaternion uncastableDirection)
     {
-        var bulletInstance = Instantiate(hgModel.bullet, muzzle.transform.position, muzzle.transform.rotation);
+        var bulletInstance = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation);
         if (Physics.Raycast(castPosition, castDirection, out hit, 1000, layerMask))
             bulletInstance.transform.LookAt(hit.point);
         else

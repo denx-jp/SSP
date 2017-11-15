@@ -391,7 +391,6 @@ MonoBehaviour:
   teamId: 0
   coolTime: 0.5
   scopeMagnification: 1.5
-  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
   bulletVelocity: 10
   bulletDeathTime: 5
 --- !u!114 &114930993466919184
@@ -410,3 +409,4 @@ MonoBehaviour:
   gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
   leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
   socpeCameraOffset: {x: -0.1, y: 0.2, z: 0.1}
+  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
