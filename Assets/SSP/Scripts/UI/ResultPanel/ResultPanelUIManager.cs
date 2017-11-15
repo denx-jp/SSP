@@ -7,18 +7,18 @@ using System.Linq;
 public class ResultPanelUIManager : MonoBehaviour {
 
     [SerializeField] private JudgeViewModel judgeViewModel;
-    [SerializeField] public List<PlayerRecordViewModel> yourTeamPlayerRecordViewModels = new List<PlayerRecordViewModel>();
+    [SerializeField] public List<PlayerRecordViewModel> friendTeamPlayerRecordViewModels = new List<PlayerRecordViewModel>();
     [SerializeField] public List<PlayerRecordViewModel> rivaTeamPlayerRecordViewModels = new List<PlayerRecordViewModel>();
 
     public void Init(bool gameResult, KillLogManager killLogManager)
     {
         judgeViewModel.Init(gameResult);
 
-        var yourTeamID = ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId;
-        var yourTeamPlayerModels = ClientPlayersManager.Players.Select(v => v.playerModel).Where(v => v.teamId == yourTeamID).ToList();
-        var rivalTeamPlayerModels = ClientPlayersManager.Players.Select(v => v.playerModel).Where(v => v.teamId != yourTeamID).ToList();
+        var friendTeamID = ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId;
+        var friendTeamPlayerModels = ClientPlayersManager.Players.Select(v => v.playerModel).Where(v => v.teamId == friendTeamID).ToList();
+        var rivalTeamPlayerModels = ClientPlayersManager.Players.Select(v => v.playerModel).Where(v => v.teamId != friendTeamID).ToList();
 
-        InitTeamPlayerRecords(yourTeamPlayerModels, yourTeamPlayerRecordViewModels, killLogManager);
+        InitTeamPlayerRecords(friendTeamPlayerModels, friendTeamPlayerRecordViewModels, killLogManager);
         InitTeamPlayerRecords(rivalTeamPlayerModels, rivaTeamPlayerRecordViewModels, killLogManager);
     }
 
