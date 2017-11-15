@@ -13,6 +13,7 @@ public class PlayerCarrier : NetworkBehaviour
     [SerializeField] private Transform holdPoint;
 
     private PlayerModel model;
+    private PlayerHealthManager healthManager;
     private PlayerInputManager pim;
     private FullBodyBipedIK ik;
     private InteractionSystem interactionSystem;
@@ -25,6 +26,7 @@ public class PlayerCarrier : NetworkBehaviour
         ik = GetComponent<FullBodyBipedIK>();
         interactionSystem = GetComponent<InteractionSystem>();
         model = GetComponent<PlayerModel>();
+        healthManager = GetComponent<PlayerHealthManager>();
         pim = GetComponent<PlayerInputManager>();
 
         pim.Action2ButtonDown
@@ -48,6 +50,14 @@ public class PlayerCarrier : NetworkBehaviour
             .Subscribe(_ =>
             {
                 ik.solver.Update();
+            });
+
+        // 運搬中に死亡したらを手放す
+        healthManager.GetDeathStream()
+            .Where(_ => !canCarry && carriableObject != null)
+            .Subscribe(_ =>
+            {
+                CmdDrop();
             });
     }
 
