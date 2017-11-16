@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,7 +33,7 @@ public class SpawnablePositionManager : MonoBehaviour
 
     public void UpdateLSSPositionDic(Transform _LSSTransform)
     {
-        var LSSTeamId = _LSSTransform.GetComponent<LifeSupportSystemModel>().GetTeamId();
+        var LSSTeamId = _LSSTransform.GetComponent<LifeSupportSystemModel>().teamId;
         lifeSupportSystemTransformDic[LSSTeamId] = _LSSTransform;
 
         SetSpawnablePosition(LSSTeamId);
