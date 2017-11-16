@@ -274,7 +274,7 @@ Prefab:
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_SpawnPrefabs.Array.size
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 224141291480165582, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
@@ -417,24 +417,22 @@ Prefab:
         type: 2}
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
-      propertyPath: m_CustomConfig
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_SpawnPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 1595191971914448, guid: b9512561b1fdeae46b082303d3eff782,
+        type: 2}
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
-      propertyPath: m_Channels.Array.data[0]
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: m_SpawnPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 1135113161938838, guid: 79239d169984b974aa16657af0865c75,
+        type: 2}
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
-      propertyPath: m_RunInBackground
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
+      propertyPath: m_SpawnPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 1198441546025866, guid: e5d4cf07adb2b4348a6a1e1722c15bf5,
         type: 2}
-      propertyPath: m_MaxBufferedPackets
-      value: 32
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42a78b57c135d5b438fd95b4683c097a, type: 2}
   m_IsPrefabParent: 0

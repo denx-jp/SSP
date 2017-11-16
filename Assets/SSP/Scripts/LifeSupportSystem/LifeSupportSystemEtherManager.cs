@@ -24,7 +24,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
         lifeSupportSystemModel.ether
             .Where(v => v <= 0)
-            .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.GetTeamId()));
+            .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.teamId));
 
         if (isServer)
         {
@@ -49,7 +49,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public void Interact(PlayerManager playerManager)
     {
-        if (playerManager.playerModel.teamId != lifeSupportSystemModel.GetTeamId()) return;
+        if (playerManager.playerModel.teamId != lifeSupportSystemModel.teamId) return;
 
         float playerEther = playerManager.playerModel.GetEther();
 
@@ -77,7 +77,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public void SetDamage(Damage damage)
     {
-        if (damage.teamId == lifeSupportSystemModel.GetTeamId()) return;
+        if (damage.teamId == lifeSupportSystemModel.teamId) return;
         var emitEtherValue = damage.amount * emittingEtherCoefficient;
         CmdGenerateEtherObject(emitEtherValue);
         ReduceEther(emitEtherValue);

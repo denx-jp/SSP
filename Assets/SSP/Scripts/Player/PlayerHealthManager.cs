@@ -7,7 +7,7 @@ using UniRx;
 public class PlayerHealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerModel playerModel;
-    private Subject<bool> deathStream;
+    private Subject<bool> deathStream = new Subject<bool>();
 
     public int recentAttackerId { get; private set; }
 
@@ -16,7 +16,6 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
-        deathStream = new Subject<bool>();
         deathStream.OnNext(false);
 
         playerModel.Health
