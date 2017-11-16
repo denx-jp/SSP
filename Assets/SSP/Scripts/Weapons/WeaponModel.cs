@@ -8,7 +8,7 @@ public class WeaponModel : NetworkBehaviour
     public new string name;
     public WeaponType type;
     public float damageAmount;
-    public bool isOwnerLocalPlayer;
+    [HideInInspector] public bool isOwnerLocalPlayer;
     public Sprite image;
     [HideInInspector, SyncVar] public int playerId, teamId;
 

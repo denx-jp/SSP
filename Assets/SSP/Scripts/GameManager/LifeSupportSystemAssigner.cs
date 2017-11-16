@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +9,8 @@ using UniRx;
 public class LifeSupportSystemAssigner : NetworkBehaviour
 {
     [SerializeField] private List<Transform> LSSTransforms;
+    [SerializeField] private Vector3 offset;
+
     private List<GameObject> LSSAssignPointObjectList;
 
     [ServerCallback]
@@ -27,7 +29,7 @@ public class LifeSupportSystemAssigner : NetworkBehaviour
     {
         int candidatePoint = UnityEngine.Random.Range(0, LSSAssignPointObjectList.Count - 1);
 
-        _LSSTransform.position = LSSAssignPointObjectList[candidatePoint].transform.position;
+        _LSSTransform.position = LSSAssignPointObjectList[candidatePoint].transform.position + offset;
         LSSAssignPointObjectList.Remove(LSSAssignPointObjectList[candidatePoint]);
     }
 }
