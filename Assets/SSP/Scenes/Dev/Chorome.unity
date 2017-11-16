@@ -157,7 +157,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b1341edff8f176f4ea042abf92fe0657, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   etherReductionRate: 10
   etherChargeValue: 10
-  emittingEtherCoefficient: 10
+  emittingEtherCoefficient: 1
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
     type: 2}
   emitPower: 15
@@ -1360,6 +1360,11 @@ Prefab:
         type: 2}
       propertyPath: emitDirectionRange.y
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
+        type: 2}
+      propertyPath: emittingEtherCoefficient
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}

@@ -377,8 +377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPos: {x: -0.07, y: 0.0137, z: -0.0025}
-  weaponRot: {x: 0, y: 90, z: 0}
+  weaponPos: {x: -0.0685, y: 0.00055, z: -0.0039}
+  weaponRot: {x: 5.578, y: -88.094, z: -6.673}
   model: {fileID: 0}
   canInteract: 1
   hand: 1

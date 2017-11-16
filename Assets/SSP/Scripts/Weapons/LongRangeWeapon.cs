@@ -26,9 +26,12 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
     {
         if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
-
-        if (isLocalPlayer && ikPoser != null)
+        
+        if (localPlayerAuthority && ikPoser != null)
+        {
+            ikPoser.SetAimTransform(muzzle);
             ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+        }
     }
 
     // 装備中でなくなった時の処理
@@ -45,7 +48,6 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
 
         playerModel = playerManager.playerModel;
         ikPoser = playerManager.playerIKPoser;
-        ikPoser.SetAimTransform(muzzle.transform);
 
         cameraTransform = Camera.main.gameObject.transform;
 

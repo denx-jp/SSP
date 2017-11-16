@@ -17,8 +17,8 @@ public class PlayerIKPoser : NetworkBehaviour
     private PlayerModel playerModel;
 
     [SerializeField, Range(0f, 1f)] private float headLookWeight = 1f;
-    [HideInInspector, SyncVar] public Vector3 gunHoldOffset;
-    [HideInInspector, SyncVar] public Vector3 leftHandOffset;
+    [ SyncVar] public Vector3 gunHoldOffset;
+    [ SyncVar] public Vector3 leftHandOffset;
 
     [SyncVar] private Vector3 aimTarget;
     private Vector3 headLookAxis;
