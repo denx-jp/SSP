@@ -12,7 +12,7 @@ public class SemiAutoRifle : LongRangeWeapon, IWeapon
     private RaycastHit damageHit;
     private RaycastHit shootHit;
     protected int layerMask = LayerMap.DefaultMask | LayerMap.StageMask;
-    
+
     private void Start()
     {
         hitscanModel = (HitscanModel)model;
@@ -59,15 +59,20 @@ public class SemiAutoRifle : LongRangeWeapon, IWeapon
     [ClientRpc]
     private void RpcShoot()
     {
-        var bulletInstance = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation);
+        var bulletInstance = Instantiate(bullet);
+        bulletInstance.transform.position = muzzle.position;
+        Debug.Log(muzzle.position);
+        Debug.Log(bulletInstance.transform.position);
+        bulletInstance.GetComponent<EffectBullet>().SetIds(hitscanModel.playerId, hitscanModel.teamId, hitscanModel.bulletDeathTime);
 
+        Debug.Log(bulletInstance.transform.position);
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out shootHit, 1000, layerMask))
             bulletInstance.transform.LookAt(damageHit.point);
         else
             bulletInstance.transform.rotation = cameraTransform.rotation;
+        Debug.Log(bulletInstance.transform.position);
 
         bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * hitscanModel.bulletVelocity;
-        Destroy(bulletInstance, hitscanModel.bulletDeathTime);
 
         audioSource.Play();
     }

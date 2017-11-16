@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 65401762014862234}
   - component: {fileID: 114787115348719196}
   - component: {fileID: 114761454314862110}
-  - component: {fileID: 114263649361425104}
   - component: {fileID: 114036954499573146}
   m_Layer: 0
   m_Name: GimmickGun 1
@@ -229,22 +228,6 @@ MonoBehaviour:
   model: {fileID: 0}
   canInteract: 1
   hand: 1
---- !u!114 &114263649361425104
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135113161938838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9281a803051c144f9754bf6cc400432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 114761454314862110}
-  muzzle: {fileID: 1724691918699860}
-  gunHoldOffset: {x: 0, y: 0, z: 0}
-  leftHandOffset: {x: 0, y: 0, z: 0}
-  socpeCameraOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &114761454314862110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,7 +248,6 @@ MonoBehaviour:
   teamId: 0
   coolTime: 0.5
   scopeMagnification: 1.5
-  bullet: {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
   bulletVelocity: 10
   bulletDeathTime: 5
 --- !u!114 &114787115348719196

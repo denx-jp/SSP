@@ -6,7 +6,7 @@ using UniRx.Triggers;
 public class LongRangeWeapon : NetworkBehaviour, IWeapon
 {
     [SerializeField] protected LongRangeWeaponModel model;
-    [SerializeField] protected GameObject muzzle;
+    [SerializeField] protected Transform muzzle;
     [SerializeField] protected Vector3 gunHoldOffset;
     [SerializeField] protected Vector3 leftHandOffset;
     [SerializeField] protected Vector3 socpeCameraOffset;
@@ -62,13 +62,13 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
-        
+
         this.UpdateAsObservable()
             .Where(_ => playerModel.MoveMode == MoveMode.battle)
             .Where(_ => hasAuthority)
             .Subscribe(_ =>
             {
-                    ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
+                ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
             });
     }
 

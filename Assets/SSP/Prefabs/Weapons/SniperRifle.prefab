@@ -89,7 +89,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914257830511014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.59, z: 21.88}
+  m_LocalPosition: {x: 0, y: 0.59, z: 24.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4194839122428882}
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 114136039409138944}
-  muzzle: {fileID: 1914257830511014}
+  muzzle: {fileID: 4643146601338834}
   gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
   leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
   socpeCameraOffset: {x: -0.1, y: 0.2, z: 0.1}
