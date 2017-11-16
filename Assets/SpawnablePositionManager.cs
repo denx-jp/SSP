@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UniRx;
 
 public class SpawnablePositionManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class SpawnablePositionManager : MonoBehaviour
 
         spawnPositionObjectList =
             GameObject.FindGameObjectsWithTag(TagMap.Respawn).ToList();
+
+        foreach (var lssTransform in lifeSupportSystemTransforms)
+            this.ObserveEveryValueChanged(_ => lssTransform)
+                .Subscribe(v => UpdateLSSPositionDic(v));
     }
 
     public void UpdateLSSPositionDic(Transform _LSSTransform)
