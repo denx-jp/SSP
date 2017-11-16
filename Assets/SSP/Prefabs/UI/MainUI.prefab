@@ -1003,7 +1003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1761611177778688
 GameObject:
   m_ObjectHideFlags: 1
@@ -3551,7 +3551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   judgeViewModel: {fileID: 114831784619562234}
-  yourTeamPlayerRecordViewModels:
+  friendTeamPlayerRecordViewModels:
   - {fileID: 114050010110761680}
   - {fileID: 114543073260458228}
   - {fileID: 114898336705234508}
