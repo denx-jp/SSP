@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerRecordViewModel : MonoBehaviour
 {
-
-
     [SerializeField] private Text playerNameText;
     [SerializeField] private Text killCountText;
     [SerializeField] private Text deathCountText;

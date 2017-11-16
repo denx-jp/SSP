@@ -26,7 +26,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
     {
         if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
-        
+
         if (localPlayerAuthority && ikPoser != null)
         {
             ikPoser.SetAimTransform(muzzle);

@@ -12,7 +12,7 @@ public class PlayerRespawner : NetworkBehaviour
     private GameObject[] respawnPoints;
 
     [SerializeField] private int timeToRespawn;
-    
+
     void Start()
     {
         playerHealthManager = GetComponent<PlayerHealthManager>();

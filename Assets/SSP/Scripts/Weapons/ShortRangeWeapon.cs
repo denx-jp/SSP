@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
@@ -49,8 +49,9 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     }
 
-    public void SwitchScope(){
-        
+    public void SwitchScope()
+    {
+
     }
 
     public void LongPressScope(bool active)

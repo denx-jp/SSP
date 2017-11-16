@@ -8,7 +8,7 @@ public struct Damage
     public int teamId; // 攻撃側のチームID
     public float amount; //ダメージ量
 
-    public Damage(float a,int _id, int _teamId)
+    public Damage(float a, int _id, int _teamId)
     {
         amount = a;
         playerId = _id;

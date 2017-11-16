@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SoundParameter {
+public class SoundParameter
+{
     public GroundType groundType;
     public bool bypassEffect;
     public bool bypassListenerEffects;

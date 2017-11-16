@@ -20,7 +20,7 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
 
         playerModel.Health
             .Where(v => v <= 0.0f)
-            .Subscribe(_ => 
+            .Subscribe(_ =>
                 {
                     if (!isDeath)
                     {

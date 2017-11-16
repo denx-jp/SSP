@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JudgeViewModel : MonoBehaviour {
+public class JudgeViewModel : MonoBehaviour
+{
 
     [SerializeField] private Text judgeText;
 
