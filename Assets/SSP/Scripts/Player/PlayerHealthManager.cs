@@ -7,19 +7,28 @@ using UniRx;
 public class PlayerHealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerModel playerModel;
-    private Subject<bool> deathStream;
+    private Subject<bool> deathStream = new Subject<bool>();
 
     public int recentAttackerId { get; private set; }
+
+    bool isDeath = false;
 
     private void Start()
     {
         playerModel = GetComponent<PlayerModel>();
-        deathStream = new Subject<bool>();
         deathStream.OnNext(false);
 
         playerModel.Health
             .Where(v => v <= 0.0f)
-            .Subscribe(_ => deathStream.OnNext(true));
+            .Subscribe(_ => 
+                {
+                    if (!isDeath)
+                    {
+                        deathStream.OnNext(true);
+                        isDeath = true;
+                    }
+                }
+            );
     }
 
     public void SetDamage(Damage damage)
@@ -43,6 +52,7 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     {
         playerModel.Init();
         deathStream.OnNext(false);
+        isDeath = false;
     }
 
     [ClientRpc]

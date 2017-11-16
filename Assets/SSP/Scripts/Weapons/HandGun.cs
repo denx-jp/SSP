@@ -33,8 +33,11 @@ public class HandGun : NetworkBehaviour, IWeapon
         if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
 
-        if (isLocalPlayer && ikPoser != null)
-            ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+        if (localPlayerAuthority && ikPoser != null)
+		{
+			ikPoser.SetAimTransform(muzzle.transform);
+			ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+		}
     }
 
     private void OnDisable()
@@ -67,21 +70,13 @@ public class HandGun : NetworkBehaviour, IWeapon
             .Where(v => v)
             .Where(_ => autoShoot)
             .Subscribe(_ => NormalAttack());
-
-        RaycastHit IKHit;
+        
         this.UpdateAsObservable()
             .Where(_ => playerModel.MoveMode == MoveMode.battle)
             .Where(_ => hasAuthority)
             .Subscribe(_ =>
             {
-                if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out IKHit, 1000, layerMask))
-                {
-                    ikPoser.CmdSetTarget(IKHit.point);
-                }
-                else
-                {
-                    ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
-                }
+                ikPoser.CmdSetTarget(cameraTransform.position + (cameraTransform.forward * 10));
             });
     }
 
