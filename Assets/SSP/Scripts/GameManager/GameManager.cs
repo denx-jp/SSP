@@ -51,6 +51,7 @@ public class GameManager : NetworkBehaviour
         }
 
         gameJudger.GetJudgeStream()
+            .Take(1)
             .Subscribe(v =>
             {
                 StartCoroutine(GameEnd(v));
@@ -137,7 +138,9 @@ public class GameManager : NetworkBehaviour
 
         isGameStarting = false;
         message.text = string.Empty;
-        ResultPanel.transform.Find("Result").gameObject.SetActive(true);
+        var result = ResultPanel.transform.Find("Result").gameObject;
+        result.SetActive(true);
+        result.GetComponent<ResultPanelUIManager>().Init(isWin, killLogManager);
 
         yield return new WaitForSeconds(30);
 

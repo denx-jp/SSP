@@ -362,8 +362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114136039409138944}
   muzzle: {fileID: 4643146601338834}
-  gunHoldOffset: {x: -0.24, y: 0.1, z: -0.15}
-  leftHandOffset: {x: 0.09, y: -0.13, z: -0.12}
+  gunHoldOffset: {x: -0.31, y: 0, z: 0.12}
+  leftHandOffset: {x: 0.21, y: 0.17, z: 0.16}
   socpeCameraOffset: {x: -0.1, y: 0.2, z: 0.1}
   bullet: {fileID: 1610161927253904, guid: 0e328b3de743cd8468a377b107845ced, type: 2}
 --- !u!114 &114948242860574984
@@ -377,8 +377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPos: {x: -0.0685, y: 0.00055, z: -0.0039}
-  weaponRot: {x: 5.578, y: -88.094, z: -6.673}
+  weaponPos: {x: -0.0556, y: 0.0031, z: 0.0288}
+  weaponRot: {x: -182.145, y: -78.034, z: 6.757996}
   model: {fileID: 0}
   canInteract: 1
   hand: 1

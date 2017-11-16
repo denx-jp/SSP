@@ -16,6 +16,7 @@ public class PlayerKillLogNotifier : NetworkBehaviour
         myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
 
         playerHealthManager.GetDeathStream()
+            .Where(v => v)
             .Subscribe(_ =>
             {
                 if (isLocalPlayer)

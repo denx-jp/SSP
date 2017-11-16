@@ -20,14 +20,19 @@ public class KillLogManager : NetworkBehaviour
             var allKillLogStream = Observable.Merge(killLogNotifiers.Select(v => v.GetKillLogStream()))
                 .Subscribe(v =>
                     {
-                        RpcUpdatePlayerReport(v.Key, v.Value);
+                        RpcUpdatePlayerRecord(v.Key, v.Value);
                     }
                 );
         }
     }
 
+    public PlayerRecord GetPlayerRecord(int playerId)
+    {
+        return playerRecords[playerId];
+    }
+
     [ClientRpc]
-    void RpcUpdatePlayerReport(int killerId,int victimId)
+    void RpcUpdatePlayerRecord(int killerId,int victimId)
     {
         playerRecords[killerId].killCount++;
         playerRecords[victimId].deathCount++;
