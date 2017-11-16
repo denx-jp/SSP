@@ -33,8 +33,11 @@ public class HandGun : NetworkBehaviour, IWeapon
         if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
 
-        if (isLocalPlayer && ikPoser != null)
-            ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+        if (localPlayerAuthority && ikPoser != null)
+		{
+			ikPoser.SetAimTransform(muzzle.transform);
+			ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+		}
     }
 
     private void OnDisable()
