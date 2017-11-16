@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ResultPanelUIManager : MonoBehaviour {
-
+public class ResultPanelUIManager : MonoBehaviour
+{
     [SerializeField] private JudgeViewModel judgeViewModel;
     [SerializeField] public List<PlayerRecordViewModel> friendTeamPlayerRecordViewModels = new List<PlayerRecordViewModel>();
     [SerializeField] public List<PlayerRecordViewModel> rivaTeamPlayerRecordViewModels = new List<PlayerRecordViewModel>();
@@ -31,7 +31,7 @@ public class ResultPanelUIManager : MonoBehaviour {
             var playerRecord = killLog.GetPlayerRecord(playerModel.playerId);
 
             var recordViewModel = recordViewModels[i];
-            recordViewModel.Init(playerModel,playerRecord);
+            recordViewModel.Init(playerModel, playerRecord);
             recordViewModel.gameObject.SetActive(true);
         }
     }

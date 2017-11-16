@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GroundType {Dart, Metal, Wood, Linoleum,Air }
+public enum GroundType { Dart, Metal, Wood, Linoleum, Air }
 
-public class GroundModel : MonoBehaviour {
+public class GroundModel : MonoBehaviour
+{
     public GroundType groundType;
 }

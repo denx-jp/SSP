@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class SoundParamStore : MonoBehaviour {
+public class SoundParamStore : MonoBehaviour
+{
 
     public static SoundParamStore Instance;
 
