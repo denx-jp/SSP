@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 114201087396394262}
   - component: {fileID: 114050010110761680}
   m_Layer: 0
-  m_Name: YourTeamPlayerRecordPanel0
+  m_Name: FriendTeamPlayerRecordPanel0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 114750555233610634}
   - component: {fileID: 114543073260458228}
   m_Layer: 0
-  m_Name: YourTeamPlayerRecordPanel1
+  m_Name: FriendTeamPlayerRecordPanel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 114610599225556220}
   - component: {fileID: 114898336705234508}
   m_Layer: 0
-  m_Name: YourTeamPlayerRecordPanel2
+  m_Name: FriendTeamPlayerRecordPanel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
