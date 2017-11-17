@@ -49,7 +49,7 @@ public class SpawnPointManager : MonoBehaviour
         if (distance > lssAroundPointUpdateThreshold)
             UpdateSpawnPointsAroundLSS(teamId);
 
-        var spawnPointIndex = Random.Range(0, spawnPointsAroundLSS.Count);
+        var spawnPointIndex = Random.Range(0, spawnPointsAroundLSS[teamId].Count);
         return spawnPointsAroundLSS[teamId][spawnPointIndex];
     }
 
