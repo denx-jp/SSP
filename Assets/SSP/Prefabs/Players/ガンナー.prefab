@@ -3254,6 +3254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf300c4f3d674790bab9340795a497d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 114735128839970556}
   timeToRespawn: 5
 --- !u!114 &114814082956980152
 MonoBehaviour:

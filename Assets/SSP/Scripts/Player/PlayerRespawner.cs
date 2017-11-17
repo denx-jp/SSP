@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +8,15 @@ using UniRx.Triggers;
 
 public class PlayerRespawner : NetworkBehaviour
 {
+    private PlayerModel playerModel;
     private PlayerHealthManager playerHealthManager;
     private GameObject[] respawnPoints;
 
-    [SerializeField] private PlayerModel playerModel;
     [SerializeField] private int timeToRespawn;
 
     void Start()
     {
+        playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 
@@ -32,29 +33,13 @@ public class PlayerRespawner : NetworkBehaviour
     [Command]
     private void CmdPlayerRespawnStart()
     {
-        var teamId = playerModel.teamId;
-        var respawnPoint = SpawnablePositionManager.Instance.GetSpawnPosition(teamId);
-
+        var respawnPoint = SpawnPointManager.Instance.GetSpawnPointAroundLSS(playerModel.teamId);
         RpcPlayerRespawnStart(respawnPoint.position);
     }
     [ClientRpc]
-    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
+    private void RpcPlayerRespawnStart(Vector3 respawnPointPosition)
     {
-        this.transform.position = _respawnPointPosition;
+        this.transform.position = respawnPointPosition;
         playerHealthManager.Revive();
-    }
-
-    [Command]
-    public void CmdInitPlayerSpawnStart()
-    {
-        var teamId = playerModel.teamId;
-        var respawnPoint = SpawnablePositionManager.Instance.GetSpawnPosition(teamId);
-
-        RpcInitPlayerSpawnStart(respawnPoint.position);
-    }
-    [ClientRpc]
-    private void RpcInitPlayerSpawnStart(Vector3 _spawnPointPosition)
-    {
-        this.transform.position = _spawnPointPosition;
     }
 }

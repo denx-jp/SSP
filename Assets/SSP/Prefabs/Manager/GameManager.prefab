@@ -23,10 +23,13 @@ GameObject:
   - component: {fileID: 114146116622853402}
   - component: {fileID: 114995220335104442}
   - component: {fileID: 114968024861136860}
-  - component: {fileID: 114974360778349634}
   - component: {fileID: 114718046599258146}
   - component: {fileID: 114490288624165420}
   - component: {fileID: 114712106021701462}
+  - component: {fileID: 114477770853793110}
+  - component: {fileID: 114437969445030286}
+  - component: {fileID: 114164828432791854}
+  - component: {fileID: 114496838332057350}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -63,16 +66,44 @@ MonoBehaviour:
   killLogManager: {fileID: 114718046599258146}
   etherPopper: {fileID: 114490288624165420}
   weaponPopper: {fileID: 114712106021701462}
+  spawnPointManager: {fileID: 114496838332057350}
   message: {fileID: 0}
   StartPanel: {fileID: 0}
   BattlePanel: {fileID: 0}
   ResultPanel: {fileID: 0}
   team1LSS: {fileID: 0}
   team2LSS: {fileID: 0}
+  minLssDistance: 1
   startDelay: 3
   countDownCount: 5
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
+--- !u!114 &114164828432791854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6976d1552ac58ac47b0dc552da9e1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundParams:
+  - groundType: 0
+    bypassEffect: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    dopplerLevel: 0
+    maxDistance: 0
+    minDistance: 0
+    panStereo: 0
+    pitch: 0
+    reverbZoneMix: 0
+    spatialBlend: 0
+    spatialize: 0
+    spread: 0
+    volume: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,6 +136,46 @@ MonoBehaviour:
     i15: 235
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114437969445030286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a36d72b1c073e42aba69f1d841b799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lssAroundPointUpdateThreshold: 3
+  farLimitDistance: 10
+  nearLimitDistance: 1
+--- !u!114 &114477770853793110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6976d1552ac58ac47b0dc552da9e1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundParams:
+  - groundType: 0
+    bypassEffect: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    dopplerLevel: 0
+    maxDistance: 0
+    minDistance: 0
+    panStereo: 0
+    pitch: 0
+    reverbZoneMix: 0
+    spatialBlend: 0
+    spatialize: 0
+    spread: 0
+    volume: 0
 --- !u!114 &114490288624165420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,6 +191,20 @@ MonoBehaviour:
   popInterval: 10
   popDuration: 180
   initEtherValue: 100
+--- !u!114 &114496838332057350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452514462489488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a36d72b1c073e42aba69f1d841b799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lssAroundPointUpdateThreshold: 0
+  farLimitDistance: 0
+  nearLimitDistance: 0
 --- !u!114 &114712106021701462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,22 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0aa5091f84f9741b3638f8a5d71367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team1LSS: {fileID: 0}
-  team2LSS: {fileID: 0}
---- !u!114 &114974360778349634
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452514462489488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aaae730b79a2114f925183ffcd4bf13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team1LifeSupportSystemTransform: {fileID: 0}
-  team2LifeSupportSystemTransform: {fileID: 0}
-  offset: {x: 0, y: 1, z: 0}
 --- !u!114 &114995220335104442
 MonoBehaviour:
   m_ObjectHideFlags: 1
