@@ -27,11 +27,11 @@ public class SpawnablePositionManager : MonoBehaviour
             GameObject.FindGameObjectsWithTag(TagMap.Respawn).ToList();
 
         foreach (var lssTransform in lifeSupportSystemTransforms)
-            this.ObserveEveryValueChanged(_ => lssTransform)
-                .Subscribe(v => UpdateLSSPositionDic(v));
+            this.ObserveEveryValueChanged(_ => lssTransform.position)
+                .Subscribe(_ => UpdateLSSPositionDic(lssTransform));
     }
 
-    public void UpdateLSSPositionDic(Transform _LSSTransform)
+    private void UpdateLSSPositionDic(Transform _LSSTransform)
     {
         var LSSTeamId = _LSSTransform.GetComponent<LifeSupportSystemModel>().teamId;
         lifeSupportSystemTransformDic[LSSTeamId] = _LSSTransform;
