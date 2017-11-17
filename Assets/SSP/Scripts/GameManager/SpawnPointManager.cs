@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -57,6 +57,7 @@ public class SpawnPointManager : MonoBehaviour
     {
         var lssTransform = teamId == 1 ? team1LSS : team2LSS;
         lssPrePosEachLss[teamId] = lssTransform.position;
+        spawnPointsAroundLSS[teamId].Clear();
 
         foreach (var spawnPosition in spawnPoints)
         {
