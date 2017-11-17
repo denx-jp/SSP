@@ -300,7 +300,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1914480152885886, guid: 85190b57675cda940b2cd16157a434e7,
+  m_PlayerPrefab: {fileID: 1691061879836868, guid: 7cb231975a2c3be43b8020bf82e4e111,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
@@ -310,6 +310,9 @@ MonoBehaviour:
   - {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
   - {fileID: 1302414001687628, guid: d364dda7de5cd074fa642a49f756148f, type: 2}
   - {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719, type: 2}
+  - {fileID: 1595191971914448, guid: b9512561b1fdeae46b082303d3eff782, type: 2}
+  - {fileID: 1135113161938838, guid: 79239d169984b974aa16657af0865c75, type: 2}
+  - {fileID: 1198441546025866, guid: e5d4cf07adb2b4348a6a1e1722c15bf5, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -546,60 +549,9 @@ Prefab:
       propertyPath: team2LSS
       value: 
       objectReference: {fileID: 2123907263}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team1LSS
-      value: 
-      objectReference: {fileID: 2121172826}
-    - target: {fileID: 114968024861136860, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team2LSS
-      value: 
-      objectReference: {fileID: 1199875662}
-    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team1LifeSupportSystemTransform
-      value: 
-      objectReference: {fileID: 2121172836}
-    - target: {fileID: 114974360778349634, guid: b9dd61cb96198364e9473abce3fad2eb,
-        type: 2}
-      propertyPath: team2LifeSupportSystemTransform
-      value: 
-      objectReference: {fileID: 1199875663}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &73757730 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1452514462489488, guid: b9dd61cb96198364e9473abce3fad2eb,
-    type: 2}
-  m_PrefabInternal: {fileID: 73757729}
---- !u!114 &73757731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 73757730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6976d1552ac58ac47b0dc552da9e1c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundParams:
-  - groundType: 0
-    bypassEffect: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    dopplerLevel: 0
-    maxDistance: 0
-    minDistance: 0
-    panStereo: 0
-    pitch: 0
-    reverbZoneMix: 0
-    spatialBlend: 0
-    spatialize: 0
-    spread: 0
-    volume: 0
 --- !u!1 &76766425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,7 +1895,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 8.8
+      value: 6.07
       objectReference: {fileID: 0}
     - target: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1972,17 +1924,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 295ddc4393ef1c94184aca8945ca7fb0, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1199875662 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114020376827804088, guid: 295ddc4393ef1c94184aca8945ca7fb0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1199875661}
-  m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
---- !u!4 &1199875663 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4101772797786898, guid: 295ddc4393ef1c94184aca8945ca7fb0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1199875661}
 --- !u!1 &1213119944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2976,12 +2917,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 451.5
+      value: 464
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 254
+      value: 261
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}

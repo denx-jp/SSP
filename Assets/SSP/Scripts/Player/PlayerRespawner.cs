@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +8,7 @@ using UniRx.Triggers;
 
 public class PlayerRespawner : NetworkBehaviour
 {
+    private PlayerModel playerModel;
     private PlayerHealthManager playerHealthManager;
     private GameObject[] respawnPoints;
 
@@ -15,6 +16,7 @@ public class PlayerRespawner : NetworkBehaviour
 
     void Start()
     {
+        playerModel = GetComponent<PlayerModel>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         respawnPoints = GameObject.FindGameObjectsWithTag(TagMap.Respawn);
 
@@ -31,14 +33,13 @@ public class PlayerRespawner : NetworkBehaviour
     [Command]
     private void CmdPlayerRespawnStart()
     {
-        var respawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
-        RpcPlayerRespawnStart(respawnPoint.transform.position);
+        var respawnPoint = SpawnPointManager.Instance.GetSpawnPointAroundLSS(playerModel.teamId);
+        RpcPlayerRespawnStart(respawnPoint.position);
     }
-
     [ClientRpc]
-    private void RpcPlayerRespawnStart(Vector3 _respawnPointPosition)
+    private void RpcPlayerRespawnStart(Vector3 respawnPointPosition)
     {
-        this.transform.position = _respawnPointPosition;
+        this.transform.position = respawnPointPosition;
         playerHealthManager.Revive();
     }
 }

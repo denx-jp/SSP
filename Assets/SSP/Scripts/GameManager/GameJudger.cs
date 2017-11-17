@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +7,9 @@ using UniRx;
 
 public class GameJudger : MonoBehaviour
 {
-    [SerializeField] private LifeSupportSystemEtherManager team1LSS;
-    [SerializeField] private LifeSupportSystemEtherManager team2LSS;
-
     private Subject<bool> judgeStream = new Subject<bool>();
 
-    void Start()
+    public void Init(LifeSupportSystemEtherManager team1LSS, LifeSupportSystemEtherManager team2LSS)
     {
         Observable
             .Merge(team1LSS.GetDeathStream(), team2LSS.GetDeathStream())

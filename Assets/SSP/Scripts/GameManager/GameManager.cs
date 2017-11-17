@@ -15,6 +15,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private KillLogManager killLogManager;
     [SerializeField] private EtherPopper etherPopper;
     [SerializeField] private WeaponPopper weaponPopper;
+    [SerializeField] private SpawnPointManager spawnPointManager;
 
     [SerializeField] private Text message;
     [SerializeField] private GameObject StartPanel;
@@ -23,6 +24,7 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private GameObject team1LSS;
     [SerializeField] private GameObject team2LSS;
+    [SerializeField] private float minLssDistance;
 
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private int countDownCount = 5;
@@ -64,8 +66,29 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(2);
 
         RpcPrepareGame();
+        gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
         weaponPopper.Init();
+        spawnPointManager.Init(team1LSS.transform, team2LSS.transform);
+
+        // LSSをランダムな位置に移動
+        team1LSS.transform.position = SpawnPointManager.Instance.GetRandomSpawnPoint().position;
+        while (true)
+        {
+            var spawnPos = SpawnPointManager.Instance.GetRandomSpawnPoint().position;
+            var distance = Vector3.Distance(team1LSS.transform.position, spawnPos);
+
+            if (distance > minLssDistance)
+            {
+                team2LSS.transform.position = spawnPos;
+                break;
+            }
+        }
+
         //プレイヤーをLSS周辺に移動
+        foreach (var player in ClientPlayersManager.Players)
+        {
+            player.transform.position = SpawnPointManager.Instance.GetSpawnPointAroundLSS(player.playerModel.teamId).position;
+        }
 
         yield return new WaitForSeconds(startDelay);
 
