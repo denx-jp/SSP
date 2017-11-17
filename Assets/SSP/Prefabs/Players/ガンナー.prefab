@@ -50,7 +50,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4667231657307362}
   - component: {fileID: 137002977323909924}
-  - component: {fileID: 114539630350929516}
   m_Layer: 0
   m_Name: "\u76EE"
   m_TagString: Untagged
@@ -2470,8 +2469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 6
+  walkSpeed: 6
+  runSpeed: 8
   rotateSpeed: 12
   jumpSpeed: 10
   gravityMultiplier: -9.8
@@ -3041,17 +3040,6 @@ MonoBehaviour:
     - effector: 0
       weight: 0.1
   rotationOffset: {x: 0, y: 0, z: 0, w: 1}
---- !u!114 &114539630350929516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1045887054850686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114652231599435292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3254,7 +3242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf300c4f3d674790bab9340795a497d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 114735128839970556}
   timeToRespawn: 5
 --- !u!114 &114814082956980152
 MonoBehaviour:
