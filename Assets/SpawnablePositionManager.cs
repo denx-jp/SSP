@@ -69,7 +69,13 @@ public class SpawnablePositionManager : MonoBehaviour
         if(Vector3.Distance(lssTransform.position, spawnTransform.position)
             <= lssToSpawnPositionDisableDistance)
         {
-            spawnTransform.position -= 3.0f * (lssTransform.position - spawnTransform.position);
+            Vector3 modifiedTransformPosition = lssTransform.position;
+
+            modifiedTransformPosition.x -= 0.5f*(lssTransform.position.x - spawnTransform.position.x);
+            modifiedTransformPosition.y = spawnTransform.position.y;
+            modifiedTransformPosition.z -= 0.5f*(lssTransform.position.z - spawnTransform.position.z);
+
+            spawnTransform.position = modifiedTransformPosition;
         }
 
         return spawnTransform;
