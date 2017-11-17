@@ -718,12 +718,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 448.7922
+      value: 373.2922
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 254
+      value: 211.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
@@ -2721,6 +2721,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1052155002}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1450656807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1450656810}
+  - component: {fileID: 1450656809}
+  - component: {fileID: 1450656808}
+  m_Layer: 0
+  m_Name: GuideObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1450656808
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1450656807}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1450656809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1450656807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9a693b16bee3c41bf36512b69a2a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1450656810
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1450656807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.94605654, y: 1.2361845, z: 1.0268221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1465642611
 Prefab:
