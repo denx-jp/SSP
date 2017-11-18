@@ -11,7 +11,6 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     [SerializeField] private float etherReductionRate;           // 毎秒減少するエーテル量
     [SerializeField] private float etherChargeValue;              // インタラクトアクション1回で渡されるエーテル量
-    [SerializeField] private float emittingEtherCoefficient;    //攻撃で放出されるエーテル量(攻撃力にかける係数)
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
     [SerializeField] private Vector3 emitDirectionRange;
@@ -78,7 +77,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
     public void SetDamage(Damage damage)
     {
         if (damage.teamId == lifeSupportSystemModel.teamId) return;
-        var emitEtherValue = damage.amount * emittingEtherCoefficient;
+        var emitEtherValue = damage.amount;
         CmdGenerateEtherObject(emitEtherValue);
         ReduceEther(emitEtherValue);
     }
