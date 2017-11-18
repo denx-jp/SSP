@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,6 +89,7 @@ public class GameManager : NetworkBehaviour
         {
             player.transform.position = SpawnPointManager.Instance.GetSpawnPointAroundLSS(player.playerModel.teamId).position;
         }
+        clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
 
         yield return new WaitForSeconds(startDelay);
 

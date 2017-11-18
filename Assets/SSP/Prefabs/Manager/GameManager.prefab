@@ -28,8 +28,6 @@ GameObject:
   - component: {fileID: 114712106021701462}
   - component: {fileID: 114477770853793110}
   - component: {fileID: 114437969445030286}
-  - component: {fileID: 114164828432791854}
-  - component: {fileID: 114496838332057350}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -66,7 +64,7 @@ MonoBehaviour:
   killLogManager: {fileID: 114718046599258146}
   etherPopper: {fileID: 114490288624165420}
   weaponPopper: {fileID: 114712106021701462}
-  spawnPointManager: {fileID: 114496838332057350}
+  spawnPointManager: {fileID: 114437969445030286}
   message: {fileID: 0}
   StartPanel: {fileID: 0}
   BattlePanel: {fileID: 0}
@@ -78,32 +76,6 @@ MonoBehaviour:
   countDownCount: 5
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
---- !u!114 &114164828432791854
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452514462489488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6976d1552ac58ac47b0dc552da9e1c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundParams:
-  - groundType: 0
-    bypassEffect: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    dopplerLevel: 0
-    maxDistance: 0
-    minDistance: 0
-    panStereo: 0
-    pitch: 0
-    reverbZoneMix: 0
-    spatialBlend: 0
-    spatialize: 0
-    spread: 0
-    volume: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a36d72b1c073e42aba69f1d841b799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lssAroundPointUpdateThreshold: 3
-  farLimitDistance: 10
+  lssAroundPointUpdateThreshold: 1.5
+  farLimitDistance: 15
   nearLimitDistance: 1
 --- !u!114 &114477770853793110
 MonoBehaviour:
@@ -188,23 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ether: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3, type: 2}
-  popInterval: 10
+  popInterval: 1
   popDuration: 180
-  initEtherValue: 100
---- !u!114 &114496838332057350
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452514462489488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a36d72b1c073e42aba69f1d841b799, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lssAroundPointUpdateThreshold: 0
-  farLimitDistance: 0
-  nearLimitDistance: 0
+  initEtherValue: 10
 --- !u!114 &114712106021701462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,8 +178,6 @@ MonoBehaviour:
   spawnOffset: {x: 0, y: 1, z: 0}
   popWeapons:
   - {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
-  - {fileID: 1595191971914448, guid: b9512561b1fdeae46b082303d3eff782, type: 2}
-  - {fileID: 1135113161938838, guid: 79239d169984b974aa16657af0865c75, type: 2}
   - {fileID: 1198441546025866, guid: e5d4cf07adb2b4348a6a1e1722c15bf5, type: 2}
 --- !u!114 &114718046599258146
 MonoBehaviour:
