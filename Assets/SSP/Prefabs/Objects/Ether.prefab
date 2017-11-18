@@ -117,7 +117,7 @@ MonoBehaviour:
   rigid: {fileID: 54270739398327058}
   etherValue: 0
   floatHeight: 3
-  trackingSpeed: 20
+  trackingSpeed: 40
   popEtherInitValue: 50
 --- !u!114 &114603879454852254
 MonoBehaviour:
