@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b03ab6be86584ea4d78d83998288f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPos: {x: -0.066, y: -0.414, z: -0.4}
-  weaponRot: {x: 48, y: 0, z: 0}
+  weaponPos: {x: -0.145, y: -0.4, z: 0.12}
+  weaponRot: {x: 71, y: -40, z: -38}
   model: {fileID: 114323705450369532, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
   canInteract: 1
   hand: 1

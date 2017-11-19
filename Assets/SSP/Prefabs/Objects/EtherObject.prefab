@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114680341605803520}
   - component: {fileID: 114295420870100116}
   m_Layer: 11
-  m_Name: Ether
+  m_Name: EtherObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

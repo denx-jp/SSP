@@ -40,9 +40,13 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         Instance = this;
+    }
+
+    private void Update()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Start()

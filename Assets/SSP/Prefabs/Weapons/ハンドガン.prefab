@@ -2579,7 +2579,7 @@ MonoBehaviour:
   teamId: 0
   coolTime: 1
   scopeMagnification: 1.5
-  bulletVelocity: 300
+  bulletVelocity: 500
   bulletDeathTime: 3
   RayDistance: 100
 --- !u!114 &114246048104175988

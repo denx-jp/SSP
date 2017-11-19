@@ -71,9 +71,9 @@ MonoBehaviour:
   ResultPanel: {fileID: 0}
   team1LSS: {fileID: 0}
   team2LSS: {fileID: 0}
-  minLssDistance: 1
-  startDelay: 0
-  countDownCount: 1
+  minLssDistance: 50
+  startDelay: 2
+  countDownCount: 5
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
 --- !u!114 &114257975132688072
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lssAroundPointUpdateThreshold: 1.5
-  farLimitDistance: 15
+  farLimitDistance: 5
   nearLimitDistance: 1
 --- !u!114 &114477770853793110
 MonoBehaviour:
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6c5c6ba5b4451478d057836926c9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponCount: 25
+  weaponCount: 12
   spawnOffset: {x: 0, y: 1, z: 0}
   popWeapons:
   - {fileID: 1950185259230238, guid: 718b363eedcfe9942919d61dc4bfdda1, type: 2}

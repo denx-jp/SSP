@@ -31,6 +31,9 @@ public class SpawnPointManager : MonoBehaviour
 
         lssPrePosEachLss[1] = team1LSS.position;
         lssPrePosEachLss[2] = team2LSS.position;
+
+        spawnPointsAroundLSS[1] = new List<Transform>();
+        spawnPointsAroundLSS[2] = new List<Transform>();
     }
 
     public Transform GetRandomSpawnPoint()
@@ -41,7 +44,7 @@ public class SpawnPointManager : MonoBehaviour
 
     public Transform GetSpawnPointAroundLSS(int teamId)
     {
-        if (teamId != 1 || teamId != 2) return GetRandomSpawnPoint();   // デバッグ用
+        if (teamId != 1 && teamId != 2) return GetRandomSpawnPoint();   // デバッグ用
 
         var lssTransform = teamId == 1 ? team1LSS : team2LSS;
 
@@ -50,6 +53,9 @@ public class SpawnPointManager : MonoBehaviour
             UpdateSpawnPointsAroundLSS(teamId);
 
         var spawnPointIndex = Random.Range(0, spawnPointsAroundLSS[teamId].Count);
+
+        if (spawnPointIndex == 0) return GetRandomSpawnPoint();     // 付近にスポーン地点がなかった場合
+
         return spawnPointsAroundLSS[teamId][spawnPointIndex];
     }
 
