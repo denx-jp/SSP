@@ -9,7 +9,9 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     [SerializeField] WeaponModel model;
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
+
     private bool detectable;
+    private PlayerModel playerModel;
     private PlayerAnimationController animationController;
 
     public void Init(PlayerManager playerManager)
@@ -17,7 +19,8 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
         model.playerId = playerManager.playerModel.playerId;
         model.teamId = playerManager.playerModel.teamId;
         model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
-        animationController = playerManager.gameObject.GetComponent<PlayerAnimationController>();
+        animationController = playerManager.playerAnimationController;
+        playerModel = playerManager.playerModel;
 
         //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
         if (model.isOwnerLocalPlayer)
@@ -51,12 +54,12 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     public void SwitchScope()
     {
-
+        playerModel.MoveMode = playerModel.MoveMode == MoveMode.normal ? MoveMode.battle : MoveMode.normal;
     }
 
     public void LongPressScope(bool active)
     {
-
+        playerModel.MoveMode = active ? MoveMode.battle : MoveMode.normal;
     }
 
     [Command]

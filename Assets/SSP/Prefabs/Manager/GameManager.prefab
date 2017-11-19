@@ -72,8 +72,8 @@ MonoBehaviour:
   team1LSS: {fileID: 0}
   team2LSS: {fileID: 0}
   minLssDistance: 1
-  startDelay: 3
-  countDownCount: 5
+  startDelay: 0
+  countDownCount: 1
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
 --- !u!114 &114257975132688072
@@ -177,8 +177,8 @@ MonoBehaviour:
   weaponCount: 25
   spawnOffset: {x: 0, y: 1, z: 0}
   popWeapons:
-  - {fileID: 1189635630215696, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
-  - {fileID: 1198441546025866, guid: e5d4cf07adb2b4348a6a1e1722c15bf5, type: 2}
+  - {fileID: 1950185259230238, guid: 718b363eedcfe9942919d61dc4bfdda1, type: 2}
+  - {fileID: 1668310994040870, guid: dbfeeb5b709953042ad884daf5d61334, type: 2}
 --- !u!114 &114718046599258146
 MonoBehaviour:
   m_ObjectHideFlags: 1

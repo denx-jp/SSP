@@ -2347,7 +2347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pim: {fileID: 114435758838616160}
   inventory: {fileID: 114251797248812484}
-  handGunPrefab: {fileID: 1996856847404154, guid: af79f1071f59bf4499627d3ec0cd7719,
+  handGunPrefab: {fileID: 1493714912135206, guid: f21c03fa524386d49a18595ed69ae3bc,
     type: 2}
   rightHandTransform: {fileID: 4822413448078132}
   leftHandTransform: {fileID: 4314554478120086}
