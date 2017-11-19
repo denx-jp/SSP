@@ -253,6 +253,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1259359594183096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4806417450577614}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1274049350613788
 GameObject:
   m_ObjectHideFlags: 1
@@ -1424,7 +1439,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1691061879836868}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.64266723, z: -0, w: 0.7661455}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1432,9 +1447,10 @@ Transform:
   - {fileID: 4967262684301648}
   - {fileID: 4863685178199432}
   - {fileID: 4134618398348018}
+  - {fileID: 4806417450577614}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -79.982, z: 0}
 --- !u!4 &4314554478120086
 Transform:
   m_ObjectHideFlags: 1
@@ -2037,6 +2053,19 @@ Transform:
   m_Father: {fileID: 4229342242834480}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4806417450577614
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259359594183096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4301605114099154}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4807110513774792
 Transform:
   m_ObjectHideFlags: 1
@@ -2435,6 +2464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePoint: {fileID: 4806417450577614}
+  muzzle: {fileID: 0}
 --- !u!114 &114289268662884142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2469,8 +2500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c024e2056d9e03459b285857b59dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 6
-  runSpeed: 8
+  walkSpeed: 3
+  runSpeed: 6
   rotateSpeed: 12
   jumpSpeed: 10
   gravityMultiplier: -9.8
@@ -2501,6 +2532,7 @@ MonoBehaviour:
   playerAnimationController: {fileID: 114652231599435292}
   playerIKPoser: {fileID: 114478877488635674}
   playerLocomotor: {fileID: 114386327788384836}
+  playerWeaponManager: {fileID: 114287950434655932}
 --- !u!114 &114435758838616160
 MonoBehaviour:
   m_ObjectHideFlags: 1
