@@ -119,6 +119,7 @@ MonoBehaviour:
   floatHeight: 3
   trackingSpeed: 40
   popEtherInitValue: 50
+  target: {fileID: 0}
 --- !u!114 &114603879454852254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,5 +195,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

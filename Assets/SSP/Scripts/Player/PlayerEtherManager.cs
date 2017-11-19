@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
+using UniRx.Triggers;
 
 public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitter
 {
     [SerializeField] private GameObject etherObject;
     [SerializeField] private float emitPower;
     [SerializeField] private Vector3 emitDirectionRange;
+    [SerializeField] private GameObject etherDetector;
 
     private PlayerModel playerModel;
     private PlayerHealthManager playerHealthManager;
@@ -28,6 +30,15 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
                  EmitEther(halfEther);
                  CmdGenerateEtherObject(halfEther);
              });
+
+        // エーテルオブジェクト検出
+        etherDetector.OnTriggerEnterAsObservable()
+            .Select(v => v.GetComponent<EtherObject>())
+            .Where(v => v != null && v.target == null)
+            .Subscribe(etherObject =>
+            {
+                etherObject.CmdSetTarget(gameObject);
+            });
     }
 
     [Command]

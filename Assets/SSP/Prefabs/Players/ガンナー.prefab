@@ -253,6 +253,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1257465906985588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4540437420435242}
+  - component: {fileID: 135129999732064104}
+  m_Layer: 0
+  m_Name: EtherDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1259359594183096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1464,7 @@ Transform:
   - {fileID: 4863685178199432}
   - {fileID: 4134618398348018}
   - {fileID: 4806417450577614}
+  - {fileID: 4540437420435242}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -79.982, z: 0}
@@ -1676,6 +1693,19 @@ Transform:
   - {fileID: 4750541200330878}
   m_Father: {fileID: 4911785545201454}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4540437420435242
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257465906985588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4301605114099154}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4545537373709268
 Transform:
@@ -2464,8 +2494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803ba10a7ece0b34cb683a8da39c4c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 4806417450577614}
-  muzzle: {fileID: 0}
 --- !u!114 &114289268662884142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2532,7 +2560,6 @@ MonoBehaviour:
   playerAnimationController: {fileID: 114652231599435292}
   playerIKPoser: {fileID: 114478877488635674}
   playerLocomotor: {fileID: 114386327788384836}
-  playerWeaponManager: {fileID: 114287950434655932}
 --- !u!114 &114435758838616160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3104,6 +3131,7 @@ MonoBehaviour:
     type: 2}
   emitPower: 3
   emitDirectionRange: {x: 45, y: 10, z: 45}
+  etherDetector: {fileID: 1257465906985588}
 --- !u!114 &114731283157810446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3350,6 +3378,18 @@ MonoBehaviour:
   castCenterOffset: {x: 0, y: 0, z: 0.25}
   castRadius: 0.5
   holdPoint: {fileID: 4336916472172118}
+--- !u!135 &135129999732064104
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257465906985588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136467940175824612
 CapsuleCollider:
   m_ObjectHideFlags: 1
