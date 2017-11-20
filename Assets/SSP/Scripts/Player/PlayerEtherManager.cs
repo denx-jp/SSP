@@ -33,6 +33,7 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
 
         // エーテルオブジェクト検出
         etherDetector.OnTriggerEnterAsObservable()
+            .Where(_ => playerModel.IsAlive())
             .Select(v => v.GetComponent<EtherObject>())
             .Where(v => v != null && v.target == null)
             .Subscribe(etherObject =>
