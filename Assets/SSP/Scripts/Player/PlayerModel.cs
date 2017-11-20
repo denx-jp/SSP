@@ -49,6 +49,7 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
         Health.Value = syncHealth;
     }
 
+    #region Health
     public float GetMaxHealth()
     {
         return initialHealth;
@@ -63,16 +64,24 @@ public class PlayerModel : NetworkBehaviour, IHealth, IEther
     {
         return Health.Value > 0.0f;
     }
+    #endregion
 
+    #region Ether
     public float GetEther()
     {
         return Ether.Value;
+    }
+
+    public float GetMaxEther()
+    {
+        return initialEther;
     }
 
     public ReactiveProperty<float> GetEtherStream()
     {
         return Ether;
     }
+    #endregion
 
     [Command]
     private void CmdSetMovemode(int index)

@@ -6,5 +6,6 @@ using UniRx;
 public interface IEther
 {
     float GetEther();
+    float GetMaxEther();
     ReactiveProperty<float> GetEtherStream();
 }

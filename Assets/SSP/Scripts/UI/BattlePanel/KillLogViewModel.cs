@@ -11,8 +11,10 @@ public class KillLogViewModel : MonoBehaviour
     [SerializeField] private List<Text> texts;
     [SerializeField] private int showPeriod = 3;
 
-    public void Init()
+    public void Init(List<PlayerKillLogNotifier> pklns)
     {
+        killLogNotifiers = pklns;
+
         foreach (Text text in texts)
             text.text = "";
 
@@ -21,11 +23,6 @@ public class KillLogViewModel : MonoBehaviour
             killLogNotifier.GetKillLogStream()
                 .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
         }
-    }
-
-    public void SetKillLogNotifier(List<PlayerKillLogNotifier> pklns)
-    {
-        killLogNotifiers = pklns;
     }
 
     private void AppendKillLog(string killer, string killed)

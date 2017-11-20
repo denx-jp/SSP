@@ -144,8 +144,9 @@ public class GameManager : NetworkBehaviour
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();
-        var lss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
-        battleUI.Init(player, lss.GetComponent<LifeSupportSystemModel>());
+        var friendLss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
+        var enemyLss = player.playerModel.teamId == 1 ? team2LSS : team1LSS;
+        battleUI.Init(player, friendLss.GetComponent<LifeSupportSystemModel>(), enemyLss.GetComponent<LifeSupportSystemModel>());
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
