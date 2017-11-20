@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,12 +69,26 @@ public class GameManager : NetworkBehaviour
     private IEnumerator GameStart()
     {
         // すべての準備が整ったことを確認するのを待つ
-        yield return new WaitForSeconds(2);
-
         while (ClientPlayersManager.Players.Count < NetworkServer.connections.Count)
         {
             yield return null;
         }
+
+        #region ID割り当て        
+        var players = ClientPlayersManager.Players;
+        var playerCount = players.Count;
+        players.Select((player, index) => new { index, player }).ToList().ForEach(v => v.player.playerModel.playerId = v.index + 1);
+        players.OrderBy(i => Guid.NewGuid()).Select((player, index) => new { index, player }).ToList().ForEach(v =>
+        {
+            if (v.index < playerCount / 2.0)
+                v.player.playerModel.teamId = 1;
+            else
+                v.player.playerModel.teamId = 2;
+        });
+        #endregion
+
+        // IDの同期を待つ
+        yield return new WaitForSeconds(1);
 
         RpcPrepareGame();
         gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());

@@ -390,7 +390,7 @@ Prefab:
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}
       propertyPath: m_MinPlayers
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114760390505904558, guid: 42a78b57c135d5b438fd95b4683c097a,
         type: 2}

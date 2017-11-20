@@ -2628,7 +2628,7 @@ MonoBehaviour:
   pim: {fileID: 114435758838616160}
   target: {fileID: 4967262684301648}
   inventory: {fileID: 114251797248812484}
-  cameraRotationSpeed: 100
+  cameraRotationSpeed: 200
   normalModeOffset: {x: 0, y: 0, z: -3}
   yMinLimit: -80
   yMaxLimit: 80

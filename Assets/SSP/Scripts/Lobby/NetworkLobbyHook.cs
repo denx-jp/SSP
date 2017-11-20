@@ -11,7 +11,5 @@ public class NetworkLobbyHook : LobbyHook
         PlayerModel player = gamePlayer.GetComponent<PlayerModel>();
 
         player.playerName = lobby.playerName;
-        player.playerId = lobby.playerId;
-        player.teamId = lobby.teamId;
     }
 }
