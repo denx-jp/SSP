@@ -54,11 +54,12 @@ public class PlayerLocomotor : MonoBehaviour
     #region 移動(地上)
     public void Move(Vector3 input, bool isRun, MoveMode mode)
     {
-        if (!isGrounded) return;
         Vector3 moveDir = input.magnitude > 1 ? input.normalized : input;
         Vector3 newVelocity;
         if (mode == MoveMode.normal && isRun)
             newVelocity = moveDir * runSpeed;
+        else if (!isGrounded)
+            newVelocity = moveDir * walkSpeed * 0.5f;
         else
             newVelocity = moveDir * walkSpeed;
 

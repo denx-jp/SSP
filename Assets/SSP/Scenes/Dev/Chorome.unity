@@ -287,35 +287,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114435758838616160, guid: 7cb231975a2c3be43b8020bf82e4e111,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114258942678779818, guid: 7cb231975a2c3be43b8020bf82e4e111,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114736279950516594, guid: 7cb231975a2c3be43b8020bf82e4e111,
-        type: 2}
-      propertyPath: m_LocalPlayerAuthority
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114735128839970556, guid: 7cb231975a2c3be43b8020bf82e4e111,
-        type: 2}
-      propertyPath: playerId
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114735128839970556, guid: 7cb231975a2c3be43b8020bf82e4e111,
-        type: 2}
-      propertyPath: teamId
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1257465906985588, guid: 7cb231975a2c3be43b8020bf82e4e111, type: 2}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7cb231975a2c3be43b8020bf82e4e111, type: 2}
   m_IsPrefabParent: 0
@@ -448,9 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 197645554}
   - component: {fileID: 197645553}
-  - component: {fileID: 197645552}
   - component: {fileID: 197645551}
-  - component: {fileID: 197645550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -458,21 +427,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &197645550
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197645549}
-  m_Enabled: 1
 --- !u!124 &197645551
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197645549}
-  m_Enabled: 1
---- !u!92 &197645552
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1532,12 +1487,12 @@ Prefab:
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 624
+      value: 440.5
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 351
+      value: 248
       objectReference: {fileID: 0}
     - target: {fileID: 224670393561610880, guid: 69914e591659ec94191c27f2348f7ec5,
         type: 2}
