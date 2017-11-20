@@ -69,6 +69,11 @@ public class GameManager : NetworkBehaviour
         // すべての準備が整ったことを確認するのを待つ
         yield return new WaitForSeconds(2);
 
+        while (ClientPlayersManager.Players.Count < NetworkServer.connections.Count)
+        {
+            yield return null;
+        }
+
         RpcPrepareGame();
         gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
         weaponPopper.Init();
