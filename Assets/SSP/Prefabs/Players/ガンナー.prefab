@@ -3230,6 +3230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ad615acc8bed54f9a44ec628c3523c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoil: {fileID: 0}
   headLookWeight: 1
   gunHoldOffset: {x: 0, y: 0, z: 0}
   leftHandOffset: {x: 0, y: 0, z: 0}
@@ -3275,17 +3276,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   magnitudeRandom: 0.1
   rotationRandom: {x: 0, y: 30, z: 0}
-  handRotationOffset: {x: 0, y: 7, z: 0}
+  handRotationOffset: {x: 0, y: 0, z: 4}
   blendTime: 0.1
   offsets:
-  - offset: {x: 0.02, y: 0, z: -0.1}
+  - offset: {x: 0, y: 0.02, z: 0}
     additivity: 0.5
     maxAdditiveOffsetMag: 0.2
     effectorLinks:
     - effector: 6
       weight: 1
     - effector: 2
-      weight: 0.3
+      weight: 0.6
     - effector: 0
       weight: 0.1
   rotationOffset: {x: 0, y: 0, z: 0, w: 1}

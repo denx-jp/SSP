@@ -8,12 +8,13 @@ using UniRx.Triggers;
 using RootMotion.Demos;
 
 [RequireComponent(typeof(AimIK))]
+[RequireComponent(typeof(Recoil))]
 [RequireComponent(typeof(FullBodyBipedIK))]
 public class PlayerIKPoser : NetworkBehaviour
 {
     private AimIK aim;
     private FullBodyBipedIK ik;
-    private Recoil recoil;
+    [HideInInspector] public Recoil recoil;
     private PlayerModel playerModel;
     private PlayerInventory inventory;
 

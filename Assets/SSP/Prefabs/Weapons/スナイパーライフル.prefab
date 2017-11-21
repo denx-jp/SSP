@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 114235677219628540}
   muzzle: {fileID: 4317034876360836}
+  recoilMagnitude: 3
   gunHoldOffset: {x: -0.31, y: 0, z: 0.12}
   leftHandOffset: {x: 0.21, y: 0.17, z: 0.16}
   socpeCameraOffset: {x: -0.1, y: 0.2, z: 0.1}

@@ -16,6 +16,7 @@ public class InventoryViewModel : MonoBehaviour
         foreach (var weaponVM in weapoVMs)
         {
             ViewModelMap[weaponVM.type] = weaponVM;
+            weaponVM.SetImage(null);
         }
     }
 

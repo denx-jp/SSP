@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bat
   type: 2
-  damageAmount: 100
+  damageAmount: 500
   isOwnerLocalPlayer: 0
   image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
   playerId: 0
