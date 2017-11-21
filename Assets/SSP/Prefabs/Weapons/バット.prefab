@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 114089129076691998}
-  hitDetectionTimeOffset: 0.1
-  hitDetectionDuration: 0.6
+  hitDetectionTimeOffset: 0.05
+  hitDetectionDuration: 0.7
 --- !u!114 &114089129076691998
 MonoBehaviour:
   m_ObjectHideFlags: 1
