@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WeaponViewModel : MonoBehaviour
 {
     public InventoryType type;
-    [SerializeField] private Image image;
+    [SerializeField] public Image image;
     [SerializeField] private Slider slider;
     [SerializeField] private Image background;
     [SerializeField] private Color activeColor;

@@ -16,7 +16,7 @@ public class InventoryViewModel : MonoBehaviour
         foreach (var weaponVM in weapoVMs)
         {
             ViewModelMap[weaponVM.type] = weaponVM;
-            weaponVM.SetImage(null);
+            weaponVM.image.enabled = false;
         }
     }
 
@@ -44,6 +44,7 @@ public class InventoryViewModel : MonoBehaviour
 
     private void UpdateView(InventoryType type, Sprite image)
     {
+        if (!ViewModelMap[type].image.enabled) ViewModelMap[type].image.enabled = true;
         ViewModelMap[type].SetImage(image);
     }
 }
