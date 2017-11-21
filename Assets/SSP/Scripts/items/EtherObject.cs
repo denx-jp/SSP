@@ -13,7 +13,7 @@ public class EtherObject : NetworkBehaviour
     [SerializeField] private float floatHeight;
     [SerializeField] private float trackingSpeed;
     [SerializeField] private float popEtherInitValue = 50;
-    public GameObject target;
+    [HideInInspector] public GameObject target;
 
     private SphereCollider trigger;
     private RaycastHit fallHit;
