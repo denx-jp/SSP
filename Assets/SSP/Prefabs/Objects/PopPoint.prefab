@@ -48,7 +48,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1874790273727198}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -106,6 +106,10 @@ MonoBehaviour:
       InstanceTarget: {fileID: 4657254090609012}
     - LIIF: -1814058745
       InstanceTarget: {fileID: 1874790273727198}
+    - LIIF: -293911233
+      InstanceTarget: {fileID: 23059759056238980}
+    - LIIF: 311228582
+      InstanceTarget: {fileID: 33737671304295800}
   Modifications:
     Modificated: []
     NonPrefabObjects: []
