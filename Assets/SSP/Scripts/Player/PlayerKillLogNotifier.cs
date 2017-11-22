@@ -6,14 +6,14 @@ using UnityEngine.Networking;
 
 public class PlayerKillLogNotifier : NetworkBehaviour
 {
+    private PlayerModel model;
     private PlayerHealthManager playerHealthManager;
     private Subject<KeyValuePair<int, int>> killLogStream = new Subject<KeyValuePair<int, int>>();
-    private int myId;
 
     private void Start()
     {
         playerHealthManager = GetComponent<PlayerHealthManager>();
-        myId = this.transform.GetComponentInParent<PlayerModel>().playerId;
+        model = GetComponentInParent<PlayerModel>();
 
         playerHealthManager.GetDeathStream()
             .Where(v => v)
@@ -40,6 +40,6 @@ public class PlayerKillLogNotifier : NetworkBehaviour
     [ClientRpc]
     void RpcPlayerKilled()
     {
-        killLogStream.OnNext(new KeyValuePair<int, int>(playerHealthManager.recentAttackerId, myId));
+        killLogStream.OnNext(new KeyValuePair<int, int>(playerHealthManager.recentAttackerId, model.playerId));
     }
 }

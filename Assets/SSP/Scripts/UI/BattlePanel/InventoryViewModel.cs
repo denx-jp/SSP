@@ -6,59 +6,45 @@ using UniRx;
 
 public class InventoryViewModel : MonoBehaviour
 {
-    private struct WeaponPanel
-    {
-        public WeaponViewModel weaponVM;
-        public Outline outline;
-        public WeaponPanel(WeaponViewModel vm, Outline ol)
-        {
-            weaponVM = vm;
-            outline = ol;
-        }
-    }
+    [SerializeField] private List<WeaponViewModel> weapoVMs = new List<WeaponViewModel>();
 
-    [HideInInspector] public PlayerInventory inventory;
-    [SerializeField] private List<GameObject> weaponPanels = new List<GameObject>();
-    [SerializeField] private Sprite defaultImage;
-
-    private Dictionary<InventoryType, WeaponPanel> viewMap = new Dictionary<InventoryType, WeaponPanel>();
+    private PlayerInventory inventory;
+    private Dictionary<InventoryType, WeaponViewModel> ViewModelMap = new Dictionary<InventoryType, WeaponViewModel>();
 
     void Start()
     {
-        foreach (var weaponPanel in weaponPanels)
+        foreach (var weaponVM in weapoVMs)
         {
-            var view = weaponPanel.GetComponent<WeaponViewModel>();
-            var outline = weaponPanel.GetComponentInChildren<Outline>();
-            view.SetImage(defaultImage);
-            viewMap[view.type] = new WeaponPanel(view, outline);
+            ViewModelMap[weaponVM.type] = weaponVM;
+            weaponVM.image.enabled = false;
         }
     }
 
-    public void Init()
+    public void Init(PlayerInventory _inventory)
     {
+        inventory = _inventory;
+
         // Initされる前から所持している武器のViewを更新
         inventory.weapons.ToObservable().Subscribe(v => UpdateView(v.Key, v.Value.model.image));
 
         inventory.weapons.ObserveReplace().Subscribe(v => UpdateView(v.Key, v.NewValue.model.image));
         inventory.weapons.ObserveAdd().Subscribe(v => UpdateView(v.Key, v.Value.model.image));
-        inventory.weapons.ObserveRemove().Subscribe(v => UpdateView(v.Key, defaultImage));
+        inventory.weapons.ObserveRemove().Subscribe(v => UpdateView(v.Key, null));
 
         this.ObserveEveryValueChanged(_ => inventory.currentWeaponType)
             .Subscribe(type =>
             {
-                foreach (var weaponPanel in viewMap)
+                foreach (var weaponVMPair in ViewModelMap)
                 {
-                    if (weaponPanel.Key == type)
-                        weaponPanel.Value.outline.enabled = true;
-                    else
-                        weaponPanel.Value.outline.enabled = false;
+                    bool active = weaponVMPair.Key == type;
+                    weaponVMPair.Value.SwapBackgroundColor(active);
                 }
             });
     }
 
     private void UpdateView(InventoryType type, Sprite image)
     {
-        var view = viewMap[type];
-        view.weaponVM.SetImage(image);
+        if (!ViewModelMap[type].image.enabled) ViewModelMap[type].image.enabled = true;
+        ViewModelMap[type].SetImage(image);
     }
 }

@@ -6,12 +6,14 @@ using UniRx;
 public class EtherViewModel : MonoBehaviour
 {
 
-    [SerializeField] private Text text;
+    [SerializeField] private Slider slider;
     public IEther etherModel;
 
-    public void Init()
+    public void Init(IEther _etherModel)
     {
-        etherModel.GetEtherStream().Subscribe(v => text.text = $"Ether : {v.ToString()}");
+        etherModel = _etherModel;
+        slider.maxValue = etherModel.GetMaxEther();
+        etherModel.GetEtherStream().Subscribe(v => slider.value = v);
     }
 
 }

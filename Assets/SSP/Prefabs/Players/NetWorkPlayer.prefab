@@ -5371,11 +5371,11 @@ MonoBehaviour:
   pim: {fileID: 114134000520712444}
   target: {fileID: 4345525689598022}
   inventory: {fileID: 114077097428542020}
-  cameraRotationSpeed: 100
+  cameraRotationSpeed: 200
   normalModeOffset: {x: 0, y: 0, z: -3}
   yMinLimit: -80
   yMaxLimit: 80
-  rotationSensitivity: 3.5
+  rotationSensitivity: 2.5
   balltleModeOffset: {x: 0.75, y: 0.4, z: -1.5}
   battleMagnification: 1.2
   scopeRotationSensitivity: 3.5
@@ -6268,7 +6268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf300c4f3d674790bab9340795a497d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 114774096608856190}
   timeToRespawn: 5
 --- !u!114 &114660740567837552
 MonoBehaviour:
@@ -6339,6 +6338,7 @@ MonoBehaviour:
     type: 2}
   emitPower: 3
   emitDirectionRange: {x: 45, y: 10, z: 45}
+  etherDetector: {fileID: 0}
 --- !u!114 &114768570865979506
 MonoBehaviour:
   m_ObjectHideFlags: 1

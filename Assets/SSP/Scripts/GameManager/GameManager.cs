@@ -1,3 +1,5 @@
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,9 +42,13 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         Instance = this;
+    }
+
+    private void Update()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Start()
@@ -63,7 +69,26 @@ public class GameManager : NetworkBehaviour
     private IEnumerator GameStart()
     {
         // すべての準備が整ったことを確認するのを待つ
-        yield return new WaitForSeconds(2);
+        while (ClientPlayersManager.Players.Count < NetworkServer.connections.Count)
+        {
+            yield return null;
+        }
+
+        #region ID割り当て        
+        var players = ClientPlayersManager.Players;
+        var playerCount = players.Count;
+        players.Select((player, index) => new { index, player }).ToList().ForEach(v => v.player.playerModel.playerId = v.index + 1);
+        players.OrderBy(i => Guid.NewGuid()).Select((player, index) => new { index, player }).ToList().ForEach(v =>
+        {
+            if (v.index < playerCount / 2.0)
+                v.player.playerModel.teamId = 1;
+            else
+                v.player.playerModel.teamId = 2;
+        });
+        #endregion
+
+        // IDの同期を待つ
+        yield return new WaitForSeconds(1);
 
         RpcPrepareGame();
         gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
@@ -89,6 +114,7 @@ public class GameManager : NetworkBehaviour
         {
             player.transform.position = SpawnPointManager.Instance.GetSpawnPointAroundLSS(player.playerModel.teamId).position;
         }
+        clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
 
         yield return new WaitForSeconds(startDelay);
 
@@ -118,8 +144,9 @@ public class GameManager : NetworkBehaviour
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();
-        var lss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
-        battleUI.Init(player, lss.GetComponent<LifeSupportSystemModel>());
+        var friendLss = player.playerModel.teamId == 1 ? team1LSS : team2LSS;
+        var enemyLss = player.playerModel.teamId == 1 ? team2LSS : team1LSS;
+        battleUI.Init(player, friendLss.GetComponent<LifeSupportSystemModel>(), enemyLss.GetComponent<LifeSupportSystemModel>());
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
@@ -20,11 +20,7 @@ namespace Prototype.NetworkLobby
         public GameObject remoteIcone;
 
         [SyncVar(hook = "OnMyName")] public string playerName = "";
-        [SyncVar] public int playerId = 0;
-        [SyncVar] public int teamId = 0;
-        static int team1PlayerCount = 0;
-        static int team2PlayerCount = 0;
-        
+
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
@@ -47,7 +43,7 @@ namespace Prototype.NetworkLobby
             else
                 SetupOtherPlayer();
 
-            //UI‚ÅƒvƒŒ[ƒ„[ƒf[ƒ^‚ðÝ’è‚µ‚Ü‚·B’l‚ÍSyncVar‚Å‚ ‚é‚½‚ßAƒvƒŒ[ƒ„[‚ÍŒ»ÝƒT[ƒoã‚É³‚µ‚¢’l‚Åì¬‚³‚ê‚Ü‚·
+            //UIã§ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®šã—ã¾ã™ã€‚å€¤ã¯SyncVarã§ã‚ã‚‹ãŸã‚ã€ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ã¯ç¾åœ¨ã‚µãƒ¼ãƒä¸Šã«æ­£ã—ã„å€¤ã§ä½œæˆã•ã‚Œã¾ã™
             OnMyName(playerName);
         }
 
@@ -113,8 +109,6 @@ namespace Prototype.NetworkLobby
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(0);
-
-            CmdSetPlayerIdAndTeamId();
         }
 
         //This enable/disable the remove button depending on if that is the only local player or not
@@ -225,23 +219,6 @@ namespace Prototype.NetworkLobby
         {
             LobbyPlayerList._instance.RemovePlayer(this);
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(-1);
-            if (teamId == 1) team1PlayerCount--;
-            if (teamId == 2) team2PlayerCount--;
-        }
-
-        [Command]
-        void CmdSetPlayerIdAndTeamId()
-        {
-            playerId = LobbyPlayerList._instance.playerListContentTransform.childCount - 1;
-            if (team1PlayerCount >= 3)
-                teamId = 2;
-            else if (team2PlayerCount >= 3)
-                teamId = 1;
-            else
-                teamId = Random.Range(0, 2) % 2 == 0 ? 1 : 2;
-
-            if (teamId == 1) team1PlayerCount++;
-            if (teamId == 2) team2PlayerCount++;
         }
     }
 }

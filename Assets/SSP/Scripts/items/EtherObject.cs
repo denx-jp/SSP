@@ -13,7 +13,7 @@ public class EtherObject : NetworkBehaviour
     [SerializeField] private float floatHeight;
     [SerializeField] private float trackingSpeed;
     [SerializeField] private float popEtherInitValue = 50;
-    private GameObject target;
+    [HideInInspector] public GameObject target;
 
     private SphereCollider trigger;
     private RaycastHit fallHit;
@@ -39,16 +39,6 @@ public class EtherObject : NetworkBehaviour
             .Subscribe(_ => rigid.useGravity = false);
 
         #region エーテル吸収処理
-        //trigger圏内のPlayerのRayをとばして、障害物がなければtargetに指定
-        this.OnTriggerEnterAsObservable()
-            .TakeWhile(_ => hasAuthority)
-            .Where(_ => target == null)
-            .Where(col => col.gameObject.tag == TagMap.Player)
-            .Where(col => col.GetComponent<PlayerModel>().IsAlive())
-            .Where(col => Physics.Raycast(transform.position, col.transform.position - transform.position, out absorbHit, 100, absorbLayerMask))
-            .Where(_ => absorbHit.collider.gameObject.tag == TagMap.Player)
-            .Subscribe(col => CmdSetTarget(col.gameObject));
-
         //targetを追従
         this.FixedUpdateAsObservable()
             .Where(_ => target != null)
@@ -64,7 +54,7 @@ public class EtherObject : NetworkBehaviour
     }
 
     [Command]
-    void CmdSetTarget(GameObject go)
+    public void CmdSetTarget(GameObject go)
     {
         RpcTarget(go);
     }

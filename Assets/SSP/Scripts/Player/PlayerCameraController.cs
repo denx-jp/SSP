@@ -47,7 +47,6 @@ public class PlayerCameraController : MonoBehaviour
 
         #region Normal Mode
         tempOffset = normalModeOffset;
-        LookPlayer();
 
         pim.CameraResetButtonDown
             .Where(_ => mode == CameraMode.Normal)
@@ -105,7 +104,7 @@ public class PlayerCameraController : MonoBehaviour
         #endregion
     }
 
-    private void LookPlayer()
+    public void LookPlayer()
     {
         cameraTransform.position = target.transform.position + tempOffset;
         var delta = target.transform.position - cameraTransform.position;

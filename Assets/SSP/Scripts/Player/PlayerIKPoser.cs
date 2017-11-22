@@ -8,13 +8,15 @@ using UniRx.Triggers;
 using RootMotion.Demos;
 
 [RequireComponent(typeof(AimIK))]
+[RequireComponent(typeof(Recoil))]
 [RequireComponent(typeof(FullBodyBipedIK))]
 public class PlayerIKPoser : NetworkBehaviour
 {
     private AimIK aim;
     private FullBodyBipedIK ik;
-    private Recoil recoil;
+    [HideInInspector] public Recoil recoil;
     private PlayerModel playerModel;
+    private PlayerInventory inventory;
 
     [SerializeField, Range(0f, 1f)] private float headLookWeight = 1f;
     [SyncVar] public Vector3 gunHoldOffset;
@@ -32,6 +34,7 @@ public class PlayerIKPoser : NetworkBehaviour
         ik = GetComponent<FullBodyBipedIK>();
         recoil = GetComponent<Recoil>();
         playerModel = GetComponent<PlayerModel>();
+        inventory = GetComponent<PlayerInventory>();
 
         aim.enabled = false;
         ik.enabled = false;
@@ -49,7 +52,7 @@ public class PlayerIKPoser : NetworkBehaviour
 
         this.LateUpdateAsObservable()
             .Where(_ => aim.solver.transform != null)
-            .Where(_ => playerModel.MoveMode == MoveMode.battle)
+            .Where(_ => playerModel.MoveMode == MoveMode.battle && (inventory.currentWeaponType == InventoryType.HandGun || inventory.currentWeaponType == InventoryType.LongRangeWeapon))    // かなり雑なので後々修正が必要
             .Subscribe(_ =>
             {
                 // IK手続き、カメラが移動/回転した後にこれが更新されていることを確認する文字の現在のポーズから何かをサンプリングする

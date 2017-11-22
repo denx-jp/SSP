@@ -7,6 +7,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
 {
     [SerializeField] protected LongRangeWeaponModel model;
     [SerializeField] protected Transform muzzle;
+    [SerializeField] protected float recoilMagnitude;
     [SerializeField] protected Vector3 gunHoldOffset;
     [SerializeField] protected Vector3 leftHandOffset;
     [SerializeField] protected Vector3 socpeCameraOffset;
@@ -27,7 +28,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
 
-        if (localPlayerAuthority && ikPoser != null)
+        if (hasAuthority && ikPoser != null)
         {
             ikPoser.SetAimTransform(muzzle);
             ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
@@ -81,6 +82,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         {
             canShoot = false;
             shootTime = Time.time;
+            ikPoser.recoil.Fire(recoilMagnitude);
             Shoot();
         }
     }

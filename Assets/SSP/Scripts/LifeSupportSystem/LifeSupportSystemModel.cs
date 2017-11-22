@@ -25,6 +25,11 @@ public class LifeSupportSystemModel : NetworkBehaviour, IEther
         return ether.Value;
     }
 
+    public float GetMaxEther()
+    {
+        return initEtherValue;
+    }
+
     public ReactiveProperty<float> GetEtherStream()
     {
         return ether;

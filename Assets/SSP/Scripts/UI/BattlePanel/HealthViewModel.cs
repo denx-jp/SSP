@@ -15,13 +15,13 @@ public class HealthViewModel : MonoBehaviour
     {
         if (playerObj != null)
         {
-            healthModel = playerObj.GetComponent<IHealth>();
-            Init();
+            Init(playerObj.GetComponent<IHealth>());
         }
     }
 
-    public void Init()
+    public void Init(IHealth _healthModel)
     {
+        healthModel = _healthModel;
         sliderHealth.maxValue = healthModel.GetMaxHealth();
         healthModel.GetHealthStream().Subscribe(v => sliderHealth.value = v);
     }

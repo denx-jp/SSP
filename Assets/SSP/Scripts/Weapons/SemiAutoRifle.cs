@@ -59,15 +59,15 @@ public class SemiAutoRifle : LongRangeWeapon, IWeapon
     [ClientRpc]
     private void RpcShoot()
     {
-        var bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        bulletInstance.GetComponent<EffectBullet>().SetIds(hitscanModel.playerId, hitscanModel.teamId, hitscanModel.bulletDeathTime);
+        //var bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        //bulletInstance.GetComponent<EffectBullet>().SetIds(hitscanModel.playerId, hitscanModel.teamId, hitscanModel.bulletDeathTime);
 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out shootHit, 1000, layerMask))
-            bulletInstance.transform.LookAt(damageHit.point);
-        else
-            bulletInstance.transform.rotation = cameraTransform.rotation;
+        //if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out shootHit, 1000, layerMask))
+        //    bulletInstance.transform.LookAt(damageHit.point);
+        //else
+        //    bulletInstance.transform.rotation = cameraTransform.rotation;
 
-        bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * hitscanModel.bulletVelocity;
+        //bulletInstance.GetComponent<Rigidbody>().velocity = bulletInstance.transform.forward * hitscanModel.bulletVelocity;
 
         audioSource.Play();
     }
