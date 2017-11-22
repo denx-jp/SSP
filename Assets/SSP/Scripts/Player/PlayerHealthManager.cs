@@ -34,11 +34,11 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
     public void SetDamage(Damage damage)
     {
         //フレンドリーファイアはできないように
-        if (damage.teamId == playerModel.teamId) return;
-
+        if (damage.AttackerTeamId == playerModel.teamId) return;
+        
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
-            RpcSyncRecentAttackerID(damage.playerId);
+            RpcSyncRecentAttackerID(damage.AttackerPlayerId);
             playerModel.syncHealth -= damage.amount;
         }
     }

@@ -76,7 +76,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public void SetDamage(Damage damage)
     {
-        if (damage.teamId == lifeSupportSystemModel.teamId) return;
+        if (damage.AttackerTeamId == lifeSupportSystemModel.teamId) return;
         var emitEtherValue = damage.amount;
         CmdGenerateEtherObject(emitEtherValue);
         ReduceEther(emitEtherValue);
