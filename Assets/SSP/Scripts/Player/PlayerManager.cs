@@ -28,6 +28,10 @@ public class PlayerManager : NetworkBehaviour
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
         }
+        else
+        {
+            Destroy(transform.Find("AudioListener").GetComponent<AudioListener>());
+        }
     }
 
     public void Init()
