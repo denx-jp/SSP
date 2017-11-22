@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -34,6 +33,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
 
+    // デバッグ用
+    [SerializeField] private bool isCursolLock = true;
+
     public static bool IsGameStarting()
     {
         if (Instance == null) return false;
@@ -47,8 +49,8 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = isCursolLock ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = isCursolLock ? false : true;
     }
 
     private void Start()
@@ -68,6 +70,9 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator GameStart()
     {
+
+        yield return new WaitForSeconds(startDelay);
+
         // すべての準備が整ったことを確認するのを待つ
         while (ClientPlayersManager.Players.Count < NetworkServer.connections.Count)
         {
@@ -77,7 +82,7 @@ public class GameManager : NetworkBehaviour
         #region ID割り当て        
         var players = ClientPlayersManager.Players;
         var playerCount = players.Count;
-        players.Select((player, index) => new { index, player }).ToList().ForEach(v => v.player.playerModel.playerId = v.index + 1);
+        players.Select((player, index) => new { index, player }).ToList().ForEach(v => v.player.playerModel.Id = v.index);
         players.OrderBy(i => Guid.NewGuid()).Select((player, index) => new { index, player }).ToList().ForEach(v =>
         {
             if (v.index < playerCount / 2.0)
@@ -91,7 +96,6 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(1);
 
         RpcPrepareGame();
-        gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
         weaponPopper.Init();
         spawnPointManager.Init(team1LSS.transform, team2LSS.transform);
 
@@ -116,8 +120,6 @@ public class GameManager : NetworkBehaviour
         }
         clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
 
-        yield return new WaitForSeconds(startDelay);
-
         //カウントダウン開始準備
         RpcSwapPanel();
 
@@ -141,6 +143,7 @@ public class GameManager : NetworkBehaviour
     void RpcPrepareGame()
     {
         killLogManager.Init();
+        gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();

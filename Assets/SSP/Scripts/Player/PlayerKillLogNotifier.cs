@@ -40,6 +40,6 @@ public class PlayerKillLogNotifier : NetworkBehaviour
     [ClientRpc]
     void RpcPlayerKilled()
     {
-        killLogStream.OnNext(new KeyValuePair<int, int>(playerHealthManager.recentAttackerId, model.playerId));
+        killLogStream.OnNext(new KeyValuePair<int, int>(playerHealthManager.recentAttackerId, model.Id));
     }
 }

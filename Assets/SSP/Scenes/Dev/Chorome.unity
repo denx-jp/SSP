@@ -441,7 +441,7 @@ Prefab:
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: startDelay
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
@@ -452,6 +452,11 @@ Prefab:
         type: 2}
       propertyPath: minLssDistance
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
+        type: 2}
+      propertyPath: isCursolLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9dd61cb96198364e9473abce3fad2eb, type: 2}
@@ -783,6 +788,11 @@ Prefab:
         type: 2}
       propertyPath: teamId
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114388629411156288, guid: f8baf37534cc5f84ab6bfa58b91b55c4,
+        type: 2}
+      propertyPath: initEtherValue
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8baf37534cc5f84ab6bfa58b91b55c4, type: 2}
@@ -1337,7 +1347,7 @@ Prefab:
     - target: {fileID: 114388629411156288, guid: f8baf37534cc5f84ab6bfa58b91b55c4,
         type: 2}
       propertyPath: initEtherValue
-      value: 5000
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8baf37534cc5f84ab6bfa58b91b55c4, type: 2}

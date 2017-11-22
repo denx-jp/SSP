@@ -43,7 +43,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
 
     public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerManager.playerModel.playerId;
+        model.playerId = playerManager.playerModel.Id;
         model.teamId = playerManager.playerModel.teamId;
         model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
 

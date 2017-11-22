@@ -28,7 +28,7 @@ public class ResultPanelUIManager : MonoBehaviour
         for (int i = 0; i < playerModels.Count; i++)
         {
             var playerModel = playerModels[i];
-            var playerRecord = killLog.GetPlayerRecord(playerModel.playerId);
+            var playerRecord = killLog.GetPlayerRecord(playerModel.Id);
 
             var recordViewModel = recordViewModels[i];
             recordViewModel.Init(playerModel, playerRecord);
