@@ -118,10 +118,9 @@ public class GameManager : NetworkBehaviour
         {
             player.transform.position = SpawnPointManager.Instance.GetSpawnPointAroundLSS(player.playerModel.teamId).position;
         }
-        clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
 
         //カウントダウン開始準備
-        RpcSwapPanel();
+        RpcShowBattleScene();
 
         yield return new WaitForSeconds(1);
 
@@ -156,8 +155,9 @@ public class GameManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcSwapPanel()
+    void RpcShowBattleScene()
     {
+        clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
         StartPanel.SetActive(false);
         BattlePanel.SetActive(true);
     }
