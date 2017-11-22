@@ -28,10 +28,10 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
             isScoped = true;
 
-        if (hasAuthority && ikPoser != null)
+        if (ikPoser != null)
         {
             ikPoser.SetAimTransform(muzzle);
-            ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+            if (hasAuthority && ikPoser != null) ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
         }
     }
 
