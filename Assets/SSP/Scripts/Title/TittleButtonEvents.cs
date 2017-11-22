@@ -7,6 +7,12 @@ public class TittleButtonEvents : MonoBehaviour
 {
     [SerializeField] private string MatchingSceneName;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void GameStartButtonEvent()
     {
         SceneManager.LoadScene(MatchingSceneName);
