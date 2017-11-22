@@ -2721,9 +2721,9 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 6
   rotateSpeed: 12
-  jumpSpeed: 10
+  jumpSpeed: 6
   gravityMultiplier: -9.8
-  groundCheckDistance: 1
+  groundCheckDistance: 0.5
   maxVelocity: 2
   minVelocity: -2
   maxAngle: 90
