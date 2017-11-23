@@ -2693,16 +2693,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthManager: {fileID: 114731283157810446}
   pim: {fileID: 114435758838616160}
-  target: {fileID: 4967262684301648}
   inventory: {fileID: 114251797248812484}
-  cameraRotationSpeed: 200
-  normalModeOffset: {x: 0, y: 0, z: -3}
+  target: {fileID: 4967262684301648}
+  correctPosSpeed: 20
   yMinLimit: -80
   yMaxLimit: 80
   rotationSensitivity: 2
-  balltleModeOffset: {x: 0.75, y: 0.4, z: -1.5}
-  battleMagnification: 1.2
+  battleRotationSensitivity: 2
   scopeRotationSensitivity: 2
+  battleMagnification: 1.2
+  normalModeOffset: {x: 0, y: 0, z: -3}
+  balltleModeOffset: {x: 0.4, y: 0.2, z: -1}
+  scopeModeOffset: {x: 0, y: 0.1, z: 0.3}
 --- !u!114 &114287950434655932
 MonoBehaviour:
   m_ObjectHideFlags: 1
