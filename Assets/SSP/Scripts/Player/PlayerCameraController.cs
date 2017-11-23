@@ -8,6 +8,7 @@ using System.Linq;
 public enum CameraMode { Normal, Battle, Scope }
 public class PlayerCameraController : MonoBehaviour
 {
+    [SerializeField] private PlayerHealthManager healthManager;
     [SerializeField] private PlayerInputManager pim;
     [SerializeField] private Transform target;
     [SerializeField] private PlayerInventory inventory;
@@ -38,12 +39,22 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Start()
     {
-        if (!GetComponent<PlayerModel>().isLocalPlayerCharacter) return;
+        var model = GetComponent<PlayerModel>();
+        if (!model.isLocalPlayerCharacter) return;
 
         mainCamera = Camera.main;
         cameraTransform = mainCamera.transform;
         mode = CameraMode.Normal;
         defaultFieldOfView = mainCamera.fieldOfView;
+
+        healthManager.GetDeathStream()
+            .Where(v => v)
+            .Subscribe(_ =>
+            {
+                ChangeCameraMode(CameraMode.Normal);
+                model.MoveMode = MoveMode.normal;
+                LookPlayer();
+            });
 
         #region Normal Mode
         tempOffset = normalModeOffset;
@@ -119,11 +130,6 @@ public class PlayerCameraController : MonoBehaviour
         return Mathf.Clamp(angle, min, max);
     }
 
-    public void SetTarget(Transform _target)
-    {
-        target = _target;
-    }
-
     public void ChangeCameraMode(CameraMode _mode)
     {
         mode = _mode;
@@ -135,7 +141,7 @@ public class PlayerCameraController : MonoBehaviour
         scopeModeOffset = offset;
     }
 
-    public void FitRotate()
+    public void FitNomalModeRotationAndBattleModeRotation()
     {
         // Vector3.upをxだけ回転させるので、y軸の回転を取得
         x = cameraTransform.eulerAngles.y;

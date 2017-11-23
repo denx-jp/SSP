@@ -49,10 +49,10 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
 
         playerModel = playerManager.playerModel;
         ikPoser = playerManager.playerIKPoser;
+        pcc = playerManager.playerCameraController;
 
         cameraTransform = Camera.main.gameObject.transform;
 
-        pcc = playerManager.playerCameraController;
         audioSource = GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
@@ -98,7 +98,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         isScoped = !isScoped;
         if (isScoped)
         {
-            pcc.FitRotate();
+            pcc.FitNomalModeRotationAndBattleModeRotation();
             pcc.SetScopeOffset(socpeCameraOffset);
             pcc.ChangeCameraMode(CameraMode.Scope);
             playerModel.MoveMode = MoveMode.battle;
@@ -117,7 +117,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         isScoped = active;
         if (isScoped)
         {
-            pcc.FitRotate();
+            pcc.FitNomalModeRotationAndBattleModeRotation();
             pcc.ChangeCameraMode(CameraMode.Battle);
             playerModel.MoveMode = MoveMode.battle;
         }

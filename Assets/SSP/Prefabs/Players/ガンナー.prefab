@@ -2662,14 +2662,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ca2901c597fa49b7d5acc55279550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 114731283157810446}
   pim: {fileID: 114435758838616160}
   target: {fileID: 4967262684301648}
   inventory: {fileID: 114251797248812484}
-  cameraRotationSpeed: 200
+  cameraRotationSpeed: 250
   normalModeOffset: {x: 0, y: 0, z: -3}
   yMinLimit: -80
   yMaxLimit: 80
-  rotationSensitivity: 3.5
+  rotationSensitivity: 2
   balltleModeOffset: {x: 0.75, y: 0.4, z: -1.5}
   battleMagnification: 1.2
   scopeRotationSensitivity: 3.5
@@ -3373,15 +3374,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b9667e29a599d4c90275d2d2fda9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 1
-  teamId: 1
+  Id: 0
+  teamId: 0
+  Name: "\u30DF\u30B9\u30E2\u30CE\u30AF\u30ED\u30FC\u30E0\u3061\u3083\u3093"
   syncHealth: 0
   syncEther: 0
   initialHealth: 500
   initialEther: 500
   isLocalPlayerCharacter: 0
   defaultLayer: 0
-  playerName: 
 --- !u!114 &114736279950516594
 MonoBehaviour:
   m_ObjectHideFlags: 1
