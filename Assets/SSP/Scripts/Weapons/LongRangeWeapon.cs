@@ -25,13 +25,10 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
 
     private void OnEnable()
     {
-        if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
-            isScoped = true;
-
         if (ikPoser != null)
         {
             ikPoser.SetAimTransform(muzzle);
-            if (hasAuthority && ikPoser != null) ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+            ikPoser.SetHandOffset(gunHoldOffset, leftHandOffset);
         }
     }
 
@@ -39,6 +36,11 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
     private void OnDisable()
     {
         isScoped = false;
+
+        if (pcc != null)
+            pcc.ChangeCameraMode(CameraMode.Normal);
+        if (playerModel != null)
+            playerModel.MoveMode = MoveMode.normal;
     }
 
     public void Init(PlayerManager playerManager)

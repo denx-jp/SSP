@@ -79,9 +79,8 @@ public class PlayerIKPoser : NetworkBehaviour
     {
         aimTarget = _targetPos;
     }
-
-    [Command]
-    public void CmdSetHandOffset(Vector3 right, Vector3 left)
+    
+    public void SetHandOffset(Vector3 right, Vector3 left)
     {
         gunHoldOffset = right;
         leftHandOffset = left;

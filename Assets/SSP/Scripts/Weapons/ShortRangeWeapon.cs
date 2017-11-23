@@ -14,6 +14,13 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     private PlayerModel playerModel;
     private PlayerAnimationController animationController;
 
+    // 装備中でなくなった時の処理
+    private void OnDisable()
+    {
+        if (playerModel != null)
+            playerModel.MoveMode = MoveMode.normal;
+    }
+
     public void Init(PlayerManager playerManager)
     {
         model.ownerPlayerModel = playerManager.playerModel;
