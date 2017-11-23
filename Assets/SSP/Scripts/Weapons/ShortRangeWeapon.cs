@@ -16,14 +16,13 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerManager.playerModel.Id;
-        model.teamId = playerManager.playerModel.teamId;
-        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
+        model.ownerPlayerModel = playerManager.playerModel;
+
         animationController = playerManager.playerAnimationController;
         playerModel = playerManager.playerModel;
 
         //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
-        if (model.isOwnerLocalPlayer)
+        if (model.ownerPlayerModel.isLocalPlayerCharacter)
         {
             this.OnTriggerEnterAsObservable()
                 .Where(_ => detectable)

@@ -8,12 +8,12 @@ public class WeaponModel : NetworkBehaviour
     public new string name;
     public WeaponType type;
     public float damageAmount;
-    [HideInInspector] public bool isOwnerLocalPlayer;
     public Sprite image;
-    [HideInInspector, SyncVar] public int playerId, teamId;
+
+    public PlayerModel ownerPlayerModel;
 
     public Damage GetDamage()
     {
-        return new Damage(damageAmount, playerId, teamId);
+        return new Damage(damageAmount, ownerPlayerModel.Id, ownerPlayerModel.teamId);
     }
 }
