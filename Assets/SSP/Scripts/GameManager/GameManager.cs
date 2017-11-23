@@ -100,10 +100,10 @@ public class GameManager : NetworkBehaviour
         spawnPointManager.Init(team1LSS.transform, team2LSS.transform);
 
         // LSSをランダムな位置に移動
-        team1LSS.transform.position = SpawnPointManager.Instance.GetRandomSpawnPoint().position;
+        team1LSS.transform.position = SpawnPointManager.Instance.GetRandomSpawnPosition();
         while (true)
         {
-            var spawnPos = SpawnPointManager.Instance.GetRandomSpawnPoint().position;
+            var spawnPos = SpawnPointManager.Instance.GetRandomSpawnPosition();
             var distance = Vector3.Distance(team1LSS.transform.position, spawnPos);
 
             if (distance > minLssDistance)
@@ -116,7 +116,7 @@ public class GameManager : NetworkBehaviour
         //プレイヤーをLSS周辺に移動
         foreach (var player in ClientPlayersManager.Players)
         {
-            player.transform.position = SpawnPointManager.Instance.GetSpawnPointAroundLSS(player.playerModel.teamId).position;
+            player.transform.position = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(player.playerModel.teamId);
         }
 
         //カウントダウン開始準備

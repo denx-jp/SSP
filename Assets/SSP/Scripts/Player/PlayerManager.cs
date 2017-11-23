@@ -27,7 +27,6 @@ public class PlayerManager : NetworkBehaviour
             playerModel.isLocalPlayerCharacter = true;
             playerModel.defaultLayer = LayerMap.LocalPlayer;
             this.gameObject.layer = LayerMap.LocalPlayer;
-            this.ObserveEveryValueChanged(_ => playerModel.teamId).Subscribe(v => test.instance.SetText($"team {playerModel.teamId}"));
         }
         else
         {

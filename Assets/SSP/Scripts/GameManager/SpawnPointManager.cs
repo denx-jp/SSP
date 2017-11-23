@@ -36,27 +36,32 @@ public class SpawnPointManager : MonoBehaviour
         spawnPointsAroundLSS[2] = new List<Transform>();
     }
 
-    public Transform GetRandomSpawnPoint()
+    public Vector3 GetRandomSpawnPosition()
     {
         var spawnPointIndex = Random.Range(0, spawnPoints.Count);
-        return spawnPoints[spawnPointIndex];
+        return spawnPoints[spawnPointIndex].position;
     }
 
-    public Transform GetSpawnPointAroundLSS(int teamId)
+    public Vector3 GetSpawnPositionAroundLSS(int teamId)
     {
-        if (teamId != 1 && teamId != 2) return GetRandomSpawnPoint();   // デバッグ用
+        if (teamId != 1 && teamId != 2) return GetRandomSpawnPosition();   // デバッグ用
 
         var lssTransform = teamId == 1 ? team1LSS : team2LSS;
 
-        var distance = Vector3.Distance(lssTransform.position, lssPrePosEachLss[teamId]);
-        if (distance > lssAroundPointUpdateThreshold)
-            UpdateSpawnPointsAroundLSS(teamId);
+        RaycastHit hit;
+        float downDirection = 1;
+        while (true)
+        {
+            var x = lssTransform.position.x + GetRandomDistanceInRange();
+            var z = lssTransform.position.z + GetRandomDistanceInRange();
+            var y = lssTransform.position.y + 0.5f;
+            var pos = new Vector3(x, y, z);
 
-        var spawnPointIndex = Random.Range(0, spawnPointsAroundLSS[teamId].Count);
+            if (Physics.Raycast(pos, Vector3.down, out hit, downDirection))
+                return hit.point;
 
-        if (spawnPointIndex == 0) return GetRandomSpawnPoint();     // 付近にスポーン地点がなかった場合
-
-        return spawnPointsAroundLSS[teamId][spawnPointIndex];
+            downDirection *= 2;
+        }
     }
 
     private void UpdateSpawnPointsAroundLSS(int teamId)
@@ -72,5 +77,16 @@ public class SpawnPointManager : MonoBehaviour
             if (nearLimitDistance < distance && distance < farLimitDistance)
                 spawnPointsAroundLSS[teamId].Add(spawnPosition);
         }
+    }
+
+    private float GetRandomDistanceInRange()
+    {
+        float distance = Random.Range(nearLimitDistance, farLimitDistance);
+
+        // 偶数が出たらマイナスにする
+        if (Random.Range(0, 10) % 2 == 0)
+            distance *= -1;
+
+        return distance;
     }
 }
