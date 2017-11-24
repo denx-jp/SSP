@@ -29,13 +29,17 @@ public class PlayerCameraController : MonoBehaviour
     private Transform cameraTransform;
     private float x, y;
 
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
+
     private void Start()
     {
         var model = GetComponent<PlayerModel>();
         if (!model.isLocalPlayerCharacter) return;
 
         mode = CameraMode.Normal;
-        mainCamera = Camera.main;
         cameraTransform = mainCamera.transform;
         defaultFieldOfView = mainCamera.fieldOfView;
 
@@ -58,6 +62,7 @@ public class PlayerCameraController : MonoBehaviour
 
         // targetとカメラの間に障害物があった時にカメラをtargetに近づける
         this.UpdateAsObservable()
+            .Where(_ => mode == CameraMode.Normal)
             .Subscribe(_ =>
             {
                 RaycastHit hit;
