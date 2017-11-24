@@ -11,6 +11,7 @@ public class PlayerBattleUIManager : MonoBehaviour
     [SerializeField] private EtherViewModel enemyLssEtherViewModel;
     [SerializeField] private KillLogViewModel killLogViewModel;
     [SerializeField] private CrossViewModel crossVM;
+    [SerializeField] private GuideViewModel guideVM;
 
     public void Init(PlayerManager pm, IEther friendLssModel, IEther enemyLssModel)
     {
@@ -22,5 +23,6 @@ public class PlayerBattleUIManager : MonoBehaviour
         enemyLssEtherViewModel.Init(enemyLssModel);
         killLogViewModel.Init(ClientPlayersManager.Instance.GetPlayersComponent<PlayerKillLogNotifier>());
         crossVM.Init(pm);
+        guideVM.Init(pm.guideDetector);
     }
 }

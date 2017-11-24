@@ -294,7 +294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1119717712909370
 GameObject:
   m_ObjectHideFlags: 1
@@ -608,7 +608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1270533288943998
 GameObject:
   m_ObjectHideFlags: 1
@@ -1268,13 +1268,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224045706041107734}
+  - component: {fileID: 114110670889507434}
   m_Layer: 5
   m_Name: Guides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1584716971997362
 GameObject:
   m_ObjectHideFlags: 1
@@ -1560,7 +1561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1761611177778688
 GameObject:
   m_ObjectHideFlags: 1
@@ -2014,7 +2015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1988273151732512
 GameObject:
   m_ObjectHideFlags: 1
@@ -2405,6 +2406,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderHealth: {fileID: 114137971951120682}
   playerObj: {fileID: 0}
+--- !u!114 &114110670889507434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581645723427756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e54a42d3a8ad242a2c8315c6995720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guides:
+  - Panel: {fileID: 1258164526824260}
+    KeyText: {fileID: 114945244583911556}
+    DescriptionText: {fileID: 114714771472545266}
+  - Panel: {fileID: 1108652423084506}
+    KeyText: {fileID: 114983790198400014}
+    DescriptionText: {fileID: 114864283360601054}
+  - Panel: {fileID: 1976811029948966}
+    KeyText: {fileID: 114838431560265680}
+    DescriptionText: {fileID: 114344925906945560}
 --- !u!114 &114126790947196848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2628,6 +2650,7 @@ MonoBehaviour:
   enemyLssEtherViewModel: {fileID: 114628928300047000}
   killLogViewModel: {fileID: 114842519824852002}
   crossVM: {fileID: 114736647627380524}
+  guideVM: {fileID: 114110670889507434}
 --- !u!114 &114196905903399892
 MonoBehaviour:
   m_ObjectHideFlags: 1

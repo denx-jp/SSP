@@ -32,11 +32,12 @@ public class PlayerInteractor : NetworkBehaviour
         if (castResult.Length == 0) return;
         var interactionTargetObject = castResult
             .Where(v => v.gameObject.GetComponent<IInteractable>() != null)
-            .Where(v => v.gameObject.GetComponent<IInteractable>().CanInteract())
-            .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position));
+            .Where(v => v.gameObject.GetComponent<IInteractable>().CanInteract());
 
         if (interactionTargetObject.Count() == 0) return;
-        var interactionTarget = interactionTargetObject.First().gameObject;
+        var interactionTarget = interactionTargetObject
+            .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position))
+            .First().gameObject;
         CmdInteract(interactionTarget);
     }
 
