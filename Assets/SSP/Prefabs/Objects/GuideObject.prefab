@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4810283726259478}
-  - component: {fileID: 135793370445974078}
   - component: {fileID: 114340893484333256}
+  - component: {fileID: 65287133523634992}
   m_Layer: 17
   m_Name: GuideObject
   m_TagString: Untagged
@@ -41,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65287133523634992
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989159146215062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40036404, y: 1.5252225, z: 0.43692735}
+  m_Center: {x: 0.014625251, y: 0.7525579, z: 0.003656134}
 --- !u!114 &114340893484333256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,17 +64,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e55c455d3959f4c9fad9ecba9ce019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyCode: 
-  Description: 
---- !u!135 &135793370445974078
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1989159146215062}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  KeyCode: F
+  Description: "\u30A8\u30FC\u30C6\u30EB\u3092\u88DC\u7D66\u3059\u308B"

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UniRx;
 
-public class InventoriableObject : NetworkBehaviour, IInteractable
+public class InventoriableObject : NetworkBehaviour, IInteractable, IGuideable
 {
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
@@ -19,6 +20,8 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 
     private List<Collider> colliders;
     private Rigidbody rigid;
+
+    private Subject<Unit> hideGuideStream = new Subject<Unit>();
 
     void Start()
     {
@@ -47,6 +50,8 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, model.type);
         pm.playerAnimationController.Pickup();
+
+        hideGuideStream.OnNext(Unit.Default);
     }
 
     public bool CanInteract()
@@ -100,4 +105,16 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         rigid.useGravity = enable;
         rigid.isKinematic = !enable;
     }
+
+    #region Guideまわり
+    public bool ShouldGuide()
+    {
+        return canInteract;
+    }
+
+    public Subject<Unit> GetHideGuideStream()
+    {
+        return hideGuideStream;
+    }
+    #endregion
 }

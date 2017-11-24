@@ -907,6 +907,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1732473917335056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4754150805708760}
+  - component: {fileID: 114909672508735588}
+  - component: {fileID: 65918342647232100}
+  m_Layer: 17
+  m_Name: GuideObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1735739659020288
 GameObject:
   m_ObjectHideFlags: 1
@@ -1912,6 +1929,19 @@ Transform:
   m_Father: {fileID: 4934709793298116}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4754150805708760
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732473917335056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4934709793298116}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4756939066267084
 Transform:
   m_ObjectHideFlags: 1
@@ -2114,6 +2144,7 @@ Transform:
   - {fileID: 4872411761754492}
   - {fileID: 4642811525698358}
   - {fileID: 4373198183093320}
+  - {fileID: 4754150805708760}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2418,6 +2449,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.40036404, y: 1.5252225, z: 0.43692735}
   m_Center: {x: 0.014625251, y: 0.7525579, z: 0.003656134}
+--- !u!65 &65918342647232100
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732473917335056}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40036404, y: 1.5252225, z: 0.43692735}
+  m_Center: {x: 0.014625251, y: 0.7525579, z: 0.003656134}
 --- !u!65 &65946836108428304
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2639,7 +2682,6 @@ MonoBehaviour:
   pivot: {fileID: 4373198183093320}
   pickUpTime: 0.3
   obj: {fileID: 0}
-  canCarry: 1
 --- !u!114 &114851259636945380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2680,6 +2722,19 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114909672508735588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732473917335056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e55c455d3959f4c9fad9ecba9ce019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyCode: F
+  Description: "\u30A8\u30FC\u30C6\u30EB\u3092\u88DC\u7D66\u3059\u308B"
 --- !u!137 &137001885698377362
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

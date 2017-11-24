@@ -7,7 +7,7 @@ using RootMotion.FinalIK;
 using UniRx;
 using UniRx.Triggers;
 
-public class CarriableObject : MonoBehaviour
+public class CarriableObject : MonoBehaviour, IGuideable
 {
     [SerializeField] private Transform pivot;
     [SerializeField] private float pickUpTime = 0.3f;
@@ -22,6 +22,8 @@ public class CarriableObject : MonoBehaviour
     private int defaultLayer;
     private bool canCarry = true;
     private NetworkTransform networkTransform;
+
+    private Subject<Unit> hideGuideStream = new Subject<Unit>();
 
     protected virtual void Start()
     {
@@ -66,6 +68,8 @@ public class CarriableObject : MonoBehaviour
 
         interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, obj, false);
         interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, obj, false);
+
+        hideGuideStream.OnNext(Unit.Default);
     }
 
     public void Drop()
@@ -131,4 +135,16 @@ public class CarriableObject : MonoBehaviour
         transform.transform.rotation = Quaternion.identity;
         rigid.isKinematic = false;
     }
+
+    #region Guideまわり
+    public bool ShouldGuide()
+    {
+        return CanCarry();
+    }
+
+    public Subject<Unit> GetHideGuideStream()
+    {
+        return hideGuideStream;
+    }
+    #endregion
 }
