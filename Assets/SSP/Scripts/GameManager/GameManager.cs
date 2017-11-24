@@ -197,6 +197,9 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator GameEnd(bool isWin)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         ResultPanel.SetActive(true);
 
         yield return new WaitForSeconds(endDelay);

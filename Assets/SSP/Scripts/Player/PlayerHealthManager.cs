@@ -6,12 +6,12 @@ using UniRx;
 
 public class PlayerHealthManager : NetworkBehaviour, IDamageable
 {
+    [SerializeField] private float deathHeightThreshHold = -30f;
+
     private PlayerModel playerModel;
     private Subject<bool> deathStream = new Subject<bool>();
-
     public int recentAttackerId { get; private set; }
-
-    bool isDeath = false;
+    private bool isDeath = false;
 
     private void Start()
     {
@@ -29,13 +29,22 @@ public class PlayerHealthManager : NetworkBehaviour, IDamageable
                     }
                 }
             );
+
+        // 範囲外に落下したときは死亡させる。本当はHealthManagerに持たせない方がいいのかもしれない。
+        this.ObserveEveryValueChanged(_ => transform.position.y)
+            .Where(v => !isDeath && v < deathHeightThreshHold)
+            .Subscribe(_ =>
+            {
+                RpcSyncRecentAttackerID(playerModel.Id);
+                playerModel.syncHealth -= playerModel.syncHealth;
+            });
     }
 
     public void SetDamage(Damage damage)
     {
         //フレンドリーファイアはできないように
         if (damage.AttackerTeamId == playerModel.teamId) return;
-        
+
         if (playerModel.Health.Value > 0.0f && damage.amount > 0.0f)
         {
             RpcSyncRecentAttackerID(damage.AttackerPlayerId);
