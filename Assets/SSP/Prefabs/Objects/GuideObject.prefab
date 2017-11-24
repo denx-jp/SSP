@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4810283726259478}
   - component: {fileID: 135793370445974078}
   - component: {fileID: 114340893484333256}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GuideObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e55c455d3959f4c9fad9ecba9ce019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
+  KeyCode: 
+  Description: 
 --- !u!135 &135793370445974078
 SphereCollider:
   m_ObjectHideFlags: 1

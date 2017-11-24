@@ -14,67 +14,64 @@ public class GuideViewModel : MonoBehaviour
         public GameObject Panel;
         public Text KeyText;
         public Text DescriptionText;
+
+        public void Show(GuideObject guideObject)
+        {
+            KeyText.text = guideObject.KeyCode;
+            DescriptionText.text = guideObject.Description;
+            Panel.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            KeyText.text = string.Empty;
+            DescriptionText.text = string.Empty;
+            Panel.SetActive(false);
+        }
     }
 
     [SerializeField] private List<Guide> guides;
 
     private Dictionary<string, Guide> guideMap = new Dictionary<string, Guide>();
-    private List<GuideObject> guideObjects = new List<GuideObject>();
-    private Transform detectorTransform;
 
     public void Init(GuideDetector detector)
     {
-        detectorTransform = detector.transform;
-
-        detector.detectGuideStream
+        detector.NearestGuideObjectMap.ObserveAdd()
+            .Select(v => v.Value)
             .Subscribe(guideObject =>
             {
-                guideObjects.Add(guideObject);
-
-                if (guideMap.Count == 0)
-                {
-                    // 普通に表示
-                }
-                else
-                {
-                    // 重複チェック
-                }
+                ShowGuide(guideObject);
             });
 
-        detector.missGuideStream
+        detector.NearestGuideObjectMap.ObserveReplace()
+         .Select(v => v.NewValue)
+         .Subscribe(guideObject =>
+         {
+             UpdateGuide(guideObject);
+         });
+
+        detector.NearestGuideObjectMap.ObserveRemove()
+            .Select(v => v.Value)
             .Subscribe(guideObject =>
             {
-                guideObjects.Remove(guideObject);
-
-                // guideObjectsにKeyの重複チェック
-                // 重複があればそれを表示
+                guideMap[guideObject.KeyCode].Hide();
             });
-
-        this.UpdateAsObservable()
-                .Where(_ => guideObjects.Count > 1)
-                .Subscribe(_ =>
-                {
-                    foreach (var guideKeyValPair in guideMap)
-                    {
-                        //var keyUseGuideObjects = guideObjects.Where(v => v.Key == usedKey).ToList();
-                        //if (keyUseGuideObjects.Count < 2) return;
-                        //var nearestObject = keyUseGuideObjects.OrderBy(v => Vector3.Distance(v.transform.position, detectorTransform.position)).First();
-                        //SetGuide(nearestObject);
-                    }
-                });
     }
 
-    private void SetGuide(GuideObject guideObject)
+    private void ShowGuide(GuideObject guideObject)
     {
-        var deactiveGuide = guides.Find(v => !v.Panel.activeSelf);
-        deactiveGuide.KeyText.text = guideObject.Key;
-        deactiveGuide.DescriptionText.text = guideObject.Description;
-        deactiveGuide.Panel.SetActive(true);
-        guideMap[guideObject.Key] = deactiveGuide;
+        var guide = GetDisabledGuide();
+        guideMap[guideObject.KeyCode] = guide;
+        guide.Show(guideObject);
     }
 
-    private void DeactiveGuide(string key)
+    private void UpdateGuide(GuideObject guideObject)
     {
-        deactiveGuide.Panel.SetActive(true);
+        guideMap[guideObject.KeyCode].Show(guideObject);
+    }
+
+    private Guide GetDisabledGuide()
+    {
+        return guides.Find(v => !v.Panel.activeSelf);
     }
 }
