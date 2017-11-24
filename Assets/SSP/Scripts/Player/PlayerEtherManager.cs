@@ -38,7 +38,7 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
             .Where(v => v != null && v.target == null)
             .Subscribe(etherObject =>
             {
-                etherObject.CmdSetTarget(gameObject);
+                CmdSetEtherObjectTarget(etherObject.gameObject);
             });
     }
 
@@ -73,5 +73,11 @@ public class PlayerEtherManager : NetworkBehaviour, IEtherAcquirer, IEtherEmitte
     public void EmitEther(float etherValue)
     {
         playerModel.syncEther -= etherValue;
+    }
+
+    [Command]
+    void CmdSetEtherObjectTarget(GameObject etherObj)
+    {
+        etherObj.GetComponent<EtherObject>().SetAndSyncTarget(this.gameObject);
     }
 }
