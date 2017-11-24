@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UniRx;
+using UniRx.Triggers;
 
 public class GameManager : NetworkBehaviour
 {
@@ -34,9 +35,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
 
-    // デバッグ用
-    [SerializeField] private bool isCursolLock = true;
-
     public static bool IsGameStarting()
     {
         if (Instance == null) return false;
@@ -46,12 +44,6 @@ public class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Update()
-    {
-        Cursor.lockState = isCursolLock ? CursorLockMode.Locked : CursorLockMode.None;
-        Cursor.visible = isCursolLock ? false : true;
     }
 
     private void Start()
@@ -66,6 +58,22 @@ public class GameManager : NetworkBehaviour
             .Subscribe(v =>
             {
                 StartCoroutine(GameEnd(v));
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => IsGameStarting())
+            .Subscribe(_ =>
+            {
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             });
     }
 

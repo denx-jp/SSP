@@ -2683,7 +2683,7 @@ MonoBehaviour:
   recoilMagnitude: 3
   gunHoldOffset: {x: -0.38, y: 0, z: 0.27}
   leftHandOffset: {x: 0.2, y: 0.17, z: 0.1}
-  socpeCameraOffset: {x: 0, y: 0.15, z: 0.15}
+  socpeCameraOffset: {x: 0, y: 0.15, z: 0.25}
   bullet: {fileID: 1610161927253904, guid: 0e328b3de743cd8468a377b107845ced, type: 2}
 --- !u!114 &114697660165721886
 MonoBehaviour:

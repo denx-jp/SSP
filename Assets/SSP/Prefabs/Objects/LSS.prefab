@@ -2459,7 +2459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   etherReductionRate: 10
-  etherChargeValue: 10
+  etherChargeValue: 100
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
     type: 2}
   emitPower: 15
@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   syncEther: 0
-  initEtherValue: 5000
+  initEtherValue: 3000
 --- !u!114 &114556048512902956
 MonoBehaviour:
   m_ObjectHideFlags: 1

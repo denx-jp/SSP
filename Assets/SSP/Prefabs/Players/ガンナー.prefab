@@ -2730,7 +2730,7 @@ MonoBehaviour:
   yMaxLimit: 80
   rotationSensitivity: 2
   battleRotationSensitivity: 2
-  scopeRotationSensitivity: 2
+  scopeRotationSensitivity: 1.5
   battleMagnification: 1.2
   normalModeOffset: {x: 0, y: 0, z: -3}
   balltleModeOffset: {x: 0.4, y: 0.2, z: -1}
