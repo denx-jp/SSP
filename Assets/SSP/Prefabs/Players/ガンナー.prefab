@@ -2834,7 +2834,6 @@ MonoBehaviour:
   playerAnimationController: {fileID: 114652231599435292}
   playerIKPoser: {fileID: 114478877488635674}
   playerLocomotor: {fileID: 114386327788384836}
-  playerOutlineManager: {fileID: 114381249082415600}
 --- !u!114 &114435758838616160
 MonoBehaviour:
   m_ObjectHideFlags: 1
