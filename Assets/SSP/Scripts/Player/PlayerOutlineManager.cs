@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerOutlineManager : NetworkBehaviour {
-
+public class PlayerOutlineManager : NetworkBehaviour
+{
     public Color friendColor;
     public Color enemyColor;
-
     public SkinnedMeshRenderer[] renderers;
 
-    public void Start()
+    private void Start()
     {
         var model = GetComponentInParent<PlayerModel>();
-        this.Init(model);
-    }
-
-    public void Init(PlayerModel model)
-    {
-        var teamId = model.teamId;
         var myTeamId = ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId;
-        if (teamId == myTeamId)
+        if (model.teamId == myTeamId)
         {
             SetOutlineColor(friendColor);
         }

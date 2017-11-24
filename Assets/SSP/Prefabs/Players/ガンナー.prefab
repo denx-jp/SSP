@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 4540437420435242}
   - component: {fileID: 135129999732064104}
   - component: {fileID: 114818748132177840}
+  - component: {fileID: 114492822019268088}
   m_Layer: 18
   m_Name: GuideDetector
   m_TagString: Untagged
@@ -1608,8 +1609,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4994494076127138}
-  - {fileID: 4967262684301648}
   - {fileID: 4863685178199432}
+  - {fileID: 4967262684301648}
   - {fileID: 4806417450577614}
   - {fileID: 4776833712507262}
   - {fileID: 4540437420435242}
@@ -2361,7 +2362,7 @@ Transform:
   - {fileID: 4445370107315972}
   - {fileID: 4159460056257652}
   m_Father: {fileID: 4301605114099154}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4897409617439492
 Transform:
@@ -2429,7 +2430,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4301605114099154}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4994494076127138
 Transform:
@@ -2480,7 +2481,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1554623650454200}
   m_Enabled: 1
-  m_ExtensionPropertyValues: []
 --- !u!82 &82977938667931438
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2561,7 +2561,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  m_ExtensionPropertyValues: []
 --- !u!95 &95840347807680106
 Animator:
   serializedVersion: 3
@@ -2784,7 +2783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01bec366fb4d7b47b24fd8d8e92e2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  friendColor: {r: 0.11724138, g: 0, b: 1, a: 0}
+  friendColor: {r: 0, g: 0, b: 0, a: 0}
   enemyColor: {r: 1, g: 0, b: 0, a: 0}
   renderers:
   - {fileID: 137123102000302002}
