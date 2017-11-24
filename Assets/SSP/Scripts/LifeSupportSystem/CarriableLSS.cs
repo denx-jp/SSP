@@ -13,8 +13,9 @@ public class CarriableLSS : CarriableObject
         base.Start();
     }
 
-    public override bool CanCarry(int teamId)
+    public override bool CanCarry()
     {
-        return teamId == model.teamId;
+        // CarriableObjectの判定はLocalPlayerでのみ受け付けるのでLocalPlayerのTeamIdから判断
+        return ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId == model.teamId;
     }
 }
