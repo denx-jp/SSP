@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -16,10 +17,16 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     [SyncVar] public NetworkInstanceId ownerPlayerId;
     private NetworkIdentity networkIdentity;
 
+    private List<Collider> colliders;
+    private Rigidbody rigid;
+
     void Start()
     {
         networkIdentity = GetComponent<NetworkIdentity>();
         model = GetComponent<WeaponModel>();
+        colliders = GetComponentsInChildren<Collider>().Where(v => !v.isTrigger).ToList();
+        rigid = GetComponent<Rigidbody>();
+
         StartCoroutine(DefaultWeaponSetup());
     }
 
@@ -33,7 +40,8 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
     [ClientRpc]
     void RpcSetToInventory(GameObject player)
     {
-        canInteract = false;
+        SetPhysicsSettings(false);
+
         ownerPlayerId = player.GetComponent<NetworkIdentity>().netId;
         var pm = player.GetComponent<PlayerManager>();
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
@@ -46,9 +54,9 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         return canInteract;
     }
 
-    public void SetCanInteract(bool _canInteract)
+    public void Release()
     {
-        canInteract = _canInteract;
+        SetPhysicsSettings(true);
     }
 
     //所持中の武器を持ち主のインベントリに格納・装備する
@@ -60,6 +68,7 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
         var owner = ClientScene.FindLocalObject(ownerPlayerId);
         if (owner == null) yield break;
         var pim = owner.GetComponent<PlayerInventoryManager>();
+        SetPhysicsSettings(false);
 
         pim.SetWeaponToInventory(this.gameObject, model.type);
         var inventoryType = pim.ConvertInventoriableTypeToInventoryType(model.type);
@@ -82,5 +91,13 @@ public class InventoriableObject : NetworkBehaviour, IInteractable
 
         transform.localPosition = weaponPos;
         transform.localRotation = Quaternion.Euler(weaponRot.x, weaponRot.y, weaponRot.z);
+    }
+
+    private void SetPhysicsSettings(bool enable)
+    {
+        canInteract = enable;
+        colliders.ForEach(v => v.enabled = enable);
+        rigid.useGravity = enable;
+        rigid.isKinematic = !enable;
     }
 }

@@ -36,6 +36,8 @@ GameObject:
   - component: {fileID: 4707229145058598}
   - component: {fileID: 33220351729264698}
   - component: {fileID: 23140226418044362}
+  - component: {fileID: 136142723790396738}
+  - component: {fileID: 65752490880615072}
   m_Layer: 0
   m_Name: mesh
   m_TagString: Untagged
@@ -52,6 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4812781394076082}
   - component: {fileID: 65853877499979942}
+  - component: {fileID: 54490700926697786}
   - component: {fileID: 114099486060478346}
   - component: {fileID: 82690029708422894}
   - component: {fileID: 114648548636740804}
@@ -97,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668310994040870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.408, z: 0}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_Children:
   - {fileID: 4707229145058598}
@@ -146,6 +149,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1354270914618802}
   m_Mesh: {fileID: 4300000, guid: e32f45f0aa6df3848bd2a72fb130b518, type: 3}
+--- !u!54 &54490700926697786
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668310994040870}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &65752490880615072
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354270914618802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0041565252, y: 0.022085069, z: 0.0058131954}
+  m_Center: {x: 0, y: -0.020972034, z: -0.006897339}
 --- !u!65 &65853877499979942
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -302,10 +332,8 @@ MonoBehaviour:
   name: SniperRifle
   type: 1
   damageAmount: 300
-  isOwnerLocalPlayer: 0
   image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
-  playerId: 0
-  teamId: 0
+  ownerPlayerModel: {fileID: 0}
   coolTime: 1.5
   scopeMagnification: 3
   bulletVelocity: 800
@@ -327,3 +355,16 @@ MonoBehaviour:
   model: {fileID: 0}
   canInteract: 1
   hand: 1
+--- !u!136 &136142723790396738
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354270914618802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0027388046
+  m_Height: 0.09561967
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.010695226, z: -0.000995515}

@@ -29,17 +29,13 @@ public class PlayerCameraController : MonoBehaviour
     private Transform cameraTransform;
     private float x, y;
 
-    private void Awake()
-    {
-        mainCamera = Camera.main;
-    }
-
     private void Start()
     {
         var model = GetComponent<PlayerModel>();
         if (!model.isLocalPlayerCharacter) return;
 
         mode = CameraMode.Normal;
+        mainCamera = Camera.main;
         cameraTransform = mainCamera.transform;
         defaultFieldOfView = mainCamera.fieldOfView;
 
@@ -156,6 +152,9 @@ public class PlayerCameraController : MonoBehaviour
                 fov = gun == null ? defaultFieldOfView / battleMagnification : defaultFieldOfView / gun.scopeMagnification;
                 break;
         }
-        mainCamera.fieldOfView = fov;
+
+        // シーン遷移時にmainCameraが先に破棄されてエラーが出るため
+        if (mainCamera != null)
+            mainCamera.fieldOfView = fov;
     }
 }
