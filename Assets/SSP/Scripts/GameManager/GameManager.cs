@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
@@ -116,7 +117,8 @@ public class GameManager : NetworkBehaviour
         //プレイヤーをLSS周辺に移動
         foreach (var player in ClientPlayersManager.Players)
         {
-            player.transform.position = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(player.playerModel.teamId);
+            var pos = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(player.playerModel.teamId);
+            RpcMovePlayer(player.gameObject, pos);
         }
 
         //カウントダウン開始準備
@@ -138,6 +140,12 @@ public class GameManager : NetworkBehaviour
     }
 
     #region Startまわりメソッド
+    [ClientRpc]
+    void RpcMovePlayer(GameObject player, Vector3 pos)
+    {
+        player.transform.position = pos;
+    }
+
     [ClientRpc]
     void RpcPrepareGame()
     {
@@ -195,7 +203,10 @@ public class GameManager : NetworkBehaviour
         result.SetActive(true);
         result.GetComponent<ResultPanelUIManager>().Init(isWin, killLogManager);
 
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(10);
+
+        // 次のゲームのためにstatic初期化
+        ClientPlayersManager.Players = new List<PlayerManager>();
 
         SceneManager.LoadScene(TitleScene);
     }
