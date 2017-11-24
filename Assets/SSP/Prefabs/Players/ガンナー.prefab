@@ -26,6 +26,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1031440374931834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4776833712507262}
+  - component: {fileID: 135430792342473244}
+  m_Layer: 16
+  m_Name: EtherDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1037818065211744
 GameObject:
   m_ObjectHideFlags: 1
@@ -280,8 +296,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4540437420435242}
   - component: {fileID: 135129999732064104}
-  m_Layer: 16
-  m_Name: EtherDetector
+  m_Layer: 18
+  m_Name: GuideDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1371,7 +1387,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4301605114099154}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4053529753725844
 Transform:
@@ -1426,7 +1442,7 @@ Transform:
   m_Children:
   - {fileID: 4568938024089134}
   m_Father: {fileID: 4301605114099154}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4154525664866972
 Transform:
@@ -1593,6 +1609,7 @@ Transform:
   - {fileID: 4967262684301648}
   - {fileID: 4863685178199432}
   - {fileID: 4806417450577614}
+  - {fileID: 4776833712507262}
   - {fileID: 4540437420435242}
   - {fileID: 224713993062676642}
   - {fileID: 4045620099887660}
@@ -1832,12 +1849,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1257465906985588}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 4301605114099154}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4545537373709268
 Transform:
@@ -2199,6 +2216,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4906726356520998}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4776833712507262
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031440374931834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4301605114099154}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4788682351639206
 Transform:
@@ -3382,7 +3412,7 @@ MonoBehaviour:
     type: 2}
   emitPower: 3
   emitDirectionRange: {x: 45, y: 10, z: 45}
-  etherDetector: {fileID: 1257465906985588}
+  etherDetector: {fileID: 1031440374931834}
 --- !u!114 &114731283157810446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3704,6 +3734,18 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1257465906985588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135430792342473244
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1031440374931834}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -4390,7 +4432,7 @@ RectTransform:
   m_Children:
   - {fileID: 224237378329503198}
   m_Father: {fileID: 4301605114099154}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
