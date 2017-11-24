@@ -18,6 +18,7 @@ public class PlayerManager : NetworkBehaviour
     public PlayerAnimationController playerAnimationController;
     public PlayerIKPoser playerIKPoser;
     public PlayerLocomotor playerLocomotor;
+    public GuideDetector guideDetector;
 
     private void Start()
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -19,12 +18,12 @@ public class EtherPopper : NetworkBehaviour
         {
             popPoints = GameObject.FindGameObjectsWithTag(TagMap.PopPoint).Select(v => v.transform).ToList();
             float timeCounter = 0.0f;
-            Observable.Interval(TimeSpan.FromSeconds(popInterval))
+            Observable.Interval(System.TimeSpan.FromSeconds(popInterval))
                 .TakeWhile(_ => timeCounter <= popDuration)
                 .Subscribe(_ =>
                 {
                     timeCounter += popInterval;
-                    var popPoint = popPoints[UnityEngine.Random.Range(0, popPoints.Count)];
+                    var popPoint = popPoints[Random.Range(0, popPoints.Count)];
                     var etherObject = Instantiate(ether, popPoint.position + Vector3.up * 5, Quaternion.identity);
                     //NetworkPlayerに紐づいていないためConnectionToClientではなくHostの権限でSpawn
                     NetworkServer.SpawnWithClientAuthority(etherObject, NetworkServer.connections[0]);

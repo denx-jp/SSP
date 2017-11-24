@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GuideObject : MonoBehaviour
 {
-
-    public string description;
-
+    public string Key;
+    public string Description;
 }

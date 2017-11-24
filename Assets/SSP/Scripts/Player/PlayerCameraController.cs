@@ -13,7 +13,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float correctPosSpeed = 2f;
     [SerializeField] private float yMinLimit = -80;
     [SerializeField] private float yMaxLimit = 80;
-    [SerializeField] private float rotationSensitivity = 2.0f;
+    [SerializeField] private float normalRotationSensitivity = 2.0f;
     [SerializeField] private float battleRotationSensitivity = 2.0f;
     [SerializeField] private float scopeRotationSensitivity = 2.0f;
     [SerializeField] private float battleMagnification = 1.0f;
@@ -23,6 +23,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private Vector3 scopeModeOffset = new Vector3(0, 0.1f, 0.3f);
 
     private CameraMode mode;
+    private float rotationSensitivity;
     private Vector3 offset;
     private float defaultFieldOfView;
     private Camera mainCamera;
@@ -46,18 +47,22 @@ public class PlayerCameraController : MonoBehaviour
                 {
                     case CameraMode.Normal:
                         offset = normalModeOffset;
+                        rotationSensitivity = normalRotationSensitivity;
                         break;
                     case CameraMode.Battle:
                         offset = balltleModeOffset;
+                        rotationSensitivity = battleRotationSensitivity;
                         break;
                     case CameraMode.Scope:
                         offset = scopeModeOffset;
+                        rotationSensitivity = scopeRotationSensitivity;
                         break;
                 }
             });
 
         // targetとカメラの間に障害物があった時にカメラをtargetに近づける
         this.UpdateAsObservable()
+            .Where(_ => mode == CameraMode.Normal)
             .Subscribe(_ =>
             {
                 RaycastHit hit;
@@ -151,6 +156,9 @@ public class PlayerCameraController : MonoBehaviour
                 fov = gun == null ? defaultFieldOfView / battleMagnification : defaultFieldOfView / gun.scopeMagnification;
                 break;
         }
-        mainCamera.fieldOfView = fov;
+
+        // シーン遷移時にmainCameraが先に破棄されてエラーが出るため
+        if (mainCamera != null)
+            mainCamera.fieldOfView = fov;
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UniRx;
+using UniRx.Triggers;
 
 public class GameManager : NetworkBehaviour
 {
@@ -33,9 +35,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
 
-    // デバッグ用
-    [SerializeField] private bool isCursolLock = true;
-
     public static bool IsGameStarting()
     {
         if (Instance == null) return false;
@@ -45,12 +44,6 @@ public class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Update()
-    {
-        Cursor.lockState = isCursolLock ? CursorLockMode.Locked : CursorLockMode.None;
-        Cursor.visible = isCursolLock ? false : true;
     }
 
     private void Start()
@@ -65,6 +58,22 @@ public class GameManager : NetworkBehaviour
             .Subscribe(v =>
             {
                 StartCoroutine(GameEnd(v));
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => IsGameStarting())
+            .Subscribe(_ =>
+            {
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             });
     }
 
@@ -116,7 +125,8 @@ public class GameManager : NetworkBehaviour
         //プレイヤーをLSS周辺に移動
         foreach (var player in ClientPlayersManager.Players)
         {
-            player.transform.position = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(player.playerModel.teamId);
+            var pos = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(player.playerModel.teamId);
+            RpcMovePlayer(player.gameObject, pos);
         }
 
         //カウントダウン開始準備
@@ -138,6 +148,12 @@ public class GameManager : NetworkBehaviour
     }
 
     #region Startまわりメソッド
+    [ClientRpc]
+    void RpcMovePlayer(GameObject player, Vector3 pos)
+    {
+        player.transform.position = pos;
+    }
+
     [ClientRpc]
     void RpcPrepareGame()
     {
@@ -181,6 +197,9 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator GameEnd(bool isWin)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         ResultPanel.SetActive(true);
 
         yield return new WaitForSeconds(endDelay);
@@ -195,7 +214,10 @@ public class GameManager : NetworkBehaviour
         result.SetActive(true);
         result.GetComponent<ResultPanelUIManager>().Init(isWin, killLogManager);
 
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(10);
+
+        // 次のゲームのためにstatic初期化
+        ClientPlayersManager.Players = new List<PlayerManager>();
 
         SceneManager.LoadScene(TitleScene);
     }

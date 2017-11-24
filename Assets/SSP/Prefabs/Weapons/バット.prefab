@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 114334944557681548}
   - component: {fileID: 114089129076691998}
   - component: {fileID: 114011469754942596}
+  - component: {fileID: 54481911413398866}
+  - component: {fileID: 136849608275941182}
   m_Layer: 0
   m_Name: "\u30D0\u30C3\u30C8"
   m_TagString: Untagged
@@ -87,6 +89,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1950185259230238}
   m_Mesh: {fileID: 4300000, guid: 6dcd0761907062d4ab5f826a498514d1, type: 3}
+--- !u!54 &54481911413398866
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950185259230238}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114011469754942596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,10 +132,8 @@ MonoBehaviour:
   name: Bat
   type: 2
   damageAmount: 500
-  isOwnerLocalPlayer: 0
   image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
-  playerId: 0
-  teamId: 0
+  ownerPlayerModel: {fileID: 0}
 --- !u!114 &114334944557681548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,6 +182,19 @@ MonoBehaviour:
     i15: 161
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!136 &136849608275941182
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950185259230238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.06
+  m_Height: 1.1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.0015704933}
 --- !u!136 &136863405428232788
 CapsuleCollider:
   m_ObjectHideFlags: 1

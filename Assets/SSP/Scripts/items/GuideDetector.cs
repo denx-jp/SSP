@@ -6,16 +6,25 @@ using UniRx.Triggers;
 
 public class GuideDetector : MonoBehaviour
 {
-    public Subject<GuideObject> guideDetectStream = new Subject<GuideObject>();
+    public Subject<GuideObject> detectGuideStream = new Subject<GuideObject>();
+    public Subject<GuideObject> missGuideStream = new Subject<GuideObject>();
 
     void Start()
     {
-        this.OnTriggerStayAsObservable()
+        this.OnTriggerEnterAsObservable()
             .Select(col => col.GetComponent<GuideObject>())
             .Where(gObj => gObj != null)
             .Subscribe(guideObject =>
             {
-                guideDetectStream.OnNext(guideObject);
+                detectGuideStream.OnNext(guideObject);
+            });
+
+        this.OnTriggerExitAsObservable()
+            .Select(col => col.GetComponent<GuideObject>())
+            .Where(gObj => gObj != null)
+            .Subscribe(guideObject =>
+            {
+                missGuideStream.OnNext(guideObject);
             });
     }
 }

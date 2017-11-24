@@ -1852,7 +1852,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1257465906985588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 4301605114099154}
@@ -2732,9 +2732,9 @@ MonoBehaviour:
   correctPosSpeed: 20
   yMinLimit: -80
   yMaxLimit: 80
-  rotationSensitivity: 2
+  normalRotationSensitivity: 2
   battleRotationSensitivity: 2
-  scopeRotationSensitivity: 2
+  scopeRotationSensitivity: 1.5
   battleMagnification: 1.2
   normalModeOffset: {x: 0, y: 0, z: -3}
   balltleModeOffset: {x: 0.4, y: 0.2, z: -1}
@@ -2834,6 +2834,7 @@ MonoBehaviour:
   playerAnimationController: {fileID: 114652231599435292}
   playerIKPoser: {fileID: 114478877488635674}
   playerLocomotor: {fileID: 114386327788384836}
+  guideDetector: {fileID: 114492822019268088}
 --- !u!114 &114435758838616160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3318,6 +3319,17 @@ MonoBehaviour:
   headLookWeight: 1
   gunHoldOffset: {x: 0, y: 0, z: 0}
   leftHandOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &114492822019268088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257465906985588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c41da1bc86acd24d993e5a692737650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114513018060429390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3446,6 +3458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd67c579bbcd46a47b1136a8fe2c10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathHeightThreshHold: -30
 --- !u!114 &114735128839970556
 MonoBehaviour:
   m_ObjectHideFlags: 1
