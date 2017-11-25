@@ -1,9 +1,10 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SSP\Scripts\LifeSupportSystem\LifeSupportSystemEtherManager.cs">
+﻿<Properties StartupItem="SSP.Plugins.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Externals\ShaderForge\Example Assets\Shaders\CustomLighting.shader">
     <Files>
       <File FileName="Assets\SSP\Scripts\items\EtherObject.cs" Line="1" Column="1" />
       <File FileName="Assets\SSP\Scripts\LifeSupportSystem\LifeSupportSystemEtherManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Externals\ShaderForge\Example Assets\Shaders\CustomLighting.shader" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -3722,7 +3722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footstepWalk: {fileID: 8300000, guid: c4b9d909b4532874987f578935d79dc3, type: 3}
-  footstepLanding: {fileID: 8300000, guid: 2acd1d55d8ec52b468b53c89aca242b3, type: 3}
+  footstepLanding: {fileID: 8300000, guid: ed89f4773e2a4c74cace025983aa7454, type: 3}
   animationEventHandler: {fileID: 114289268662884142}
   audioSource: {fileID: 82977938667931438}
 --- !u!114 &114816258828753498
