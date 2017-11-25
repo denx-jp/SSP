@@ -2628,7 +2628,7 @@ MonoBehaviour:
   name: HandGun
   type: 0
   damageAmount: 100
-  image: {fileID: 21300000, guid: 90cafd6355d4e624198a9b604136600d, type: 3}
+  image: {fileID: 21300000, guid: 7e525a44cc32fba4a87a11ebf94fa533, type: 3}
   ownerPlayerModel: {fileID: 0}
   coolTime: 1
   scopeMagnification: 1.5

@@ -375,7 +375,7 @@ MonoBehaviour:
   name: SniperRifle
   type: 1
   damageAmount: 300
-  image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
+  image: {fileID: 21300000, guid: be3e5c79cc4e0af4a84edb0f7fda3698, type: 3}
   ownerPlayerModel: {fileID: 0}
   coolTime: 3
   scopeMagnification: 3

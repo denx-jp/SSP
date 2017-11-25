@@ -163,7 +163,7 @@ MonoBehaviour:
   name: Bat
   type: 2
   damageAmount: 500
-  image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
+  image: {fileID: 21300000, guid: c13b881cdb6345845abfafec39ff4955, type: 3}
   ownerPlayerModel: {fileID: 0}
 --- !u!114 &114334944557681548
 MonoBehaviour:
