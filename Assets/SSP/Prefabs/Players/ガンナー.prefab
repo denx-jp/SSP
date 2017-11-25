@@ -2855,15 +2855,15 @@ MonoBehaviour:
   rotateSpeed: 12
   jumpSpeed: 7
   gravityMultiplier: -9.8
-  groundCheckDistance: 0.5
   maxVelocity: 2
   minVelocity: -2
   maxAngle: 90
+  groundCheckDistance: 0.5
+  boxCastoffset: {x: 0, y: 0.6, z: 0}
+  boxCastExtents: {x: 0.5, y: 0.5, z: 0.5}
   groundDynamicFriction: 0
   groundStaticFriction: 0
   isGrounded: 0
-  offset: {x: 0, y: 0.6, z: 0}
-  box: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!114 &114421095448380258
 MonoBehaviour:
   m_ObjectHideFlags: 1

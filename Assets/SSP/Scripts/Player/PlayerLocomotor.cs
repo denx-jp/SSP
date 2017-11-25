@@ -14,10 +14,17 @@ public class PlayerLocomotor : MonoBehaviour
     [SerializeField] private float rotateSpeed = 12f;
     [SerializeField] private float jumpSpeed = 6f;
     [SerializeField] private float gravityMultiplier = -9.8f;
-    [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private float maxVelocity = 2f;
     [SerializeField] private float minVelocity = -2f;
     [SerializeField] private float maxAngle = 90f;
+
+    // 接地判定
+    [SerializeField] float groundCheckDistance = 1f;
+    [SerializeField] Vector3 boxCastoffset;
+    [SerializeField] Vector3 boxCastExtents;
+    private RaycastHit hit;
+
+    // 摩擦
     [SerializeField] private float groundDynamicFriction = 0.6f;
     [SerializeField] private float groundStaticFriction = 0.6f;
 
@@ -41,29 +48,9 @@ public class PlayerLocomotor : MonoBehaviour
             AirControl();
     }
 
-    public Vector3 offset;
-    public Vector3 box;
-    void OnDrawGizmos()
-    {
-        RaycastHit hit;
-        var pivot = transform.position + offset;
-
-        var isHit = Physics.BoxCast(pivot, box / 2, Vector3.down, out hit, transform.rotation, groundCheckDistance);
-        Gizmos.DrawWireCube(pivot, box);
-
-        if (isHit)
-        {
-            Gizmos.DrawWireCube(pivot + Vector3.down * hit.distance, box);
-            Debug.LogError("hit");
-        }
-    }
-
-    RaycastHit hit;
     void CheckForGrounded()
     {
-        var pivot = transform.position + offset;
-
-        var isHit = Physics.BoxCast(pivot, box / 2, Vector3.down, out hit, transform.rotation, groundCheckDistance);
+        var isHit = Physics.BoxCast(transform.position + boxCastoffset, boxCastExtents / 2, Vector3.down, out hit, transform.rotation, groundCheckDistance);
         if (isHit)
         {
             isGrounded = true;
