@@ -41,11 +41,30 @@ public class PlayerLocomotor : MonoBehaviour
             AirControl();
     }
 
-    void CheckForGrounded()
+    public Vector3 offset;
+    public Vector3 box;
+    void OnDrawGizmos()
     {
         RaycastHit hit;
-        Vector3 rayOffset = Vector3.up * 0.1f;
-        if (Physics.Raycast((transform.position + rayOffset), -Vector3.up, out hit, groundCheckDistance))
+        var pivot = transform.position + offset;
+
+        var isHit = Physics.BoxCast(pivot, box / 2, Vector3.down, out hit, transform.rotation, groundCheckDistance);
+        Gizmos.DrawWireCube(pivot, box);
+
+        if (isHit)
+        {
+            Gizmos.DrawWireCube(pivot + Vector3.down * hit.distance, box);
+            Debug.LogError("hit");
+        }
+    }
+
+    RaycastHit hit;
+    void CheckForGrounded()
+    {
+        var pivot = transform.position + offset;
+
+        var isHit = Physics.BoxCast(pivot, box / 2, Vector3.down, out hit, transform.rotation, groundCheckDistance);
+        if (isHit)
         {
             isGrounded = true;
             col.material.dynamicFriction = groundDynamicFriction;

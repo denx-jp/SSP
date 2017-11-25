@@ -14,9 +14,8 @@ public class PlayerOutlineManager : NetworkBehaviour
             .Subscribe(_ =>
             {
                 var model = GetComponent<PlayerModel>();
-                Debug.LogError("connect");
+
                 if (model.isLocalPlayerCharacter) return;
-                Debug.LogError("not local");
 
                 var myTeamId = ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId;
                 if (model.teamId == myTeamId)
