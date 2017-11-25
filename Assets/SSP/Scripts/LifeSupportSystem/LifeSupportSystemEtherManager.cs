@@ -66,7 +66,7 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public bool CanInteract()
     {
-        return lifeSupportSystemModel.ether.Value > 0;
+        return lifeSupportSystemModel.ether.Value > 0 && ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId == lifeSupportSystemModel.teamId; ;
     }
 
     public Subject<int> GetDeathStream()

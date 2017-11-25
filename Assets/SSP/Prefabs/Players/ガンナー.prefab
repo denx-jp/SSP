@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8784534bbb5157e468fcb4bddf26d22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableRadius: 2
+  interactableRadius: 1
 --- !u!114 &114241246833560708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3329,7 +3329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c41da1bc86acd24d993e5a692737650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GuideObjects: []
+  castRadius: 1
+  Guides: []
 --- !u!114 &114513018060429390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3720,7 +3721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c41da1bc86acd24d993e5a692737650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GuideObjects: []
+  castRadius: 2
+  Guides: []
 --- !u!114 &114897670570234656
 MonoBehaviour:
   m_ObjectHideFlags: 1

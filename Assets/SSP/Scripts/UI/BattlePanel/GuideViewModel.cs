@@ -21,16 +21,22 @@ public class GuideViewModel : MonoBehaviour
 
         detector.NearestGuideObjectMap.ObserveReplace()
          .Select(v => v.NewValue)
-         .Subscribe(guide =>
+         .Subscribe(guideObject =>
          {
-             guidePanelMap[guide.KeyCode].Show(guide);
+             guidePanelMap[guideObject.KeyCode].Show(guideObject);
          });
 
-        detector.NearestGuideObjectMap.ObserveRemove()
-            .Select(v => v.Value)
+        detector.NearestGuideObjectMap.ObserveReset()
             .Subscribe(guideObject =>
             {
-                guidePanelMap[guideObject.KeyCode].Hide();
+                foreach (var panel in guidePanelMap)
+                    panel.Value.Hide();
+            });
+
+        detector.NearestGuideObjectMap.ObserveRemove()
+            .Subscribe(guide =>
+            {
+                guidePanelMap[guide.Key].Hide();
             });
     }
 }

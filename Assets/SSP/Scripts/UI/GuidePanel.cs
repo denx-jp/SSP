@@ -6,7 +6,7 @@ public class GuidePanel : MonoBehaviour
     public Text KeyText;
     public Text DescriptionText;
 
-    public void Show(Guide guideObject)
+    public void Show(GuideObject guideObject)
     {
         KeyText.text = guideObject.KeyCode;
         DescriptionText.text = guideObject.Description;

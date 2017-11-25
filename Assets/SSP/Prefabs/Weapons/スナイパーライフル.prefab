@@ -377,7 +377,7 @@ MonoBehaviour:
   damageAmount: 300
   image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
   ownerPlayerModel: {fileID: 0}
-  coolTime: 1.5
+  coolTime: 3
   scopeMagnification: 3
   bulletVelocity: 800
   bulletDeathTime: 3
@@ -409,11 +409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed59849913559f345adc1ae0227e7093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: {fileID: 114648548636740804}
-  Guides:
-  - KeyCode: F
-    Description: "\u30B9\u30CA\u30A4\u30D1\u30FC\u30E9\u30A4\u30D5\u30EB\u3092\u62FE\u3046"
-    transform: {fileID: 0}
+  KeyCode: F
+  Description: "\u30B9\u30CA\u30A4\u30D1\u30FC\u30E9\u30A4\u30D5\u30EB\u3092\u62FE\u3046"
 --- !u!136 &136142723790396738
 CapsuleCollider:
   m_ObjectHideFlags: 1

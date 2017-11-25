@@ -917,6 +917,7 @@ GameObject:
   - component: {fileID: 4754150805708760}
   - component: {fileID: 65918342647232100}
   - component: {fileID: 114907987504353680}
+  - component: {fileID: 114984279701626764}
   m_Layer: 17
   m_Name: GuideObject
   m_TagString: Untagged
@@ -2733,14 +2734,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4b7e01b1fefc6439a34122cb2f5cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carriable: {fileID: 114556048512902956}
-  Guides:
-  - KeyCode: F
-    Description: "LSS\u306B\u30A8\u30FC\u30C6\u30EB\u3092\u88DC\u7D66\u3059\u308B"
-    transform: {fileID: 0}
-  - KeyCode: E
-    Description: "LSS\u3092\u6301\u3061\u4E0A\u3052\u308B"
-    transform: {fileID: 0}
+  KeyCode: E
+  Description: "LSS\u3092\u6301\u3061\u4E0A\u3052\u308B"
+--- !u!114 &114984279701626764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1732473917335056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed59849913559f345adc1ae0227e7093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyCode: F
+  Description: "LSS\u306B\u30A8\u30FC\u30C6\u30EB\u3092\u88DC\u7D66\u3059\u308B"
 --- !u!137 &137001885698377362
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

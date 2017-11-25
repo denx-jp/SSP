@@ -192,11 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed59849913559f345adc1ae0227e7093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: {fileID: 114334944557681548}
-  Guides:
-  - KeyCode: F
-    Description: "\u30D0\u30C3\u30C8\u3092\u62FE\u3046"
-    transform: {fileID: 0}
+  KeyCode: F
+  Description: "\u30D0\u30C3\u30C8\u3092\u62FE\u3046"
 --- !u!114 &114951624612198250
 MonoBehaviour:
   m_ObjectHideFlags: 1

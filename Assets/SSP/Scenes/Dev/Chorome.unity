@@ -436,7 +436,7 @@ Prefab:
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
       propertyPath: startDelay
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114146116622853402, guid: b9dd61cb96198364e9473abce3fad2eb,
         type: 2}
