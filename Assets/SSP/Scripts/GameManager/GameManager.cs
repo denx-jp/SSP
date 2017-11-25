@@ -170,6 +170,7 @@ public class GameManager : NetworkBehaviour
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
+
         ConnectionPreparedStram.OnNext(Unit.Default);
     }
 

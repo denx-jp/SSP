@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
+using UniRx;
 
 public class PlayerOutlineManager : NetworkBehaviour
 {
@@ -11,16 +10,24 @@ public class PlayerOutlineManager : NetworkBehaviour
 
     private void Start()
     {
-        var model = GetComponentInParent<PlayerModel>();
-        var myTeamId = ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId;
-        if (model.teamId == myTeamId)
-        {
-            SetOutlineColor(friendColor);
-        }
-        else
-        {
-            SetOutlineColor(enemyColor);
-        }
+        GameManager.Instance.ConnectionPreparedStram
+            .Subscribe(_ =>
+            {
+                var model = GetComponent<PlayerModel>();
+                Debug.LogError("connect");
+                if (model.isLocalPlayerCharacter) return;
+                Debug.LogError("not local");
+
+                var myTeamId = ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId;
+                if (model.teamId == myTeamId)
+                {
+                    SetOutlineColor(friendColor);
+                }
+                else
+                {
+                    SetOutlineColor(enemyColor);
+                }
+            });
     }
 
     public void SetOutlineColor(Color color)
