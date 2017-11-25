@@ -7,17 +7,8 @@ using UniRx;
 public class HealthViewModel : MonoBehaviour
 {
     [SerializeField] private Slider sliderHealth;
-    [SerializeField] private GameObject playerObj;
 
     public IHealth healthModel;
-
-    void Start()
-    {
-        if (playerObj != null)
-        {
-            Init(playerObj.GetComponent<IHealth>());
-        }
-    }
 
     public void Init(IHealth _healthModel)
     {
