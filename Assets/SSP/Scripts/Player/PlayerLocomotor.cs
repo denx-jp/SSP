@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -7,6 +7,7 @@ public class PlayerLocomotor : MonoBehaviour
 {
     private Rigidbody rb;
     private Animator animator;
+    private Collider col;
 
     [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float runSpeed = 6f;
@@ -17,6 +18,8 @@ public class PlayerLocomotor : MonoBehaviour
     [SerializeField] private float maxVelocity = 2f;
     [SerializeField] private float minVelocity = -2f;
     [SerializeField] private float maxAngle = 90f;
+    [SerializeField] private float groundDynamicFriction = 0.6f;
+    [SerializeField] private float groundStaticFriction = 0.6f;
 
     public bool isGrounded;
 
@@ -24,6 +27,7 @@ public class PlayerLocomotor : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        col = GetComponents<Collider>().First(v => !v.isTrigger);
     }
 
     private void FixedUpdate()
@@ -44,10 +48,14 @@ public class PlayerLocomotor : MonoBehaviour
         if (Physics.Raycast((transform.position + rayOffset), -Vector3.up, out hit, groundCheckDistance))
         {
             isGrounded = true;
+            col.material.dynamicFriction = groundDynamicFriction;
+            col.material.staticFriction = groundStaticFriction;
         }
         else
         {
             isGrounded = false;
+            col.material.dynamicFriction = 0;
+            col.material.staticFriction = 0;
         }
     }
 
