@@ -6,61 +6,74 @@ using UniRx.Triggers;
 
 public class GuideDetector : MonoBehaviour
 {
-    public Subject<GuideObject> nearestGuideStream = new Subject<GuideObject>();
-    public ReactiveDictionary<string, GuideObject> NearestGuideObjectMap = new ReactiveDictionary<string, GuideObject>();
-    public List<GuideObject> GuideObjects = new List<GuideObject>();
-
-    private PlayerManager playerManager;
+    public ReactiveDictionary<string, Guide> NearestGuideObjectMap = new ReactiveDictionary<string, Guide>();
+    public List<Guide> Guides = new List<Guide>();
 
     void Start()
     {
-        playerManager = GetComponentInParent<PlayerManager>();
-
         this.OnTriggerEnterAsObservable()
-            .Select(col => col.GetComponent<GuideObject>())
-            .Where(guideObject => guideObject != null)
-            .Where(guideObject => guideObject.guideable != null && guideObject.guideable.ShouldGuide())
+            .Select(col => col.GetComponent<IGuideable>())
+            .Where(guideObject => guideObject != null && guideObject.ShouldGuide())
             .Subscribe(guideObject =>
             {
-                GuideObjects.Add(guideObject);
+                foreach (var guide in guideObject.GetGuides())
+                {
+                    guideObject.GetHideGuideStream()
+                        .Subscribe(_ =>
+                        {
+                            RemoveGuide(guide);
+                        });
 
-                guideObject.guideable.GetHideGuideStream()
-                    .Subscribe(_ => HideGuide(guideObject));
+                    guideObject.GetShowGuideStream()
+                        .Subscribe(_ =>
+                        {
+                            Guides.Add(guide);
+                            var k = guide.KeyCode;
+                            if (!NearestGuideObjectMap.ContainsKey(k))
+                                NearestGuideObjectMap[k] = guide;
+                        });
 
-                var keyCode = guideObject.KeyCode;
-                if (!NearestGuideObjectMap.ContainsKey(keyCode))
-                    NearestGuideObjectMap[keyCode] = guideObject;
+                    Guides.Add(guide);
+                    var keyCode = guide.KeyCode;
+                    if (!NearestGuideObjectMap.ContainsKey(keyCode))
+                        NearestGuideObjectMap[keyCode] = guide;
+                }
             });
 
         this.OnTriggerExitAsObservable()
-            .Select(col => col.GetComponent<GuideObject>())
+            .Select(col => col.GetComponent<IGuideable>())
             .Where(gObj => gObj != null)
-            .Subscribe(guideObject => HideGuide(guideObject));
+            .Subscribe(guideObject =>
+            {
+                foreach (var guide in guideObject.GetGuides())
+                    RemoveGuide(guide);
+            });
 
         this.UpdateAsObservable()
-            .Where(_ => GuideObjects.Count > 1)     // GuideObjectsが1個以下の時は重複が起きないのでチェックしない。
+            .Where(_ => Guides.Count > 1)     // GuideObjectsが1個以下の時は重複が起きないのでチェックしない。
             .Subscribe(_ =>
             {
-                // キーが重複するGuideObjectがあるかチェック。
-                var duplicateKey = GuideObjects.GroupBy(v => v.KeyCode).Where(v => v.Count() > 1).Select(v => v.Key).First();
-                if (duplicateKey != null)
+                // キーが重複するGuideがあるかチェック。
+                var duplicateKey = Guides.GroupBy(v => v.KeyCode).Where(v => v.Count() > 1);
+                if (duplicateKey.Count() > 0)
                 {
-                    NearestGuideObjectMap[duplicateKey] = GetNearestGuide(duplicateKey);
+                    var key = duplicateKey.Select(v => v.Key).First();
+                    NearestGuideObjectMap[key] = GetNearestGuide(key);
                 }
             });
     }
 
-    private GuideObject GetNearestGuide(string keyCode)
+    private Guide GetNearestGuide(string keyCode)
     {
-        return GuideObjects.Where(v => v.KeyCode == keyCode).OrderBy(v => Vector3.Distance(v.transform.position, transform.position)).First();
+        return Guides.Where(v => v.KeyCode == keyCode).OrderBy(v => Vector3.Distance(v.transform.position, transform.position)).First();
     }
 
-    private void HideGuide(GuideObject guideObject)
+    private void RemoveGuide(Guide guide)
     {
-        GuideObjects.Remove(guideObject);
+        Guides.Remove(guide);
 
-        var keyCode = guideObject.KeyCode;
-        if (NearestGuideObjectMap.ContainsKey(keyCode) && guideObject == NearestGuideObjectMap[keyCode])
+        var keyCode = guide.KeyCode;
+        if (NearestGuideObjectMap.ContainsKey(keyCode) && guide == NearestGuideObjectMap[keyCode])
             NearestGuideObjectMap.Remove(keyCode);
     }
 }

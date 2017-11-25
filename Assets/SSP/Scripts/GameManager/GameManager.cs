@@ -13,6 +13,8 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
 
+    public Subject<Unit> ConnectionPreparedStram = new Subject<Unit>();
+
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
     [SerializeField] private KillLogManager killLogManager;
@@ -168,6 +170,7 @@ public class GameManager : NetworkBehaviour
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
+        ConnectionPreparedStram.OnNext(Unit.Default);
     }
 
     [ClientRpc]

@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UniRx;
 
-public class InventoriableObject : NetworkBehaviour, IInteractable, IGuideable
+public class InventoriableObject : NetworkBehaviour, IInteractable
 {
     [SerializeField] public Vector3 weaponPos;
     [SerializeField] public Vector3 weaponRot;
     [HideInInspector] public WeaponModel model;
-    [SerializeField] private bool canInteract = true;
+    [SerializeField] public bool canInteract = true;
 
     private enum Hands { leftHand, rightHand };
     [SerializeField] private Hands hand;
@@ -20,8 +20,6 @@ public class InventoriableObject : NetworkBehaviour, IInteractable, IGuideable
 
     private List<Collider> colliders;
     private Rigidbody rigid;
-
-    private Subject<Unit> hideGuideStream = new Subject<Unit>();
 
     void Start()
     {
@@ -50,8 +48,6 @@ public class InventoriableObject : NetworkBehaviour, IInteractable, IGuideable
         SetTransformOwnerHand(pm.playerInventoryManager.leftHandTransform, pm.playerInventoryManager.rightHandTransform);
         pm.playerInventoryManager.SetWeaponToInventory(this.gameObject, model.type);
         pm.playerAnimationController.Pickup();
-
-        hideGuideStream.OnNext(Unit.Default);
     }
 
     public bool CanInteract()
@@ -105,16 +101,4 @@ public class InventoriableObject : NetworkBehaviour, IInteractable, IGuideable
         rigid.useGravity = enable;
         rigid.isKinematic = !enable;
     }
-
-    #region Guideまわり
-    public bool ShouldGuide()
-    {
-        return canInteract;
-    }
-
-    public Subject<Unit> GetHideGuideStream()
-    {
-        return hideGuideStream;
-    }
-    #endregion
 }

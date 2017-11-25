@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4096142513172104}
   - component: {fileID: 136458886442233568}
-  - component: {fileID: 114270541607162596}
+  - component: {fileID: 114429674113872740}
   m_Layer: 17
   m_Name: GuideObject
   m_TagString: Untagged
@@ -165,19 +165,6 @@ MonoBehaviour:
   damageAmount: 500
   image: {fileID: 21300000, guid: b71b29812c7e1e544b6f4417f50502e5, type: 3}
   ownerPlayerModel: {fileID: 0}
---- !u!114 &114270541607162596
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1776177714518496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3e55c455d3959f4c9fad9ecba9ce019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  KeyCode: F
-  Description: "\u30D0\u30C3\u30C8\u3092\u62FE\u3046"
 --- !u!114 &114334944557681548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,6 +181,22 @@ MonoBehaviour:
   model: {fileID: 114323705450369532, guid: 402fefe12962e1948948a8a10b96076a, type: 2}
   canInteract: 1
   hand: 1
+--- !u!114 &114429674113872740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776177714518496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed59849913559f345adc1ae0227e7093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 114334944557681548}
+  Guides:
+  - KeyCode: F
+    Description: "\u30D0\u30C3\u30C8\u3092\u62FE\u3046"
+    transform: {fileID: 0}
 --- !u!114 &114951624612198250
 MonoBehaviour:
   m_ObjectHideFlags: 1

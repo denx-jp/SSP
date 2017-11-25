@@ -915,8 +915,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4754150805708760}
-  - component: {fileID: 114909672508735588}
   - component: {fileID: 65918342647232100}
+  - component: {fileID: 114907987504353680}
   m_Layer: 17
   m_Name: GuideObject
   m_TagString: Untagged
@@ -2722,7 +2722,7 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114909672508735588
+--- !u!114 &114907987504353680
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2730,11 +2730,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732473917335056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3e55c455d3959f4c9fad9ecba9ce019, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c4b7e01b1fefc6439a34122cb2f5cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyCode: F
-  Description: "\u30A8\u30FC\u30C6\u30EB\u3092\u88DC\u7D66\u3059\u308B"
+  carriable: {fileID: 114556048512902956}
+  Guides:
+  - KeyCode: F
+    Description: "LSS\u306B\u30A8\u30FC\u30C6\u30EB\u3092\u88DC\u7D66\u3059\u308B"
+    transform: {fileID: 0}
+  - KeyCode: E
+    Description: "LSS\u3092\u6301\u3061\u4E0A\u3052\u308B"
+    transform: {fileID: 0}
 --- !u!137 &137001885698377362
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

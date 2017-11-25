@@ -1,16 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
 public class GuideObject : MonoBehaviour
 {
-    public string KeyCode;
-    public string Description;
-    public IGuideable guideable;
+    public List<Guide> Guides = new List<Guide>();
 
-    private void Start()
+    public virtual bool ShouldGuide()
     {
-        guideable = GetComponentInParent<IGuideable>();
+        return true;
+    }
+
+    public virtual Subject<Unit> GetHideGuideStream()
+    {
+        return new Subject<Unit>();
     }
 }
