@@ -76,7 +76,8 @@ MonoBehaviour:
   countDownCount: 5
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
-  isCursolLock: 0
+  devNetworkManager: {fileID: 1921767489900614, guid: bb652810a757b4d4bbf3f7d81c21a875,
+    type: 2}
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a36d72b1c073e42aba69f1d841b799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lssAroundPointUpdateThreshold: 1.5
+  lssAroundPointUpdateThreshold: 3
   farLimitDistance: 5
   nearLimitDistance: 1
 --- !u!114 &114477770853793110

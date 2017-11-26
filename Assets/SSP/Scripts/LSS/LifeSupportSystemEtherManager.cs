@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, IDamageable
 {
-    private LifeSupportSystemModel lssModel;
+    [SerializeField] private LifeSupportSystemModel lssModel;
 
     [SerializeField] private float etherReductionRate;           // 毎秒減少するエーテル量
     [SerializeField] private float etherChargeValue;              // インタラクトアクション1回で渡されるエーテル量
@@ -19,8 +19,6 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public void Init()
     {
-        lssModel = GetComponent<LifeSupportSystemModel>();
-
         lssModel.ether
             .Where(v => v <= 0)
             .Subscribe(_ => deathStream.OnNext(lssModel.teamId));

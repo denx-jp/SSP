@@ -223,6 +223,17 @@ public class GameManager : NetworkBehaviour
         // 次のゲームのためにstatic初期化
         ClientPlayersManager.Players = new List<PlayerManager>();
 
+        if (isServer)
+        {
+            NetworkManager.singleton.StopMatchMaker();
+            NetworkManager.singleton.StopHost();
+        }
+        else
+        {
+            NetworkManager.singleton.StopClient();
+        }
+        Destroy(NetworkManager.singleton.gameObject);
+
         SceneManager.LoadScene(TitleScene);
     }
 }

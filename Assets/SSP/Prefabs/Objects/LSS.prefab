@@ -2502,6 +2502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e84b1ce151ea842b24940ed7936f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lssModel: {fileID: 114388629411156288}
   etherReductionRate: 10
   etherChargeValue: 100
   etherObject: {fileID: 1768416262091988, guid: a3836d19b63d1bc42a50d65e91e838c3,
