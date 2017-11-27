@@ -46,7 +46,7 @@ public class MatchMaker : MonoBehaviour
         else
         {
             text.text = "Create match failed";
-            SceneManager.LoadScene(titleSceneName);
+            SceneManager.LoadScene(SceneMap.Title);
         }
     }
     #endregion
@@ -81,7 +81,7 @@ public class MatchMaker : MonoBehaviour
         else
         {
             text.text = "Couldn't connect to match maker";
-            SceneManager.LoadScene(titleSceneName);
+            SceneManager.LoadScene(SceneMap.Title);
         }
     }
 

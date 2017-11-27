@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class TittleButtonEvents : MonoBehaviour
 {
-    [SerializeField] private string MatchingSceneName;
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -15,7 +13,7 @@ public class TittleButtonEvents : MonoBehaviour
 
     public void GameStartButtonEvent()
     {
-        SceneManager.LoadScene(MatchingSceneName);
+        SceneManager.LoadScene(SceneMap.Lobby);
     }
 
     public void QuitGameButtonEvent()

@@ -2861,8 +2861,8 @@ MonoBehaviour:
   groundCheckDistance: 0.5
   boxCastoffset: {x: 0, y: 0.6, z: 0}
   boxCastExtents: {x: 0.5, y: 0.5, z: 0.5}
-  groundDynamicFriction: 0
-  groundStaticFriction: 0
+  groundDynamicFriction: 0.05
+  groundStaticFriction: 0.05
   isGrounded: 0
 --- !u!114 &114421095448380258
 MonoBehaviour:

@@ -34,7 +34,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private float startDelay = 3f;
     [SerializeField] private int countDownCount = 5;
     [SerializeField] private float endDelay = 3f;
-    [SerializeField] private string TitleScene;
     [SyncVar] private bool isGameStarting = false;
 
     public static bool IsGameStarting()
@@ -234,6 +233,6 @@ public class GameManager : NetworkBehaviour
         }
         Destroy(NetworkManager.singleton.gameObject);
 
-        SceneManager.LoadScene(TitleScene);
+        SceneManager.LoadScene(SceneMap.Title);
     }
 }

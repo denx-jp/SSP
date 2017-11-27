@@ -35,6 +35,21 @@ public class PlayerLocomotor : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         col = GetComponents<Collider>().First(v => !v.isTrigger);
+
+        this.ObserveEveryValueChanged(_ => isGrounded)
+            .Subscribe(_ =>
+            {
+                if(isGrounded)
+                {
+                    col.material.dynamicFriction = groundDynamicFriction;
+                    col.material.staticFriction = groundStaticFriction;
+                }
+                else
+                {
+                    col.material.dynamicFriction = 0;
+                    col.material.staticFriction = 0;
+                }
+            });
     }
 
     private void FixedUpdate()
@@ -54,14 +69,10 @@ public class PlayerLocomotor : MonoBehaviour
         if (isHit)
         {
             isGrounded = true;
-            col.material.dynamicFriction = groundDynamicFriction;
-            col.material.staticFriction = groundStaticFriction;
         }
         else
         {
             isGrounded = false;
-            col.material.dynamicFriction = 0;
-            col.material.staticFriction = 0;
         }
     }
 
