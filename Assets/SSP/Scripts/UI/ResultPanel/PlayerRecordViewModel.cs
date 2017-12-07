@@ -11,7 +11,7 @@ public class PlayerRecordViewModel : MonoBehaviour
 
     public void Init(PlayerModel playerModel, PlayerRecord record)
     {
-        playerNameText.text = playerModel.playerName;
+        playerNameText.text = playerModel.Name;
         killCountText.text = record.killCount.ToString();
         deathCountText.text = record.deathCount.ToString();
     }

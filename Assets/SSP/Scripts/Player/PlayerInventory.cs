@@ -31,7 +31,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (currentWeaponType == releaseWeaponType) weaponManager.weapon = null;
         weapons[releaseWeaponType].gameObject.transform.parent = null;
-        weapons[releaseWeaponType].gameObject.GetComponent<InventoriableObject>().SetCanInteract(true);
+        weapons[releaseWeaponType].gameObject.GetComponent<InventoriableObject>().Release();
         weapons[releaseWeaponType].gameObject.SetActive(true);
     }
 

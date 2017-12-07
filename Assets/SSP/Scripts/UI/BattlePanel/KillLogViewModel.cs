@@ -15,19 +15,23 @@ public class KillLogViewModel : MonoBehaviour
     {
         killLogNotifiers = pklns;
 
+        // キルログ表示用テキストを空にする
         foreach (Text text in texts)
             text.text = "";
 
         foreach (var killLogNotifier in killLogNotifiers)
         {
             killLogNotifier.GetKillLogStream()
-                .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key.ToString(), killLogInfo.Value.ToString()));
+                .Subscribe(killLogInfo => AppendKillLog(killLogInfo.Key, killLogInfo.Value));
         }
     }
 
-    private void AppendKillLog(string killer, string killed)
+    private void AppendKillLog(int killerId, int killedId)
     {
-        StartCoroutine(KillLogCoroutine("プレイヤー" + killer + " が プレイヤー" + killed + " を キル しました"));
+        var killer = ClientPlayersManager.Players[killedId];
+        var killed = ClientPlayersManager.Players[killerId];
+        var text = $"{killer.playerModel.Name}が{killed.playerModel.Name}をキル";
+        StartCoroutine(KillLogCoroutine(text));
     }
 
     private IEnumerator KillLogCoroutine(string killLogText)
@@ -38,16 +42,5 @@ public class KillLogViewModel : MonoBehaviour
         yield return new WaitForSeconds(showPeriod);
         text.gameObject.SetActive(false);
         text.text = "";
-    }
-
-    [ContextMenu("Set Texts")]
-    private void SetTexts()
-    {
-        var textComponents = this.GetComponentsInChildren<Text>();
-        Debug.Log(textComponents.Count());
-        foreach (var text in textComponents)
-        {
-            texts.Add(text);
-        }
     }
 }

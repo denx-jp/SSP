@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, IDamageable
 {
-    private LifeSupportSystemModel lifeSupportSystemModel;
+    private LifeSupportSystemModel lssModel;
 
     [SerializeField] private float etherReductionRate;           // 毎秒減少するエーテル量
     [SerializeField] private float etherChargeValue;              // インタラクトアクション1回で渡されるエーテル量
@@ -19,16 +19,16 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public void Init()
     {
-        lifeSupportSystemModel = GetComponent<LifeSupportSystemModel>();
+        lssModel = GetComponent<LifeSupportSystemModel>();
 
-        lifeSupportSystemModel.ether
+        lssModel.ether
             .Where(v => v <= 0)
-            .Subscribe(_ => deathStream.OnNext(lifeSupportSystemModel.teamId));
+            .Subscribe(_ => deathStream.OnNext(lssModel.teamId));
 
         if (isServer)
         {
             Observable.Interval(System.TimeSpan.FromMilliseconds(1000))
-                .Where(_ => lifeSupportSystemModel.ether.Value > 0)
+                .Where(_ => lssModel.ether.Value > 0)
                 .Subscribe(_ =>
                 {
                     ReduceEther(etherReductionRate);
@@ -38,17 +38,17 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     private void ReduceEther(float ether)
     {
-        lifeSupportSystemModel.syncEther -= ether;
+        lssModel.syncEther -= ether;
     }
 
     private void AcquireEther(float ether)
     {
-        lifeSupportSystemModel.syncEther += ether;
+        lssModel.syncEther += ether;
     }
 
     public void Interact(PlayerManager playerManager)
     {
-        if (playerManager.playerModel.teamId != lifeSupportSystemModel.teamId) return;
+        if (playerManager.playerModel.teamId != lssModel.teamId) return;
 
         float playerEther = playerManager.playerModel.GetEther();
 
@@ -66,7 +66,8 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public bool CanInteract()
     {
-        return lifeSupportSystemModel.ether.Value > 0;
+        if (ClientPlayersManager.Instance.GetLocalPlayer() == null) return false;
+        return lssModel.ether.Value > 0 && ClientPlayersManager.Instance.GetLocalPlayer().playerModel.teamId == lssModel.teamId;
     }
 
     public Subject<int> GetDeathStream()
@@ -76,7 +77,8 @@ public class LifeSupportSystemEtherManager : NetworkBehaviour, IInteractable, ID
 
     public void SetDamage(Damage damage)
     {
-        if (damage.teamId == lifeSupportSystemModel.teamId) return;
+        if (damage.AttackerTeamId == lssModel.teamId || lssModel.ether.Value <= 0) return;
+
         var emitEtherValue = damage.amount;
         CmdGenerateEtherObject(emitEtherValue);
         ReduceEther(emitEtherValue);

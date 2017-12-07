@@ -19,10 +19,10 @@ public class BulletModel : NetworkBehaviour
 
     public void SetProperties(ProjectileModel projectileModel)
     {
-        shootPlayerId = projectileModel.playerId;
-        shootPlayerTeamId = projectileModel.teamId;
+        shootPlayerId = projectileModel.ownerPlayerModel.Id;
+        shootPlayerTeamId = projectileModel.ownerPlayerModel.teamId;
         damageAmount = projectileModel.damageAmount;
         deathTime = projectileModel.bulletDeathTime;
-        isShooterLocalPlayer = projectileModel.isOwnerLocalPlayer;
+        isShooterLocalPlayer = projectileModel.ownerPlayerModel.isLocalPlayerCharacter;
     }
 }

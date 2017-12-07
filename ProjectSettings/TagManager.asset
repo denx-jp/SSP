@@ -14,17 +14,17 @@ TagManager:
   - UI
   - 
   - 
-  - Attack
-  - Invincible
-  - Stage
-  - EtherObject
   - LocalPlayer
+  - Invincible
+  - Attack
+  - 
+  - Stage
+  - 
   - CarryObject
-  - 
-  - 
+  - EtherObject
   - EtherDetector
-  - 
-  - 
+  - GuideObject
+  - GuideDetector
   - 
   - 
   - 

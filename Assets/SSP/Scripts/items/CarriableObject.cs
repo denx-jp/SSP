@@ -20,9 +20,7 @@ public class CarriableObject : MonoBehaviour
     private Vector3 pickUpPosition;
     private Quaternion pickUpRotation;
     private int defaultLayer;
-
-    public bool canCarry = true;
-
+    private bool canCarry = true;
     private NetworkTransform networkTransform;
 
     protected virtual void Start()
@@ -46,7 +44,7 @@ public class CarriableObject : MonoBehaviour
             });
     }
 
-    public virtual bool CanCarry(int teamId)
+    public virtual bool CanCarry()
     {
         return canCarry;
     }

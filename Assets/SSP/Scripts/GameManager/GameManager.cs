@@ -7,10 +7,13 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UniRx;
+using UniRx.Triggers;
 
 public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
+
+    public Subject<Unit> ConnectionPreparedStram = new Subject<Unit>();
 
     [SerializeField] private ClientPlayersManager clientPlayersManager;
     [SerializeField] private GameJudger gameJudger;
@@ -45,12 +48,6 @@ public class GameManager : NetworkBehaviour
         Instance = this;
     }
 
-    private void Update()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     private void Start()
     {
         if (isServer)
@@ -64,10 +61,29 @@ public class GameManager : NetworkBehaviour
             {
                 StartCoroutine(GameEnd(v));
             });
+
+        this.UpdateAsObservable()
+            .Where(_ => IsGameStarting())
+            .Subscribe(_ =>
+            {
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+            });
     }
 
     private IEnumerator GameStart()
     {
+
+        yield return new WaitForSeconds(startDelay);
+
         // すべての準備が整ったことを確認するのを待つ
         while (ClientPlayersManager.Players.Count < NetworkServer.connections.Count)
         {
@@ -77,7 +93,7 @@ public class GameManager : NetworkBehaviour
         #region ID割り当て        
         var players = ClientPlayersManager.Players;
         var playerCount = players.Count;
-        players.Select((player, index) => new { index, player }).ToList().ForEach(v => v.player.playerModel.playerId = v.index + 1);
+        players.Select((player, index) => new { index, player }).ToList().ForEach(v => v.player.playerModel.Id = v.index);
         players.OrderBy(i => Guid.NewGuid()).Select((player, index) => new { index, player }).ToList().ForEach(v =>
         {
             if (v.index < playerCount / 2.0)
@@ -91,15 +107,14 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(1);
 
         RpcPrepareGame();
-        gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
         weaponPopper.Init();
         spawnPointManager.Init(team1LSS.transform, team2LSS.transform);
 
         // LSSをランダムな位置に移動
-        team1LSS.transform.position = SpawnPointManager.Instance.GetRandomSpawnPoint().position;
+        team1LSS.transform.position = SpawnPointManager.Instance.GetRandomSpawnPosition();
         while (true)
         {
-            var spawnPos = SpawnPointManager.Instance.GetRandomSpawnPoint().position;
+            var spawnPos = SpawnPointManager.Instance.GetRandomSpawnPosition();
             var distance = Vector3.Distance(team1LSS.transform.position, spawnPos);
 
             if (distance > minLssDistance)
@@ -112,14 +127,12 @@ public class GameManager : NetworkBehaviour
         //プレイヤーをLSS周辺に移動
         foreach (var player in ClientPlayersManager.Players)
         {
-            player.transform.position = SpawnPointManager.Instance.GetSpawnPointAroundLSS(player.playerModel.teamId).position;
+            var pos = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(player.playerModel.teamId);
+            RpcMovePlayer(player.gameObject, pos);
         }
-        clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
-
-        yield return new WaitForSeconds(startDelay);
 
         //カウントダウン開始準備
-        RpcSwapPanel();
+        RpcShowBattleScene();
 
         yield return new WaitForSeconds(1);
 
@@ -138,9 +151,16 @@ public class GameManager : NetworkBehaviour
 
     #region Startまわりメソッド
     [ClientRpc]
+    void RpcMovePlayer(GameObject player, Vector3 pos)
+    {
+        player.transform.position = pos;
+    }
+
+    [ClientRpc]
     void RpcPrepareGame()
     {
         killLogManager.Init();
+        gameJudger.Init(team1LSS.GetComponent<LifeSupportSystemEtherManager>(), team2LSS.GetComponent<LifeSupportSystemEtherManager>());
         isGameStarting = false;
         var battleUI = BattlePanel.GetComponent<PlayerBattleUIManager>();
         var player = clientPlayersManager.GetLocalPlayer();
@@ -150,11 +170,14 @@ public class GameManager : NetworkBehaviour
         StartPanel.SetActive(true);
         BattlePanel.SetActive(false);
         message.text = string.Empty;
+
+        ConnectionPreparedStram.OnNext(Unit.Default);
     }
 
     [ClientRpc]
-    void RpcSwapPanel()
+    void RpcShowBattleScene()
     {
+        clientPlayersManager.GetLocalPlayer().playerCameraController.LookPlayer();
         StartPanel.SetActive(false);
         BattlePanel.SetActive(true);
     }
@@ -178,6 +201,9 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator GameEnd(bool isWin)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         ResultPanel.SetActive(true);
 
         yield return new WaitForSeconds(endDelay);
@@ -192,7 +218,10 @@ public class GameManager : NetworkBehaviour
         result.SetActive(true);
         result.GetComponent<ResultPanelUIManager>().Init(isWin, killLogManager);
 
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(10);
+
+        // 次のゲームのためにstatic初期化
+        ClientPlayersManager.Players = new List<PlayerManager>();
 
         SceneManager.LoadScene(TitleScene);
     }

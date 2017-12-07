@@ -32,7 +32,7 @@ public class SemiAutoRifle : LongRangeWeapon, IWeapon
 
         if (damageable != null)
         {
-            var damage = new Damage(model.damageAmount, model.playerId, model.teamId);
+            var damage = model.GetDamage();
             CmdDamageShoot(hitObj, damage);
         }
         else

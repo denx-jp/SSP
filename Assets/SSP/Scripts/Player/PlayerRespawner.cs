@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,8 +33,8 @@ public class PlayerRespawner : NetworkBehaviour
     [Command]
     private void CmdPlayerRespawnStart()
     {
-        var respawnPoint = SpawnPointManager.Instance.GetSpawnPointAroundLSS(playerModel.teamId);
-        RpcPlayerRespawnStart(respawnPoint.position);
+        var respawnPos = SpawnPointManager.Instance.GetSpawnPositionAroundLSS(playerModel.teamId);
+        RpcPlayerRespawnStart(respawnPos);
     }
     [ClientRpc]
     private void RpcPlayerRespawnStart(Vector3 respawnPointPosition)

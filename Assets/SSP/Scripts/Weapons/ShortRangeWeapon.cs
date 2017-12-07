@@ -6,6 +6,7 @@ using UniRx.Triggers;
 
 public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 {
+    [SerializeField] AudioSource audioSource;
     [SerializeField] WeaponModel model;
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
@@ -14,16 +15,21 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     private PlayerModel playerModel;
     private PlayerAnimationController animationController;
 
+    // 装備中でなくなった時の処理
+    private void OnDisable()
+    {
+        if (playerModel != null)
+            playerModel.MoveMode = MoveMode.normal;
+    }
+
     public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerManager.playerModel.playerId;
-        model.teamId = playerManager.playerModel.teamId;
-        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
+        model.ownerPlayerModel = playerManager.playerModel;
         animationController = playerManager.playerAnimationController;
         playerModel = playerManager.playerModel;
 
         //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
-        if (model.isOwnerLocalPlayer)
+        if (model.ownerPlayerModel.isLocalPlayerCharacter)
         {
             this.OnTriggerEnterAsObservable()
                 .Where(_ => detectable)
@@ -80,6 +86,7 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
         yield return new WaitForSeconds(hitDetectionTimeOffset);
         detectable = true;
         gameObject.layer = LayerMap.Attack;
+        audioSource.Play();
         yield return new WaitForSeconds(hitDetectionDuration);
         detectable = false;
         gameObject.layer = LayerMap.Default;

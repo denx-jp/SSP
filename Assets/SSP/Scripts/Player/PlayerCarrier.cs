@@ -72,14 +72,14 @@ public class PlayerCarrier : NetworkBehaviour
         var carriableObjects = castResult
             .Select(v => v.GetComponent<CarriableObject>())
             .Where(v => v != null)
-            .Where(v => v.canCarry)
-            .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position));
+            .Where(v => v.CanCarry());
 
         if (carriableObjects.Count() <= 0) return;
 
-        var firstObject = carriableObjects.First().gameObject.GetComponent<CarriableObject>();
+        var firstObject = carriableObjects
+            .OrderBy(v => Vector3.Distance(v.transform.position, this.transform.position))
+            .First().gameObject.GetComponent<CarriableObject>();
 
-        if (!firstObject.CanCarry(model.teamId)) return;
         CmdCarry(firstObject.gameObject);
     }
 

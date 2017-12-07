@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -7,16 +7,26 @@ public class PlayerLocomotor : MonoBehaviour
 {
     private Rigidbody rb;
     private Animator animator;
+    private Collider col;
 
     [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float runSpeed = 6f;
     [SerializeField] private float rotateSpeed = 12f;
     [SerializeField] private float jumpSpeed = 6f;
     [SerializeField] private float gravityMultiplier = -9.8f;
-    [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private float maxVelocity = 2f;
     [SerializeField] private float minVelocity = -2f;
     [SerializeField] private float maxAngle = 90f;
+
+    // 接地判定
+    [SerializeField] float groundCheckDistance = 1f;
+    [SerializeField] Vector3 boxCastoffset;
+    [SerializeField] Vector3 boxCastExtents;
+    private RaycastHit hit;
+
+    // 摩擦
+    [SerializeField] private float groundDynamicFriction = 0.6f;
+    [SerializeField] private float groundStaticFriction = 0.6f;
 
     public bool isGrounded;
 
@@ -24,6 +34,7 @@ public class PlayerLocomotor : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        col = GetComponents<Collider>().First(v => !v.isTrigger);
     }
 
     private void FixedUpdate()
@@ -39,15 +50,18 @@ public class PlayerLocomotor : MonoBehaviour
 
     void CheckForGrounded()
     {
-        RaycastHit hit;
-        Vector3 rayOffset = Vector3.up * 0.1f;
-        if (Physics.Raycast((transform.position + rayOffset), -Vector3.up, out hit, groundCheckDistance))
+        var isHit = Physics.BoxCast(transform.position + boxCastoffset, boxCastExtents / 2, Vector3.down, out hit, transform.rotation, groundCheckDistance);
+        if (isHit)
         {
             isGrounded = true;
+            col.material.dynamicFriction = groundDynamicFriction;
+            col.material.staticFriction = groundStaticFriction;
         }
         else
         {
             isGrounded = false;
+            col.material.dynamicFriction = 0;
+            col.material.staticFriction = 0;
         }
     }
 

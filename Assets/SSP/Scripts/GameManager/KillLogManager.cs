@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Networking;
 using UniRx;
 
 public class KillLogManager : NetworkBehaviour
 {
-
     private Dictionary<int, PlayerRecord> playerRecords = new Dictionary<int, PlayerRecord>();
 
     public void Init()
     {
-        playerRecords = ClientPlayersManager.Players.ToDictionary(v => v.playerModel.playerId, _ => new PlayerRecord());
+        playerRecords = ClientPlayersManager.Players.ToDictionary(v => v.playerModel.Id, _ => new PlayerRecord());
 
         if (isServer)
         {
@@ -32,19 +29,9 @@ public class KillLogManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcUpdatePlayerRecord(int killerId,int victimId)
+    void RpcUpdatePlayerRecord(int killerId, int victimId)
     {
         playerRecords[killerId].killCount++;
         playerRecords[victimId].deathCount++;
-
-        ReportKillStats();//デバッグ用　リザルト画面のVが出来たら消す
-    }
-
-    void ReportKillStats()
-    {
-        foreach (var record in playerRecords)
-        {
-            Debug.Log(string.Format("Plaryer{0} K:{1} D:{2}", record.Key, record.Value.killCount, record.Value.deathCount));
-        }
     }
 }

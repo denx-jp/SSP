@@ -25,13 +25,10 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
 
     private void OnEnable()
     {
-        if (playerModel != null && playerModel.MoveMode == MoveMode.battle)
-            isScoped = true;
-
-        if (hasAuthority && ikPoser != null)
+        if (ikPoser != null)
         {
             ikPoser.SetAimTransform(muzzle);
-            ikPoser.CmdSetHandOffset(gunHoldOffset, leftHandOffset);
+            ikPoser.SetHandOffset(gunHoldOffset, leftHandOffset);
         }
     }
 
@@ -39,20 +36,22 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
     private void OnDisable()
     {
         isScoped = false;
+
+        if (pcc != null)
+            pcc.ChangeCameraMode(CameraMode.Normal);
+        if (playerModel != null)
+            playerModel.MoveMode = MoveMode.normal;
     }
 
     public void Init(PlayerManager playerManager)
     {
-        model.playerId = playerManager.playerModel.playerId;
-        model.teamId = playerManager.playerModel.teamId;
-        model.isOwnerLocalPlayer = playerManager.playerModel.isLocalPlayerCharacter;
-
+        model.ownerPlayerModel = playerManager.playerModel;
         playerModel = playerManager.playerModel;
         ikPoser = playerManager.playerIKPoser;
+        pcc = playerManager.playerCameraController;
 
         cameraTransform = Camera.main.gameObject.transform;
 
-        pcc = playerManager.playerCameraController;
         audioSource = GetComponent<AudioSource>();
 
         this.FixedUpdateAsObservable()
@@ -98,7 +97,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         isScoped = !isScoped;
         if (isScoped)
         {
-            pcc.FitRotate();
+            pcc.FitNomalModeRotationAndBattleModeRotation();
             pcc.SetScopeOffset(socpeCameraOffset);
             pcc.ChangeCameraMode(CameraMode.Scope);
             playerModel.MoveMode = MoveMode.battle;
@@ -117,7 +116,7 @@ public class LongRangeWeapon : NetworkBehaviour, IWeapon
         isScoped = active;
         if (isScoped)
         {
-            pcc.FitRotate();
+            pcc.FitNomalModeRotationAndBattleModeRotation();
             pcc.ChangeCameraMode(CameraMode.Battle);
             playerModel.MoveMode = MoveMode.battle;
         }

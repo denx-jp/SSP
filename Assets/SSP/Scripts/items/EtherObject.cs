@@ -53,10 +53,10 @@ public class EtherObject : NetworkBehaviour
         #endregion
     }
 
-    [Command]
-    public void CmdSetTarget(GameObject go)
+    public void SetAndSyncTarget(GameObject go)
     {
-        RpcTarget(go);
+        if (isServer)
+            RpcTarget(go);
     }
 
     [ClientRpc]

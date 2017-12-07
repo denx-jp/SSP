@@ -76,6 +76,7 @@ MonoBehaviour:
   countDownCount: 5
   endDelay: 3
   TitleScene: SSP/Scenes/Production/Title
+  isCursolLock: 0
 --- !u!114 &114257975132688072
 MonoBehaviour:
   m_ObjectHideFlags: 1
