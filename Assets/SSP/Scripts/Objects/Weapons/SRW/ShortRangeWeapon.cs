@@ -11,6 +11,7 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     [SerializeField] float hitDetectionTimeOffset;//攻撃開始から当たり判定が発生するまでの時間
     [SerializeField] float hitDetectionDuration;//当たり判定が発生する時間の長さ
 
+    private bool isAttacking;
     private bool detectable;
     private PlayerModel playerModel;
     private PlayerAnimationController animationController;
@@ -18,6 +19,8 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
     // 装備中でなくなった時の処理
     private void OnDisable()
     {
+        isAttacking = false;
+        detectable = false;
         if (playerModel != null)
             playerModel.MoveMode = MoveMode.normal;
     }
@@ -27,6 +30,9 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
         model.ownerPlayerModel = playerManager.playerModel;
         animationController = playerManager.playerAnimationController;
         playerModel = playerManager.playerModel;
+
+        isAttacking = false;
+        detectable = false;
 
         //ダメージ判定は攻撃したプレイヤーのクライントでのみ行う
         if (model.ownerPlayerModel.isLocalPlayerCharacter)
@@ -50,7 +56,8 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     public void NormalAttack()
     {
-        CmdAttack();
+        if (!isAttacking)
+            CmdAttack();
     }
 
     public void NormalAttackLong(bool active)
@@ -82,6 +89,7 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
 
     IEnumerator Attacking()
     {
+        isAttacking = true;
         animationController.Attack();
         yield return new WaitForSeconds(hitDetectionTimeOffset);
         detectable = true;
@@ -90,6 +98,7 @@ public class ShortRangeWeapon : NetworkBehaviour, IWeapon
         yield return new WaitForSeconds(hitDetectionDuration);
         detectable = false;
         gameObject.layer = LayerMap.Default;
+        isAttacking = false;
     }
 
     [Command]
